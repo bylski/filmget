@@ -6,6 +6,7 @@ $dark-theme-bg-color2: #0f0f0f;
 $dark-theme-primary-color: black;
 $main-font: 'Montserrat', sans-serif;
 $layout-margin: calc(100vw/10);
+$nav-height: 11vh;
 
 @mixin flexHorizontal {
     display: flex;
