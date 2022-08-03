@@ -8,6 +8,7 @@ const Home: React.FC = () => {
       <section className={styles["header__img"]}>
         <div className={styles["header__content-wrapper"]}>
         <div className={styles["header__content"]}>
+          <div className={styles["header__content-container"]}>
           <div className={styles["header__text-container"]}>
             <p className={styles["header__text"]}>
               <span>Welcome.</span>
@@ -16,6 +17,7 @@ const Home: React.FC = () => {
             </p>
           </div>
           <SearchInput placeholder="Search for movies and tv series..." />
+        </div>
         </div>
         </div>
       </section>

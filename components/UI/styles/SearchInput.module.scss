@@ -14,7 +14,7 @@
 
 .main-search__input {
     height: 100%;
-    width: 50%;
+    width: 100%;
     font-size: 1.3rem;
     padding: 0 1.5rem;
     border-radius: 50px;
@@ -28,7 +28,7 @@
 
 .main-search__button {
     height: 100%;
-    width: 10%;
+    width: 15%;
 
 
     position: absolute;
@@ -47,14 +47,14 @@
 -moz-box-shadow: inset 0px 0px 45px -19px rgba(0, 0, 0, 1);
 box-shadow: inset 0px 0px 45px -19px rgba(0, 0, 0, 1);
 
-    right: 20%;
+    right: 0;
 
-    transition: 0.3s ease-in-out;
+    transition: 0.25s ease-in-out;
 }
 
 
 
 .main-search__button:hover {
     cursor: pointer;
-    width: 12%;
+    width: 18%;
 }
