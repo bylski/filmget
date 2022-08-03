@@ -1,0 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=Catamaran:wght@300;700&family=Kdam+Thmor+Pro&family=Lato:wght@300;400;700&family=Montserrat:wght@400;700&family=Roboto+Condensed:wght@400;700&display=swap");
+
+
+$primary-color1: #3a86ff;
+$primary-color2: #ff006e;
+$middle-color: #8338ec;
+$dark-theme-bg-color: #1a1a1a;
+$dark-theme-bg-color2: #0f0f0f;
+$dark-theme-primary-color: black;
+$main-font: 'Montserrat', sans-serif;
+$layout-margin: calc(100vw/10);
+
+@mixin flexHorizontal {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+@mixin flexVertical {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

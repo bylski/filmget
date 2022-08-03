@@ -1,0 +1,83 @@
+@import '../../../styles/variables.scss';
+
+
+.nav-container {
+    padding: 0 $layout-margin;
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    background-color: rgba(15, 15, 15, 0.7);
+
+    width: 100%;
+    height: 11vh; 
+
+    font-family: $main-font;
+
+    transition: background-color 0.4s ease-in-out;
+
+    z-index: 10;
+
+    border-bottom: 1px solid $primary-color2;
+}
+
+.nav-container:hover {
+    background-color: rgba(15, 15, 15, 1);
+}
+
+.nav-links {
+    width: 35%;
+
+    @include flexHorizontal;
+    justify-content: flex-start;
+    margin-left: 2.5rem;
+}
+
+.link {
+    @include flexVertical;
+    box-sizing: border-box;
+    justify-content: center;
+    height: 100%;
+
+    padding: 0 2rem;
+    color: white;
+    transition: 0.15s ease-in-out;
+    margin-top: 2px;
+    border-bottom: 2px solid transparent;
+}
+
+.link:hover {
+    color: $primary-color2;
+    cursor: pointer;
+    border-bottom: 2px solid $primary-color2;
+    -webkit-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+    -moz-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+    box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+}
+
+.brand {
+    @include flexHorizontal;
+    color: $primary-color1;
+    
+}
+
+.brand:hover {
+    cursor: pointer;
+}
+
+.brand__text {
+    background: #3A86FF;
+    background: linear-gradient(to right, #3A86FF 0%, #8338EC 50%, #FF006E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    margin: 0;
+    font-size: 2rem;
+    font-weight: lighter;
+}
+
+
+.brand__icon {
+    width: 1.9rem;
+    height: 1.9rem;
+    margin: 0.1rem;
+}

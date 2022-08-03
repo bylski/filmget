@@ -1,0 +1,26 @@
+@import '../../../styles/variables.scss';
+
+.footer__container {
+    font-family: $main-font;
+    @include flexHorizontal;
+    justify-content: flex-start;
+    position: relative;
+    height: 11vh;
+    width: 100%;
+    
+
+    background-color: black;
+}
+
+.footer__content {
+    @include flexHorizontal;
+    margin: 0 $layout-margin;
+    color: white;
+
+    justify-content: flex-start;
+}
+
+.footer__element {
+    padding: 1rem;
+    margin-right: 2rem;
+}
