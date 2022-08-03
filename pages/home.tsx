@@ -1,5 +1,6 @@
 import React from "react";
 import styles from "../styles/pages/home.module.scss";
+import SearchInput from "../components/UI/SearchInput";
 
 const Home: React.FC = () => {
   return (
@@ -11,10 +12,7 @@ const Home: React.FC = () => {
             <span>Welcome.</span><br/>Millions of movies, TV shows and people to discover. Explore now.
           </p>
         </div>
-        <div className={styles["main-search__container"]}>
-          <input className={styles["main-search__input"]} type="text"></input>
-          <button className={styles["main-search__button"]}>Search</button>
-        </div>
+        <SearchInput placeholder="Search for movies and tv series..."/>
       </section>
     </header>
   );
