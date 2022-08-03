@@ -1,10 +1,8 @@
-import styles from './styles/BrandIcon.module.scss'
 import React from 'react';
-import { motion } from 'framer-motion';
 
 const BrandIcon:React.FC<{className: string}> = (props) => {
     return (
-      <motion.svg
+      <svg
         version="1.1"
         id="Layer_1"
         x="0px"
@@ -16,19 +14,11 @@ const BrandIcon:React.FC<{className: string}> = (props) => {
       >
   
   
-  <defs>
-        <linearGradient id="Gradient1" x2="100%" y2="100%">
-          <stop offset="0%" stop-color="#3a86ff" />
-          <stop offset="50%" stop-color="#8338ec" />
-          <stop offset="100%" stop-color="#ff006e" />
-        </linearGradient>
-      </defs> 
+
   
   
-        <motion.path
-        // transition={{ duration: 1.2, type: 'spring'}}
-        // initial={{ rotate: '360deg'}}
-        // animate={{ rotate: '0deg' }}
+        <path
+
         fill="url(#Gradient1)" stroke="url(#Gradient1)" stroke-width="1"  stroke-linejoin="round" stroke-miterlimit="10"
           d="M210.209,185.862c-0.239-2.175-2.176-3.761-4.38-3.504c-32.059,3.517-44.853-33.426-45.384-35.001
                   c-0.135-0.403-0.371-0.734-0.61-1.059c6.817-12.251,10.733-26.328,10.733-41.315c0-47.025-38.257-85.283-85.283-85.283
@@ -70,7 +60,7 @@ const BrandIcon:React.FC<{className: string}> = (props) => {
                   c1.72-3.519,5.257-5.568,8.929-5.568c1.457,0,2.936,0.322,4.331,1.003c2.382,1.16,4.168,3.178,5.028,5.685
                   C73.147,150.72,72.984,153.41,71.818,155.793z"
         />
-      </motion.svg>
+      </svg>
     );
   };
 
