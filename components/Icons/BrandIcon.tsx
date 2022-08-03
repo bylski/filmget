@@ -1,4 +1,6 @@
+
 import React from 'react';
+
 
 const BrandIcon:React.FC<{className: string}> = (props) => {
     return (
@@ -14,12 +16,20 @@ const BrandIcon:React.FC<{className: string}> = (props) => {
       >
   
   
-
+  <defs>
+        <linearGradient id="Gradient1" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#3a86ff" />
+          <stop offset="50%" stopColor="#8338ec" />
+          <stop offset="100%" stopColor="#ff006e" />
+        </linearGradient>
+      </defs> 
   
   
         <path
-
-        fill="url(#Gradient1)" stroke="url(#Gradient1)" stroke-width="1"  stroke-linejoin="round" stroke-miterlimit="10"
+        // transition={{ duration: 1.2, type: 'spring'}}
+        // initial={{ rotate: '360deg'}}
+        // animate={{ rotate: '0deg' }}
+        fill="url(#Gradient1)" stroke="url(#Gradient1)" strokeWidth="1"  strokeLinejoin="round" strokeMiterlimit="10"
           d="M210.209,185.862c-0.239-2.175-2.176-3.761-4.38-3.504c-32.059,3.517-44.853-33.426-45.384-35.001
                   c-0.135-0.403-0.371-0.734-0.61-1.059c6.817-12.251,10.733-26.328,10.733-41.315c0-47.025-38.257-85.283-85.283-85.283
                   C38.259,19.7,0,57.959,0,104.983c0,47.024,38.257,85.283,85.283,85.283c28.642,0,53.972-14.238,69.445-35.959
