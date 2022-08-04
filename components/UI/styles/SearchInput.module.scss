@@ -14,16 +14,20 @@
 
 .main-search__input {
     height: 100%;
-    width: 100%;
+    min-width: 100%;
     font-size: 1.3rem;
     padding: 0 1.5rem;
     border-radius: 50px;
 
     color: rgb(71, 71, 71);
+
+    border: 3px solid transparent;
+    transition: 0.3s border ease-in-out;
 }
 
 .main-search__input:focus {
     outline: none !important;
+    border: 3px solid $primary-color2 !important;
 }
 
 .main-search__button {

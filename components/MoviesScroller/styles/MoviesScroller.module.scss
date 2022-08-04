@@ -1,0 +1,74 @@
+@import "../../../styles/variables.scss";
+
+
+
+.scroller__container {
+    box-sizing: border-box;
+    max-width: 100%;
+    min-height: 400px;
+    padding-inline: $layout-margin;
+    padding-block: 1rem;
+    background-color: $dark-theme-bg-color2;
+
+    position: relative;
+    
+
+    ::-webkit-scrollbar {
+        height: 8px;  
+      }
+
+      ::-webkit-scrollbar-track {
+        background-color: hsl(0, 0%, 20%);
+      }
+}
+
+
+.scroller__header {
+    width: 100%;
+    height: fit-content;
+
+    @include flexHorizontal;
+
+    font-family: $main-font;
+}
+
+.scroller__header-text {
+    padding-right: 2rem;
+    font-size: 1.5rem;
+    color: white;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $primary-color2;
+}
+
+
+
+.movies__container {
+    height: 85%;
+    width: 100%;
+    padding-bottom: 1rem;
+    margin-top: 1.2rem;
+    
+
+    @include flexHorizontal;
+    align-items: flex-start;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+
+.movies__container::after {
+
+    content: '';
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 20vw;
+    right: 0;
+    top: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(15,15,15,1) 50%);
+}
+
+
+

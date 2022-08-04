@@ -1,7 +1,7 @@
 $primary-color1: #3a86ff;
 $primary-color2: #ff006e;
 $middle-color: #8338ec;
-$dark-theme-bg-color: #1a1a1a;
+$dark-theme-bg-color1: #1a1a1a;
 $dark-theme-bg-color2: #0f0f0f;
 $dark-theme-primary-color: black;
 $main-font: 'Montserrat', sans-serif;
@@ -18,4 +18,10 @@ $nav-height: 11vh;
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+@mixin scroller-scrollbar {
+    ::-webkit-scrollbar {
+        height: 6px;  
+      }
 }
