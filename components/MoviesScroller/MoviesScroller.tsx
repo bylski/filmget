@@ -42,12 +42,12 @@ const DUMMY_MOVIES = [
   
   ];
   
-  const movies1 = DUMMY_MOVIES.map((movie) => (
-    <MovieCard imgSrc={movie.img}/>
+  const movies1 = DUMMY_MOVIES.map((movie, i) => (
+    <MovieCard key={"e" + i} imgSrc={movie.img}/>
   ));
   
-  const movies2 = DUMMY_MOVIES.map((movie) => (
-    <MovieCard imgSrc={movie.img2}/>
+  const movies2 = DUMMY_MOVIES.map((movie, i) => (
+    <MovieCard key={"k" + i} imgSrc={movie.img2}/>
   ));
   
 
