@@ -1,0 +1,83 @@
+
+@import "../../../styles/variables.scss";
+
+.showcaser__container {
+
+    min-height: 400px;
+    width: 100%;
+    padding-inline: $layout-margin;
+    padding-block: 1rem;
+
+    background: linear-gradient(to right, rgba(0, 26, 67, 0.75) 0%, rgba(0, 26, 67, 0.75) 0%), url("https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/sAtoMqDVhNDQBc3QJL3RF6hlhGq.jpg");
+    background-size: cover;
+    background-position: center;
+
+    font-family: $main-font;
+
+    margin-block: $section-margin
+}
+
+.showcaser__container:first-of-type {
+    margin-top: 0rem !important;
+}
+
+.showcaser__header {
+    @include flexHorizontal;
+
+}
+
+.header-text {
+    color: white;
+    font-size: 1.5rem;
+    height: fit-content;
+
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $primary-color2;
+}
+
+.actors__container {
+    @include flexHorizontal;
+    margin-top: 1.2rem;
+}
+
+.actors__img-container {
+    width: 180px;
+    margin-inline: 1rem;
+
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.2s ease-in-out;
+}
+
+.actors__img-container:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+}
+
+.actors__img-container:last-of-type {
+    margin-right: 0;
+}
+
+.actors__img-container:first-of-type {
+    margin-left: 0;
+}
+
+.actors__img {
+    width: 100%;
+    height: 100%;
+}
+
+.actor__info {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    @include flexHorizontal;
+    justify-content: center;
+}
+
+.actor__fullname {
+    color: white;
+    text-align: center;
+    margin: 0;
+}

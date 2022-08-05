@@ -8,6 +8,7 @@
     min-height: 400px;
     padding-inline: $layout-margin;
     padding-block: 1rem;
+    margin-block: $section-margin;
     background-color: $dark-theme-bg-color2;
 
     position: relative;
@@ -17,10 +18,19 @@
         height: 8px;  
       }
 
-      ::-webkit-scrollbar-track {
+    ::-webkit-scrollbar-track {
         background-color: hsl(0, 0%, 20%);
       }
+
+    // ::-webkit-scrollbar-thumb {
+    //     background-color: hsl(0, 0%, 60%) !important;
+    // }
 }
+
+.scroller__container:first-of-type {
+    margin-top: 0rem !important;
+}
+
 
 
 .scroller__header {
