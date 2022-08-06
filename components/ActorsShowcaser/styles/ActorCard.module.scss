@@ -1,0 +1,70 @@
+@import "../../../styles/variables.scss";
+
+.actor__container {
+    @include flexVertical;
+    width: 180px;
+
+    z-index: 10;
+}
+
+.actor__img-container {
+    width: 180px;
+    margin-inline: 1rem;
+
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.2s ease-in-out;
+}
+
+.actor__img-container:hover {
+    transform: scale(1.04);
+    cursor: pointer;
+}
+
+.actor__img-container:last-of-type {
+    margin-right: 0;
+}
+
+.actor__img-container:first-of-type {
+    margin-left: 0;
+}
+
+.actor__img {
+    width: 100%;
+    height: 100%;
+}
+
+.actor__info {
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    width: 100%;
+    @include flexVertical;
+    justify-content: center;
+}
+
+.actor__fullname {
+    color: white;
+    text-align: center;
+    margin: 0;
+
+    word-wrap: break-word;
+}
+
+.actor__fullname:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.actor__known-from {
+    font-style: italic;
+    padding: 0.4rem 1rem;
+    margin: 0;
+    font-size: 13px;
+    color: white;
+    text-align: center;
+}
+
+.actor__known-from:hover {
+    cursor: pointer;
+    text-decoration: underline;
+}

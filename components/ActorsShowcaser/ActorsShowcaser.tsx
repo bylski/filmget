@@ -1,55 +1,70 @@
 import React from "react";
-import Image from "next/image";
+import { useState } from "react";
 import styles from "./styles/ActorsShowcaser.module.scss";
+import ActorCard from "./ActorCard";
+import { motion } from "framer-motion";
 
-const DUMMY_ACTORS = [
-  {
-    img: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/bBRlrpJm9XkNSg0YT5LCaxqoFMX.jpg",
-    name: "Tom Holland"
-  },
-  {
-    img: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/ilPBHd3r3ahlipNQtjr4E3G04jJ.jpg",
-    name: "Johnny Depp"
-  },
-  {
-    img: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2//egh1eOHuYgeoqdlLQgaXMl6cPOm.jpg",
-    name: "Tom Holland"
-  },
-  {
-    img: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/8dCFK8FDFQbYFZvzAE9IIeaDMKo.jpg",
-    name: "Tom Holland"
-  },
-  {
-    img: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/bBRlrpJm9XkNSg0YT5LCaxqoFMX.jpg",
-    name: "Tom Holland"
-  },
-  {
-    img: "https://www.themoviedb.org/t/p/w300_and_h450_bestv2/ilPBHd3r3ahlipNQtjr4E3G04jJ.jpg",
-    name: "Johnny Depp"
-  },
-];
 
-const actors = DUMMY_ACTORS.map((actor, i) => (
-  <div className={styles["actors__img-container"]} key={"a" + i}>
-    <Image
-      width="300"
-      height="450"
-      className={styles["actors__img"]}
-      src={actor.img}
+const showcaserVariants = {
+  hidden: {
+    opacity: 0,
+  },
+  active: {
+    opacity: 1,
+  }
+}
+
+
+const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
+  props
+) => {
+
+  const backdropChangeImg = (path:string) => {
+    setBackdropPath(path);
+  }
+
+  const backdropPaths: string[] = [];
+  const actors = props.actorsData
+    .map((actor: any, i: number) => {
+      backdropPaths.push(actor.known_for[0].backdrop_path);
+      return (
+        <ActorCard
+          name={actor.name}
+          id={actor.id}
+          key={actor.id}
+          profilePath={actor.profile_path}
+          knownFor={actor.known_for}
+          onHover={backdropChangeImg}
+        />
+      );
+    })
+    .slice(0, 6);
+
+  const actorsBackdropPaths: string[] = backdropPaths.slice(0, 6);
+
+  const [backdropPath, setBackdropPath] = useState(actorsBackdropPaths[0])
+
+  const backdropImages = actorsBackdropPaths.map((path, i) => (
+    <motion.img 
+      key={"i" + i}
+      variants={showcaserVariants}
+      initial="hidden"
+      animate={backdropPath === path ? "active" : "hidden"}
+      className={styles["showcaser__backdrop"]}
+      src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${path}`}
     />
-    <div className={styles["actor__info"]}>
-        <p className={styles["actor__fullname"]}>{actor.name}</p>
-    </div>
-  </div>
-));
+  ));
 
-const ActorsShowcaser: React.FC<{ headerText?: string }> = (props) => {
+
   return (
-    <section className={styles["showcaser__container"]}>
-      <header className={styles["showcaser__header"]}>
-        <p className={styles["header-text"]}>{props.headerText}</p>
-      </header>
-      <div className={styles["actors__container"]}>{actors}</div>
+    <section className={styles["showcaser__wrapper"]}>
+      {backdropImages}
+      <div className={styles["showcaser__container"]}>
+        <header className={styles["showcaser__header"]}>
+          <p className={styles["header-text"]}>{props.headerText}</p>
+        </header>
+        <div className={styles["actors__container"]}>{actors}</div>
+      </div>
     </section>
   );
 };

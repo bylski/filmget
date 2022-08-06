@@ -1,31 +1,41 @@
 @import "../../../styles/variables.scss";
 
-.movie-img__container {
+
+.movie-container {
     height: 100%;
     min-width: 150px;
     margin-inline: 0.5rem;
 
-    @include flexVertical;
-
     font-family: $main-font;
-
+    @include flexVertical;
     margin-bottom: 1rem;
+    margin-inline: 0.5rem;
 }
 
-.movie-img__container:first-of-type {
+.movie-container:first-of-type {
     margin-left: 0;
 }
 
-.movie-img__container:last-of-type {
-    margin-right: 0;
+.movie-img__container {
+    border-radius: 10px;
+    height: 220px;
+    width: 100%;
+
+    overflow: hidden;
+}
+
+
+
+.movie-container:last-of-type {
+    margin-left: 0;
 }
 
 .movie-img {
-    border-radius: 10px;
     min-height: 220px;
     width: 100%;
     
     transition: transform 0.2s linear;
+
 }
 
 .movie-img:hover {
@@ -40,6 +50,7 @@
     @include flexHorizontal;
 
     color: white;
+    justify-content: center;
 }
 
 .rating-icon {
@@ -57,14 +68,18 @@
 .movie-info__container {
     height: 100%;
     width: 100%;
-    padding-block: 0.2rem;
+    padding-block: 0.3rem
+
+
 }
 
 .movie-title {
     font-size: 13px;
     font-weight: lighter;
     color: white;
-    margin: 0;
+    margin-top: 0.2rem;
+
+    text-align: center;
 }
 
 .movie-title:hover {

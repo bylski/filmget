@@ -4,10 +4,10 @@ import { useEffect } from "react";
 const Index = () => {
   const router = useRouter();
   useEffect(() => {
-    router.push('/home')
-  }, [])
+    router.push("/home");
+  }, []);
 
-  return null
-}
+  return null;
+};
 
 export default Index;

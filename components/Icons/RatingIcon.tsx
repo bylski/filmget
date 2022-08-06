@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./styles/MovieCard.module.scss"
+
 
 const RatingIcon: React.FC<{className?: string}> = (props) => {
   return (
