@@ -1,12 +1,13 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import { movieInterface } from "../utils/types";
 
 const initialState: {
   isShown: boolean;
   originElement: any;
-  modalData: {};
+  modalData: movieInterface | null;
 } = {
   isShown: false,
-  modalData: {},
+  modalData: null,
   originElement: null,
 };
 

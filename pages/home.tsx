@@ -10,6 +10,7 @@ import DetailsModal from "../components/DetailsModal.tsx/DetailsModal";
 import { useAppSelector } from "../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import { hideOverflowIf } from "../utils/scripts";
+import { movieInterface } from "../utils/types";
 
 const Home: React.FC<{
   popularMovies: any[];
@@ -38,7 +39,7 @@ const Home: React.FC<{
     <Fragment>
       <AnimatePresence>
         {showModal && (
-          <DetailsModal modalData={modalData} originElement={originElement} />
+          <DetailsModal modalData={modalData!} originElement={originElement} />
         )}
       </AnimatePresence>
 

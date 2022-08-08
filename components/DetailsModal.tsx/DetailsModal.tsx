@@ -4,18 +4,8 @@ import styles from "./styles/DetailsModal.module.scss";
 import { modalVariants } from "../../utils/AnimationVariants.ts";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
+import { movieInterface } from "../../utils/types";
 
-interface movieInterface {
-  id: number;
-  title: string;
-  poster_path: string;
-  backdrop_path: string;
-  vote_average: number;
-  overview: string;
-  genre_ids: number[];
-  release_date: string;
-  genresList: {name: string, id: number}[];
-}
 
 const DetailsModal: React.FC<{
   modalData: movieInterface

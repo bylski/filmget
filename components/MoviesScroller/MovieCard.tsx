@@ -5,17 +5,7 @@ import Image from "next/image";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
 import { useRef } from "react";
-
-interface movieInterface {
-  id: number;
-  title: string;
-  poster_path: string;
-  backdrop_path: string;
-  vote_average: number;
-  overview: string;
-  genre_ids: number[];
-  release_date: string;
-}
+import { movieInterface } from "../../utils/types";
 
 
 const MovieCard: React.FC<{
