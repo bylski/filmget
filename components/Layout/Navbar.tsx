@@ -3,7 +3,7 @@ import styles from "./styles/Navbar.module.scss";
 import { useRouter } from "next/router";
 import { useScroll } from "framer-motion";
 import { motion } from "framer-motion";
-import { navVariants } from "../../utils/AnimationVariants.ts/NavbarVariants";
+import { navVariants } from "../../utils/AnimationVariants.ts";
 import BrandIcon from "../Icons/BrandIcon";
 
 const Navbar: React.FC = () => {
@@ -45,7 +45,7 @@ const Navbar: React.FC = () => {
       animateVariant = "hidden";
       break;
     case "scrollingUp":
-      animateVariant = "full"
+      animateVariant = "show"
   }
 
   return (

@@ -1,27 +1,21 @@
 import React from "react";
 import SearchInput from "../UI/SearchInput";
 import styles from "./styles/Header.module.scss";
+import { useMemo } from "react";
 
-const Header: React.FC = () => {
-  const DUMMY_IMAGES = [
-    {
-      img: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/ocUp7DJBIc8VJgLEw1prcyK1dYv.jpg",
-    },
-    {
-      img: "https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/27Mj3rFYP3xqFy7lnz17vEd8Ms.jpg",
-    },
-    {
-      img: "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/yQTQL9pliY6vpRt8HkjUJrKymBb.jpg",
-    },
-  ];
+const Header: React.FC<{ backdropPaths: string[] }> = (props) => {
 
-  const randomArrIndex = Math.floor(Math.random() * DUMMY_IMAGES.length);
-  const srcImg = DUMMY_IMAGES[randomArrIndex].img;
+  const createRandomPath = (): string => {
+    const randomArrIndex = Math.floor(Math.random() * props.backdropPaths.length);
+    return `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${props.backdropPaths[randomArrIndex]}`;
+  }
+
+  const randomPath = useMemo(() => createRandomPath(), [])
 
   return (
     <header className={styles["header"]}>
       <section className={styles["header__img-container"]}>
-        <img src={srcImg} className={styles["header-img"]}></img>
+        <img src={randomPath} className={styles["header-img"]}></img>
         <div className={styles["header__content-wrapper"]}>
           <div className={styles["header__content"]}>
             <div className={styles["header__content-container"]}>

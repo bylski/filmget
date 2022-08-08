@@ -21,10 +21,6 @@
     ::-webkit-scrollbar-track {
         background-color: hsl(0, 0%, 20%);
       }
-
-    // ::-webkit-scrollbar-thumb {
-    //     background-color: hsl(0, 0%, 60%) !important;
-    // }
 }
 
 .scroller__container:first-of-type {
@@ -36,7 +32,6 @@
 .scroller__header {
     width: 100%;
     height: fit-content;
-
     @include flexHorizontal;
 
     font-family: $main-font;
@@ -67,9 +62,9 @@
 }
 
 
-.movies__container::after {
 
-    content: '';
+.movies__margin-shadow {
+
     display: inline-block;
     position: absolute;
     height: 100%;
@@ -78,6 +73,17 @@
     top: 0;
     background: rgb(0,0,0);
     background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(15,15,15,1) 50%);
+    opacity: 1;
+
+    transition: 0.7s ease-in-out;
+    pointer-events: none;
+}
+
+.movies__margin-shadow--hide {
+
+    animation-name: hide;
+    animation-duration: 1s;
+    opacity: 0;
 }
 
 

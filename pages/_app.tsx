@@ -1,16 +1,17 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
-import { Fragment } from "react";
 import Navbar from "../components/Layout/Navbar";
 import Footer from "../components/Layout/Footer";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <Fragment>
+    <Provider store={store}>
       <Navbar />
       <Component {...pageProps} />
-      <Footer/>
-    </Fragment>
+      <Footer />
+    </Provider>
   );
 }
 

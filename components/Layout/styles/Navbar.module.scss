@@ -13,16 +13,12 @@
 
     font-family: $main-font;
 
-    transition: background-color 0.4s ease-in-out;
 
-    z-index: 10;
+    z-index: 11;
 
     border-bottom: 1px solid $primary-color2;
 }
 
-.nav-container:hover {
-    background-color: rgba(15, 15, 15, 1);
-}
 
 .nav-links {
     width: 35%;
@@ -72,7 +68,7 @@
     
     margin: 0;
     font-size: 2rem;
-    font-weight: lighter;
+    font-weight: 300;
 }
 
 

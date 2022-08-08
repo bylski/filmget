@@ -1,76 +1,51 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styles from "./styles/MoviesScroller.module.scss";
 import MovieCard from "./MovieCard";
+import { useScroll, motion } from "framer-motion";
 
-// const DUMMY_MOVIES = [
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xf9wuDcqlUPWABZNeDKPbZUjWx0.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9pCoqX24a6rE981fY1O3PmhiwrB.jpg",
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4zsihgkxMZ7MrflNCjkD3ySFJtc.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4KJ3eUijnIv3wQ7cO4sOwwAhI31.jpg"
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1xeiUxShzNn8TNdMqy3Hvo9o2R.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg"
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xf9wuDcqlUPWABZNeDKPbZUjWx0.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9pCoqX24a6rE981fY1O3PmhiwrB.jpg",
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4zsihgkxMZ7MrflNCjkD3ySFJtc.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4KJ3eUijnIv3wQ7cO4sOwwAhI31.jpg"
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1xeiUxShzNn8TNdMqy3Hvo9o2R.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg"
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/xf9wuDcqlUPWABZNeDKPbZUjWx0.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/9pCoqX24a6rE981fY1O3PmhiwrB.jpg",
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4zsihgkxMZ7MrflNCjkD3ySFJtc.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/4KJ3eUijnIv3wQ7cO4sOwwAhI31.jpg"
-//     },
-//     {
-//       img: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/1xeiUxShzNn8TNdMqy3Hvo9o2R.jpg",
-//       img2: "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/nkayOAUBUu4mMvyNf9iHSUiPjF1.jpg"
-//     },
-
-//   ];
-
-// const movies1 = DUMMY_MOVIES.map((movie, i) => (
-//   <MovieCard key={"e" + i} imgSrc={movie.img}/>
-// ));
-
-// const movies2 = DUMMY_MOVIES.map((movie, i) => (
-//   <MovieCard key={"k" + i} imgSrc={movie.img2}/>
-// ));
-
-
-const MoviesScroller: React.FC<{ headerText: string; moviesData: any[] }> = (
+const MoviesScroller: React.FC<{ headerText: string; moviesData: any[], genresList: {id: number, name: string}[] }> = (
   props
 ) => {
+  const [isScrolled, setIsScrolled] = useState(false);
+
   const movies = props.moviesData.map((movie) => (
     <MovieCard
-      id={movie.id}
       key={movie.id}
-      title={movie.title}
-      posterPath={movie.poster_path}
-      backdropPath={movie.backdrop_path}
-      averageScore={movie.vote_average}
+      movieData={movie}
+      genresList={props.genresList}
     />
   ));
+
+  const scrollerRef = useRef(null);
+  const { scrollX } = useScroll({
+    container: scrollerRef,
+  });
+  useEffect(() => {
+    return scrollX.onChange((latest) => {
+      if (latest > 0) {
+        setIsScrolled(true);
+      } else {
+        setIsScrolled(false);
+      }
+    });
+  }, []);
 
   return (
     <section className={styles["scroller__container"]}>
       <header className={styles["scroller__header"]}>
         <p className={styles["scroller__header-text"]}>{props.headerText}</p>
       </header>
-      <div className={styles["movies__container"]}>{movies}</div>
+      <motion.div ref={scrollerRef} className={styles["movies__container"]}>
+        {movies}
+        <motion.div
+          animate={isScrolled ? {display: "none", transition: {delay: 1}} : {}}   // if scrolled - change element's display to hddien 
+          className={                                                             // after 1 sec
+            !isScrolled // if scrolled hide shadow element by decreasing opacity
+              ? styles["movies__margin-shadow"]
+              : `${styles["movies__margin-shadow"]} ${styles["movies__margin-shadow--hide"]}`
+          }
+        ></motion.div>
+      </motion.div>
     </section>
   );
 };

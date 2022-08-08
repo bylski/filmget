@@ -41,9 +41,7 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
     .slice(0, 6);
 
   const actorsBackdropPaths: string[] = backdropPaths.slice(0, 6);
-
   const [backdropPath, setBackdropPath] = useState(actorsBackdropPaths[0])
-
   const backdropImages = actorsBackdropPaths.map((path, i) => (
     <motion.img 
       key={"i" + i}

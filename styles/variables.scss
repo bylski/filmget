@@ -8,6 +8,7 @@ $main-font: 'Montserrat', sans-serif;
 $layout-margin: calc(100vw/10);
 $nav-height: 11vh;
 $section-margin: 2.5rem;
+$main-scrollbar-width: 10px;
 
 @mixin flexHorizontal {
     display: flex;
