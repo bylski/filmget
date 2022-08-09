@@ -70,7 +70,7 @@ const Navbar: React.FC = () => {
             <p>SERIES</p>
           </div>
           <div className={styles["link"]}>
-            <p>ACCOUNT</p>
+            <p>PEOPLE</p>
           </div>
         </div>
       </motion.nav>

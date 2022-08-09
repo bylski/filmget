@@ -1,0 +1,27 @@
+@import "../../../styles/variables.scss";
+
+.header__title {
+    font-weight: bold;
+    margin: 0;
+    color: white;
+}
+
+.header__title span {
+    font-weight: lighter;
+}
+
+.header__genres {
+  margin: 0;
+  margin-top: 0.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.info__header {
+    width: fit-content;
+    @include flexVertical;
+    align-items: flex-start;
+    padding-bottom: 0.5rem;
+    padding-right: 5rem;
+    border-bottom: 2px solid $primary-color2;
+  }
+  

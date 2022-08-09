@@ -1,0 +1,19 @@
+@import "../../../styles/variables.scss";
+
+.styled-button {
+
+    border-radius: 50px;
+    color: white;
+
+    border: 0px solid transparent;
+    background: rgb(58,134,255);
+    background: linear-gradient(90deg, rgba(58,134,255,1) 0%, rgba(131,56,236,1) 50%, rgba(255,0,110,1) 100%);
+    text-shadow: 0px 2px 20px rgba(0, 0, 0, 1);
+
+    -webkit-box-shadow: inset 0px 0px 45px -19px rgba(0, 0, 0, 1);
+-moz-box-shadow: inset 0px 0px 45px -19px rgba(0, 0, 0, 1);
+box-shadow: inset 0px 0px 45px -19px rgba(0, 0, 0, 1);
+
+
+}
+

@@ -27,7 +27,7 @@ const Header: React.FC<{ backdropPaths: string[] }> = (props) => {
                   now.
                 </p>
               </div>
-              <SearchInput placeholder="Search for movies and tv shows..." />
+              <SearchInput placeholder="Search for movies, tv shows and people..." />
             </div>
           </div>
         </div>

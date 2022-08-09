@@ -47,12 +47,12 @@ const Home: React.FC<{
       <main className={styles["main-container"]}>
         <MoviesScroller
           moviesData={props.popularMovies}
-          headerText={"Popular Now"}
+          headerText={"Trending Now"}
           genresList={props.genresList}
         />
         <ActorsShowcaser
           actorsData={props.popularActors}
-          headerText="Trending Actors"
+          headerText={"Popular Actors"}
         />
         <MoviesScroller
           moviesData={props.topRatedMovies}

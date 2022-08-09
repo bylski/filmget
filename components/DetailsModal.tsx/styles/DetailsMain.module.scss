@@ -1,0 +1,53 @@
+@import "../../../styles/variables.scss";
+
+.main-content {
+    height: 70%;
+    width: 100%;
+    @include flexVertical;
+    align-items: flex-start;
+    color: white;
+  
+    padding-block: 1rem;
+    padding-right: 12%;
+  
+  }
+  
+  .rating-icon {
+    position: relative;
+    top: -3px;
+    width: 18px;
+    height: auto;
+    margin-right: 0.3rem;
+  }
+  
+  .overview__container {
+    max-height: 60%;
+  }
+  
+  .overview-text__wrapper {
+    margin-top: 0.7rem;
+    padding-right: 1.5rem;
+    max-height: 100%;
+    overflow-y: scroll;
+  }
+  
+  
+  .overview-text {
+    margin: 0;
+    font-size: 1rem;
+    font-weight: 300;
+  
+  }
+
+  .user-score__container {
+    @include flexHorizontal;
+    width: 100%;
+    height: fit-content;
+    font-size: 18px;
+    font-weight: 300;
+  }
+  
+  .user-score__container > p {
+    margin-top: 0.6rem;
+    margin-bottom: 0.9rem;
+  }
