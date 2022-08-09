@@ -20,6 +20,7 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
       backdropPaths.push(actorData.known_for[0].backdrop_path);
       return (
         <ActorCard
+          key={actorData.id}
           actorData={actorData}
           onHover={backdropChangeImg}
         />
