@@ -12,12 +12,12 @@ const ActorCard: React.FC<{
   const actorCardRef = useRef<HTMLImageElement>(null);
   const dispatch = useAppDispatch();
   const showModalHandler = () => {
-    dispatch(
-      modalActions.showModal({
-        data: { ...props.actorData },
-        originElement: actorCardRef,
-      })
-    );
+    // dispatch(
+    //   modalActions.showModal({
+    //     data: { ...props.actorData },
+    //     originElement: actorCardRef,
+    //   })
+    // );
   };
 
   const imgHoveredHandler = (e: React.MouseEvent) => {
