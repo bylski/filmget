@@ -5,7 +5,10 @@ import DetailsFooter from "./DetailsFooter";
 import styles from "./styles/MovieDetails.module.scss";
 import { movieInterface } from "../../utils/types";
 
-const MovieDetails: React.FC<{ modalData: movieInterface, genresString: string}> = (props) => {
+const MovieDetails: React.FC<{
+  modalData: movieInterface;
+  genresString: string;
+}> = (props) => {
   return (
     <Fragment>
       <img
@@ -25,8 +28,10 @@ const MovieDetails: React.FC<{ modalData: movieInterface, genresString: string}>
               modalData={props.modalData}
               genresString={props.genresString}
             />
-            <DetailsMain modalData={props.modalData} />
-            <DetailsFooter />
+            <div className={styles["layout-helper"]}>
+              <DetailsMain modalData={props.modalData} />
+              <DetailsFooter />
+            </div>
           </article>
         </div>
       </div>
