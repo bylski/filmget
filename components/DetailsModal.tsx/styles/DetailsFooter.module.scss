@@ -1,12 +1,13 @@
 @import "../../../styles/variables.scss";
 
 .modal__footer {
-    height: 2rem;
+
+    min-height: 2rem;
     width: 100%;
-    margin-top: 0.7rem;
     @include flexHorizontal;
     align-items: flex-end;
     justify-content: flex-start;
+
   }
   
   .modal-btn {

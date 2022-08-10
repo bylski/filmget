@@ -9,7 +9,6 @@
   
     padding-block: 1rem;
     padding-right: 12%;
-  
   }
   
   .rating-icon {
@@ -25,9 +24,11 @@
   }
   
   .overview-text__wrapper {
+    display: flex;
+    justify-content: flex-start;
     margin-top: 0.7rem;
     padding-right: 1.5rem;
-    max-height: 100%;
+    max-height: 16vh;
     overflow-y: scroll;
   }
   
@@ -36,7 +37,9 @@
     margin: 0;
     font-size: 1rem;
     font-weight: 300;
-  
+    position: relative;
+
+
   }
 
   .user-score__container {

@@ -17,6 +17,8 @@
 }
 
 .info__header {
+    min-height: fit-content;
+    max-height: fit-content;
     width: fit-content;
     @include flexVertical;
     align-items: flex-start;
