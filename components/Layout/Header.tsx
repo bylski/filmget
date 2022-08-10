@@ -10,7 +10,7 @@ const Header: React.FC<{ backdropPaths: string[] }> = (props) => {
     return `https://image.tmdb.org/t/p/w1920_and_h800_multi_faces/${props.backdropPaths[randomArrIndex]}`;
   }
 
-  const randomPath = useMemo(() => createRandomPath(), [])
+  const randomPath = useMemo(() => createRandomPath(), [createRandomPath])
 
   return (
     <header className={styles["header"]}>

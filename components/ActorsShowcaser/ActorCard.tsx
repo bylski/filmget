@@ -25,6 +25,8 @@ const ActorCard: React.FC<{
     props.onHover(path);
   };
 
+  
+
   return (
     <div className={styles["actor__container"]}>
       <div
