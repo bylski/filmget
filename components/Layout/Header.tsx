@@ -3,6 +3,8 @@ import SearchInput from "../UI/SearchInput";
 import styles from "./styles/Header.module.scss";
 import { useMemo } from "react";
 
+
+
 const Header: React.FC<{ backdropPaths: string[] }> = (props) => {
 
   const createRandomPath = (): string => {
@@ -36,4 +38,8 @@ const Header: React.FC<{ backdropPaths: string[] }> = (props) => {
   );
 };
 
+
+
+
 export default Header;
+

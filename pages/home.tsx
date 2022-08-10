@@ -66,7 +66,7 @@ const Home: React.FC<{
 
 export default Home;
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
   const endpoints: string[] = [
     `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET popular movies
     `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET top rated movies
@@ -89,6 +89,5 @@ export async function getStaticProps() {
 
   return {
     props: { popularMovies, topRatedMovies, popularActors, genresList},
-    revalidate: 86400, // Revalidate every day
   };
 }
