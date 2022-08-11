@@ -68,6 +68,12 @@
     align-items: flex-start;
     z-index: 2;
   }
+
+  .layout-helper {
+    height: 100%;
+    @include flexVertical;
+    justify-content: space-between;
+  }
   
   
   
