@@ -11,11 +11,13 @@ export interface movieInterface {
 }
 
 export interface actorInterface {
+  gender: number;
   name: string;
   id: number;
   profile_path: string;
   known_for: {
     backdrop_path: string;
+    poster_path: string;
     title: string;
   }[];
 }

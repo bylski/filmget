@@ -26,10 +26,11 @@ const MovieDetails: React.FC<{
           <article className={styles["info__container"]}>
             <DetailsHeader
               modalData={props.modalData}
+              dataType="movie"
               genresString={props.genresString}
             />
             <div className={styles["layout-helper"]}>
-              <DetailsMain modalData={props.modalData} />
+              <DetailsMain dataType="movie" modalData={props.modalData} />
               <DetailsFooter />
             </div>
           </article>

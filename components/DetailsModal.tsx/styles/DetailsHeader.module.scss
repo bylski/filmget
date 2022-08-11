@@ -6,11 +6,24 @@
     color: white;
 }
 
+.header__name {
+  font-weight: 400;
+  margin: 0;
+  color: white;
+  font-size: 1.5rem;
+}
+
 .header__title span {
     font-weight: lighter;
 }
 
 .header__genres {
+  margin: 0;
+  margin-top: 0.2rem;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.header__gender {
   margin: 0;
   margin-top: 0.2rem;
   color: rgba(255, 255, 255, 0.8);

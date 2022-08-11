@@ -7,7 +7,7 @@
     align-items: flex-start;
     color: white;
   
-    padding-block: 1rem;
+    padding-block: 0.5rem;
     padding-right: 12%;
   }
   
@@ -31,7 +31,8 @@
     max-height: 16vh;
     overflow-y: scroll;
   }
-  
+
+
   
   .overview-text {
     margin: 0;
@@ -53,4 +54,43 @@
   .user-score__container > p {
     margin-top: 0.6rem;
     margin-bottom: 0.9rem;
+  }
+
+  .known-for__container {
+    @include flexVertical;
+    align-items: flex-start;
+  }
+  
+
+  .known-for__content {
+    @include flexHorizontal;
+    max-height: 100%;
+    width: 100%;
+  }
+
+  .known-for__card {
+    margin-top: 0.5rem;
+    @include flexVertical;
+    height: 25vh;
+    margin-inline: 0.7rem;
+    border-radius: 15px;
+    overflow: hidden;
+    transition: 0.25s ease-in-out;
+  }
+
+  .known-for__card:first-of-type {
+    margin-left: 0;
+  }
+
+  .known-for__card:hover {
+    cursor: pointer;
+  }
+
+  .known-for__img {
+    height: 100%;
+    transition: 0.25s ease-in-out;
+  }
+
+  .known-for__img:hover {
+    transform: scale(1.02)
   }

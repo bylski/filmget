@@ -22,11 +22,11 @@ const ActorDetails: React.FC<{modalData: actorInterface}> = (props) => {
               ></img>
             </div>
             <article className={styles["info__container"]}>
-              {/* <DetailsHeader
+              <DetailsHeader
                 modalData={props.modalData}
-                genresString={props.genresString}
+                dataType="actor"
               />
-              <DetailsMain modalData={props.modalData} /> */}
+              <DetailsMain dataType="actor" modalData={props.modalData} />
               <DetailsFooter />
             </article>
           </div>

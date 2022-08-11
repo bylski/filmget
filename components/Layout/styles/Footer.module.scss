@@ -1,26 +1,41 @@
-@import '../../../styles/variables.scss';
+@import "../../../styles/variables.scss";
 
 .footer__container {
-    font-family: $main-font;
-    @include flexHorizontal;
-    justify-content: flex-start;
-    position: relative;
-    height: 11vh;
-    width: 100%;
-    
-    margin-top: 4rem;
-    background-color: black;
+  font-family: $main-font;
+  @include flexHorizontal;
+  justify-content: flex-start;
+  position: relative;
+  height: 11vh;
+  width: 100%;
+
+  margin-top: 4rem;
+  background-color: black;
 }
 
 .footer__content {
-    @include flexHorizontal;
-    margin: 0 $layout-margin;
-    color: white;
+  @include flexHorizontal;
+  margin: 0 $layout-margin;
+  color: white;
 
-    justify-content: flex-start;
+  justify-content: flex-start;
 }
 
 .footer__element {
-    padding: 1rem;
-    margin-right: 2rem;
+  padding: 1rem;
+  @include flexHorizontal;
+}
+
+.footer__element:first-of-type {
+  margin-right: 2rem;
+}
+
+.moviedb-icon {
+  position: relative;
+  width: 140px;
+}
+
+.footer__message {
+    left: 50vw;
+  position: absolute;
+  font-size: 0.8rem;
 }
