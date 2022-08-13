@@ -5,14 +5,14 @@
 .scroller__container {
     box-sizing: border-box;
     max-width: 100%;
-    min-height: 400px;
+    min-height: auto;
     padding-inline: $layout-margin;
-    padding-block: 1rem;
-    margin-block: $section-margin;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
     background-color: $dark-theme-bg-color2;
-
     position: relative;
     
+    transition: height 0.2s ease-in;
 
     ::-webkit-scrollbar {
         height: 8px;  
@@ -44,6 +44,8 @@
     margin: 0;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid $primary-color2;
+
+    transition: 0.2s ease-in;
 }
 
 
@@ -87,4 +89,37 @@
 }
 
 
+@media screen and (max-width: 900px) {
+   
+    .scroller__container {
+        padding-top: 1.5rem;
+        padding-bottom: 2.5rem;
+    }
 
+
+    .scroller__header-text {
+        font-size: 1.3rem;
+    }
+
+    .movies__container {
+        padding-block: 0;
+    }
+
+}
+
+@media screen and (max-width: 600px) {
+
+    .scroller__container {
+        padding-top: 1.3rem;
+        padding-bottom: 2.3rem;
+    }
+
+    .scroller__header-text {
+        font-size: 1.1rem;
+    }
+
+    .movies__container {
+        padding-block: 0;
+    }
+
+}

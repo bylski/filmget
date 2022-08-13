@@ -6,18 +6,16 @@ import { movieInterface } from "../../utils/types";
 import { actorInterface } from "../../utils/types";
 import MovieDetails from "./MovieDetails";
 import ActorDetails from "./ActorDetails";
+import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { modalActions } from "../../redux/store";
 
 const DetailsModal: React.FC<{
   modalData: movieInterface | actorInterface;
-  originElement: any;
+  originPosition: any;
 }> = (props) => {
   // Gets the origin element's (the card that was clicked)
   // position to animate the modal enterencce from that position.
-  const originElement = props.originElement.current.getBoundingClientRect();
-  const position = {
-    x: originElement.x + originElement.width / 2,
-    y: originElement.y + originElement.height / 2,
-  };
+  const position = props.originPosition
 
   let genres: string[] = [];
   let genresString: string = "";
@@ -29,20 +27,20 @@ const DetailsModal: React.FC<{
     genresString = genres.join(", ");
   }
 
-
   let modalDetailsRender;
-  if ("poster_path" in props.modalData) { // Check if the data is from movie or actor card
+  if ("poster_path" in props.modalData) {
+    // Check if the data is from movie or actor card
     modalDetailsRender = (
-      <MovieDetails
-            modalData={props.modalData}
-            genresString={genresString}
-          />
-    )
+      <MovieDetails modalData={props.modalData} genresString={genresString} />
+    );
   } else {
-    modalDetailsRender = (
-      <ActorDetails modalData={props.modalData}/>
-    )
+    modalDetailsRender = <ActorDetails modalData={props.modalData} />;
   }
+
+  const dispatch = useAppDispatch();
+  const backdropClickHandler = () => {
+    dispatch(modalActions.hideModal());
+  };
 
   return (
     <Fragment>
@@ -63,9 +61,11 @@ const DetailsModal: React.FC<{
         animate="modalEnter"
         exit="modalHidden"
       >
-        <div className={styles["modal__card"]}>
-          {modalDetailsRender} 
-        </div>
+        <div
+          onClick={backdropClickHandler}
+          className={styles["modal__outside-space"]}
+        ></div>
+        <div className={styles["modal__card"]}>{modalDetailsRender}</div>
       </motion.section>
     </Fragment>
   );

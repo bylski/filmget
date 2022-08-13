@@ -5,6 +5,7 @@ import { useScroll } from "framer-motion";
 import { motion } from "framer-motion";
 import { navVariants } from "../../utils/AnimationVariants.ts";
 import BrandIcon from "../Icons/BrandIcon";
+import NavMenuIcon from "../Icons/NavMenuIcon";
 
 const Navbar: React.FC = () => {
   const router = useRouter();
@@ -15,6 +16,7 @@ const Navbar: React.FC = () => {
   useEffect(() => {
     let prevScroll = 0;
     return scrollY.onChange((latest) => {
+      console.log(latest)
       if (latest > prevScroll) {
         setScrollState("scrollingDown");
         prevScroll = latest;
@@ -36,16 +38,16 @@ const Navbar: React.FC = () => {
   };
 
   // Choose which variant to animate
-  let animateVariant: string = "";
+  let animateNavVariant: string = "";
   switch (scrollState) {
     case "atTop":
-      animateVariant = "initial";
+      animateNavVariant = "initial";
       break;
     case "scrollingDown":
-      animateVariant = "hidden";
+      animateNavVariant = "hidden";
       break;
     case "scrollingUp":
-      animateVariant = "show"
+      animateNavVariant = "show";
   }
 
   return (
@@ -53,7 +55,7 @@ const Navbar: React.FC = () => {
       <motion.nav
         initial="initial"
         whileHover="full"
-        animate={animateVariant}
+        animate={animateNavVariant}
         variants={navVariants}
         onClick={brandClickHandler}
         className={styles["nav-container"]}
@@ -62,16 +64,19 @@ const Navbar: React.FC = () => {
           <BrandIcon className={styles["brand__icon"]} />
           <p className={styles["brand__text"]}>FILMGET</p>
         </div>
-        <div className={styles["nav-links"]}>
-          <div className={styles["link"]}>
+        <ul className={styles["nav-links"]}>
+          <li className={styles["link"]}>
             <p>MOVIES</p>
-          </div>
-          <div className={styles["link"]}>
+          </li>
+          <li className={styles["link"]}>
             <p>SERIES</p>
-          </div>
-          <div className={styles["link"]}>
+          </li>
+          <li className={styles["link"]}>
             <p>PEOPLE</p>
-          </div>
+          </li>
+        </ul>
+        <div className={styles["nav-menu__background"]}>
+        <NavMenuIcon className={styles["nav-menu__icon"]}/>
         </div>
       </motion.nav>
     </Fragment>

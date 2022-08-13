@@ -4,10 +4,10 @@ export function hideOverflowIf(condition: boolean) {
     const body: HTMLBodyElement = document.querySelector("body")!;
     if (condition) {
       body.style.overflowY = "hidden";
-      body.style.marginRight = "10px"
+      body.style.width = "calc(100% - 10px)"
     } else {
       body.style.overflowY = "auto";
-      body.style.marginRight = "0px"
+      body.style.width = "calc(100%)"
     }
   }
 }

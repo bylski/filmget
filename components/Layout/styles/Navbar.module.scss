@@ -5,6 +5,7 @@
     padding: 0 $layout-margin;
     display: flex;
     flex-direction: row;
+    align-items: center;
     position: fixed;
     background-color: rgba(15, 15, 15, 0.6);
 
@@ -21,11 +22,13 @@
 
 
 .nav-links {
-    width: 35%;
-
+    width: fit-content;
+    height: 100%;
     @include flexHorizontal;
     justify-content: flex-start;
     margin-left: 2.5rem;
+    margin-block: 0;
+    padding: 0;
 }
 
 .link {
@@ -53,7 +56,7 @@
 .brand {
     @include flexHorizontal;
     color: $primary-color1;
-    
+    height: $nav-height
 }
 
 .brand:hover {
@@ -76,4 +79,47 @@
     width: 1.9rem;
     height: 1.9rem;
     margin: 0.1rem;
+}
+
+.nav-menu__background {
+    display: none;
+}
+
+.nav-menu__icon {
+    height: calc($nav-height/2 - 0.5rem);
+    fill: $primary-color2;
+    display: none;
+}
+
+@media screen and (max-width: 850px) {
+
+    .nav-container {
+        justify-content: space-between;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .nav-menu__background {
+        @include flexHorizontal;
+        justify-content: center;
+        height: calc($nav-height - 2rem);
+        width: calc($nav-height - 2rem);
+        border-radius: 50%;
+
+        transition: 0.2s ease-in-out;
+    }
+
+    .nav-menu__background:hover {
+        cursor: pointer;
+        // background-color: hsl(265, 53%, 30%);
+        background-color: hsl(334, 90%, 20%);
+    }
+
+    .nav-menu__icon {
+        display: block;
+    }
+
+
 }

@@ -1,70 +1,158 @@
 @import "../../../styles/variables.scss";
+$ratio: 1.5;
 
 .actor__container {
-    @include flexVertical;
-    width: 180px;
-
-    z-index: 10;
+  @include flexVertical;
+  width: 180px;
+  height: 100%;
+  z-index: 10;
 }
 
 .actor__img-container {
-    width: 180px;
-    margin-inline: 1rem;
+  width: 180px;
+  height: calc(180px * $ratio);
 
-    border-radius: 15px;
-    overflow: hidden;
-    transition: 0.2s ease-in-out;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.2s ease-in-out;
 }
 
 .actor__img-container:hover {
-    transform: scale(1.04);
-    cursor: pointer;
+  transform: scale(1.04);
+  cursor: pointer;
 }
 
 .actor__img-container:last-of-type {
-    margin-right: 0;
+  margin-right: 0;
 }
 
 .actor__img-container:first-of-type {
-    margin-left: 0;
+  margin-left: 0;
 }
 
 .actor__img {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 .actor__info {
-    margin-top: 1rem;
-    margin-bottom: 1rem;
-    width: 100%;
-    @include flexVertical;
-    justify-content: center;
+  margin-top: 1rem;
+  width: 100%;
+  @include flexVertical;
+  justify-content: center;
 }
 
 .actor__fullname {
-    color: white;
-    text-align: center;
-    margin: 0;
+  color: white;
+  text-align: center;
+  margin: 0;
 
-    word-wrap: break-word;
+  word-wrap: break-word;
 }
 
 .actor__fullname:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .actor__known-from {
-    font-style: italic;
-    padding: 0.4rem 1rem;
-    margin: 0;
-    font-size: 13px;
-    color: white;
-    text-align: center;
+  font-style: italic;
+  padding: 0.4rem 1rem;
+  margin: 0;
+  font-size: 13px;
+  color: white;
+  text-align: center;
 }
 
 .actor__known-from:hover {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
+
+@media screen and (max-width: 1450px) {
+  .actor__img-container {
+    width: 140px;
+    height: calc(140px * $ratio);
+  }
+
+  .actor__fullname {
+    font-size: 0.95rem;
+  }
+
+  .actor__known-from {
+    font-size: 0.75rem;
+  }
+}
+
+@media screen and (max-width: 1100px) {
+  .actor__container:last-of-type {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .actor__img-container {
+    width: 110px;
+    height: calc(110px * $ratio);
+  }
+
+  .actor__fullname {
+    font-size: 0.85rem;
+  }
+
+  .actor__known-from {
+    padding-top: 0.2rem;
+    font-size: 0.65rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .actor__container:nth-child(5) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 600px) {
+  .actor__img-container {
+    width: 90px;
+    height: calc(90px * $ratio);
+  }
+
+  .actor__fullname {
+    font-size: 0.7rem;
+  }
+
+  .actor__known-from {
+    padding-top: 0.2rem;
+    font-size: 0.55rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .actor__container:nth-child(4) {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .actor__img-container {
+    width: 70px;
+    height: calc(70px * $ratio);
+  }
+
+  .actor__fullname {
+    font-size: 0.65rem;
+  }
+
+  .actor__known-from {
+    padding-top: 0.1rem;
+    font-size: 0.5rem;
+  }
+}
+
+
+@media screen and (min-width: 2000px) {
+    .actor__container {
+      margin-right: 2rem;
+    }
+  }

@@ -10,12 +10,23 @@ const ActorCard: React.FC<{
   onHover: (path: string) => void;
 }> = (props) => {
   const actorCardRef = useRef<HTMLImageElement>(null);
+
+  let originPosition;
+  let position: { x: number; y: number };
   const dispatch = useAppDispatch();
   const showModalHandler = () => {
+    if (actorCardRef.current !== null) {
+      originPosition = actorCardRef.current.getBoundingClientRect();
+      position = {
+        x: originPosition.x + originPosition.width / 2,
+        y: originPosition.y + originPosition.height / 2,
+      };
+    }
+  
     dispatch(
       modalActions.showModal({
         data: { ...props.actorData },
-        originElement: actorCardRef,
+        originPosition: position,
       })
     );
   };
@@ -24,8 +35,6 @@ const ActorCard: React.FC<{
     const path = props.actorData.known_for[0].backdrop_path;
     props.onHover(path);
   };
-
-  
 
   return (
     <div className={styles["actor__container"]}>

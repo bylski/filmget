@@ -23,27 +23,36 @@ const MovieCard: React.FC<{
       return null;
     });
 
-  const movieCardRef = useRef<HTMLDivElement>(null);
+  const movieCardRef = useRef<HTMLImageElement | null>(null);
   const dispatch = useAppDispatch();
+  let originPosition;
+  let position: {x: number, y: number};
   const showModalHandler = () => {
+    if (movieCardRef.current !== null) {
+      originPosition = movieCardRef.current.getBoundingClientRect();
+      position = {
+        x: originPosition.x + originPosition.width / 2,
+        y: originPosition.y + originPosition.height / 2,
+      };
+    }
+
     dispatch(
       modalActions.showModal({
         data: { ...props.movieData, genresList: moviesGenres },
-        originElement: movieCardRef,
+        originPosition: position,
       })
     );
   };
 
   return (
     <div className={styles["movie-container"]}>
-      <div ref={movieCardRef} className={styles["movie-img__container"]}>
-        <Image
-          onClick={showModalHandler}
-          width="600"
-          height="900"
+      <div className={styles["movie-img__container"]}>
+        <img
+          ref={movieCardRef}
           className={styles["movie-img"]}
+          onClick={showModalHandler}
           src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.movieData.poster_path}`}
-        ></Image>
+        ></img>
       </div>
       <div className={styles["movie-info__container"]}>
         <div className={styles["movie-rating__container"]}>

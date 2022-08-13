@@ -3,12 +3,12 @@ import { movieInterface } from "../utils/types";
 
 const initialState: {
   isShown: boolean;
-  originElement: any;
+  originPosition: any;
   modalData: movieInterface | null;
 } = {
   isShown: false,
   modalData: null,
-  originElement: null,
+  originPosition: null,
 };
 
 const modalSlice = createSlice({
@@ -18,7 +18,7 @@ const modalSlice = createSlice({
     showModal(state, actions) {
       (state.isShown = true),
         (state.modalData = { ...actions.payload.data }),
-        (state.originElement = actions.payload.originElement);
+        (state.originPosition = actions.payload.originPosition);
     },
     hideModal(state) {
       state.isShown = false;

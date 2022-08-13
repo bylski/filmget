@@ -21,11 +21,11 @@ const Home: React.FC<{
   const {
     modalData,
     isShown: showModal,
-    originElement,
+    originPosition,
   } = useAppSelector((state) => ({
     modalData: state.modalData,
     isShown: state.isShown,
-    originElement: state.originElement,
+    originPosition: state.originPosition,
   }));
 
   const headerBackdropPaths: string[] = props.popularMovies
@@ -39,7 +39,7 @@ const Home: React.FC<{
     <Fragment>
       <AnimatePresence>
         {showModal && (
-          <DetailsModal modalData={modalData!} originElement={originElement} />
+          <DetailsModal modalData={modalData!} originPosition={originPosition} />
         )}
       </AnimatePresence>
 

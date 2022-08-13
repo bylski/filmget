@@ -21,7 +21,7 @@ export const modalVariants = {
     }),
     modalEnter: {
       opacity: 1,
-      top: 20,
+      top: 0,
       left: 0,
       scale: 1,
       transition: {

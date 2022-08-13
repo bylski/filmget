@@ -1,13 +1,15 @@
 @import "../../../styles/variables.scss";
-
+$ratio: 0.66;
+$img-height: 220px;
 
 .movie-container {
     height: 100%;
-    min-width: 150px;
+    width: fit-content;
     margin-inline: 0.5rem;
 
     font-family: $main-font;
     @include flexVertical;
+    align-items: flex-start;
     margin-bottom: 1rem;
     margin-inline: 0.5rem;
 }
@@ -18,10 +20,11 @@
 
 .movie-img__container {
     border-radius: 10px;
-    height: 220px;
-    width: 100%;
+    height: $img-height;
+    width: calc($img-height * $ratio);
 
     overflow: hidden;
+    transition: width 0.2s, height 0.2s ease-in;
 }
 
 
@@ -31,10 +34,10 @@
 }
 
 .movie-img {
-    min-height: 220px;
+    height: 100%;
     width: 100%;
     
-    transition: transform 0.2s linear;
+    transition: transform 0.2s linear, width 0.2s, height 0.2s ease-in;
 
 }
 
@@ -46,29 +49,35 @@
 .movie-rating__container {
     width: 100%;
     height: auto;
-    padding-top: 0.5rem;
     @include flexHorizontal;
 
     color: white;
     justify-content: center;
+
 }
 
 .rating-icon {
     width: 18px;
     height: auto;
     margin-right: 0.3rem;
+    position: relative;
+    top: -1px;
+
+    transition: width 0.25s, height 0.25s ease-in;
 }
 
 .rating-average {
     margin: 0;
     font-size: 1.1rem;
+    transition: font-size 0.25s ease-in;
 }
 
 .movie-info__container {
-    height: 100%;
+    height: fit-content;
     width: 100%;
-    padding-block: 0.3rem
-
+    margin-top: 0.9rem;
+    @include flexVertical;
+    justify-content: flex-start;
 
 }
 
@@ -77,11 +86,89 @@
     font-weight: 400;
     color: white;
     margin-top: 0.2rem;
+    margin-bottom: 0;
 
     text-align: center;
+    transition: font-size 0.25s ease-in;
 }
 
 .movie-title:hover {
     cursor: grab;
     text-decoration: underline;
+}
+
+
+@media screen and (max-width: 900px) {
+    .movie-img__container {
+        height: 180px;
+        width: calc(180px * $ratio)
+    }
+
+    .movie-info__container {
+        margin-bottom: 0.4rem;
+    }
+
+    .movie-title {
+        font-size: 12px;
+    }
+
+    .rating-average {
+        font-size: 1rem;
+    }
+
+    .rating-icon {
+        margin-right: 0.2rem;
+        height: 16px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .movie-container {
+        margin-bottom: 0.1rem;
+    }
+
+    .movie-img__container {
+        height: 150px;
+        width: calc(150px * $ratio)
+    }
+
+    .movie-title {
+        font-size: 10px;
+    }
+
+    .rating-average {
+        font-size: 0.9rem;
+    }
+
+    .rating-icon {
+        margin-right: 0.1rem;
+        height: 14px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+
+    .movie-container {
+        margin-bottom: 0.1rem;
+    }
+
+    .movie-img__container {
+        height: 120px;
+        width: calc(120px * $ratio)
+    }
+
+    .movie-title {
+        font-size: 9px;
+        margin-bottom: 0.5rem;
+    }
+
+    .rating-average {
+        font-size: 0.8rem;
+    }
+
+    .rating-icon {
+        margin-right: 0.05rem;
+        height: 13px;
+    }
 }

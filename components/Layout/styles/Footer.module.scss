@@ -5,37 +5,82 @@
   @include flexHorizontal;
   justify-content: flex-start;
   position: relative;
-  height: 11vh;
+  height: 5rem;
   width: 100%;
 
   margin-top: 4rem;
-  background-color: black;
+  background-color: $dark-theme-bg-color2;
+
+  overflow: hidden;
 }
 
 .footer__content {
   @include flexHorizontal;
+  width: 100%;
   margin: 0 $layout-margin;
   color: white;
-
-  justify-content: flex-start;
+  justify-content: space-around;
 }
 
 .footer__element {
-  padding: 1rem;
+  padding: 0rem;
   @include flexHorizontal;
 }
 
+
+
 .footer__element:first-of-type {
   margin-right: 2rem;
+  width: fit-content;
 }
 
 .moviedb-icon {
   position: relative;
-  width: 140px;
+  min-width: 140px;
+  max-width: 140px;
 }
 
+
 .footer__message {
-    left: 50vw;
-  position: absolute;
   font-size: 0.8rem;
+  margin-left: 1rem;
 }
+
+@media screen and (max-width: 700px) {
+
+  .moviedb-icon {
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+  .footer__element:first-of-type {
+    margin-right: 1rem;
+  }
+
+  .footer__element:first-of-type p {
+    font-size: 0.8rem;
+  }
+
+  .footer__message {
+    font-size: 0.6rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .moviedb-icon {
+    min-width: 100px;
+    max-width: 100px;
+  }
+
+
+
+  .footer__element:first-of-type p {
+    font-size: 0.8rem;
+  }
+
+  .footer__message {
+    display: none;
+  }
+}
+
