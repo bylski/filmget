@@ -102,6 +102,10 @@
 }
 
 @media screen and (max-width: 600px) {
+  .actors__container {
+    height: 13rem;
+  }
+
   .header-text {
     font-size: 1.1rem;
   }

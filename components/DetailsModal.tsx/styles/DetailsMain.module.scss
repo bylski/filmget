@@ -1,96 +1,165 @@
 @import "../../../styles/variables.scss";
 
 .main-content {
-    height: 70%;
-    width: 100%;
-    @include flexVertical;
-    align-items: flex-start;
-    color: white;
-  
-    padding-block: 0.5rem;
-    padding-right: 12%;
+  height: 70%;
+  width: 100%;
+  @include flexVertical;
+  align-items: flex-start;
+  color: white;
+
+  padding-block: 0.5rem;
+  padding-right: 12%;
+  transition: 0.25s ease-in;
+}
+
+.rating-icon {
+  position: relative;
+  top: -3px;
+  width: 18px;
+  height: auto;
+  margin-right: 0.3rem;
+}
+
+.overview__container {
+  max-height: 60%;
+}
+
+.overview__heading-text {
+  font-size: 1.3rem;
+  margin: 0;
+}
+
+.overview-text__wrapper {
+  display: flex;
+  justify-content: flex-start;
+  margin-top: 0.7rem;
+  padding-right: 1.5rem;
+  height: 10rem;
+  max-height: 16vh;
+  overflow-y: scroll;
+}
+
+.overview-text {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 300;
+  position: relative;
+}
+
+.user-score__container {
+  @include flexHorizontal;
+  width: 100%;
+  height: fit-content;
+  font-size: 18px;
+  font-weight: 300;
+}
+
+.user-score__container > p {
+  margin-top: 0.6rem;
+  margin-bottom: 0.9rem;
+}
+
+.rating-text {
+  margin-left: 0.5rem;
+}
+
+
+.known-for__container {
+  @include flexVertical;
+  align-items: flex-start;
+}
+
+.known-for__content {
+  @include flexHorizontal;
+  max-height: 100%;
+  width: 100%;
+}
+
+.known-for__card {
+  margin-top: 0.5rem;
+  @include flexVertical;
+  height: 25vh;
+  max-height: 250px;
+  margin-inline: 0.7rem;
+  border-radius: 15px;
+  overflow: hidden;
+  transition: 0.25s ease-in-out;
+}
+
+.known-for__card:first-of-type {
+  margin-left: 0;
+}
+
+.known-for__card:hover {
+  cursor: pointer;
+}
+
+.known-for__img {
+  height: 100%;
+  transition: 0.25s ease-in-out;
+}
+
+.known-for__img:hover {
+  transform: scale(1.02);
+}
+
+@media screen and (max-width: 1100px) {
+  .main-content {
+    padding-right: 0;
   }
-  
-  .rating-icon {
-    position: relative;
-    top: -3px;
-    width: 18px;
-    height: auto;
-    margin-right: 0.3rem;
-  }
-  
-  .overview__container {
-    max-height: 60%;
-  }
-  
+
   .overview-text__wrapper {
-    display: flex;
-    justify-content: flex-start;
-    margin-top: 0.7rem;
-    padding-right: 1.5rem;
-    max-height: 16vh;
-    overflow-y: scroll;
+    height: 5.5rem;
   }
 
-
-  
   .overview-text {
-    margin: 0;
+    font-size: 0.9rem;
+  }
+
+
+  .overview__heading-text {
+    font-size: 1.1rem;
+  }
+
+  .rating-icon {
+    width: 16px;
+  }
+
+  .rating {
     font-size: 1rem;
-    font-weight: 300;
-    position: relative;
-
-
   }
 
-  .user-score__container {
-    @include flexHorizontal;
-    width: 100%;
-    height: fit-content;
-    font-size: 18px;
-    font-weight: 300;
-  }
-  
-  .user-score__container > p {
-    margin-top: 0.6rem;
-    margin-bottom: 0.9rem;
+  .rating-text {
+    font-size: 1rem;
   }
 
-  .known-for__container {
-    @include flexVertical;
-    align-items: flex-start;
-  }
-  
-
-  .known-for__content {
-    @include flexHorizontal;
-    max-height: 100%;
-    width: 100%;
-  }
-
-  .known-for__card {
-    margin-top: 0.5rem;
-    @include flexVertical;
-    height: 25vh;
-    margin-inline: 0.7rem;
-    border-radius: 15px;
-    overflow: hidden;
-    transition: 0.25s ease-in-out;
-  }
-
-  .known-for__card:first-of-type {
-    margin-left: 0;
-  }
-
-  .known-for__card:hover {
-    cursor: pointer;
-  }
 
   .known-for__img {
-    height: 100%;
-    transition: 0.25s ease-in-out;
+    height: 8rem;
   }
+}
 
-  .known-for__img:hover {
-    transform: scale(1.02)
+@media screen and (max-width: 700px) {
+  .known-for__card {
+    margin-right: 0rem;
+    margin-left: 0.6rem;
   }
+}
+
+
+@media screen and (max-width: 500px) {
+
+  .overview-text__wrapper {
+    max-height: none;
+    height: 16rem;
+    padding-right: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .known-for__img {
+    height: 50%;
+  };
+}
+
+

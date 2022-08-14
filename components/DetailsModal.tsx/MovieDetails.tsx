@@ -11,10 +11,12 @@ const MovieDetails: React.FC<{
 }> = (props) => {
   return (
     <Fragment>
-      <img
-        src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${props.modalData.backdrop_path}`}
-        className={styles["modal__backdrop-img"]}
-      />
+      <div className={styles["backdrop-img__container"]}>
+        <img
+          src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${props.modalData.backdrop_path}`}
+          className={styles["modal__backdrop-img"]}
+        />
+      </div>
       <div className={styles["modal__wrapper"]}>
         <div className={styles["modal__content"]}>
           <div className={styles["img__container"]}>
@@ -39,6 +41,5 @@ const MovieDetails: React.FC<{
     </Fragment>
   );
 };
-
 
 export default MovieDetails;
