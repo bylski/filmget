@@ -25,6 +25,10 @@ $ratio: 1.5;
   margin-left: 0;
 }
 
+.actor__img-container:active {
+  transform: scale(1.04);
+}
+
 .actor__img {
   width: 100%;
   height: 100%;
@@ -45,6 +49,10 @@ $ratio: 1.5;
   word-wrap: break-word;
 }
 
+.actor__fullname:active {
+  text-decoration: underline;
+}
+
 .actor__known-from {
   font-style: italic;
   padding: 0.4rem 1rem;
@@ -52,6 +60,10 @@ $ratio: 1.5;
   font-size: 13px;
   color: white;
   text-align: center;
+}
+
+.actor__known-from:active {
+  text-decoration: underline;
 }
 
 @media (hover: hover) and (pointer: fine) {

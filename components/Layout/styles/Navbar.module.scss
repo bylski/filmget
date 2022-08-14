@@ -31,6 +31,15 @@
     padding: 0;
 }
 
+.link:active {
+    color: $primary-color2;
+    cursor: pointer;
+    border-bottom: 2px solid $primary-color2;
+    -webkit-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+    -moz-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+    box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+}
+
 .link {
     @include flexVertical;
     box-sizing: border-box;
