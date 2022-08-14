@@ -44,14 +44,6 @@
     border-bottom: 2px solid transparent;
 }
 
-.link:hover {
-    color: $primary-color2;
-    cursor: pointer;
-    border-bottom: 2px solid $primary-color2;
-    -webkit-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
-    -moz-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
-    box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
-}
 
 .brand {
     @include flexHorizontal;
@@ -59,9 +51,7 @@
     height: $nav-height
 }
 
-.brand:hover {
-    cursor: pointer;
-}
+
 
 .brand__text {
     background: #3A86FF;
@@ -72,6 +62,12 @@
     margin: 0;
     font-size: 2rem;
     font-weight: 300;
+}
+
+
+.nav-menu__background:active {
+    cursor: pointer;
+    background-color: hsl(334, 90%, 20%);
 }
 
 
@@ -111,12 +107,6 @@
         transition: 0.2s ease-in-out;
     }
 
-    .nav-menu__background:hover {
-        cursor: pointer;
-        // background-color: hsl(265, 53%, 30%);
-        background-color: hsl(334, 90%, 20%);
-    }
-
 
     .nav-menu__icon {
         display: block;
@@ -124,3 +114,27 @@
 
 
 }
+
+
+@media (hover: hover) and (pointer: fine) {
+    .brand:hover {
+        cursor: pointer;
+    }
+
+    .link:hover {
+        color: $primary-color2;
+        cursor: pointer;
+        border-bottom: 2px solid $primary-color2;
+        -webkit-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+        -moz-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+        box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+    }
+
+    .nav-menu__background:hover {
+        cursor: pointer;
+        background-color: hsl(334, 90%, 20%);
+    }
+
+  }
+
+ 

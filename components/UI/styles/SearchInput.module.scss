@@ -41,10 +41,15 @@
   transition: 0.25s ease-in-out;
 }
 
-.main-search__button:hover {
-  cursor: pointer;
-  width: 18%;
+
+
+@media (hover: hover) and (pointer: fine) {
+  .main-search__button:hover {
+    cursor: pointer;
+    width: 18%;
+  }
 }
+
 
 @media screen and (max-width: 900px) {
   .main-search__container {

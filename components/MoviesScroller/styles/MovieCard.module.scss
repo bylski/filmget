@@ -41,10 +41,7 @@ $img-height: 220px;
 
 }
 
-.movie-img:hover {
-    transform: scale(1.02);
-    cursor: pointer;
-}
+
 
 .movie-rating__container {
     width: 100%;
@@ -92,10 +89,20 @@ $img-height: 220px;
     transition: font-size 0.25s ease-in;
 }
 
-.movie-title:hover {
-    cursor: grab;
-    text-decoration: underline;
+
+
+@media (hover: hover) and (pointer: fine) { 
+    .movie-img:hover {
+        transform: scale(1.02);
+        cursor: pointer;
+    }
+
+    .movie-title:hover {
+        cursor: grab;
+        text-decoration: underline;
+    }
 }
+
 
 
 @media screen and (max-width: 900px) {
