@@ -9,8 +9,20 @@ import useScrollActions from "../../../utils/hooks/useScrollActions";
 import NavbarLinks from "./NavbarLinks";
 
 const Navbar: React.FC = () => {
-  const router = useRouter();
 
+
+  // If window is being resized - hide nav menu
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      setNavMenuShow(false);
+    });
+    return () => window.removeEventListener("resize", () => {
+      setNavMenuShow(false);
+    });
+}, []);
+
+  // Take user home when nav brand clicked
+  const router = useRouter();
   const brandClickHandler = (e: React.MouseEvent<HTMLElement>) => {
     router.push("/home");
   };
@@ -20,6 +32,7 @@ const Navbar: React.FC = () => {
     setNavMenuShow((prevState) => !prevState);
   };
 
+  // Get scrolling state
   const scrollState = useScrollActions(() => {
     setNavMenuShow(false);
   });
