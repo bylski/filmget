@@ -10,7 +10,7 @@ import DetailsModal from "../components/DetailsModal.tsx/DetailsModal";
 import { useAppSelector } from "../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import { hideOverflowIf } from "../utils/scripts";
-import { movieInterface } from "../utils/types";
+import Head from "next/head";
 
 const Home: React.FC<{
   popularMovies: any[];
@@ -37,6 +37,11 @@ const Home: React.FC<{
 
   return (
     <Fragment>
+      <Head>
+        <title>Filmget</title>
+        <meta name="description" content="Filmget provides information about your favourite movies, shows and people from the movie industry.
+        Explore now and discover the world of cinema."></meta>
+      </Head>
       <AnimatePresence>
         {showModal && (
           <DetailsModal modalData={modalData!} originPosition={originPosition} />
