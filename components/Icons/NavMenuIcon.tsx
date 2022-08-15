@@ -1,7 +1,7 @@
 import { produceWithPatches } from "immer";
 import React from "react";
 
-const NavMenuIcon: React.FC<{ className?: string }> = (props) => {
+const NavMenuIcon: React.FC<{ className?: string}> = (props) => {
   return (
     <svg
       version="1.1"

@@ -20,3 +20,25 @@ export const navVariants = {
     transition: { duration: 0.5 },
   },
 };
+
+export const navMenuVariants = {
+  hidden: {
+    transition: { type: "linear" },
+    borderBottom: "none",
+    top: "4.6rem",
+    height: "0px",
+  },
+  show: {
+    transition: { type: "linear", staggerChildren: 0.1, delayChildren: 0.1 },
+    top: "4.6rem",
+    height: "fit-content",
+    display: "flex",
+    borderBottom: "1px solid #ff006e",
+  },
+};
+
+export const navLinksVariants = {
+  hidden: { opacity: 0, transition: { duration: 0.25, type: "linear" } },
+  show: { opacity: 1 },
+};
+

@@ -1,6 +1,6 @@
 import "../styles/globals.scss";
 import type { AppProps } from "next/app";
-import Navbar from "../components/Layout/Navbar";
+import Navbar from "../components/Layout/Navbar/Navbar";
 import Footer from "../components/Layout/Footer";
 import { Provider } from "react-redux";
 import store from "../redux/store";
