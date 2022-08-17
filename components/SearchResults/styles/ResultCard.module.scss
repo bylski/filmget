@@ -1,0 +1,108 @@
+@import "../../../styles/variables.scss";
+
+.result-card {
+  height: 8rem;
+  width: 100%;
+  @include flexHorizontal;
+  background-color: $dark-theme-bg-color1;
+  border-radius: 10px;
+  overflow: hidden;
+
+  margin-block: 0.4rem;
+}
+
+.result-card:first-of-type {
+  margin-top: 0;
+}
+
+.result-card:last-of-type {
+  margin-bottom: 0;
+}
+
+.result-card__img-container {
+  height: 100%;
+  width: auto;
+
+  @include flexVertical;
+}
+
+.result-card__img {
+  min-width: 100%;
+  max-height: 100%;
+
+  transition: transform 0.2s linear;
+}
+
+.result-card__info-container {
+  width: 100%;
+  height: 100%;
+  @include flexVertical;
+  justify-content: center;
+  align-items: flex-start;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+}
+
+.result-card__header {
+  width: fit-content;
+}
+
+.result-card__header-text {
+  color: white;
+  font-weight: 500;
+  font-size: 1.15rem;
+  margin: 0;
+
+  transition: color 0.15s ease-in-out;
+}
+
+.result-card__main {
+  width: 100%;
+}
+
+.result-card__summary {
+  margin: 0;
+  margin-top: 0.5rem;
+  color: white;
+  font-weight: 300;
+  font-size: 0.9rem;
+  padding-right: 10%;
+}
+
+.result-card__rating {
+  width: fit-content;
+  height: fit-content;
+  @include flexHorizontal;
+  justify-content: space-between;
+  margin-top: 0.6rem;
+}
+
+.result-card__rating-icon {
+  position: relative;
+  top: -1px;
+  height: 14px;
+  margin-right: 0.3rem;
+}
+
+.result-card__rating-average {
+  color: white;
+  font-size: 14px;
+  font-weight: 400;
+
+  margin: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .result-card__header-text:hover {
+    cursor: pointer;
+    color: $primary-color2;
+  }
+
+  .result-card__img-container:hover {
+    cursor: pointer;
+  }
+
+  .result-card__img:hover {
+    transform: scale(1.015)
+  }
+}

@@ -1,0 +1,82 @@
+@import "../../../styles/variables.scss";
+
+$filters-border-radius: 15px;
+
+
+.filters__container {
+    width: 16vw;
+    height: fit-content;
+    border: 1px solid $primary-color2;
+    align-self: flex-start;
+    border-top-left-radius: $filters-border-radius;
+    border-top-right-radius: $filters-border-radius;
+    border-bottom-left-radius: $filters-border-radius;
+    border-bottom-right-radius: $filters-border-radius;
+}
+
+.filters__header {
+    width: 100%;
+    height: 4rem;
+    border-top-left-radius: $filters-border-radius;
+    border-top-right-radius: $filters-border-radius;
+    background-color: $primary-color2;
+
+    @include flexVertical;
+    justify-content: center;
+}
+
+.filters__header-text {
+    margin: 0;
+    font-weight: 600;
+    color: white;
+}
+
+.filters__main {
+    width: 100%;
+    height: 100%;
+}
+
+.filters__options-container {
+    @include flexVertical;
+    width: 100%;
+    height: fit-content;
+    list-style: none;
+    padding: 0;
+}
+
+.filters__option {
+    height: fit-content;
+    width: 100%;
+    @include flexHorizontal;
+    justify-content: space-between;
+    padding-inline: 1.2rem;
+}
+
+
+.filters__option:first-of-type {
+    background-color: hsl(0, 0%, 15%);
+}
+
+.filters__option-text {
+    color: white;
+}
+
+.filters__option-results-num {
+    background-color: hsl(0, 0%, 8%);
+    padding-inline: 0.8rem;
+    padding-block: 0.2rem;
+    border-radius: 5px;
+    color: white;
+}
+
+.filters__option:first-of-type .filters__option-results-num {
+   background-color: hsl(0, 0%, 40%);
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .filters__option:hover {
+        cursor: pointer;
+        background-color: hsl(0, 0%, 15%);
+    }
+    
+}
