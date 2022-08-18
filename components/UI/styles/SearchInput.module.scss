@@ -1,21 +1,19 @@
 @import "../../../styles/variables.scss";
 
-.main-search__container {
+.search-input__form {
   @include flexHorizontal;
   justify-content: center;
-  width: 100%;
-  height: 2.8rem;
+  // width: 100%;
+  // height: 2.8rem;
 
-  margin-top: 1.5rem;
-  display: flex;
+  // margin-top: 1.5rem;
   position: relative;
 }
 
-.main-search__input {
-  height: 100%;
-  width: 100%;
-  font-size: 1.3rem;
-  padding: 0 1.5rem;
+.search-input__input {
+  // height: 100%;
+  // width: 100%;
+  // font-size: 1.3rem;
   border-radius: 50px;
 
   color: rgb(71, 71, 71);
@@ -24,96 +22,20 @@
   transition: 0.3s border ease-in-out;
 }
 
-.main-search__input:focus {
-  outline: none !important;
-  border: 1px solid $primary-color2 !important;
-}
 
-.main-search__button {
-  height: 100%;
-  width: 15%;
+.search-input__button {
+  // height: 100%;
+  // width: 15%;
 
   position: absolute;
-  font-size: 1rem;
-  font-weight: bold;
+  // font-size: 1rem;
+  // font-weight: bold;
   right: 0;
 
   transition: 0.25s ease-in-out;
 }
 
-.main-search__button:active {
-  cursor: pointer;
-  width: 18%;
-}
 
 
 
-@media (hover: hover) and (pointer: fine) {
-  .main-search__button:hover {
-    cursor: pointer;
-    width: 18%;
-  }
-}
 
-
-@media screen and (max-width: 900px) {
-  .main-search__container {
-    margin-top: 1rem;
-    height: 2.4rem;
-  }
-
-
-  .main-search__input {
-    font-size: 1.2rem;
-  }
-
-  .main-search__button {
-    font-size: 0.9rem;
-  }
-}
-
-@media screen and (max-width: 600px) {
-  .main-search__container {
-    height: 1.9rem;
-    margin-top: 1.2rem;
-  }
-
-  .main-search__input {
-    font-size: 0.9rem;
-  }
-
-  .main-search__button {
-    font-size: 0.9rem;
-    width: 15vw;
-  }
-
-  .main-search__button:hover {
-    cursor: pointer;
-    width: 22%;
-  }
-}
-
-@media screen and (max-width: 500px) {
-  .main-search__container {
-    margin-top: 1rem;
-  }
-
-  .main-search__input {
-    height: 1.7rem;
-    font-size: 0.8rem;
-    padding-left: 0.7rem;
-    transition: 0.3s ease-in-out;
-  }
-
-  .main-search__button {
-    height: 1.7rem;
-    font-size: 0.8rem;
-    width: 15vw;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .main-search__button {
-    display: none;
-  }
-}

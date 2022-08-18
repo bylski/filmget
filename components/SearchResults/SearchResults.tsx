@@ -1,24 +1,25 @@
 import React from "react";
 import styles from "./styles/SearchResults.module.scss";
 import { useRouter } from "next/router";
-import SearchFilters from "./SearchFilters";
-import RatingIcon from "../Icons/RatingIcon";
-import ResultCard from "./ResultCard";
+import SearchInput from "../UI/SearchInput";
+import Results from "./Results";
 
-const SearchResults: React.FC = (props) => {
+const SearchResults: React.FC<{searchResults: any[]}> = (props) => {
   const router = useRouter();
   return (
     <section className={styles["search-results"]}>
-      <header></header>
       <main className={styles["search-results__card"]}>
-        <SearchFilters />
-        <section className={styles["results__container"]}>
-        <ResultCard/>
-        <ResultCard/>
-        <ResultCard/>
-        <ResultCard/>
-        <ResultCard/>
-        </section>
+        <header className={styles["search-results__card-header"]}>
+          <SearchInput
+            customClasses={{
+              formClass: styles["results-searchbar__form"],
+              inputClass: styles["results-searchbar__input"],
+              buttonClass: styles["results-searchbar__button"],
+            }}
+            initialVal={router.query.q?.toString()}
+          />
+        </header>
+            <Results searchResults={props.searchResults}/>
       </main>
     </section>
   );

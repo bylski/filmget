@@ -4,11 +4,18 @@ html,
 body, #__next {
   padding: 0;
   margin: 0;
-  height: 100%;
+  min-height: 100%;
   width: 100%;
   background-color: $dark-theme-bg-color1;
   // overflow-x: hidden;
 }
+
+#__next {
+  min-height: 100vh;
+  position: relative;
+  padding-bottom: 7rem;
+}
+ 
 
 a {
   color: inherit;

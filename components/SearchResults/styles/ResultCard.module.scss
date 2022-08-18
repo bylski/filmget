@@ -4,6 +4,7 @@
   height: 8rem;
   width: 100%;
   @include flexHorizontal;
+  align-items: flex-start;
   background-color: $dark-theme-bg-color1;
   border-radius: 10px;
   overflow: hidden;
@@ -61,12 +62,29 @@
 }
 
 .result-card__summary {
+
   margin: 0;
   margin-top: 0.5rem;
   color: white;
   font-weight: 300;
   font-size: 0.9rem;
   padding-right: 10%;
+}
+
+.result-card__person-info {
+  width: fit-content;
+  height: fit-content;
+  @include flexHorizontal;
+  justify-content: space-between;
+  margin-top: 0.2rem;
+}
+
+.result-card__person-department {
+  color: white;
+  font-size: 14px;
+  font-weight: 200;
+
+  margin: 0;
 }
 
 .result-card__rating {

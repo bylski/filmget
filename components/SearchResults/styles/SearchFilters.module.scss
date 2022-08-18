@@ -1,10 +1,10 @@
 @import "../../../styles/variables.scss";
 
-$filters-border-radius: 15px;
-
 
 .filters__container {
-    width: 16vw;
+    flex-shrink: 1;
+    min-width: $filters-width;
+    width: $filters-width;
     height: fit-content;
     border: 1px solid $primary-color2;
     align-self: flex-start;
@@ -50,10 +50,12 @@ $filters-border-radius: 15px;
     @include flexHorizontal;
     justify-content: space-between;
     padding-inline: 1.2rem;
+
+    transition: background-color 0.15s ease-in-out;
 }
 
 
-.filters__option:first-of-type {
+.filters__option.active {
     background-color: hsl(0, 0%, 15%);
 }
 
@@ -69,8 +71,9 @@ $filters-border-radius: 15px;
     color: white;
 }
 
-.filters__option:first-of-type .filters__option-results-num {
-   background-color: hsl(0, 0%, 40%);
+
+.filters__option-results-num.active {
+    background-color: hsl(0, 0%, 40%);
 }
 
 @media (hover: hover) and (pointer: fine) {

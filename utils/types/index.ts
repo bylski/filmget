@@ -21,3 +21,14 @@ export interface actorInterface {
     title: string;
   }[];
 }
+
+export interface resultsInterface {
+  overview: string,
+  known_for: any[],
+  profile_path: string,
+  poster_path: string,
+  name: string,
+  title: string,
+  vote_average: number,
+  known_for_department: string,
+}

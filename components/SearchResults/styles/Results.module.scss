@@ -1,0 +1,32 @@
+@import "../../../styles/variables.scss";
+
+.results__container {
+    width: 100%;
+    height: 100%;
+    padding-left: $results__padding-left;
+    @include flexVertical;
+}
+
+.results__card-main {
+    min-width: 100%;
+    height: 100%;
+    @include flexHorizontal;
+}
+
+.no-results__container {
+    width: 100%;
+    height: 100%;
+
+    @include flexVertical;
+    align-items: center;
+}
+
+.no-results__text {
+    background-color: $dark-theme-bg-color1;
+    margin: 0;
+    padding: 2rem;
+    border-radius: 20px;
+    font-weight: 200;
+    font-size: 2rem;
+    color: white;
+}

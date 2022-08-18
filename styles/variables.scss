@@ -10,6 +10,10 @@ $nav-height: 4.6rem;
 $section-margin: 2.5rem;
 $main-scrollbar-width: 10px;
 
+$filters-border-radius: 15px;
+$filters-width: 18%;
+$results__padding-left: 2rem;
+
 @mixin flexHorizontal {
     display: flex;
     flex-direction: row;
