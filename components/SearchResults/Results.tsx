@@ -79,7 +79,7 @@ const Results: React.FC<{ searchResults: any[] }> = (props) => {
         />
         <section className={styles["results__container"]}>
           <div className={styles["no-results__container"]}>
-            <h1 className={styles["no-results__text"]}>No results for "{router.query.q}" in {selectedOption}</h1>
+            <h1 className={styles["no-results__text"]}>No results for &qout;{router.query.q}&quot; in {selectedOption}</h1>
           </div>
         </section>
       </main>
