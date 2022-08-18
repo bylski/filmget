@@ -33,7 +33,7 @@ export const navMenuVariants = {
     top: "4.6rem",
     height: "fit-content",
     display: "flex",
-    borderBottom: "1px solid #ff006e",
+    borderBottom: "2px solid #ff006e",
   },
 };
 

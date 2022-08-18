@@ -54,7 +54,7 @@
   font-size: 1.15rem;
   margin: 0;
 
-  transition: color 0.15s ease-in-out;
+  transition: font-size 0.2s ease-in-out, 0.15s ease-in-out;
 }
 
 .result-card__main {
@@ -69,6 +69,8 @@
   font-weight: 300;
   font-size: 0.9rem;
   padding-right: 10%;
+
+  transition: font-size 0.2s ease-in-out;
 }
 
 .result-card__person-info {
@@ -100,13 +102,15 @@
   top: -1px;
   height: 14px;
   margin-right: 0.3rem;
+
+  transition: width 0.2s ease-in-out, height 0.2s ease-in-out;
 }
 
 .result-card__rating-average {
   color: white;
   font-size: 14px;
   font-weight: 400;
-
+  transition: font-size 0.2s ease-in-out;
   margin: 0;
 }
 
@@ -124,3 +128,89 @@
     transform: scale(1.015)
   }
 }
+
+
+@media screen and (max-width: 1100px) {
+  .result-card__header-text {
+    font-size: 1rem;
+  }
+
+  .result-card__summary {
+    font-size: 0.8rem;
+  }
+
+  .result-card__rating-average {
+    font-size: 0.8rem;
+  }
+
+}
+
+@media screen and (max-width: 900px) {
+
+  .result-card__header-text {
+    font-size: 1rem;
+  }
+
+  .result-card__summary {
+    font-size: 0.8rem;
+  }
+
+  .result-card__rating-average {
+    font-size: 0.8rem;
+  }
+
+  .result-card__rating-icon {
+    height: 13px;
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+
+  .result-card__header-text {
+    font-size: 0.9rem;
+  }
+
+  .result-card__summary {
+    font-size: 0.75rem;
+  }
+
+  .result-card__rating-average {
+    font-size: 0.75rem;
+  }
+
+  .result-card__rating-icon {
+    height: 12px;
+    top: 0;
+  }
+}
+
+@media screen and (max-width: 400px) {
+
+  .result-card__header-text {
+    font-size: 0.8rem;
+  }
+
+  .result-card__summary {
+    font-size: 0.65rem;
+  }
+
+  .result-card__rating-average {
+    font-size: 0.75rem;
+  }
+
+  .result-card__rating-icon {
+    height: 12px;
+    top: 0;
+  }
+
+  .result-card__info-container {
+    padding-right: 0.1rem;
+  }
+
+  .result-card__summary {
+    padding-right: 0.5rem;
+  }
+}
+
+

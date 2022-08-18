@@ -30,3 +30,16 @@
     font-size: 2rem;
     color: white;
 }
+
+@media screen and (max-width: 900px) {
+
+   .results__card-main {
+    flex-direction: column;
+   }
+
+   .results__container {
+    margin-top: 1rem;
+    padding-left: 0;
+   }
+  }
+  

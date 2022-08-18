@@ -52,10 +52,46 @@ $searchbar-button-width: 11%;
     font-size: 1rem;
 }
 
+.results-searchbar__button:active {
+    cursor: pointer;
+    width: $searchbar-button-width * 1.7;
+}
+
 @media (hover:hover) and (pointer: fine) {
     .results-searchbar__button:hover {
         cursor: pointer;
         width: $searchbar-button-width * 1.2;
+    }
+}
+
+@media screen and (max-width: 1100px) {
+    .results-searchbar__button {
+        width: 15%;
+        font-size: 0.8rem;
+    }
+
+    @media (hover:hover) and (pointer: fine) {
+        .results-searchbar__button:hover {
+            cursor: pointer;
+            width: $searchbar-button-width * 1.7;
+        }
+    }
+}
+
+
+@media screen and (max-width: 900px) {
+    .search-results__card-header {
+        padding-left: 0;
+    }
+}
+
+@media screen and (max-width: 500px) {
+    .search-results__card {
+        padding-inline: 1rem;
+    }
+
+    .results-searchbar__button {
+        display: none;
     }
 }
 
