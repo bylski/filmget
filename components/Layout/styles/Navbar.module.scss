@@ -37,7 +37,7 @@
     display: none;
 }
 
-.link:active {
+.link__container:active {
     color: $primary-color2;
     cursor: pointer;
     border-bottom: 2px solid $primary-color2;
@@ -47,17 +47,25 @@
     border-bottom: 2px solid $primary-color2;
 }
 
-.link {
+.link__container {
     @include flexVertical;
     box-sizing: border-box;
     justify-content: center;
     height: 100%;
 
-    padding: 0 2rem;
     color: white;
     transition: box-shadow 0.15s, color 0.15s, border-bottom 0.15s ease-in-out;
     margin-top: 2px;
     border-bottom: 2px solid transparent;
+}
+
+.link {
+    @include flexVertical;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    height: $nav-height;
+    padding: 0 2rem;
 }
 
 
@@ -148,37 +156,19 @@
 
     }
 
-    .link {
-        // border-bottom: 1px solid $primary-color2;
-        // padding-inline: 1rem;
-        // margin-inline: 1rem;
+    .link__container {
         width: 100%;
         padding-bottom: 2px;
         transition: box-shadow 0.15s, color 0.15s, border-bottom 0s;
     }
 
-    .link p {
-        margin-block: 0.9rem;
+    .link {
+        height: 3.3rem;
+        padding-block: 0
     }
 
-    .link:last-of-type {
-        // border-bottom: none;
-        padding-bottom: 0.5rem;
-    }
 
-    .link:first-of-type {
-        // border-bottom: none;
-        padding-top: 0.5rem;
-    }
 
-    .link:last-of-type:hover {
-        // padding-bottom: 0px;
-    }
-
-    .link:hover {
-        // border-left: 2px solid $primary-color2;
-        // border-bottom: none;
-    }
 
 
     .nav-menu__background {
@@ -195,8 +185,6 @@
     .nav-menu__icon {
         display: block;
     }
-
-
 }
 
 
@@ -205,7 +193,7 @@
         cursor: pointer;
     }
 
-    .nav-links__main > .link:hover {
+    .nav-links__main > .link__container:hover {
         color: $primary-color2;
         cursor: pointer;
         border-bottom: 2px solid $primary-color2;
@@ -214,7 +202,7 @@
         box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
     }
 
-    .nav-links__collapsable > .link:hover {
+    .nav-links__collapsable > .link__container:hover {
         color: $primary-color2;
         cursor: pointer;
         -webkit-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);

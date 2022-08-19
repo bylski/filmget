@@ -1,0 +1,87 @@
+@import "../../../styles/variables.scss";
+
+.media-displayer {
+  position: relative;
+  top: $nav-height;
+  width: 100%;
+  height: auto;
+}
+
+.media-displayer__card {
+  width: 100%;
+  min-height: 200vh;
+  height: auto;
+  background-color: $dark-theme-bg-color2;
+  @include flexVertical;
+  font-family: $main-font;
+
+  padding-block: 2rem;
+  margin-bottom: 5rem;
+  padding-inline: $layout-margin;
+}
+
+.media-displayer__header {
+  width: 100%;
+  height: 2rem;
+  margin-bottom: 1.5rem;
+  font-size: 2rem;
+  @include flexHorizontal;
+}
+
+.media-displayer__header-text {
+    color: white;
+}
+
+.media-displayer__content {
+    width: 100%;
+    height: fit-content;
+
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-column-gap: 1rem;
+    grid-row-gap: 1rem;
+}
+
+.media__card {
+
+    width: auto;
+    height: auto;
+
+    @include flexVertical;
+    background-color: $dark-theme-bg-color1;
+    padding-inline: 0.7rem;
+    padding-top: 0.8rem;
+
+    border-radius: 15px;
+
+    transition: transform 0.2s ease-in-out;
+}
+
+.media__img-container {
+    height: auto;
+    width: auto;
+}
+
+.media__img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.media__info {
+    width: 100%;
+    height: fit-content
+}
+
+.media__info-title {
+    color: white;
+    font-size: 0.9rem;
+    margin-block: 0.8rem;
+    text-align: center;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .media__card:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+} 
