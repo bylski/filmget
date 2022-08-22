@@ -1,0 +1,58 @@
+@import "../../../styles/variables.scss";
+
+.switcher {
+    width: fit-content;
+    height: fit-content;
+    @include flexHorizontal;
+    margin-block: 0;
+    padding-left: 0;
+}
+
+.switcher-element {
+    height: 100%;
+    width: fit-content;
+    padding: 0.2rem;
+    padding-block: 0.5rem;
+    background-color: $dark-theme-bg-color1;
+    @include flexVertical;
+    justify-content: center;
+    position: relative;
+}
+
+.switcher-element:first-of-type {
+    border: 1px solid transparent;
+    border-bottom-left-radius: 20px;
+    border-top-left-radius: 20px;
+}
+
+.switcher-element.last {
+    border: 1px solid transparent;
+    border-bottom-right-radius: 20px;
+    border-top-right-radius: 20px;
+}
+
+
+.switcher-element__text {
+    position: relative;
+    font-size: 0.9rem;
+    color: white;
+    margin: 0;
+    padding-inline: 0.5rem;
+    z-index: 2;
+}
+
+.switcher-element__animated-bg {
+    border: 1px solid transparent;
+    background-color: $primary-color2;
+    width: 100%;
+    min-height: 100%;
+
+    border: 1px solid transparent;
+    border-radius: 20px;
+    position: absolute;
+    z-index: 1;
+}
+
+.switcher-element:hover {
+    cursor: pointer;
+}

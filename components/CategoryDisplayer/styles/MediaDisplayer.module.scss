@@ -72,11 +72,33 @@
     height: fit-content
 }
 
-.media__info-title {
+.media__title {
     color: white;
     font-size: 0.9rem;
     margin-block: 0.8rem;
     text-align: center;
+    margin-top: 0.1rem;
+}
+
+.media__rating-container {
+    width: 100%;
+    height: fit-content;
+    padding-block: 0.5rem;
+    @include flexHorizontal;
+    justify-content: center;
+}
+
+.media__rating-icon {
+    position: relative;
+    height: 14px;
+    top: -1px;
+    margin-right: 0.3rem;
+}
+
+.media__rating-average {
+    font-size: 14px;
+    color: white;
+    margin: 0;
 }
 
 @media (hover: hover) and (pointer: fine) {
