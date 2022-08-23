@@ -20,7 +20,7 @@ const DetailsModal: React.FC<{
   let genres: string[] = [];
   let genresString: string = "";
 
-  if ("genresList" in props.modalData) {
+  if ("genre_ids" in props.modalData) {
     genres = props.modalData.genresList.map((genre) => {
       return genre.name;
     });

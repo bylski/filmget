@@ -1,9 +1,13 @@
 import React from "react";
 import styles from "./styles/DetailsHeader.module.scss";
-import { actorInterface, movieInterface } from "../../utils/types";
+import {
+  actorInterface,
+  movieInterface,
+  seriesInterface,
+} from "../../utils/types";
 
 const DetailsHeader: React.FC<{
-  modalData: movieInterface | actorInterface;
+  modalData: movieInterface | actorInterface | seriesInterface;
   genresString?: string;
   dataType: string;
 }> = (props) => {
@@ -11,14 +15,21 @@ const DetailsHeader: React.FC<{
     return (
       <header className={styles["info__header"]}>
         <h1 className={styles["header__title"]}>
-          {props.modalData.title}{" "}
-          <span>{`(${props.modalData.release_date.slice(0, 4)})`}</span>
+          {"title" in props.modalData ? props.modalData.title : null}{" "}
+          {"name" in props.modalData ? props.modalData.name : null}{" "}
+          <span>
+            {"release_date" in props.modalData
+              ? `(${props.modalData.release_date.slice(0, 4)})`
+              : null}
+              {"first_air_date" in props.modalData
+              ? `(${props.modalData.first_air_date.slice(0, 4)})`
+              : null}
+          </span>
         </h1>
         <p className={styles["header__genres"]}>{props.genresString}</p>
       </header>
     );
-  } else if (props.dataType === "actor" && "name" in props.modalData) {
-    
+  } else if (props.dataType === "actor" && "gender" in props.modalData) {
     let actorsGender: string;
     switch (props.modalData.gender) {
       case 1:

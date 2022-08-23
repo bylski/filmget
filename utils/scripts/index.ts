@@ -44,3 +44,32 @@ export const limitStr = (str: string, limit: number) => {
     const limitedString = `${limitedCharArr.join('')}(...)`;
     return limitedString;
 }
+
+
+export const chooseSwitchers = (mediaTypeString: string): {switchName: string}[] | null => {
+  const mediaType = mediaTypeString.toLowerCase();
+  let switches: {switchName: string}[] | null = null; 
+  switch (mediaType.toLowerCase()) {
+    case "movies":
+      switches = [
+        { switchName: "Trending" },
+        { switchName: "Now Playing" },
+        { switchName: "Top Rated" },
+      ];
+      break;
+    case "series": 
+    switches = [
+      { switchName: "Trending" },
+      { switchName: "Now Airing" },
+      { switchName: "Top Rated" },
+    ];
+    break;
+    case "people": 
+    switches = [
+      { switchName: "Popular" },
+    ];
+  }
+
+  return switches
+
+}

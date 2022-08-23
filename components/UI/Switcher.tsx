@@ -3,20 +3,25 @@ import styles from "./styles/Switcher.module.scss";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
-const Switcher: React.FC<{ switches: { switchName: string }[] }> = (props) => {
+const Switcher: React.FC<{
+  switches: { switchName: string }[] | null;
+  onSwitch: (activeSwitchNum: number) => void;
+}> = (props) => {
   const [currentlySelected, setCurentlySelected] = useState(0);
   const switchClickedHandler = (e: React.MouseEvent) => {
     e.preventDefault();
     const target = e.currentTarget as HTMLUListElement;
     const slicedId = target.id.slice(6, target.id.length);
     setCurentlySelected(parseInt(slicedId));
+    props.onSwitch(parseInt(slicedId))
   };
 
+  if (props.switches !== null) {
   const allSwitches = props.switches.map((currentSwitch, i) => {
     return (
       <li
         className={
-          i === props.switches.length - 1
+          i === props.switches!.length - 1
             ? `${styles["switcher-element"]} ${styles["last"]}`
             : styles["switcher-element"]
         }
@@ -38,6 +43,7 @@ const Switcher: React.FC<{ switches: { switchName: string }[] }> = (props) => {
   });
 
   return <ul className={styles["switcher"]}>{allSwitches}</ul>;
-};
+} else return null;
+}
 
 export default Switcher;
