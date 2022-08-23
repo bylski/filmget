@@ -39,7 +39,7 @@ const Series: React.FC<{
         mediaData={{
           popular: props.popularSeries,
           topRated: props.topRatedSeries,
-          nowPlaying: props.nowAiringSeries,
+          latest: props.nowAiringSeries,
         }}
       />
     </Fragment>
