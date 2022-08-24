@@ -1,6 +1,4 @@
-import React, { useRef } from "react";
-import styles from "./styles/MediaDisplayer.module.scss";
-import RatingIcon from "../Icons/RatingIcon";
+import React from "react";
 import {
   actorInterface,
   movieInterface,
@@ -8,6 +6,9 @@ import {
 } from "../../utils/types";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
+import MovieMediaCard from "./MovieMediaCard";
+import SeriesMediaCard from "./SeriesMediaCard";
+import PeopleMediaCard from "./PeopleMediaCard";
 
 const MediaCard: React.FC<{
   mediaData: movieInterface | seriesInterface | actorInterface;
@@ -28,12 +29,14 @@ const MediaCard: React.FC<{
   }
 
   const dispatch = useAppDispatch();
-  const mediaCardRef = useRef<HTMLDivElement | null>(null);
+  // const mediaCardRef = useRef<HTMLDivElement | null>(null);
   let originPosition;
   let position: { x: number; y: number };
-  const cardClickHandler = () => {
-    if (mediaCardRef.current !== null) {
-      originPosition = mediaCardRef.current.getBoundingClientRect();
+  const cardClickHandler = (
+    cardRef: React.MutableRefObject<HTMLDivElement | null>
+  ) => {
+    if (cardRef.current !== null) {
+      originPosition = cardRef.current.getBoundingClientRect();
       position = {
         x: originPosition.x + originPosition.width / 2,
         y: originPosition.y + originPosition.height / 2,
@@ -47,62 +50,26 @@ const MediaCard: React.FC<{
     );
   };
 
-  if (props.mediaType === "movies" || props.mediaType === "series") {
+  if (props.mediaType === "series" && "first_air_date" in props.mediaData) {
     return (
-      <div
-        ref={mediaCardRef}
-        onClick={cardClickHandler}
-        className={styles["media__card"]}
-      >
-        <div className={styles["media__img-container"]}>
-          {"poster_path" in props.mediaData ? (
-            <img
-              className={styles["media__img"]}
-              src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mediaData.poster_path}`}
-            />
-          ) : null}
-        </div>
-        <div className={styles["media__info"]}>
-          <div className={styles["media__rating-container"]}>
-            <RatingIcon className={styles["media__rating-icon"]}></RatingIcon>
-            <p className={styles["media__rating-average"]}>
-              {"vote_average" in props.mediaData
-                ? props.mediaData.vote_average.toFixed(1)
-                : null}
-            </p>
-          </div>
-          <p className={styles["media__title"]}>
-            {"title" in props.mediaData ? props.mediaData.title : null}
-            {"name" in props.mediaData ? props.mediaData.name : null}
-          </p>
-        </div>
-      </div>
+      <SeriesMediaCard
+        mediaData={props.mediaData}
+        onCardClick={cardClickHandler}
+      />
     );
-  } else if (props.mediaType === "people") {
-    console.log(props.mediaData);
+  } else if (props.mediaType === "movies" && "title" in props.mediaData) {
     return (
-      <div
-        ref={mediaCardRef}
-        onClick={cardClickHandler}
-        className={styles["media__card"]}
-      >
-        <div className={styles["media__img-container"]}>
-          {"profile_path" in props.mediaData ? <img
-            className={styles["media__img"]}
-            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mediaData.profile_path}`}
-          /> : null}
-        </div>
-        <div className={styles["media__info"]}>
-          <p className={styles["media__name"]}>
-            {"name" in props.mediaData ? props.mediaData.name : null}
-          </p>
-          <p className={styles["media__department"]}>
-            {"known_for_department" in props.mediaData
-              ? props.mediaData.known_for_department
-              : null}
-          </p>
-        </div>
-      </div>
+      <MovieMediaCard
+        onCardClick={cardClickHandler}
+        mediaData={props.mediaData}
+      />
+    );
+  } else if (props.mediaType === "people" && "known_for" in props.mediaData) {
+    return (
+      <PeopleMediaCard
+        onCardClick={cardClickHandler}
+        mediaData={props.mediaData}
+      />
     );
   } else return null;
 };

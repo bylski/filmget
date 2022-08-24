@@ -20,6 +20,7 @@ export interface seriesInterface {
   genre_ids: number[];
   first_air_date: string;
   genresList: { name: string; id: number }[];
+  vote_average: number;
 }
 
 export interface actorInterface {

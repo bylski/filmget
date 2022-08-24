@@ -1,0 +1,85 @@
+@import "../../../styles/variables.scss";
+
+.media__card {
+
+    width: auto;
+    height: auto;
+
+    @include flexVertical;
+    background-color: $dark-theme-bg-color1;
+    padding-inline: 0.7rem;
+    padding-top: 0.7rem;
+
+    border-radius: 15px;
+
+    transition: transform 0.2s ease-in-out, box-shadow 0.4s linear;
+}
+
+.media__img-container {
+    height: auto;
+    width: auto;
+}
+
+.media__img {
+    max-height: 100%;
+    max-width: 100%;
+}
+
+.media__info {
+    width: 100%;
+    height: fit-content
+}
+
+.media__title {
+    color: white;
+    font-size: 0.8rem;
+    margin-block: 0.8rem;
+    text-align: center;
+    margin-top: 0.1rem;
+}
+
+.media__name {
+    color: white;
+    font-size: 0.8rem;
+    margin-block: 0.8rem;
+    text-align: center;
+    margin-top: 0.6rem;
+    margin-bottom: 0.3rem;
+}
+
+.media__department {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.8rem;
+    margin-block: 0.8rem;
+    text-align: center;
+    margin-top: 0.2rem;
+    font-weight: 300;
+}
+
+.media__rating-container {
+    width: 100%;
+    height: fit-content;
+    padding-block: 0.5rem;
+    @include flexHorizontal;
+    justify-content: center;
+}
+
+.media__rating-icon {
+    position: relative;
+    height: 14px;
+    top: -1px;
+    margin-right: 0.3rem;
+}
+
+.media__rating-average {
+    font-size: 14px;
+    color: white;
+    margin: 0;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .media__card:hover {
+        cursor: pointer;
+        transform: scale(1.02);
+    }
+} 
