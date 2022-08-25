@@ -9,6 +9,7 @@ import {
 } from "../../utils/types";
 import MediaCards from "./MediaCards";
 import { chooseSwitchers } from "../../utils/scripts";
+import SortBy from "../UI/SortBy/SortBy";
 
 const MediaDisplayer: React.FC<{
   mediaType: string;
@@ -44,11 +45,11 @@ const MediaDisplayer: React.FC<{
     <section className={styles["media-displayer"]}>
       <main className={styles["media-displayer__card"]}>
         <header className={styles["media-displayer__header"]}>
-          <p className={styles["media-displayer__header-text"]}></p>
           <Switcher
             switches={switchers}
             onSwitch={switchingHandler}
           />
+          <SortBy/>
         </header>
         <main className={styles["media-displayer__content"]}>
           {chosenMediaData !== null && chosenMediaData !== undefined ? (

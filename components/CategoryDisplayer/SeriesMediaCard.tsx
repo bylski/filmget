@@ -3,6 +3,7 @@ import { seriesInterface } from "../../utils/types";
 import styles from "./styles/MediaCard.module.scss";
 import RatingIcon from "../Icons/RatingIcon";
 import { useRef } from "react";
+import Image from "next/image";
 
 const SeriesMediaCard: React.FC<{
   mediaData: seriesInterface;
@@ -19,7 +20,9 @@ const SeriesMediaCard: React.FC<{
       className={styles["media__card"]}
     >
       <div className={styles["media__img-container"]}>
-        <img
+      <Image
+          width="600px"
+          height="900px"
           className={styles["media__img"]}
           src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mediaData.poster_path}`}
         />

@@ -1,0 +1,163 @@
+@import "../../../styles/variables.scss";
+
+$text-size: 13px;
+$sortby-selected-inline-padding: 2rem;
+$sorter-width: 13rem;
+$sorter-height: 2.5rem;
+
+.sortby {
+
+  min-height: $sorter-height;
+  height: $sorter-height;
+  max-height: $sorter-height;
+  @include flexHorizontal;
+  padding-inline: 3rem;
+}
+
+.sortby__header-text {
+  color: $dark-theme-bg-color3;
+  font-size: $text-size;
+  white-space: nowrap;
+  margin: 0;
+  margin-right: 0.5rem;
+}
+
+.sortby__sorter-wrapper {
+  width: $sorter-width;
+  height: $sorter-height;
+  position: relative;
+
+}
+
+.sortby__sorter {
+  position: absolute;
+  top: 0px;
+  width: 100%;
+  // min-height: $sorter-height;
+  // max-height: fit-content;
+  height: inherit;
+
+  background-color: $dark-theme-bg-color1;
+  border-radius: 10px;
+  border: 3px solid $dark-theme-bg-color2;
+  z-index: 3;
+  overflow: hidden;
+
+  transition: border 0.1s linear;
+}
+
+.sortby__sorter.sortby__sorter--active {
+  border: 3px solid $primary-color2;
+
+  .sortby__sortedby-text {
+    color: $primary-color2;
+  }
+
+  .sortby__arrow-icon {
+    transform: rotate(180deg);
+  }
+}
+
+.sortby__selected {
+  @include flexHorizontal;
+  justify-content: space-between;
+  height: calc($sorter-height - 6px);
+  width: 100%;
+  align-items: center;
+  padding-left: $sortby-selected-inline-padding;
+  padding-right: 1rem;
+  border: none;
+
+  background-color: $dark-theme-bg-color1;
+  
+
+}
+
+.sortby__items {
+  width: 100%;
+  padding-left: 0;
+  padding-top: 0.5rem;
+  list-style: none;
+  margin-block: 0;
+  background-color: $dark-theme-bg-color1;
+  border-top: 3px solid $dark-theme-bg-color2;
+}
+
+.sortby__item {
+  color: white;
+  display: block;
+  font-size: $text-size;
+  font-weight: 300;
+
+  width: 100%;
+  height: $sorter-height;
+
+  padding-left: calc($sortby-selected-inline-padding + 3px);
+
+  display: flex;
+  align-items: center;
+}
+
+.sortby__item.active {
+  font-weight: 400;
+  background-color: $dark-theme-bg-color2;
+}
+
+.sortby__sortedby-text {
+  color: white;
+  font-size: $text-size + 2px;
+  white-space: nowrap;
+  position: relative;
+  // padding-right: 1rem;
+
+  transition: color 0.15s ease-in-out;
+}
+
+.sortby__arrow-icon {
+  position: relative;
+  fill: $primary-color2;
+  height: $text-size;
+  width: $text-size;
+  // top: 1px;
+}
+
+
+
+@media (hover: hover) and (pointer: fine) {
+  @keyframes arrowDive {
+    from {
+      top: 0px;
+    }
+    50% {
+      top: 5px;
+    }
+    to {
+      top: 0px;
+    }
+  }
+
+  .sortby__sorter:hover {
+    border: 3px solid $primary-color2;
+
+    .sortby__sortedby-text {
+      color: $primary-color2;
+    }
+
+
+    .sortby__arrow-icon {
+      color: white;
+      animation-name: arrowDive;
+      animation-duration: 0.5s;
+    }
+  }
+
+  .sortby__selected:hover {
+    cursor: pointer;
+  }
+
+  .sortby__item:hover {
+    cursor: pointer;
+    background-color: $dark-highlight;
+    color: $primary-color2;
+  }
+}

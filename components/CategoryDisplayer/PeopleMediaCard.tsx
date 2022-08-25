@@ -2,6 +2,7 @@ import React from "react";
 import { actorInterface } from "../../utils/types";
 import styles from "./styles/MediaCard.module.scss";
 import { useRef } from "react";
+import Image from "next/image";
 
 const PeopleMediaCard: React.FC<{
   mediaData: actorInterface;
@@ -19,10 +20,12 @@ const PeopleMediaCard: React.FC<{
     >
       <div className={styles["media__img-container"]}>
         {"profile_path" in props.mediaData ? (
-          <img
-            className={styles["media__img"]}
-            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mediaData.profile_path}`}
-          />
+          <Image
+          width="600px"
+          height="900px"
+          className={styles["media__img"]}
+          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mediaData.profile_path}`}
+        />
         ) : null}
       </div>
       <div className={styles["media__info"]}>
