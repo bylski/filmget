@@ -15,12 +15,14 @@
     "fast-average-color": "^9.1.1",
     "framer-motion": "^6.5.1",
     "next": "12.2.3",
+    "punycode": "^2.1.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-redux": "^8.0.2",
     "redux": "^4.2.0",
     "sass": "^1.54.0",
-    "swr": "^1.3.0"
+    "swr": "^1.3.0",
+    "unicode": "^14.0.0"
   },
   "devDependencies": {
     "@types/node": "18.6.3",

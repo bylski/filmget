@@ -3,14 +3,14 @@ $ratio: 1.5;
 
 .actor__container {
   @include flexVertical;
-  width: 180px;
+  width: 160px;
   height: 100%;
   z-index: 10;
 }
 
 .actor__img-container {
-  width: 180px;
-  height: calc(180px * $ratio);
+  width: 160px;
+  height: calc(160px * $ratio);
 
   border-radius: 15px;
   overflow: hidden;

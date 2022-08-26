@@ -9,7 +9,7 @@ import {
   sortInterface,
 } from "../../utils/types";
 import MediaCards from "./MediaCards";
-import { chooseSwitchers } from "../../utils/scripts";
+import { chooseSwitchers, sortMediaBy } from "../../utils/scripts";
 import SortBy from "../UI/SortBy/SortBy";
 import { chooseSorterItems } from "./utils/sorterItemsTypes";
 
@@ -54,64 +54,10 @@ const MediaDisplayer: React.FC<{
     setSelectedSort(receivedSort);
   };
 
-  const sortMediaBy = (selectedSort: sortInterface, chosenMediaData: any[]) => {
-    const { sortType, sortedProperty } = selectedSort;
-    // If chosen media is undefined or null --> omit function all together
-    if (chosenMediaData !== undefined && chosenMediaData !== null) {
-      // MAX VALUE TO MIN VALUE SORT
-      if (sortType === "max-min") {
-        if (sortedProperty === "rating") {
-          return chosenMediaData.sort((a, b) =>
-            a.vote_average < b.vote_average ? 1 : -1
-          );
-        }
-        if (sortedProperty === "popularity") {
-          return chosenMediaData.sort((a, b) =>
-            a.popularity < b.popularity ? 1 : -1
-          );
-        }
-      }
-      // MIN VALUE TO MAX VALUE SORT
-      if (sortType === "min-max") {
-        if (sortedProperty === "rating") {
-          return chosenMediaData.sort((a, b) =>
-            a.vote_average > b.vote_average ? 1 : -1
-          );
-        }
-        if (sortedProperty === "popularity") {
-          return chosenMediaData.sort((a, b) =>
-            a.popularity > b.popularity ? 1 : -1
-          );
-        }
-      }
-      // ALPHABETIC SORT
-      if (sortType === "alphabetically") {
-        if (sortedProperty === "title") {
-          return chosenMediaData.sort(
-            (a, b) => (a.title[0] > b.title[0] ? 1 : -1) // Compare first letters of title
-          );
-        } else if (sortedProperty === "name") {
-          return chosenMediaData.sort((a, b) =>
-            a.name[0] > b.name[0] ? 1 : -1
-          );
-        }
-      }
-      // COUNTER-ALPHABETIC SORT
-      if (sortType === "counter-alphabetically") {
-        if (sortedProperty === "title") {
-          return chosenMediaData.sort(
-            (a, b) => (a.title[0] < b.title[0] ? 1 : -1) // Compare first letters of title
-          );
-        } else if (sortedProperty === "name") {
-          return chosenMediaData.sort((a, b) =>
-            a.name[0] < b.name[0] ? 1 : -1
-          );
-        }
-      }
-    }
-    return null;
-  };
+   // Select sorter items based on type of media 
+   const sorterItems = chooseSorterItems(props.mediaType);
 
+  // Sort data 
   if (
     selectedSort !== undefined &&
     chosenMediaData !== undefined &&
@@ -120,8 +66,6 @@ const MediaDisplayer: React.FC<{
     sortMediaBy(selectedSort, chosenMediaData);
   }
 
-  // Select sorter items based on type of media 
-  const sorterItems = chooseSorterItems(props.mediaType);
 
   return (
     <section className={styles["media-displayer"]}>

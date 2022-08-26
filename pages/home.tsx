@@ -73,10 +73,10 @@ export default Home;
 
 export async function getServerSideProps() {
   const endpoints: string[] = [
-    `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET popular movies
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET top rated movies
-    `https://api.themoviedb.org/3/person/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET popular actors
-    `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US` // Get genres lest
+    encodeURI(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET popular movies
+    encodeURI(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET top rated movies
+    encodeURI(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET popular actors
+    encodeURI(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`) // Get genres lest
   ];
 
   let res: any = undefined;

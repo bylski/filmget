@@ -50,10 +50,10 @@ export default Series;
 
 export async function getServerSideProps() {
   const endpoints: string[] = [
-    `https://api.themoviedb.org/3/tv/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET popular tv shows
-    `https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET top rated tv shows
-    `https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET now airing tv shows
-    `https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.API_KEY}&language=en-US`, // Get TV genres lest
+    encodeURI(`https://api.themoviedb.org/3/tv/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET popular tv shows
+    encodeURI(`https://api.themoviedb.org/3/tv/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET top rated tv shows
+    encodeURI(`https://api.themoviedb.org/3/tv/on_the_air?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET now airing tv shows
+    encodeURI(`https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.API_KEY}&language=en-US`), // Get TV genres lest
   ];
 
   let res: any = undefined;

@@ -42,7 +42,7 @@ const People:React.FC<{
   
   export async function getServerSideProps() {
     const endpoints: string[] = [
-      `https://api.themoviedb.org/3/person/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`, // GET popular people
+      encodeURI(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET popular people
     ];
   
     let res: any = undefined;
