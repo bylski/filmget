@@ -10,6 +10,7 @@ $sorter-height: 2.5rem;
   min-height: $sorter-height;
   height: $sorter-height;
   max-height: $sorter-height;
+  width: fit-content;
   @include flexHorizontal;
   padding-inline: 3rem;
 }
@@ -36,7 +37,7 @@ $sorter-height: 2.5rem;
   // min-height: $sorter-height;
   // max-height: fit-content;
   height: inherit;
-
+  width: fit-content;
   background-color: $dark-theme-bg-color1;
   border-radius: 10px;
   border: 3px solid $dark-theme-bg-color2;
@@ -93,9 +94,11 @@ $sorter-height: 2.5rem;
   height: $sorter-height;
 
   padding-left: calc($sortby-selected-inline-padding + 3px);
-
+  padding-right: $sortby-selected-inline-padding;
   display: flex;
   align-items: center;
+
+  white-space: nowrap;
 }
 
 .sortby__item.active {
@@ -109,7 +112,7 @@ $sorter-height: 2.5rem;
   white-space: nowrap;
   position: relative;
   // padding-right: 1rem;
-
+  margin-right: $sortby-selected-inline-padding;
   transition: color 0.15s ease-in-out;
 }
 

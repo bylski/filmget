@@ -8,7 +8,9 @@ export interface movieInterface {
   genre_ids: number[];
   release_date: string;
   genresList: { name: string; id: number }[];
+  popularity: number;
 }
+
 
 export interface seriesInterface {
   id: number;
@@ -21,6 +23,7 @@ export interface seriesInterface {
   first_air_date: string;
   genresList: { name: string; id: number }[];
   vote_average: number;
+  popularity: number;
 }
 
 export interface actorInterface {
@@ -45,4 +48,10 @@ export interface resultsInterface {
   title: string,
   vote_average: number,
   known_for_department: string,
+}
+
+export interface sortInterface {
+  sortName: string;
+  sortType: string;
+  sortedProperty: string;
 }
