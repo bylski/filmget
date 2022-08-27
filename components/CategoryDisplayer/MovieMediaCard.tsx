@@ -1,21 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { movieInterface } from "../../utils/types";
 import styles from "./styles/MediaCard.module.scss";
 import RatingIcon from "../Icons/RatingIcon";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import Image from "next/image";
+import { motion, useAnimationControls } from "framer-motion";
 
 const MovieMediaCard: React.FC<{
   mediaData: movieInterface;
   onCardClick: (cardRef: React.MutableRefObject<HTMLDivElement | null>) => void;
+  index: number;
 }> = (props) => {
   const mediaCardRef = useRef<HTMLDivElement | null>(null);
   const cardClickHandler = () => {
     props.onCardClick(mediaCardRef);
   };
 
+
+  // Manual control of the fade-in animation
+  const controls = useAnimationControls();
+  useEffect(() => {
+    const sequence = async () => {
+      await controls.start({opacity: 0, top: 15, transition: {duration: 0}})
+      await controls.start(i => ({opacity: 1, transition: {duration: 0.5, delay: 0.02*i}}))
+    }
+
+    sequence()
+  }, [props.mediaData])
+
   return (
-    <div
+    <motion.div
+      animate={controls}
+      custom={props.index}
       ref={mediaCardRef}
       onClick={cardClickHandler}
       className={styles["media__card"]}
@@ -37,7 +53,7 @@ const MovieMediaCard: React.FC<{
         </div>
         <p className={styles["media__title"]}>{props.mediaData.title}</p>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

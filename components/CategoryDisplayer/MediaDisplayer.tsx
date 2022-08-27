@@ -12,6 +12,7 @@ import MediaCards from "./MediaCards";
 import { chooseSwitchers, sortMediaBy } from "../../utils/scripts";
 import SortBy from "../UI/SortBy/SortBy";
 import { chooseSorterItems } from "./utils/sorterItemsTypes";
+import FiltersMenu from "../UI/FiltersMenu";
 
 const MediaDisplayer: React.FC<{
   mediaType: string;
@@ -76,6 +77,7 @@ const MediaDisplayer: React.FC<{
             onFetchSort={fetchSortHandler}
             sortItems={sorterItems}
           />
+          <FiltersMenu/>
         </header>
         <main className={styles["media-displayer__content"]}>
           {chosenMediaData !== null && chosenMediaData !== undefined ? (

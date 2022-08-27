@@ -15,6 +15,7 @@ const MediaCards: React.FC<{
   const allMediaCards = props.mediaData.map((data, i) => (
     <MediaCard
       key={`media${i}`}
+      index={i}
       mediaData={data}
       mediaType={props.mediaType}
       genresList={props.genresList}

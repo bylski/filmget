@@ -14,6 +14,7 @@ const MediaCard: React.FC<{
   mediaData: movieInterface | seriesInterface | actorInterface;
   genresList: { id: number; name: string }[] | null;
   mediaType: string;
+  index: number;
 }> = (props) => {
   let mediaGenres: any = {};
   if ("genre_ids" in props.mediaData) {
@@ -53,6 +54,7 @@ const MediaCard: React.FC<{
   if (props.mediaType === "series" && "first_air_date" in props.mediaData) {
     return (
       <SeriesMediaCard
+        index={props.index}
         mediaData={props.mediaData}
         onCardClick={cardClickHandler}
       />
@@ -60,6 +62,7 @@ const MediaCard: React.FC<{
   } else if (props.mediaType === "movies" && "title" in props.mediaData) {
     return (
       <MovieMediaCard
+        index={props.index}
         onCardClick={cardClickHandler}
         mediaData={props.mediaData}
       />
@@ -67,6 +70,7 @@ const MediaCard: React.FC<{
   } else if (props.mediaType === "people" && "known_for" in props.mediaData) {
     return (
       <PeopleMediaCard
+        index={props.index}
         onCardClick={cardClickHandler}
         mediaData={props.mediaData}
       />
