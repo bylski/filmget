@@ -1,6 +1,6 @@
 import React, { Fragment, useState, useRef, useEffect } from "react";
 import FiltersIcon from "../../Icons/FiltersIcon";
-import styles from "../styles/FiltersMenu.module.scss";
+import styles from "../styles/FiltersMenu/FiltersMenu.module.scss";
 import { motion, AnimatePresence } from "framer-motion";
 import { filtersMenuVariants } from "../../../utils/AnimationVariants.ts";
 import { outsideClickDetector } from "../../../utils/scripts";

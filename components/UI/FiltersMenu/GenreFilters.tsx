@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../styles/FiltersMenu.module.scss";
+import styles from "../styles/FiltersMenu/GenreFilters.module.scss";
 import GenreFilter from "./GenreFilter";
 import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
 import { mediaFilterActions } from "../../../redux/store";
@@ -8,32 +8,39 @@ import { useAppSelector } from "../../../utils/hooks/reduxHooks";
 const GenreFilters: React.FC<{
   genresList: { name: string; id: number }[] | null;
 }> = (props) => {
-
   const dispatch = useAppDispatch();
 
-
-  
   const { selectedGenresIds } = useAppSelector((state) => ({
     selectedGenresIds: state.mediaFilter.selectedGenresIds,
   })); // Get current filters
   const selectedGenresInit = selectedGenresIds || []; // If there is data to get, set it as initial value, else use empty array
-  const [selectedGenres, setSelectedGenres] = useState<number[]>(selectedGenresInit)
+  const [selectedGenres, setSelectedGenres] =
+    useState<number[]>(selectedGenresInit);
   const addGenreHandler = (genreToAdd: number) => {
-    setSelectedGenres((prev) => [...prev, genreToAdd])
-  }
+    setSelectedGenres((prev) => [...prev, genreToAdd]);
+  };
   const removeGenreHandler = (genreToRemove: number) => {
-    setSelectedGenres(selectedGenres.filter(id => id !== genreToRemove));
-  }
-
+    setSelectedGenres(selectedGenres.filter((id) => id !== genreToRemove));
+  };
 
   useEffect(() => {
-    dispatch(mediaFilterActions.getSelectedGenres({selectedGenres: selectedGenres}))
-  }, [selectedGenres])
+    dispatch(
+      mediaFilterActions.getSelectedGenres({ selectedGenres: selectedGenres })
+    );
+  }, [selectedGenres]);
 
   let allGenres = null;
   if (props.genresList !== null) {
     allGenres = props.genresList.map((genre, i) => {
-      return <GenreFilter key={`genreFilter${i}`} genre={genre} isSelected={selectedGenres.includes(genre.id)} onAddGenre={addGenreHandler} onRemoveGenre={removeGenreHandler}></GenreFilter>
+      return (
+        <GenreFilter
+          key={`genreFilter${i}`}
+          genre={genre}
+          isSelected={selectedGenres.includes(genre.id)}
+          onAddGenre={addGenreHandler}
+          onRemoveGenre={removeGenreHandler}
+        ></GenreFilter>
+      );
     });
   }
   return (

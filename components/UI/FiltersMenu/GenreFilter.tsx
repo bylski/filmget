@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../styles/FiltersMenu.module.scss";
+import styles from "../styles/FiltersMenu/GenreFilters.module.scss";
 
 const GenreFilter: React.FC<{
   genre: { name: string; id: number };

@@ -1,0 +1,68 @@
+@import "../../../../styles/variables.scss";
+
+.filter-bygenre {
+    margin-top: 0.6rem;
+    width: 100%;
+    padding-inline: 1rem;
+  
+    border: 1px solid transparent;
+    border-radius: 15px;
+  
+    @include flexVertical;
+    // background-color: $dark-theme-bg-color2;
+  }
+  
+  .filter-bygenre_header {
+    @include flexHorizontal;
+    width: 100%;
+    height: fit-content;
+  }
+  
+  .filter-bygenre__header-text {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    margin-bottom: 0.5rem;
+    color: white;
+  }
+  
+  .filter-bygenre__genres {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  
+    @include flexHorizontal;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  
+  .filter-bygenre__genre {
+    color: white;
+    font-size: 14px;
+    width: fit-content;
+  
+    background-color: $dark-highlight;
+    border: 2px solid transparent;
+    border-radius: 10px;
+  
+    padding-inline: 0.7rem;
+    padding-block: 0.2rem;
+  
+    margin: 0;
+    margin-block: 0.2rem;
+    margin-inline: 0.2rem;
+  
+    transition: 0.1s ease-in-out;
+  }
+  
+  .filter-bygenre__genre.genre-active {
+    border-color: $primary-color2;
+  }
+  
+  @media (hover: hover) and (pointer: fine) {
+    .filter-bygenre__genre:hover {
+      cursor: pointer;
+      background-color: hsla(0, 0%, 25%);
+      color: $primary-color2;
+    }
+  }

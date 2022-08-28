@@ -1,0 +1,112 @@
+@import "../../../../styles/variables.scss";
+
+.filters-menu {
+  position: relative;
+  width: 3rem;
+  height: 3rem;
+
+  margin-left: auto;
+}
+
+.filters-menu__inside-wrapper {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  right: 0px;
+
+  background-color: $dark-theme-bg-color1;
+
+  z-index: 5;
+
+  border: 2px solid $primary-color2;
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.filters-menu__btn {
+  background-color: $dark-theme-bg-color1;
+  border: none;
+
+  width: fit-content;
+  height: fit-content;
+  min-width: calc(3rem - 3px);
+  min-height: calc(3rem - 3px);
+
+  padding: 0.5rem;
+
+  position: absolute;
+  right: 0px;
+  top: 0px;
+
+  z-index: 7;
+}
+
+.filters-menu__icon {
+  fill: $primary-color2;
+  max-height: 25px;
+  width: auto;
+
+  position: relative;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.filters-menu__icon-track1,
+.filters-menu__icon-track2,
+.filters-menu__icon-track3 {
+  transition: transform 0.4s ease-in-out;
+}
+
+.filters {
+  height: fit-content;
+
+  @include flexVertical;
+}
+
+.filters__header {
+  width: 100%;
+  height: fit-content;
+
+  @include flexHorizontal;
+  justify-content: center;
+
+  // border-bottom: 3px solid $dark-theme-bg-color2;
+}
+
+.filters__filters {
+  width: 30vw;
+  height: fit-content;
+
+  padding-bottom: 1.2rem;
+}
+
+.filters__header-text {
+  color: white;
+
+  margin: 0;
+  margin-block: 0.8rem;
+
+  font-size: 16px;
+  font-weight: 600;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .filters-menu__btn:hover {
+    cursor: pointer;
+    background-color: $dark-highlight;
+
+    .filters-menu__icon-track1 {
+      transform: translateY(-10px);
+    }
+
+    .filters-menu__icon-track2 {
+      transform: translateY(13px);
+    }
+
+    .filters-menu__icon-track3 {
+      transform: translateY(-15px);
+    }
+  }
+}

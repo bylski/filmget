@@ -1,0 +1,114 @@
+@import "../../../../styles/variables.scss";
+
+.filter-byrating {
+    width: 100%;
+    padding-inline: 4rem;
+    padding-block: 1rem;
+  
+    border: 1px solid transparent;
+  
+    @include flexVertical;
+    align-items: flex-start;
+    justify-content: center;
+  
+    // background-color: $dark-theme-bg-color2;
+    border-block: 3px solid $dark-theme-bg-color2;
+  }
+  
+  .filter-byrating__header {
+    @include flexHorizontal;
+    width: 100%;
+    height: fit-content;
+  }
+  
+  .filter-byrating__header-text {
+    font-size: 16px;
+    font-weight: 400;
+    margin: 0;
+    color: white;
+
+  }
+
+  .filter-byrating__rating {
+    @include flexHorizontal;
+  }
+
+  .filter-byrating__rating:first-of-type {
+    margin-left: auto;
+  }
+
+  .filter-byrating__rating-range {
+    color: white;
+    font-weight: 300;
+    font-size: 16px;
+
+  }
+
+  .filter-byrating__rating-range:first-of-type {
+    margin-left: auto;
+  }
+
+  .filter-byrating__rating:last-of-type {
+    margin-left: 0.2rem;
+  }
+
+  .filter-byrating__rating-icon {
+    margin-right: 0.15rem;
+    position: relative;
+    top: -1px;
+    height: 15px;
+  }
+  
+  .filter-byrating__inputs {
+    position: relative;
+    right: -6px;
+    width: 100%;
+    justify-content: center;
+  }
+
+  .filter-byrating__input {
+    @include flexHorizontal;
+    width: 100%;
+    height: fit-content;
+  }
+
+  .filter-byrating__input:first-of-type {
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .filter-byrating__label {
+    width: 5rem;
+    color: white;
+    font-size: 14px;
+    font-weight: 300;
+    margin-right: 0.3rem;
+    text-align: start;
+  }
+  
+  .filter-byrating__label:last-of-type {
+    margin-left: 0.5rem;
+  }
+  
+  .filter-byrating__input-slider {
+    font-family: $main-font;
+    font-weight: 600;
+  
+    color: black;
+  
+    // padding-inline: 0.3rem;
+    width: 100%;
+    height: fit-content;
+  
+    -webkit-appearance: none;
+  }
+  
+  .filter-byrating__input-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: $primary-color2;
+    width: 35px;
+    height: 20px;
+    border: 0;
+    cursor: pointer;
+  }
