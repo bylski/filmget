@@ -12,8 +12,13 @@ const RatingFilter = () => {
 
   const sliderChangeHandler = (currentRange: any) => {
 
-    if (currentRange[0] === currentRange[1]) {
-      setRatingRange([currentRange[0], currentRange[0] + 0.9])
+    // If handles are in the same position, the second value should be the first val + 0.9 
+    // If values are [5, 5] - ratingRange should be [5, 5.9]
+    if (currentRange[0] === currentRange[1] && currentRange[0] !== 0) {
+      setRatingRange([currentRange[0] - 1, currentRange[0]])
+      return;
+    } else if (currentRange[0] === currentRange[1] && currentRange[0] === 0) {
+      setRatingRange([currentRange[0], currentRange[0] + 1])
       return;
     }
 
@@ -57,6 +62,7 @@ const RatingFilter = () => {
             }}
             allowCross={false}
             defaultValue={[0.0, 10.0]}
+            value={[Math.floor(ratingRange[0]), Math.floor(ratingRange[1])]}
             range
             min={0}
             max={10}
