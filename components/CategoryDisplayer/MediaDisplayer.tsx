@@ -1,6 +1,5 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styles from "./styles/MediaDisplayer.module.scss";
-import RatingIcon from "../Icons/RatingIcon";
 import Switcher from "../UI/Switcher";
 import {
   actorInterface,
@@ -12,7 +11,8 @@ import MediaCards from "./MediaCards";
 import { chooseSwitchers, sortMediaBy } from "../../utils/scripts";
 import SortBy from "../UI/SortBy/SortBy";
 import { chooseSorterItems } from "./utils/sorterItemsTypes";
-import FiltersMenu from "../UI/FiltersMenu";
+import FiltersMenu from "../UI/FiltersMenu/FiltersMenu";
+import { useAppSelector } from "../../utils/hooks/reduxHooks";
 
 const MediaDisplayer: React.FC<{
   mediaType: string;
@@ -51,14 +51,14 @@ const MediaDisplayer: React.FC<{
 
   const [selectedSort, setSelectedSort] = useState<sortInterface>();
   // Receive selected sort from the SortBy component
-  const fetchSortHandler = (receivedSort: sortInterface) => {
+  const fetchSortHandler = useCallback((receivedSort: sortInterface) => {
     setSelectedSort(receivedSort);
-  };
+  }, []);
 
-   // Select sorter items based on type of media 
-   const sorterItems = chooseSorterItems(props.mediaType);
+  // Select sorter items based on type of media
+  const sorterItems = chooseSorterItems(props.mediaType);
 
-  // Sort data 
+  // Sort media data
   if (
     selectedSort !== undefined &&
     chosenMediaData !== undefined &&
@@ -67,17 +67,21 @@ const MediaDisplayer: React.FC<{
     sortMediaBy(selectedSort, chosenMediaData);
   }
 
-
   return (
     <section className={styles["media-displayer"]}>
       <main className={styles["media-displayer__card"]}>
         <header className={styles["media-displayer__header"]}>
           <Switcher switches={switchers} onSwitch={switchingHandler} />
-          <SortBy
-            onFetchSort={fetchSortHandler}
-            sortItems={sorterItems}
-          />
-          <FiltersMenu/>
+
+          <SortBy onFetchSort={fetchSortHandler} sortItems={sorterItems} />
+
+          {props.mediaType === "movies" || props.mediaType === "series" ? (
+            <FiltersMenu
+              genresList={
+                props.genresList !== undefined ? props.genresList : null
+              }
+            />
+          ) : null}
         </header>
         <main className={styles["media-displayer__content"]}>
           {chosenMediaData !== null && chosenMediaData !== undefined ? (

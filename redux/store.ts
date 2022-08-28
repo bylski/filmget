@@ -1,33 +1,9 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
 import { movieInterface } from "../utils/types";
-
-const initialState: {
-  isShown: boolean;
-  originPosition: any;
-  modalData: movieInterface | null;
-} = {
-  isShown: false,
-  modalData: null,
-  originPosition: null,
-};
-
-const modalSlice = createSlice({
-  name: "modal",
-  initialState,
-  reducers: {
-    showModal(state, actions) {
-      (state.isShown = true),
-        (state.modalData = { ...actions.payload.data }),
-        (state.originPosition = actions.payload.originPosition);
-    },
-    hideModal(state) {
-      state.isShown = false;
-    },
-  },
-});
+import { modalSlice, mediaFilterSlice } from "./slices";
 
 const store = configureStore({
-  reducer: modalSlice.reducer,
+  reducer: {modal: modalSlice.reducer, mediaFilter: mediaFilterSlice.reducer},
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
@@ -35,6 +11,7 @@ const store = configureStore({
 });
 
 export const modalActions = modalSlice.actions;
+export const mediaFilterActions = mediaFilterSlice.actions;
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;

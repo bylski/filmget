@@ -15,9 +15,9 @@ const People:React.FC<{
           isShown: showModal,
           originPosition,
         } = useAppSelector((state) => ({
-          modalData: state.modalData,
-          isShown: state.isShown,
-          originPosition: state.originPosition,
+          modalData: state.modal.modalData,
+          isShown: state.modal.isShown,
+          originPosition: state.modal.originPosition,
         }));
   
       
@@ -29,7 +29,7 @@ const People:React.FC<{
           )}
         </AnimatePresence>
       <MediaDisplayer
-        mediaType="People"
+        mediaType="people"
         mediaData={{
           popular: props.popularPeople,
         }}

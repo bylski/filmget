@@ -1,4 +1,5 @@
 import { sortInterface } from "../types";
+import { useEffect } from "react";
 
 export function hideOverflowIf(condition: boolean) {
   if (typeof window !== "undefined") {
@@ -133,3 +134,28 @@ export const sortMediaBy = (selectedSort: sortInterface, chosenMediaData: any[])
   }
   return null;
 };
+
+export function outsideClickDetector(
+  divRef: React.RefObject<HTMLDivElement>,
+  btnRef: React.RefObject<HTMLButtonElement>,
+  action: () => void
+) {
+  useEffect(() => {
+    function handleClickOutside(event: any) {
+      if (
+        divRef.current &&
+        !divRef.current.contains(event.target) &&
+        btnRef.current &&
+        event.target !== btnRef.current
+      ) {
+        action();
+      }
+    }
+    // Bind the event listener
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      // Unbind the event listener on clean up
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [divRef]);
+}

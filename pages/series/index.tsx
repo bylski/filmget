@@ -18,9 +18,9 @@ const Series: React.FC<{
     isShown: showModal,
     originPosition,
   } = useAppSelector((state) => ({
-    modalData: state.modalData,
-    isShown: state.isShown,
-    originPosition: state.originPosition,
+    modalData: state.modal.modalData,
+    isShown: state.modal.isShown,
+    originPosition: state.modal.originPosition,
   }));
 
   return (
@@ -34,7 +34,7 @@ const Series: React.FC<{
         )}
       </AnimatePresence>
       <MediaDisplayer
-        mediaType="Series"
+        mediaType="series"
         genresList={props.genresList}
         mediaData={{
           popular: props.popularSeries,
