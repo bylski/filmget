@@ -62,7 +62,7 @@ const Navbar: React.FC = () => {
           <BrandIcon className={styles["brand__icon"]} />
           <p className={styles["brand__text"]}>FILMGET</p>
         </div>
-        <NavbarLinks navMenuShow={navMenuShow} />
+        <NavbarLinks linkOnClick={menuClickHandler} navMenuShow={navMenuShow} />
         <div
           onClick={menuClickHandler}
           className={styles["nav-menu__background"]}

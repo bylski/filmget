@@ -6,7 +6,7 @@ import { navMenuVariants } from "../../../utils/AnimationVariants.ts";
 import Link from "next/link";
 import { useRouter } from "next/router";
 
-const NavbarLinks: React.FC<{ navMenuShow: boolean }> = (props) => {
+const NavbarLinks: React.FC<{ navMenuShow: boolean, linkOnClick: () => void }> = (props) => {
   let animateNavLinks: string = "";
   if (!props.navMenuShow) {
     animateNavLinks = "hidden";
@@ -53,17 +53,17 @@ const NavbarLinks: React.FC<{ navMenuShow: boolean }> = (props) => {
       >
         <motion.li variants={navLinksVariants} className={selectedLink === "movies" ? linkActiveClass : linkBasicClass}>
           <Link href="/movies">
-            <a className={styles["link"]}>MOVIES</a>
+            <a onClick={props.linkOnClick} className={styles["link"]}>MOVIES</a>
           </Link>
         </motion.li>
         <motion.li variants={navLinksVariants} className={selectedLink === "series" ? linkActiveClass : linkBasicClass}>
           <Link href="/series">
-            <a className={styles["link"]}>SERIES</a>
+            <a onClick={props.linkOnClick} className={styles["link"]}>SERIES</a>
           </Link>
         </motion.li>
         <motion.li variants={navLinksVariants} className={selectedLink === "people" ? linkActiveClass : linkBasicClass}>
           <Link href="/people">
-            <a className={styles["link"]}>PEOPLE</a>
+            <a onClick={props.linkOnClick} className={styles["link"]}>PEOPLE</a>
           </Link>
         </motion.li>
       </motion.ul>
