@@ -75,3 +75,21 @@
   }
 
 }
+
+@media screen and (max-width: 500px) {
+  .switcher-element__text {
+    font-size: 12px;
+  }
+}
+
+@media screen and (max-width: 350px) {
+  .switcher-element__text {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .switcher-element__text {
+    padding-inline: 0.2rem;
+  }
+}

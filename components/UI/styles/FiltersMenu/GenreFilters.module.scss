@@ -58,11 +58,30 @@
   .filter-bygenre__genre.genre-active {
     border-color: $primary-color2;
   }
+
+  .filter-bygenre__genre:active {
+    cursor: pointer;
+    background-color: hsla(0, 0%, 25%);
+    color: $primary-color2;
+  }
+
   
   @media (hover: hover) and (pointer: fine) {
     .filter-bygenre__genre:hover {
       cursor: pointer;
       background-color: hsla(0, 0%, 25%);
       color: $primary-color2;
+    }
+  }
+
+
+  @media screen and (max-width: 500px) {
+    .filter-bygenre__header-text {
+      font-size: 13px;
+  }
+
+
+    .filter-bygenre__genre {
+      font-size: 12px;
     }
   }

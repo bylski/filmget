@@ -4,6 +4,7 @@ $text-size: 13px;
 $sortby-selected-inline-padding: 2rem;
 $sorter-width: 13rem;
 $sorter-height: 2.5rem;
+$sorter-height-small: 1.5rem;
 
 .sortby {
 
@@ -162,5 +163,68 @@ $sorter-height: 2.5rem;
     cursor: pointer;
     background-color: $dark-highlight;
     color: $primary-color2;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .sortby {
+    padding-inline: 0;
+    margin-top: 1rem;
+    width: 100%;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+
+
+  .sortby {
+    width: 12.5rem;
+  }
+
+  .sortby__sorter {
+    width: 12.5rem;
+  }
+
+  .sortby__sorter-wrapper {
+    width: 12.5rem;
+  }
+
+  .sortby__item {
+    padding-left: calc(0.7rem + 2px)
+  }
+  
+  .sortby__sortedby-text {
+    font-size: 13px;
+    margin-right: 0.2rem;
+  }
+
+  .sortby__item {
+    font-size: 11px;
+  }
+
+  .sortby__selected {
+    padding: 0.7rem;
+  }
+
+  .sortby__header-text {
+    display: none;
+  }
+  
+  .sortby__arrow-icon {
+    height: 12px;
+  }
+
+}
+
+
+@media screen and (max-width: 350px) {
+
+  .sortby__sortedby-text {
+    font-size: 11px;
+  }
+
+  .sortby__item {
+    font-size: 10px;
   }
 }

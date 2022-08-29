@@ -71,10 +71,10 @@ const MediaDisplayer: React.FC<{
     <section className={styles["media-displayer"]}>
       <main className={styles["media-displayer__card"]}>
         <header className={styles["media-displayer__header"]}>
-          <Switcher switches={switchers} onSwitch={switchingHandler} />
-
-          <SortBy onFetchSort={fetchSortHandler} sortItems={sorterItems} />
-
+          <div className={styles["media-displayer__header-firstseg"]}>
+            <Switcher switches={switchers} onSwitch={switchingHandler} />
+            <SortBy onFetchSort={fetchSortHandler} sortItems={sorterItems} />
+          </div>
           {props.mediaType === "movies" || props.mediaType === "series" ? (
             <FiltersMenu
               genresList={

@@ -103,6 +103,33 @@
   transition: padding-inline 0.2s ease-in-out, padding-block 0.2s ease-in-out;
 }
 
+
+
+
+.filters-menu__btn:active {
+  cursor: pointer;
+  background-color: $dark-highlight;
+
+  .filters-menu__icon-track1 {
+    transform: translateY(-10px);
+  }
+
+  .filters-menu__icon-track2 {
+    transform: translateY(13px);
+  }
+
+  .filters-menu__icon-track3 {
+    transform: translateY(-15px);
+  }
+}
+
+
+.filters__clear-btn:active {
+  padding-inline: 2rem;
+  cursor: pointer;
+}
+
+
 @media (hover: hover) and (pointer: fine) {
   .filters-menu__btn:hover {
     cursor: pointer;
@@ -124,5 +151,81 @@
   .filters__clear-btn:hover {
     padding-inline: 2rem;
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 1200px) {
+  .filters__filters {
+    width: 40vw;
+  }
+}
+
+
+@media screen and (max-width: 900px) {
+  .filters-menu {
+    align-self: flex-start;
+  }
+
+  .filters-menu__btn {
+    right: -2px;
+  }
+
+  .filters__filters {
+    width: 50vw;
+  }
+  
+}
+
+@media screen and (max-width: 700px) {
+  .filters__filters {
+    width: 65vw;
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .filters__filters {
+    width: 85vw;
+  }
+
+  .filters__header-text {
+    font-size: 14px;
+  }
+
+  .filters-menu {
+    width: 2.2rem;
+    height: 2.2rem;
+  }
+
+  .filters-menu__btn {
+    min-width: calc(2.2rem - 3px);
+    min-height: calc(2.2rem - 3px);
+
+    top: -1px;
+  }
+
+  .filters-menu__icon {
+    max-height: 17px;
+  }
+
+  .filters__clear-btn {
+   font-size: 11px;
+    
+  }
+}
+
+
+@media screen and (max-width: 350px) {
+
+  .filters__filters {
+    width: 90vw;
+  }
+
+  .filters-menu__btn {
+    min-width: calc(2.2rem - 3px);
+    min-height: calc(2.2rem - 3px);
+
+    right: -3px;
+    top: -1px;
   }
 }
