@@ -6,7 +6,6 @@ import {
   seriesInterface,
 } from "../../utils/types";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
-import { mediaFilterActions } from "../../redux/store";
 
 const MediaCards: React.FC<{
   mediaData: movieInterface[] | seriesInterface[] | actorInterface[];

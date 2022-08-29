@@ -14,6 +14,11 @@ const GenreFilters: React.FC<{
     selectedGenresIds: state.mediaFilter.selectedGenresIds,
   })); // Get current filters
   const selectedGenresInit = selectedGenresIds || []; // If there is data to get, set it as initial value, else use empty array
+
+  useEffect(() => {
+    setSelectedGenres(selectedGenresInit)
+  }, [selectedGenresIds])
+  
   const [selectedGenres, setSelectedGenres] =
     useState<number[]>(selectedGenresInit);
   const addGenreHandler = (genreToAdd: number) => {

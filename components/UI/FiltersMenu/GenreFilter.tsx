@@ -14,6 +14,10 @@ const GenreFilter: React.FC<{
     setGenreChosen((prev) => !prev);
   };
 
+  useEffect(() => {
+    setGenreChosen(genreChosenInit)
+  }, [props.isSelected])
+
 
   useEffect(() => {
     if (genreChosen) {

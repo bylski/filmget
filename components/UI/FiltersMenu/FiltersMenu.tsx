@@ -6,6 +6,9 @@ import { filtersMenuVariants } from "../../../utils/AnimationVariants.ts";
 import { outsideClickDetector } from "../../../utils/scripts";
 import GenreFilters from "./GenreFilters";
 import RatingFilter from "./RatingFilter";
+import StyledButton from "../StyledButton";
+import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
+import { mediaFilterActions } from "../../../redux/store";
 
 const FiltersMenu: React.FC<{
   genresList: { name: string; id: number }[] | null;
@@ -26,6 +29,12 @@ const FiltersMenu: React.FC<{
   outsideClickDetector(wrapperRef, buttonRef, () => {
     setIsMenuShown(false);
   });
+
+  const dispatch = useAppDispatch();
+  const clearButtonHandler = () => {
+    dispatch(mediaFilterActions.getRatingRange({ ratingRange: [0, 10] }));
+    dispatch(mediaFilterActions.getSelectedGenres({selectedGenres: []}))
+  };
 
   return (
     <div className={styles["filters-menu"]}>
@@ -64,6 +73,12 @@ const FiltersMenu: React.FC<{
                 <RatingFilter />
                 <GenreFilters genresList={props.genresList} />
               </main>
+              <StyledButton
+                action={clearButtonHandler}
+                addClass={styles["filters__clear-btn"]}
+              >
+                Clear Filters
+              </StyledButton>
             </motion.div>
           ) : null}
         </AnimatePresence>
