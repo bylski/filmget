@@ -29,8 +29,10 @@ export const modalSlice = createSlice({
 
 const mediaFilterInitialState: {
     selectedGenresIds: number[];
+    ratingRange: [number, number]
 } = {
-    selectedGenresIds: []
+    selectedGenresIds: [],
+    ratingRange: [0, 10],
 }
 
 export const mediaFilterSlice = createSlice({
@@ -39,6 +41,9 @@ export const mediaFilterSlice = createSlice({
     reducers: {
       getSelectedGenres(state, actions) {
         state.selectedGenresIds = actions.payload.selectedGenres;
+      },
+      getRatingRange(state, actions) {
+        state.ratingRange = actions.payload.ratingRange
       }
     },
 })

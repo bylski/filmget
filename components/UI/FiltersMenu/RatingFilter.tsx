@@ -6,24 +6,34 @@ import { hideOverflowIf } from "../../../utils/scripts";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap_white.css";
 import RatingIcon from "../../Icons/RatingIcon";
+import test from "node:test";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks/reduxHooks";
+import { mediaFilterActions } from "../../../redux/store";
 
 const RatingFilter = () => {
-  const [ratingRange, setRatingRange] = useState<[number, number]>([0, 10]);
 
+  const dispatch = useAppDispatch();
+  const savedRatingRange = useAppSelector((state) => state.mediaFilter.ratingRange)
+  const initialRatingRange = savedRatingRange || [0, 10]
+  const [ratingRange, setRatingRange] = useState<[number, number]>(initialRatingRange);
   const sliderChangeHandler = (currentRange: any) => {
-
+    const [rangeFrom, rangeTo] = currentRange;
     // If handles are in the same position, the second value should be the first val + 0.9 
     // If values are [5, 5] - ratingRange should be [5, 5.9]
-    if (currentRange[0] === currentRange[1] && currentRange[0] !== 0) {
-      setRatingRange([currentRange[0] - 1, currentRange[0]])
+    if (rangeFrom === rangeTo && rangeFrom !== 0) {
+      setRatingRange([rangeFrom - 1, rangeTo])
+      dispatch(mediaFilterActions.getRatingRange({ratingRange: [rangeFrom - 1, rangeTo]}))
       return;
-    } else if (currentRange[0] === currentRange[1] && currentRange[0] === 0) {
-      setRatingRange([currentRange[0], currentRange[0] + 1])
+    } else if (rangeFrom === rangeTo && rangeFrom === 0) {
+      setRatingRange([rangeFrom, rangeTo + 1])
+      dispatch(mediaFilterActions.getRatingRange({ratingRange: [rangeFrom, rangeTo + 1]}))
       return;
     }
-
+    dispatch(mediaFilterActions.getRatingRange({ratingRange: currentRange}))
     setRatingRange(currentRange);
   };
+
+
 
   return (
     <section className={styles["filter-byrating"]}>

@@ -1,5 +1,4 @@
-import { configureStore, createSlice } from "@reduxjs/toolkit";
-import { movieInterface } from "../utils/types";
+import { configureStore } from "@reduxjs/toolkit";
 import { modalSlice, mediaFilterSlice } from "./slices";
 
 const store = configureStore({
