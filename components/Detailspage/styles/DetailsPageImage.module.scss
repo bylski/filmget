@@ -1,0 +1,17 @@
+@import "../../../styles/variables.scss";
+
+$img-section-width: 27%;
+
+.details-main__img-section {
+    width: $img-section-width;
+    height: 100%;
+
+    @include flexVertical;
+    justify-content: center;
+    padding-right: 2rem;
+}
+
+.details-main__img-container {
+        height: 100%;
+        width: 100%;
+}

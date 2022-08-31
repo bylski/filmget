@@ -1,0 +1,28 @@
+@import "../../../styles/variables.scss";
+
+.info-section__rating-section {
+    width: 100%;
+    @include flexHorizontal;
+    margin-top: 2rem;
+}
+
+.rating-section__icon {
+    height: 16px;
+    position: relative;
+    top: -1px;
+    margin-right: 0.2rem;
+}
+
+.rating-section__text {
+    font-weight: 300;
+    color: white;
+
+    margin: 0;
+}
+
+.rating-section__average-score {
+    color: white;
+    
+    margin: 0;
+    margin-right: 0.3rem;
+}

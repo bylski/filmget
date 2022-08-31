@@ -1,0 +1,21 @@
+@import "../../../styles/variables.scss";
+
+.info-section__summary-section {
+  margin-top: 1rem;
+  width: 100%;
+  padding-right: 10%;
+}
+
+.summary__header-text {
+  color: white;
+  font-size: 20px;
+  font-weight: 500;
+}
+
+.summary__text {
+  color: white;
+  font-weight: 300;
+
+  font-family: $secondary-font;
+  font-size: 16px;
+}

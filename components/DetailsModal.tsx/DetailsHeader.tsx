@@ -11,7 +11,7 @@ const DetailsHeader: React.FC<{
   genresString?: string;
   dataType: string;
 }> = (props) => {
-  if (props.dataType === "movie" && "genresList" in props.modalData) {
+  if (props.dataType === "movie" || props.dataType === "series" && "genresList" in props.modalData) {
     return (
       <header className={styles["info__header"]}>
         <h1 className={styles["header__title"]}>

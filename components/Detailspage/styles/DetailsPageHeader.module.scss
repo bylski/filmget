@@ -1,0 +1,49 @@
+@import "../../../styles/variables.scss";
+
+.info-section__header-section {
+  min-height: fit-content;
+  height: 100%;
+  width: fit-content;
+
+  @include flexVertical;
+  justify-content: flex-start;
+  align-self: flex-start;
+  border-bottom: 2px solid $primary-color2;
+
+  padding-right: 5rem;
+  padding-bottom: 0.7rem;
+}
+
+.header {
+  width: 100%;
+  height: fit-content;
+}
+
+.header__head {
+  @include flexHorizontal;
+  align-items: center;
+}
+
+.header__title {
+  color: white;
+  margin: 0;
+  font-size: 27px;
+}
+
+.header__span {
+  height: 100%;
+  color: white;
+  font-size: 22px;
+  font-weight: 400;
+
+  margin-left: 0.4rem;
+}
+
+.header__info {
+  color: white;
+
+  font-weight: 300;
+
+  margin: 0;
+  margin-top: 0.2rem;
+}

@@ -1,18 +1,20 @@
 import React from "react";
 import RatingIcon from "../Icons/RatingIcon";
 import styles from "./styles/DetailsMain.module.scss";
-import { actorInterface, movieInterface } from "../../utils/types";
+import { actorInterface, movieInterface, seriesInterface } from "../../utils/types";
 
 const DetailsMain: React.FC<{
-  modalData: movieInterface | actorInterface;
+  modalData: movieInterface | actorInterface | seriesInterface;
   dataType: string;
 }> = (props) => {
-  if (props.dataType === "movie" && "genresList" in props.modalData) {
+  if (props.dataType === "movie" && "title" in props.modalData) {
     return (
       <main className={styles["main-content"]}>
         <div className={styles["user-score__container"]}>
           <RatingIcon className={styles["rating-icon"]} />
-          <p className={styles["rating"]}>{props.modalData.vote_average.toFixed(1)}</p>
+          <p className={styles["rating"]}>
+            {props.modalData.vote_average.toFixed(1)}
+          </p>
           <p className={styles["rating-text"]}>- User Score</p>
         </div>
         <div className={styles["overview__container"]}>
@@ -25,7 +27,27 @@ const DetailsMain: React.FC<{
         </div>
       </main>
     );
-  } else if (props.dataType === "actor" && "name" in props.modalData) {
+  } else if (props.dataType === "series" && "name" in props.modalData && "genre_ids" in props.modalData) {
+    return (
+      <main className={styles["main-content"]}>
+        <div className={styles["user-score__container"]}>
+          <RatingIcon className={styles["rating-icon"]} />
+          <p className={styles["rating"]}>
+            {props.modalData.vote_average.toFixed(1)}
+          </p>
+          <p className={styles["rating-text"]}>- User Score</p>
+        </div>
+        <div className={styles["overview__container"]}>
+          <p className={styles["overview__heading-text"]}>Overview: </p>
+          <div className={styles["overview-text__wrapper"]}>
+            <p className={styles["overview-text"]}>
+              {props.modalData.overview}
+            </p>
+          </div>
+        </div>
+      </main>
+    );
+  } else if (props.dataType === "actor" && "known_for" in props.modalData) {
     return (
       <main className={styles["main-content"]}>
         <div className={styles["known-for__container"]}>

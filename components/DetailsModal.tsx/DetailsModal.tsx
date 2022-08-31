@@ -2,20 +2,21 @@ import { motion } from "framer-motion";
 import React, { Fragment } from "react";
 import styles from "./styles/DetailsModal.module.scss";
 import { modalVariants } from "../../utils/AnimationVariants.ts";
-import { movieInterface } from "../../utils/types";
+import { movieInterface, seriesInterface } from "../../utils/types";
 import { actorInterface } from "../../utils/types";
 import MovieDetails from "./MovieDetails";
 import ActorDetails from "./ActorDetails";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
+import SeriesDetails from "./SeriesDetails";
 
 const DetailsModal: React.FC<{
-  modalData: movieInterface | actorInterface;
+  modalData: movieInterface | actorInterface | seriesInterface;
   originPosition: any;
 }> = (props) => {
   // Gets the origin element's (the card that was clicked)
   // position to animate the modal enterencce from that position.
-  const position = props.originPosition
+  const position = props.originPosition;
 
   let genres: string[] = [];
   let genresString: string = "";
@@ -28,12 +29,14 @@ const DetailsModal: React.FC<{
   }
 
   let modalDetailsRender;
-  if ("poster_path" in props.modalData) {
+  if ("title" in props.modalData) {
     // Check if the data is from movie or actor card
     modalDetailsRender = (
       <MovieDetails modalData={props.modalData} genresString={genresString} />
     );
-  } else {
+  } else if ("name" in props.modalData && "genre_ids" in props.modalData) {
+    modalDetailsRender = <SeriesDetails modalData={props.modalData} genresString={genresString}/>
+  } else if ("known_for" in props.modalData) {
     modalDetailsRender = <ActorDetails modalData={props.modalData} />;
   }
 

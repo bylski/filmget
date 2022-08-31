@@ -1,0 +1,79 @@
+@import "../../../styles/variables.scss";
+
+$img-section-width: 27%;
+
+.details-page {
+
+    width: 100%;
+    background-color: $dark-theme-bg-color2;
+    position: relative;
+    font-family: $main-font;
+}
+
+.details-page__backdrop {
+    position: absolute;
+
+    margin-top: $nav-height;
+
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+}
+
+.details-page__backdrop-img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+} 
+
+.details-page::before {
+    content: '';
+
+    position: absolute;
+    margin-top: $nav-height;
+
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+
+    background: rgba(0, 0, 0, 0.75);
+    background: linear-gradient(
+      90deg,
+      rgba(15, 15, 15, 0.6) 0%,
+      rgba(15, 15, 15, 0.82) 0%
+    );
+
+    z-index: 1;
+}
+
+
+.details-main {
+    width: 100%;
+    height: 100%;
+    padding-top: calc($nav-height + 2rem);
+    padding-inline: $layout-margin;
+    @include flexHorizontal;
+
+    position: relative;
+    z-index: 2;
+}
+
+
+
+
+.details-main__content {
+    min-height: fit-content;
+    height: 100%;
+    align-self: flex-start;
+    width: calc(100% - $img-section-width);
+
+    @include flexVertical;
+    justify-content: flex-start;
+}
+
+
+
+

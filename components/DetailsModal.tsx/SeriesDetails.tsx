@@ -3,10 +3,10 @@ import DetailsHeader from "./DetailsHeader";
 import DetailsMain from "./DetailsMain";
 import DetailsFooter from "./DetailsFooter";
 import styles from "./styles/MovieDetails.module.scss";
-import { movieInterface } from "../../utils/types";
+import { seriesInterface } from "../../utils/types";
 
-const MovieDetails: React.FC<{
-  modalData: movieInterface;
+const SeriesDetails: React.FC<{
+  modalData: seriesInterface;
   genresString: string;
 }> = (props) => {
 
@@ -30,12 +30,12 @@ const MovieDetails: React.FC<{
           <article className={styles["info__container"]}>
             <DetailsHeader
               modalData={props.modalData}
-              dataType="movie"
+              dataType="series"
               genresString={props.genresString}
             />
             <div className={styles["layout-helper"]}>
-              <DetailsMain dataType="movie" modalData={props.modalData} />
-              <DetailsFooter mediaData={{id: props.modalData.id, mediaType: "movie" }}/>
+              <DetailsMain dataType="series" modalData={props.modalData} />
+              <DetailsFooter mediaData={{id: props.modalData.id, mediaType: "series" }}/>
             </div>
           </article>
         </div>
@@ -44,4 +44,4 @@ const MovieDetails: React.FC<{
   );
 };
 
-export default MovieDetails;
+export default SeriesDetails;

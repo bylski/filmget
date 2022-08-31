@@ -6,6 +6,7 @@ export interface movieInterface {
   vote_average: number;
   overview: string;
   genre_ids: number[];
+  genres: {id: number, name: string}[]
   release_date: string;
   genresList: { name: string; id: number }[];
   popularity: number;
@@ -22,6 +23,7 @@ export interface seriesInterface {
   genre_ids: number[];
   first_air_date: string;
   genresList: { name: string; id: number }[];
+  genres: {id: number, name: string}[]
   vote_average: number;
   popularity: number;
 }
@@ -35,6 +37,7 @@ export interface actorInterface {
     backdrop_path: string;
     poster_path: string;
     title: string;
+    id: number;
   }[];
   known_for_department: string,
 }
