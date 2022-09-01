@@ -22,13 +22,9 @@ const DetailsPage: React.FC<{
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(modalActions.hideModal());
-
-    if ("gender" in props.mediaDetails) {
-      console.log(props.mediaDetails);
-    }
   }, []);
 
-  
+  console.log(props.additionalDetails)
 
   return (
     <Fragment>
@@ -38,7 +34,7 @@ const DetailsPage: React.FC<{
             src={
               "backdrop_path" in props.mediaDetails
                 ? `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${props.mediaDetails.backdrop_path}` // if a movie or series take it's backdrop path
-                : `` // if person takie backdrop photo of the movie he is best known for
+                : `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${props.additionalDetails?.known_for[0].backdrop_path}` // if person takie backdrop photo of the movie he is best known for
             }
             className={styles["details-page__backdrop-img"]}
           ></img>
@@ -50,9 +46,10 @@ const DetailsPage: React.FC<{
             {props.mediaType !== "people" ? (
               <DetailsPageRating mediaDetails={props.mediaDetails} />
             ) : null}
-            {props.mediaType !== "people" ? (
-              <DetailsPageSummary mediaDetails={props.mediaDetails} />
-            ) : null}
+            <DetailsPageSummary
+              mediaType={props.mediaType}
+              mediaDetails={props.mediaDetails}
+            />
           </div>
         </main>
       </section>

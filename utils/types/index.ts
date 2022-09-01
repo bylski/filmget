@@ -41,6 +41,11 @@ export interface actorInterface {
     media_type: string,
   }[];
   known_for_department: string,
+  birthday: string | null;
+  deathday: string | null;
+  biography: string;
+  place_of_birth: string;
+  imdb_id: string;
 }
 
 export interface resultsInterface {

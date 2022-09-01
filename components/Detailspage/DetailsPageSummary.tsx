@@ -1,21 +1,41 @@
 import React from "react";
-import { movieInterface, seriesInterface, actorInterface } from "../../utils/types";
+import {
+  movieInterface,
+  seriesInterface,
+  actorInterface,
+} from "../../utils/types";
 import styles from "./styles/DetailsPageSummary.module.scss";
-
 
 const DetailsPageSummary: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
+  mediaType: string;
 }> = (props) => {
-  return (
-    <div className={styles["info-section__summary-section"]}>
-      <h2 className={styles["summary__header-text"]}>Overview:</h2>
-      <div className={styles["summary__container"]}>
-        <p className={styles["summary__text"]}>
-          {"overview" in props.mediaDetails ? props.mediaDetails.overview : ""}
-        </p>
+  if (
+    (props.mediaType === "series" || props.mediaType === "movie") &&
+    "overview" in props.mediaDetails
+  ) {
+    return (
+      <div className={styles["info-section__summary-section"]}>
+        <h2 className={styles["summary__header-text"]}>Overview:</h2>
+        <div className={styles["summary__container"]}>
+          <p className={styles["summary__text"]}>
+            {props.mediaDetails.overview}
+          </p>
+        </div>
       </div>
-    </div>
-  );
+    );
+  } else if (props.mediaType === "people" && "biography" in props.mediaDetails) {
+    return (
+      <div className={styles["info-section__summary-section"]}>
+        <h2 className={styles["summary__header-text"]}>Biography:</h2>
+        <div className={styles["summary__container"]}>
+          <p className={styles["summary__text"]}>
+            {props.mediaDetails.biography}
+          </p>
+        </div>
+      </div>
+    );
+  } else return null;
 };
 
 export default DetailsPageSummary;
