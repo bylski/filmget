@@ -3,12 +3,26 @@ import { GetServerSidePropsContext } from "next";
 import DetailsPage from "../../../components/Detailspage/DetailsPage";
 import axios from "axios";
 import { seriesInterface } from "../../../utils/types";
+import { useAppSelector } from "../../../utils/hooks/reduxHooks";
+import { hideOverflowIf } from "../../../utils/scripts";
 
 const SeriesDetailsById: React.FC<{
   request: any;
   seriesDetails: seriesInterface;
   genresList: {id: number, name: string}[]
 }> = (props) => {
+  const {
+    modalData,
+    isShown: showModal,
+    originPosition,
+  } = useAppSelector((state) => ({
+    modalData: state.modal.modalData,
+    isShown: state.modal.isShown,
+    originPosition: state.modal.originPosition,
+  }));
+
+  hideOverflowIf(showModal) // Do not let user scroll when modal is active
+
   return <DetailsPage mediaType={"series"} genresList={props.genresList} mediaDetails={props.seriesDetails} />;
 };
 

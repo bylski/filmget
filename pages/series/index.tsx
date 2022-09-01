@@ -6,6 +6,7 @@ import DetailsModal from "../../components/DetailsModal.tsx/DetailsModal";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import axios from "axios";
 import { movieInterface, seriesInterface, actorInterface } from "../../utils/types";
+import { hideOverflowIf } from "../../utils/scripts";
 
 const Series: React.FC<{
   popularSeries: movieInterface[];
@@ -22,6 +23,8 @@ const Series: React.FC<{
     isShown: state.modal.isShown,
     originPosition: state.modal.originPosition,
   }));
+
+  hideOverflowIf(showModal) // Do not let user scroll when modal is active
 
   return (
     <Fragment>

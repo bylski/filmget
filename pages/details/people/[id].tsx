@@ -3,11 +3,24 @@ import { GetServerSidePropsContext } from "next";
 import DetailsPage from "../../../components/Detailspage/DetailsPage";
 import axios from "axios";
 import { actorInterface } from "../../../utils/types";
+import { useAppSelector } from "../../../utils/hooks/reduxHooks";
+import { hideOverflowIf } from "../../../utils/scripts";
 
 const SeriesDetailsById: React.FC<{
   request: any;
   actorDetails: actorInterface;
 }> = (props) => {
+  const {
+    modalData,
+    isShown: showModal,
+    originPosition,
+  } = useAppSelector((state) => ({
+    modalData: state.modal.modalData,
+    isShown: state.modal.isShown,
+    originPosition: state.modal.originPosition,
+  }));
+  hideOverflowIf(showModal)
+
   return <DetailsPage mediaType={"people"} mediaDetails={props.actorDetails} />;
 };
 

@@ -13,6 +13,8 @@ const DetailsFooter: React.FC<{
     dispatch(modalActions.hideModal());
   };
 
+  
+
   return (
     <footer className={styles["modal__footer"]}>
       <Link
