@@ -27,7 +27,7 @@ const ActorDetails: React.FC<{ modalData: actorInterface }> = (props) => {
             <DetailsHeader modalData={props.modalData} dataType="actor" />
             <div className={styles["layout-helper"]}>
               <DetailsMain dataType="actor" modalData={props.modalData} />
-              <DetailsFooter mediaData={{id: props.modalData.known_for[0].id, mediaType: "movie"}}/>
+              <DetailsFooter mediaData={{id: props.modalData.id, mediaType: "people"}}/>
             </div>
           </article>
         </div>

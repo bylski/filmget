@@ -85,6 +85,8 @@
   border-radius: 15px;
   overflow: hidden;
   transition: 0.25s ease-in-out;
+
+  position: relative;
 }
 
 .known-for__card:first-of-type {
@@ -137,6 +139,12 @@
 
   .known-for__img {
     height: 8rem;
+  }
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .known-for__card:hover {
+    transform: scale(1.02);
   }
 }
 

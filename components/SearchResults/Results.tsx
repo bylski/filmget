@@ -4,7 +4,7 @@ import ResultCard from "./ResultCard/ResultCard";
 import SearchFilters from "./SearchFilters/SearchFilters";
 import { useState } from "react";
 import { useRouter } from "next/router";
-import SearchResults from "./SearchResults";
+
 
 const Results: React.FC<{ searchResults: any[] }> = (props) => {
   const router = useRouter();

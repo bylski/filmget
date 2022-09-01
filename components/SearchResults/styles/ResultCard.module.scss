@@ -23,6 +23,7 @@
 .result-card__img-container {
   height: 100%;
   width: auto;
+  position: relative;
 
   @include flexVertical;
 }

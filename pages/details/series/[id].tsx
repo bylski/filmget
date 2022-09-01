@@ -9,7 +9,7 @@ const SeriesDetailsById: React.FC<{
   seriesDetails: seriesInterface;
   genresList: {id: number, name: string}[]
 }> = (props) => {
-  return <DetailsPage genresList={props.genresList} mediaDetails={props.seriesDetails} />;
+  return <DetailsPage mediaType={"series"} genresList={props.genresList} mediaDetails={props.seriesDetails} />;
 };
 
 export default SeriesDetailsById;
@@ -36,7 +36,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const seriesDetails: any[] = res[0].data;
   const genresList: any[] = res[1].data;
 
-  console.log(genresList)
 
   return {
     props: { seriesDetails, genresList },

@@ -1,6 +1,7 @@
 import React from "react";
 import { resultsInterface } from "../../../utils/types";
 import styles from "../styles/ResultCard.module.scss";
+import Link from "next/link";
 
 const ResultCardHeader: React.FC<{
   resultType: string;
@@ -12,9 +13,20 @@ const ResultCardHeader: React.FC<{
   } else {
     headerText = props.resultData.name;
   }
+
+  let resultType: string = "";
+  switch(props.resultType) {
+    case "movie":
+      resultType = "movie";
+      break;
+    case "tv": {
+      resultType = "series"
+    }
+  }
+
   return (
     <header className={styles["result-card__header"]}>
-      <h1 className={styles["result-card__header-text"]}>{headerText}</h1>
+    <Link href={`details/${resultType}/${props.resultData.id}`}><a className={styles["result-card__header-text"]}>{headerText}</a></Link>
     </header>
   );
 };

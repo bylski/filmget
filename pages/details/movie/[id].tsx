@@ -9,7 +9,7 @@ const MovieDetailsById: React.FC<{
   movieDetails: movieInterface;
   genresList: {id: number, name: string}[]
 }> = (props) => {
-  return <DetailsPage genresList={props.genresList} mediaDetails={props.movieDetails} />;
+  return <DetailsPage mediaType={"movie"} genresList={props.genresList} mediaDetails={props.movieDetails} />;
 };
 
 export default MovieDetailsById;
@@ -36,7 +36,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const movieDetails: any[] = res[0].data;
   const genresList: any[] = res[1].data;
 
-  console.log(genresList)
 
   return {
     props: { movieDetails, genresList },

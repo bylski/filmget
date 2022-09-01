@@ -38,6 +38,7 @@ export interface actorInterface {
     poster_path: string;
     title: string;
     id: number;
+    media_type: string,
   }[];
   known_for_department: string,
 }
@@ -51,6 +52,7 @@ export interface resultsInterface {
   title: string,
   vote_average: number,
   known_for_department: string,
+  id: number;
 }
 
 export interface sortInterface {
