@@ -21,7 +21,14 @@ const ResultCardHeader: React.FC<{
       break;
     case "tv": {
       resultType = "series"
+      break;
     }
+    case "person": {
+      resultType = "people"
+      break;
+    }
+    default: 
+    resultType = "null"
   }
 
   return (
