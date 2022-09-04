@@ -10,6 +10,7 @@ export interface movieInterface {
   release_date: string;
   genresList: { name: string; id: number }[];
   popularity: number;
+  runtime: number;
 }
 
 

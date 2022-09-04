@@ -1,13 +1,15 @@
-import React from "react";
+import React, {Fragment} from "react";
 import {
   movieInterface,
   seriesInterface,
   actorInterface,
 } from "../../utils/types";
 import styles from "./styles/DetailsPageHeader.module.scss";
+import DetailsPageRating from "./DetailsPageRating";
 
 const DetailsPageHeader: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
+  mediaType: string;
 }> = (props) => {
   let genres: any;
   let genresString: string = "";
@@ -36,7 +38,17 @@ const DetailsPageHeader: React.FC<{
                 : ""}
             </span>
           </div>
-          <p className={styles["header__info"]}>{genresString}</p>
+          <p className={styles["header__info"]}>
+            {`${genresString}`}
+            {"runtime" in props.mediaDetails ? (
+              <Fragment>
+                <span>&nbsp;|</span>
+                <span style={{ marginLeft: "0.6rem" }}>
+                  {`${props.mediaDetails.runtime} min.`}
+                </span>
+              </Fragment>
+            ) : null}
+          </p>
         </div>
       </div>
     );
@@ -69,7 +81,7 @@ const DetailsPageHeader: React.FC<{
         </div>
       </div>
     );
-  } else return null
+  } else return null;
 };
 
 export default DetailsPageHeader;

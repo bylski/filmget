@@ -42,7 +42,7 @@ const DetailsPage: React.FC<{
         <main className={styles["details-main"]}>
           <DetailsPageImage mediaDetails={props.mediaDetails} />
           <div className={styles["details-main__content"]}>
-            <DetailsPageHeader mediaDetails={props.mediaDetails} />
+            <DetailsPageHeader mediaType={props.mediaType} mediaDetails={props.mediaDetails} />
             {props.mediaType !== "people" ? (
               <DetailsPageRating mediaDetails={props.mediaDetails} />
             ) : null}
