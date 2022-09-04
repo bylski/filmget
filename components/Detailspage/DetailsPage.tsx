@@ -24,7 +24,6 @@ const DetailsPage: React.FC<{
     dispatch(modalActions.hideModal());
   }, []);
 
-  console.log(props.additionalDetails)
 
   return (
     <Fragment>

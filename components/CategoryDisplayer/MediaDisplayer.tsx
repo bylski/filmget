@@ -13,6 +13,8 @@ import SortBy from "../UI/SortBy/SortBy";
 import { chooseSorterItems } from "./utils/sorterItemsTypes";
 import FiltersMenu from "../UI/FiltersMenu/FiltersMenu";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
+import useScrollActions from "../../utils/hooks/useScrollActions";
+import axios from "axios";
 
 const MediaDisplayer: React.FC<{
   mediaType: string;
@@ -66,6 +68,38 @@ const MediaDisplayer: React.FC<{
   ) {
     sortMediaBy(selectedSort, chosenMediaData);
   }
+
+
+  const [currentMediaData, setMediaData] = useState([chosenMediaData]);
+  const scrollState = useScrollActions();
+
+  useEffect(() => {
+    console.log("GOT HERE")
+    const getNextPage = async () => {
+      if (
+        chosenMediaData !== undefined &&
+        chosenMediaData !== null && 
+        scrollState.atBottom
+      ) {
+        const req = await axios.get(
+          encodeURI(
+            `https://api.themoviedb.org/3/movie/popular?api_key=cd33ae221d8f63d59609a81c6ef754e4&language=en-US&page=2`
+          )
+        );
+  
+        const response: movieInterface[] = [req.data.results];
+
+        if (typeof currentMediaData === typeof response) {
+          setMediaData((prev) => prev?.concat(response));
+        }
+      }
+    };
+
+
+    getNextPage();
+  }, [scrollState]);
+
+
 
   return (
     <section className={styles["media-displayer"]}>

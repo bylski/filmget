@@ -1,7 +1,7 @@
 import React, { useEffect, useState, Fragment } from "react";
 import styles from "../styles/Navbar.module.scss";
 import { useRouter } from "next/router";
-import { motion } from "framer-motion";
+import { animate, motion } from "framer-motion";
 import { navVariants } from "../../../utils/AnimationVariants.ts";
 import BrandIcon from "../../Icons/BrandIcon";
 import NavMenuIcon from "../../Icons/NavMenuIcon";
@@ -9,17 +9,16 @@ import useScrollActions from "../../../utils/hooks/useScrollActions";
 import NavbarLinks from "./NavbarLinks";
 
 const Navbar: React.FC = () => {
-
-
   // If window is being resized - hide nav menu
   useEffect(() => {
     window.addEventListener("resize", () => {
       setNavMenuShow(false);
     });
-    return () => window.removeEventListener("resize", () => {
-      setNavMenuShow(false);
-    });
-}, []);
+    return () =>
+      window.removeEventListener("resize", () => {
+        setNavMenuShow(false);
+      });
+  }, []);
 
   // Take user home when nav brand clicked
   const router = useRouter();
@@ -36,17 +35,16 @@ const Navbar: React.FC = () => {
   const scrollState = useScrollActions(() => {
     setNavMenuShow(false);
   });
+
   // Choose which variant to animate
   let animateNavVariant: string = "";
-  switch (scrollState) {
-    case "atTop":
-      animateNavVariant = "initial";
-      break;
-    case "scrollingDown":
-      animateNavVariant = "hidden";
-      break;
-    case "scrollingUp":
-      animateNavVariant = "show";
+
+  if (scrollState.atTop) {
+    animateNavVariant = "initial";
+  } else if (scrollState.scrollingUp) {
+    animateNavVariant = "show";
+  } else if (scrollState.scrollingDown) {
+    animateNavVariant = "hidden";
   }
 
   return (
