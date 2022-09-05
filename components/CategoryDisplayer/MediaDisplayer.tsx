@@ -12,7 +12,6 @@ import { chooseSwitchers, sortMediaBy } from "../../utils/scripts";
 import SortBy from "../UI/SortBy/SortBy";
 import { chooseSorterItems } from "./utils/sorterItemsTypes";
 import FiltersMenu from "../UI/FiltersMenu/FiltersMenu";
-import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import useScrollActions from "../../utils/hooks/useScrollActions";
 import axios from "axios";
 
@@ -30,21 +29,17 @@ const MediaDisplayer: React.FC<{
     setSwitchSelected(activeSwitchNum);
   };
 
-  let chosenMediaData:
-    | movieInterface[]
-    | seriesInterface[]
-    | actorInterface[]
-    | undefined
-    | null = null;
+  let chosenMediaData: movieInterface[] | seriesInterface[] | actorInterface[] =
+    [];
   switch (switchSelected) {
     case 0:
       chosenMediaData = props.mediaData.popular;
       break;
     case 1:
-      chosenMediaData = props.mediaData.latest;
+      chosenMediaData = props.mediaData.latest!;
       break;
     case 2:
-      chosenMediaData = props.mediaData.topRated;
+      chosenMediaData = props.mediaData.topRated!;
       break;
   }
 
@@ -60,46 +55,98 @@ const MediaDisplayer: React.FC<{
   // Select sorter items based on type of media
   const sorterItems = chooseSorterItems(props.mediaType);
 
-  // Sort media data
-  if (
-    selectedSort !== undefined &&
-    chosenMediaData !== undefined &&
-    chosenMediaData !== null
-  ) {
-    sortMediaBy(selectedSort, chosenMediaData);
-  }
-
-
   const [currentMediaData, setMediaData] = useState([chosenMediaData]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [isPageLoaded, setIsPageLoaded] = useState(true);
   const scrollState = useScrollActions();
 
   useEffect(() => {
-    console.log("GOT HERE")
+    // Sort media data
+    if (
+      selectedSort !== undefined &&
+      currentMediaData !== undefined &&
+      currentMediaData !== null
+    ) {
+      const sortedData = sortMediaBy(selectedSort, currentMediaData);
+      if (sortedData !== null) {
+        setMediaData([sortedData]);
+      }
+    }
+  }, [selectedSort]);
+
+  // Change state when chosen media data changes
+  useEffect(() => {
+    setMediaData([chosenMediaData]);
+    setCurrentPage(1);
+  }, [chosenMediaData]);
+
+  useEffect(() => {
     const getNextPage = async () => {
       if (
         chosenMediaData !== undefined &&
-        chosenMediaData !== null && 
-        scrollState.atBottom
+        chosenMediaData !== null &&
+        scrollState.atBottom &&
+        isPageLoaded
       ) {
-        const req = await axios.get(
-          encodeURI(
-            `https://api.themoviedb.org/3/movie/popular?api_key=cd33ae221d8f63d59609a81c6ef754e4&language=en-US&page=2`
-          )
-        );
-  
-        const response: movieInterface[] = [req.data.results];
+        let req: any;
 
-        if (typeof currentMediaData === typeof response) {
-          setMediaData((prev) => prev?.concat(response));
+        let switchMediaMode = "";
+        let mediaType: string = "";
+        if (props.mediaType === "movies") {
+          mediaType = "movie";
+          switch (switchSelected) {
+            case 0:
+              switchMediaMode = "popular";
+              break;
+            case 1:
+              switchMediaMode = "now_playing";
+              break;
+            case 2:
+              switchMediaMode = "top_rated";
+              break;
+          }
+        } else if (props.mediaType === "series") {
+          mediaType = "tv";
+          switch (switchSelected) {
+            case 0:
+              switchMediaMode = "popular";
+              break;
+            case 1:
+              switchMediaMode = "on_the_air";
+              break;
+            case 2:
+              switchMediaMode = "top_rated";
+              break;
+          }
+        } else if (props.mediaType === "people") {
+          mediaType = "person";
+          switchMediaMode = "popular";
         }
+
+        setIsPageLoaded(false); // Page is now loading, wait until it loads before user can load another page
+        try {
+          req = await axios.get(
+            encodeURI(
+              `https://api.themoviedb.org/3/${mediaType}/${switchMediaMode}?api_key=cd33ae221d8f63d59609a81c6ef754e4&language=en-US&page=${
+                currentPage + 1
+              }`
+            )
+          );
+        } catch (e) {
+          console.log(`ERROR!`);
+          return;
+        }
+        setCurrentPage((prev) => prev + 1); // Add +1 to the page counter
+        setIsPageLoaded(true); // Data fetched, page is loaded - set to true
+        const response: movieInterface[] | actorInterface | seriesInterface = [
+          req.data.results,
+        ];
+        setMediaData((prev) => prev?.concat(response)); // Concat pages
       }
     };
 
-
     getNextPage();
   }, [scrollState]);
-
-
 
   return (
     <section className={styles["media-displayer"]}>
@@ -118,12 +165,12 @@ const MediaDisplayer: React.FC<{
           ) : null}
         </header>
         <main className={styles["media-displayer__content"]}>
-          {chosenMediaData !== null && chosenMediaData !== undefined ? (
+          {currentMediaData !== null && currentMediaData !== undefined ? (
             <MediaCards
               genresList={
                 props.genresList !== undefined ? props.genresList : null
               }
-              mediaData={chosenMediaData}
+              mediaData={currentMediaData}
               mediaType={props.mediaType.toLowerCase()}
             />
           ) : null}
