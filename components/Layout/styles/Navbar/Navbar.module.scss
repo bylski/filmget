@@ -55,6 +55,7 @@
 
 .nav-menu__background {
     display: none;
+    margin-left: 1.5rem;
 }
 
 .nav-menu__icon {
@@ -62,6 +63,24 @@
     fill: $primary-color2;
     display: none;
 }
+
+
+@media (hover: hover) and (pointer: fine) {
+    .brand:hover {
+        cursor: pointer;
+    }
+
+
+    .nav-menu__background:hover {
+        cursor: pointer;
+        background-color: hsl(334, 90%, 20%);
+    }
+
+
+  }
+
+
+
 
 
 @media screen and (max-width: 850px) {
@@ -96,18 +115,5 @@
     }
 }
 
-
-@media (hover: hover) and (pointer: fine) {
-    .brand:hover {
-        cursor: pointer;
-    }
-
-
-    .nav-menu__background:hover {
-        cursor: pointer;
-        background-color: hsl(334, 90%, 20%);
-    }
-
-  }
 
  

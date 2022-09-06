@@ -1,0 +1,57 @@
+@import "../../../../styles/variables.scss";
+
+.nav-account {
+  width: fit-content;
+  margin-left: auto;
+  @include flexHorizontal;
+}
+
+.nav-account__avatar-icon {
+  min-width: calc($nav-height/1.7);
+  height: calc($nav-height/1.7);
+
+  overflow: hidden;
+  border-radius: 50%;
+  outline: 2px solid $primary-color2;
+
+  margin-right: 0.6rem;
+}
+
+.nav-account__avatar-img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: fill;
+}
+
+// .nav-account__arrow-icon {
+//     fill: $primary-color2;
+//     width: 17px;
+//     height: 17px;
+// }
+
+.nav-account__username {
+  color: white;
+  font-size: 0.95rem;
+  font-weight: 400;
+
+  margin: 0;
+  padding: 0.2rem;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .nav-account__avatar-icon {
+    cursor: pointer;
+  }
+
+  .nav-account__username:hover {
+    cursor: pointer;
+    color: $primary-color2;
+  }
+}
+
+@media screen and (max-width: 650px) {
+  .nav-account__username {
+    display: none;
+  }
+}

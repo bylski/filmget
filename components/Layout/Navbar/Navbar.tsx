@@ -7,6 +7,8 @@ import BrandIcon from "../../Icons/BrandIcon";
 import NavMenuIcon from "../../Icons/NavMenuIcon";
 import useScrollActions from "../../../utils/hooks/useScrollActions";
 import NavbarLinks from "./NavbarLinks";
+import ArrowDownIcon from "../../Icons/ArrowDownIcon";
+import NavbarAccount from "./NavbarAccount";
 
 const Navbar: React.FC = () => {
   // If window is being resized - hide nav menu
@@ -61,15 +63,11 @@ const Navbar: React.FC = () => {
           <p className={styles["brand__text"]}>FILMGET</p>
         </div>
         <NavbarLinks linkOnClick={menuClickHandler} navMenuShow={navMenuShow} />
+        <NavbarAccount />
         <div
           onClick={menuClickHandler}
           className={styles["nav-menu__background"]}
         >
-          <div className={styles["nav-account"]}>
-            <div className={styles["nav-account__avatar-icon"]}>
-              
-            </div>
-          </div>
           <NavMenuIcon className={styles["nav-menu__icon"]} />
         </div>
       </motion.nav>
