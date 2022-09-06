@@ -32,7 +32,6 @@ export const navMenuVariants = {
     transition: { type: "linear", staggerChildren: 0.1, delayChildren: 0.1 },
     top: "4.6rem",
     height: "fit-content",
-    display: "flex",
     borderBottom: "2px solid #ff006e",
   },
 };
