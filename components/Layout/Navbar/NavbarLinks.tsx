@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import styles from "../styles/Navbar.module.scss";
+import styles from "../styles/Navbar/NavbarLinks.module.scss";
 import { navLinksVariants } from "../../../utils/AnimationVariants.ts";
 import { navMenuVariants } from "../../../utils/AnimationVariants.ts";
 import Link from "next/link";

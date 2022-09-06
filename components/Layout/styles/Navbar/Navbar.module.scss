@@ -1,0 +1,113 @@
+@import '../../../../styles/variables.scss';
+
+
+.nav-container {
+    padding: 0 $layout-margin;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    position: fixed;
+    background-color: rgba(15, 15, 15, 0.6);
+
+    width: 100%;
+    height: $nav-height; 
+
+    font-family: $main-font;
+
+
+    z-index: 11;
+
+    border-bottom: 1px solid $primary-color2;
+}
+
+
+.brand {
+    @include flexHorizontal;
+    color: $primary-color1;
+    height: $nav-height
+}
+
+
+
+.brand__text {
+    background: #3A86FF;
+    background: linear-gradient(to right, #3A86FF 0%, #8338EC 50%, #FF006E 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    margin: 0;
+    font-size: 2rem;
+    font-weight: 300;
+}
+
+
+.nav-menu__background:active {
+    cursor: pointer;
+    background-color: hsl(334, 90%, 20%);
+}
+
+
+.brand__icon {
+    width: 1.9rem;
+    height: 1.9rem;
+    margin: 0.1rem;
+}
+
+.nav-menu__background {
+    display: none;
+}
+
+.nav-menu__icon {
+    height: calc($nav-height/2 - 0.5rem);
+    fill: $primary-color2;
+    display: none;
+}
+
+
+@media screen and (max-width: 850px) {
+
+    .nav-container {
+        justify-content: space-between;
+    }
+
+    @keyframes fade-in {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity : 1; 
+        }
+    }
+
+
+    .nav-menu__background {
+        @include flexHorizontal;
+        justify-content: center;
+        height: calc($nav-height - 2rem);
+        width: calc($nav-height - 2rem);
+        border-radius: 50%;
+
+        transition: 0.2s ease-in-out;
+    }
+
+
+    .nav-menu__icon {
+        display: block;
+    }
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+    .brand:hover {
+        cursor: pointer;
+    }
+
+
+    .nav-menu__background:hover {
+        cursor: pointer;
+        background-color: hsl(334, 90%, 20%);
+    }
+
+  }
+
+ 

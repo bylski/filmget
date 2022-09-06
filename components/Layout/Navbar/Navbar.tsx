@@ -1,5 +1,5 @@
 import React, { useEffect, useState, Fragment } from "react";
-import styles from "../styles/Navbar.module.scss";
+import styles from "../styles/Navbar/Navbar.module.scss";
 import { useRouter } from "next/router";
 import { animate, motion } from "framer-motion";
 import { navVariants } from "../../../utils/AnimationVariants.ts";
@@ -65,6 +65,11 @@ const Navbar: React.FC = () => {
           onClick={menuClickHandler}
           className={styles["nav-menu__background"]}
         >
+          <div className={styles["nav-account"]}>
+            <div className={styles["nav-account__avatar-icon"]}>
+              
+            </div>
+          </div>
           <NavMenuIcon className={styles["nav-menu__icon"]} />
         </div>
       </motion.nav>
