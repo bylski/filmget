@@ -5,6 +5,7 @@ import { navLinksVariants } from "../../../utils/AnimationVariants.ts";
 import { navMenuVariants } from "../../../utils/AnimationVariants.ts";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import useBreakpoints from "../../../utils/hooks/useBreakpoints";
 
 const NavbarLinks: React.FC<{
   navMenuShow: boolean;
@@ -27,6 +28,15 @@ const NavbarLinks: React.FC<{
 
   const linkBasicClass = styles["link__container"];
   const linkActiveClass = `${styles["link__container"]} ${styles["link--active"]}`;
+
+  const breakpoints: { [key: string]: boolean }[] | undefined = useBreakpoints({
+    breakpointName: "collapsableMenu",
+    breakpointVal: 950,
+  });
+  let collapseMenu: boolean = false;
+  if (breakpoints !== undefined && breakpoints[0].collapsableMenu) {
+    collapseMenu = true;
+  }
 
   return (
     <Fragment>
@@ -60,79 +70,81 @@ const NavbarLinks: React.FC<{
         </li>
       </ul>
 
-      <motion.ul
-        variants={navMenuVariants}
-        initial="hidden"
-        animate={animateNavLinks}
-        className={styles["nav-links__collapsable"]}
-      >
-        <motion.li
-          variants={navLinksVariants}
-          className={
-            selectedLink === "movies" ? linkActiveClass : linkBasicClass
-          }
+      {collapseMenu && (
+        <motion.ul
+          variants={navMenuVariants}
+          initial="hidden"
+          animate={animateNavLinks}
+          className={styles["nav-links__collapsable"]}
         >
-          <Link href="/movies">
-            <a onClick={props.linkOnClick} className={styles["link"]}>
-              MOVIES
-            </a>
-          </Link>
-        </motion.li>
-        <motion.li
-          variants={navLinksVariants}
-          className={
-            selectedLink === "series" ? linkActiveClass : linkBasicClass
-          }
-        >
-          <Link href="/series">
-            <a onClick={props.linkOnClick} className={styles["link"]}>
-              SERIES
-            </a>
-          </Link>
-        </motion.li>
-        <motion.li
-          variants={navLinksVariants}
-          className={
-            selectedLink === "people" ? linkActiveClass : linkBasicClass
-          }
-        >
-          <Link href="/people">
-            <a onClick={props.linkOnClick} className={styles["link"]}>
-              PEOPLE
-            </a>
-          </Link>
-        </motion.li>
-        {/* If the user is not logged show login/register links.
+          <motion.li
+            variants={navLinksVariants}
+            className={
+              selectedLink === "movies" ? linkActiveClass : linkBasicClass
+            }
+          >
+            <Link href="/movies">
+              <a onClick={props.linkOnClick} className={styles["link"]}>
+                MOVIES
+              </a>
+            </Link>
+          </motion.li>
+          <motion.li
+            variants={navLinksVariants}
+            className={
+              selectedLink === "series" ? linkActiveClass : linkBasicClass
+            }
+          >
+            <Link href="/series">
+              <a onClick={props.linkOnClick} className={styles["link"]}>
+                SERIES
+              </a>
+            </Link>
+          </motion.li>
+          <motion.li
+            variants={navLinksVariants}
+            className={
+              selectedLink === "people" ? linkActiveClass : linkBasicClass
+            }
+          >
+            <Link href="/people">
+              <a onClick={props.linkOnClick} className={styles["link"]}>
+                PEOPLE
+              </a>
+            </Link>
+          </motion.li>
+          {/* If the user is not logged show login/register links.
         For now hardcoded "true" */}
-        { true ?
-        <Fragment>
-        <motion.li
-          variants={navLinksVariants}
-          className={
-            selectedLink === "login" ? linkActiveClass : linkBasicClass
-          }
-        >
-          <Link href="">
-            <a onClick={props.linkOnClick} className={styles["link"]}>
-              LOGIN
-            </a>
-          </Link>
-        </motion.li>
-        <motion.li
-          variants={navLinksVariants}
-          className={
-            selectedLink === "register" ? linkActiveClass : linkBasicClass
-          }
-        >
-          <Link href="">
-            <a onClick={props.linkOnClick} className={styles["link"]}>
-              REGISTER
-            </a>
-          </Link>
-        </motion.li>
-        </Fragment>
-             : null }
-      </motion.ul>
+          {true ? (
+            <Fragment>
+              <motion.li
+                variants={navLinksVariants}
+                className={
+                  selectedLink === "login" ? linkActiveClass : linkBasicClass
+                }
+              >
+                <Link href="">
+                  <a onClick={props.linkOnClick} className={styles["link"]}>
+                    LOGIN
+                  </a>
+                </Link>
+              </motion.li>
+              <motion.li
+                variants={navLinksVariants}
+                className={
+                  selectedLink === "register" ? linkActiveClass : linkBasicClass
+                }
+              >
+                <Link href="">
+                  <a onClick={props.linkOnClick} className={styles["link"]}>
+                    REGISTER
+                  </a>
+                </Link>
+              </motion.li>
+            </Fragment>
+          ) : null}
+        </motion.ul>
+      )}
     </Fragment>
   );
 };

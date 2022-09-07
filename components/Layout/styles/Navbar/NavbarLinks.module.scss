@@ -11,9 +11,7 @@
   padding: 0;
 }
 
-.nav-links__collapsable {
-  display: none;
-}
+
 
 .nav-links__main .link__container:active {
   color: $primary-color2;
@@ -76,7 +74,7 @@
   height: $nav-height/1.5
 }
 
-@media screen and (max-width: 850px) {
+@media screen and (max-width: 950px) {
   @keyframes fade-in {
     from {
       opacity: 0;
