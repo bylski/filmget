@@ -1,7 +1,20 @@
 @import "../../../../styles/variables.scss";
 
+@keyframes arrowDive {
+  from {
+    top: 0px;
+  }
+  50% {
+    top: 5px;
+  }
+  to {
+    top: 0px;
+  }
+}
+
 .nav-account {
   width: fit-content;
+  height: $nav-height;
   margin-left: auto;
   @include flexHorizontal;
 }
@@ -24,11 +37,27 @@
   object-fit: fill;
 }
 
-// .nav-account__arrow-icon {
-//     fill: $primary-color2;
-//     width: 17px;
-//     height: 17px;
-// }
+.nav-account__arrow-icon {
+  fill: $primary-color2;
+  width: 17px;
+  height: 17px;
+
+  position: relative;
+}
+
+.nav-account__arrow-btn {
+    padding: 0;
+    margin-left: 0.5rem;
+    background-color: transparent;
+    border: none;
+
+    height: $nav-height/2.5;
+    @include flexVertical;
+    justify-content: center;
+    padding-inline: 0.3rem;
+
+}
+
 
 .nav-account__username {
   color: white;
@@ -37,6 +66,7 @@
 
   margin: 0;
   padding: 0.2rem;
+  border-bottom: 1px solid transparent;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -47,6 +77,19 @@
   .nav-account__username:hover {
     cursor: pointer;
     color: $primary-color2;
+    border-bottom: 1px solid $primary-color2;
+  }
+
+
+  .nav-account__arrow-btn:hover{
+    animation-duration: 0.3s;
+    cursor: pointer;
+    background-color: $dark-highlight;
+  }
+  
+  .nav-account__arrow-btn:hover .nav-account__arrow-icon {
+    animation: arrowDive;
+    animation-duration: 0.5s;
   }
 }
 

@@ -9,6 +9,7 @@ import useScrollActions from "../../../utils/hooks/useScrollActions";
 import NavbarLinks from "./NavbarLinks";
 import ArrowDownIcon from "../../Icons/ArrowDownIcon";
 import NavbarAccount from "./NavbarAccount";
+import NavbarAccountLinks from "./NavbarAccountLinks";
 
 const Navbar: React.FC = () => {
   // If window is being resized - hide nav menu
@@ -63,7 +64,9 @@ const Navbar: React.FC = () => {
           <p className={styles["brand__text"]}>FILMGET</p>
         </div>
         <NavbarLinks linkOnClick={menuClickHandler} navMenuShow={navMenuShow} />
-        <NavbarAccount />
+        {/* If the user is not logged show login/register links, else show user account icon.
+        For now hardcoded "false" */}
+        {false ? <NavbarAccount /> : <NavbarAccountLinks />}
         <div
           onClick={menuClickHandler}
           className={styles["nav-menu__background"]}

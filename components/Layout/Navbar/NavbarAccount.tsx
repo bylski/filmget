@@ -1,5 +1,6 @@
 import react from "react";
-import styles from "../styles/Navbar/NavbarAccount.module.scss"
+import styles from "../styles/Navbar/NavbarAccount.module.scss";
+import ArrowDownIcon from "../../Icons/ArrowDownIcon";
 
 const NavbarAccount: React.FC = () => {
   return (
@@ -11,7 +12,9 @@ const NavbarAccount: React.FC = () => {
         ></img>
       </div>
       <p className={styles["nav-account__username"]}>Bylski</p>
-      {/* <ArrowDownIcon className={styles["nav-account__arrow-icon"]}/> */}
+      <button className={styles["nav-account__arrow-btn"]}>
+        <ArrowDownIcon className={styles["nav-account__arrow-icon"]} />
+      </button>
     </div>
   );
 };
