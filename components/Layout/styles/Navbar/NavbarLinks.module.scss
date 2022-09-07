@@ -36,7 +36,7 @@
   @include flexVertical;
   box-sizing: border-box;
   justify-content: center;
-  height: 100%;
+  height: $nav-height;
 
   color: white;
   transition: box-shadow 0.15s, color 0.15s ease-in-out,
@@ -65,6 +65,15 @@
 .nav-links__collapsable .link__container.link--active {
   color: $primary-color2;
   border-bottom: none;
+}
+
+.nav-links__collapsable .link {
+  font-size: 0.9rem;
+  height: $nav-height/1.5
+}
+
+.nav-links__collapsable .link__container {
+  height: $nav-height/1.5
 }
 
 @media screen and (max-width: 850px) {

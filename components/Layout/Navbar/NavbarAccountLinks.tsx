@@ -18,16 +18,16 @@ const NavbarAccountLinks: React.FC = () => {
   return (
     <ul className={styles["nav-links__account"]}>
       <li
-        className={selectedLink === "movies" ? linkActiveClass : linkBasicClass}
+        className={selectedLink === "login" ? linkActiveClass : linkBasicClass}
       >
-        <Link href="/movies">
+        <Link href="">
           <a className={styles["link"]}>LOGIN</a>
         </Link>
       </li>
       <li
-        className={selectedLink === "series" ? linkActiveClass : linkBasicClass}
+        className={selectedLink === "register" ? linkActiveClass : linkBasicClass}
       >
-        <Link href="/series">
+        <Link href="">
           <a className={styles["link"]}>REGISTER</a>
         </Link>
       </li>
