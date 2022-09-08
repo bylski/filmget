@@ -10,7 +10,7 @@ import NavbarLinks from "./NavbarLinks";
 import ArrowDownIcon from "../../Icons/ArrowDownIcon";
 import NavbarAccount from "./NavbarAccount";
 import NavbarAccountLinks from "./NavbarAccountLinks";
-import useBreakpoints from "../../../utils/hooks/useBreakpoints";
+
 
 const Navbar: React.FC = () => {
   // If window is being resized - hide nav menu

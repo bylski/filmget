@@ -20,14 +20,14 @@ const NavbarAccountLinks: React.FC = () => {
       <li
         className={selectedLink === "login" ? linkActiveClass : linkBasicClass}
       >
-        <Link href="">
+        <Link href="login">
           <a className={styles["link"]}>LOGIN</a>
         </Link>
       </li>
       <li
         className={selectedLink === "register" ? linkActiveClass : linkBasicClass}
       >
-        <Link href="">
+        <Link href="register">
           <a className={styles["link"]}>REGISTER</a>
         </Link>
       </li>
