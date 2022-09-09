@@ -15,7 +15,7 @@
     margin-inline: $layout-margin;
     height: calc(100vh - $nav-height - 2rem);
 
-    background-color: $dark-theme-bg-color2;
+    background-color: $dark-theme-bg-color1;
 
     @include flexHorizontal;
 
@@ -38,7 +38,6 @@
     position: absolute;
     
 
-    border-right: 1px solid $primary-color2;
 }
 
 .card__img-section::before {
@@ -60,7 +59,7 @@
 
     -webkit-box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
 -moz-box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
-box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
+box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
 
     z-index: 1;
 }
@@ -95,12 +94,15 @@ box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
 
     border-top-right-radius: 20px;
 
-    background: rgba(0, 0, 0, 0.75);
-    background: linear-gradient(
-      90deg,
-      rgba(15, 15, 15, 0.6) 0%,
-      rgba(15, 15, 15, 0.8) 0%
-    );
+    // background: rgba(0, 0, 0, 0.75);
+    // background: linear-gradient(
+    //   90deg,
+    //   rgba(15, 15, 15, 0.6) 0%,
+    //   rgba(15, 15, 15, 0.8) 0%
+    // );
+
+    background-color: hsla(0, 0%, 6%, 0.8);
+    border: 1.5px solid $primary-color2;
 
     border-radius: 20px;
 }
