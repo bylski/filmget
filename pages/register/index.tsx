@@ -1,10 +1,10 @@
 import React from "react";
-import RegisterLogin from "../../components/RegisterLogin/RegisterLogin";
+import Register from "../../components/Register/Register";
 
-const Register: React.FC = () => {
+const RegisterPage: React.FC = () => {
     return (
-        <RegisterLogin headerText="Create Account"/>
+        <Register/>
     )
 }
 
-export default Register;
+export default RegisterPage;
