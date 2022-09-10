@@ -11,47 +11,16 @@ const urls = [
 
 const Login: React.FC = (props) => {
   const [currentUrlIndex, setUrlIndex] = useState(0);
-  const [imgFadeOut, setImgFadeOut] = useState(false);
 
   let carouselInterval: any = undefined;
-  let fadeInTimeout: any = undefined;
-  useEffect(() => {
-    if (carouselInterval) {
-      clearInterval(carouselInterval);
-    }
-    carouselInterval = setInterval(() => {
-      setUrlIndex((prev) => {
-        if (prev === urls.length - 1) {
-          return 0;
-        }
-        return prev + 1;
-      });
-    }, 10000);
-  }, []);
+  const bgImg = urls[Math.floor(Math.random() * urls.length)];
+  console.log(bgImg)
 
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
         <div className={styles["card__img-section"]}>
-          {urls.map((url, i) => {
-            if (currentUrlIndex - 1 === i) {
-              return (
-                <img
-                  className={`${styles["card__img"]} ${styles["fade-out"]}`}
-                  src={url}
-                ></img>
-              );
-            }
-            if (currentUrlIndex === i) {
-              return (
-                <img
-                  className={`${styles["card__img"]} ${styles["active"]}`}
-                  src={url}
-                ></img>
-              );
-            }
-            return <img className={styles["card__img"]} src={url}></img>;
-          })}
+          <img className={styles["card__img"]} src={bgImg}></img>
         </div>
         <div className={styles["card__form-section"]}>
           <form className={styles["card__form"]}>

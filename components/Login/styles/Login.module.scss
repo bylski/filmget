@@ -67,39 +67,10 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     height: 100%;
 
     object-fit: cover;
-    display: none;
-    position: absolute;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
 
-@keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
-    to {
-        opacity: 0;
-    }
-}
 
-.card__img.fade-out {
-    display: block;
-    opacity: 1;
-    animation: fadeOut 3s;
-}
-
-.card__img.active {
-    display: block;
-    opacity: 1;
-    animation: fadeIn 3s;
-}
 
 .card__form-section {
     width: 100%;

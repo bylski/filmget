@@ -10,8 +10,8 @@ const urls = [
 ];
 
 const Register: React.FC = (props) => {
+  
   const [currentUrlIndex, setUrlIndex] = useState(0);
-
   let carouselInterval: any = undefined;
   useEffect(() => {
     if (carouselInterval) {
@@ -24,8 +24,9 @@ const Register: React.FC = (props) => {
         }
         return prev + 1;
       });
-    }, 10000);
+    }, 5000);
   }, []);
+
 
   return (
     <main className={styles["register-login"]}>
