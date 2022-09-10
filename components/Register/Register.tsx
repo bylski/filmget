@@ -10,7 +10,6 @@ const urls = [
 ];
 
 const Register: React.FC = (props) => {
-  
   const [currentUrlIndex, setUrlIndex] = useState(0);
   let carouselInterval: any = undefined;
   useEffect(() => {
@@ -27,7 +26,6 @@ const Register: React.FC = (props) => {
     }, 5000);
   }, []);
 
-
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
@@ -36,6 +34,7 @@ const Register: React.FC = (props) => {
             if (currentUrlIndex - 1 === i) {
               return (
                 <img
+                  key={`reglog_img${i}`}
                   className={`${styles["card__img"]} ${styles["fade-out"]}`}
                   src={url}
                 ></img>
@@ -44,12 +43,19 @@ const Register: React.FC = (props) => {
             if (currentUrlIndex === i) {
               return (
                 <img
+                  key={`reglog_img${i}`}
                   className={`${styles["card__img"]} ${styles["active"]}`}
                   src={url}
                 ></img>
               );
             }
-            return <img className={styles["card__img"]} src={url}></img>;
+            return (
+              <img
+                key={`reglog_img${i}`}
+                className={styles["card__img"]}
+                src={url}
+              ></img>
+            );
           })}
         </div>
         <div className={styles["card__form-section"]}>
