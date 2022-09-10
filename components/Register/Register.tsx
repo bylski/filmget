@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "./styles/RegisterLogin.module.scss";
+import styles from "./styles/Register.module.scss";
 
 const urls = [
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg",
@@ -9,12 +9,10 @@ const urls = [
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/yQTQL9pliY6vpRt8HkjUJrKymBb.jpg",
 ];
 
-const RegisterLogin: React.FC<{ headerText: string }> = (props) => {
+const Register: React.FC = (props) => {
   const [currentUrlIndex, setUrlIndex] = useState(0);
-  const [imgFadeOut, setImgFadeOut] = useState(false);
 
   let carouselInterval: any = undefined;
-  let fadeInTimeout: any = undefined;
   useEffect(() => {
     if (carouselInterval) {
       clearInterval(carouselInterval);
@@ -55,7 +53,7 @@ const RegisterLogin: React.FC<{ headerText: string }> = (props) => {
         </div>
         <div className={styles["card__form-section"]}>
           <form className={styles["card__form"]}>
-            <h1 className={styles["form__header-text"]}>{props.headerText}</h1>
+            <h1 className={styles["form__header-text"]}>Create Account</h1>
             <ul className={styles["form__inputs"]}>
               <li className={styles["form__input"]}>
                 <label className={styles["input__label"]} htmlFor="username">
@@ -87,4 +85,4 @@ const RegisterLogin: React.FC<{ headerText: string }> = (props) => {
   );
 };
 
-export default RegisterLogin;
+export default Register;
