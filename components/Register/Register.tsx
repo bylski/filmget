@@ -1,60 +1,47 @@
-import React, { useEffect, useState } from "react";
+import { stat } from "fs";
+import { iteratorSymbol } from "immer/dist/internal";
+import React, {
+  ReducerAction,
+  ReducerState,
+  useEffect,
+  useReducer,
+  useState,
+} from "react";
+import useCarousel from "../../utils/hooks/useCarousel";
 import styles from "./styles/Register.module.scss";
 
 const urls = [
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg",
+
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/68sanslplXryiJWzv0uMuXjJBmB.jpg",
+
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/ocUp7DJBIc8VJgLEw1prcyK1dYv.jpg",
+
   "https://image.tmdb.org/t/p/w1920_and_h800_bestv2/27Mj3rFYP3xqFy7lnz17vEd8Ms.jpg",
+
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/yQTQL9pliY6vpRt8HkjUJrKymBb.jpg",
 ];
 
+
 const Register: React.FC = (props) => {
-  const [currentUrlIndex, setUrlIndex] = useState(0);
-  let carouselInterval: any = undefined;
-  useEffect(() => {
-    if (carouselInterval) {
-      clearInterval(carouselInterval);
-    }
-    carouselInterval = setInterval(() => {
-      setUrlIndex((prev) => {
-        if (prev === urls.length - 1) {
-          return 0;
-        }
-        return prev + 1;
-      });
-    }, 5000);
-  }, []);
+
+  const carouselImages = useCarousel(urls, 15000)
 
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
         <div className={styles["card__img-section"]}>
-          {urls.map((url, i) => {
-            if (currentUrlIndex - 1 === i) {
-              return (
-                <img
-                  key={`reglog_img${i}`}
-                  className={`${styles["card__img"]} ${styles["fade-out"]}`}
-                  src={url}
-                ></img>
-              );
+          {carouselImages.map((url, i) => {
+            let classes = styles["card__img"];
+            if (url.init) {
+              classes = `${styles["card__img"]} ${styles["init"]}`;
             }
-            if (currentUrlIndex === i) {
-              return (
-                <img
-                  key={`reglog_img${i}`}
-                  className={`${styles["card__img"]} ${styles["active"]}`}
-                  src={url}
-                ></img>
-              );
-            }
+            if (url.active)
+              classes = `${styles["card__img"]} ${styles["active"]}`;
+            if (url.fadeOut)
+              classes = `${styles["card__img"]} ${styles["fade-out"]}`;
             return (
-              <img
-                key={`reglog_img${i}`}
-                className={styles["card__img"]}
-                src={url}
-              ></img>
+              <img key={`reg_img${i}`} className={classes} src={url.url}></img>
             );
           })}
         </div>
