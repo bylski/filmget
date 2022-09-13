@@ -90,7 +90,7 @@ box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
 
 .card__img.fade-out {
     display: block;
-    opacity: 1;
+    opacity: 0;
     animation: fadeOut 3s;
 }
 
@@ -98,6 +98,11 @@ box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
     display: block;
     opacity: 1;
     animation: fadeIn 3s;
+}
+
+.card__img.init {
+    opacity: 1;
+    display: block;
 }
 
 
