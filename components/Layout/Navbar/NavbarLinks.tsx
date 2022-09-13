@@ -123,7 +123,7 @@ const NavbarLinks: React.FC<{
                   selectedLink === "login" ? linkActiveClass : linkBasicClass
                 }
               >
-                <Link href="">
+                <Link href="/login">
                   <a onClick={props.linkOnClick} className={styles["link"]}>
                     LOGIN
                   </a>
@@ -135,7 +135,7 @@ const NavbarLinks: React.FC<{
                   selectedLink === "register" ? linkActiveClass : linkBasicClass
                 }
               >
-                <Link href="">
+                <Link href="/register">
                   <a onClick={props.linkOnClick} className={styles["link"]}>
                     REGISTER
                   </a>
