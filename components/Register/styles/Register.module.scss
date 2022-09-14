@@ -121,6 +121,7 @@ box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
     padding-bottom: 2rem;
 
     border-top-right-radius: 20px;
+    // border-bottom: 1px solid $primary-color2;
 }
 
 .form__header-text {
@@ -152,14 +153,14 @@ box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
 .form__input {
     width: fit-content;
     @include flexVertical;
+    justify-content: center;
     width: 100%;
-
-    padding-inline: 5rem;
+    margin-bottom: 1.5rem;
 }
 
 
-.form__input:first-of-type {
-    margin-bottom: 1.5rem;
+.form__input:last-of-type {
+    margin-bottom: 0;
 }
 
 .input__label {
@@ -170,13 +171,54 @@ box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
     font-size: 1.3rem;
 }
 
+.input__wrap {
+    width: 65%;
+    @include flexHorizontal;
+    justify-content: center;
+
+    position: relative;
+}
+
 .input {
     height: fit-content;
     font-size: 1rem;
-    width: 100%;
+    width: 65%;
     
     border-radius: 100vw;
     padding-inline: 1rem;
     padding-block: 0.4rem;
+}
+
+.input__wrap .input {
+    width: 100%;
+}
+
+.input__eye-icon-btn {
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    position: absolute;
+    right: 12px;
+    background-color: transparent;
+    padding: 0;
+
+    display: flex;
+    align-items: center;
+}
+
+.input__eye-icon {
+    height: 22px;
+    width: auto;
+    fill: gray;
+}
+
+.input__eye-icon.active {
+    fill: $primary-color2;
+}
+
+@media (hover: hover) and (pointer: fine) {
+    .input__eye-icon-btn:hover {
+        cursor: pointer;
+    }
 }
 

@@ -1,5 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import useCarousel from "../../utils/hooks/useCarousel";
+import EyeIcon from "../Icons/EyeIcon";
 import styles from "./styles/Register.module.scss";
 
 const urls = [
@@ -17,9 +18,11 @@ const urls = [
 const Register: React.FC = (props) => {
   const carouselImages = useCarousel({
     urls: urls,
-    switchDelayTime: 3000,
+    switchDelayTime: 13000,
     carouselLimit: 4,
   });
+
+  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <main className={styles["register-login"]}>
@@ -55,15 +58,31 @@ const Register: React.FC = (props) => {
                 ></input>
               </li>
               <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="password">
-                  Password
+                <label className={styles["input__label"]} htmlFor="email">
+                  Email
                 </label>
                 <input
                   className={styles["input"]}
                   type="text"
+                  placeholder="Email"
+                  id="email"
+                ></input>
+              </li>
+              <li className={styles["form__input"]}>
+                <label className={styles["input__label"]} htmlFor="password">
+                  Password
+                </label>
+                <div className={styles["input__wrap"]}>
+                <input
+                  className={styles["input"]}
+                  type={!showPassword ? "password" : "text"}
                   placeholder="* Password - min. 8 characters"
                   id="password"
                 ></input>
+                <button onClick={() => setShowPassword(prev => !prev)} type="button" className={styles["input__eye-icon-btn"]}>
+                <EyeIcon className={!showPassword ? styles["input__eye-icon"] : `${styles["input__eye-icon"]} ${styles["active"]}`}/>
+                </button>
+                </div>
               </li>
             </ul>
           </form>
