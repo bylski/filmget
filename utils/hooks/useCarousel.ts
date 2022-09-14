@@ -1,7 +1,13 @@
 import { useEffect, useReducer } from "react";
 
-const useCarousel = (urls: string[], switchDelayTime: number): typeof carouselImages => {
-  const carouselImages = urls.map((imageUrl, i) => {
+const useCarousel = (options: {urls: string[], switchDelayTime: number, carouselLimit: number}): typeof carouselImages => {
+  // Limit the number of the images for carousel to display
+  const {urls, switchDelayTime, carouselLimit} = options;
+  let limitedUrls = urls;
+  if (urls.length >= carouselLimit) {
+  limitedUrls = urls.slice(0, carouselLimit)  // take only x amount of 
+  }
+  const carouselImages = limitedUrls.map((imageUrl, i) => {
     // If its the first image of the array, give it "init" property to signalize the first carousel cycle
     if (i === 0) {
       return {
@@ -21,12 +27,14 @@ const useCarousel = (urls: string[], switchDelayTime: number): typeof carouselIm
   const initState = {
     index: 0,
     images: carouselImages,
+    initCycle: true,
   };
 
   type carouselActions =
     | { type: "increaseIndex" | "decreaseIndex" }
     | { type: "setIndex"; payload: number }
-    | { type: "setImages"; payload: typeof carouselImages };
+    | { type: "setImages"; payload: typeof carouselImages }
+    | { type: "setCycle"; payload: boolean}
 
   const carouselReducer = (
     state: typeof initState,
@@ -41,6 +49,8 @@ const useCarousel = (urls: string[], switchDelayTime: number): typeof carouselIm
         return { ...state, index: action.payload };
       case "setImages":
         return { ...state, images: action.payload };
+      case "setCycle":
+        return { ...state, initCycle: action.payload}
     }
   };
 
@@ -49,22 +59,25 @@ const useCarousel = (urls: string[], switchDelayTime: number): typeof carouselIm
     initState
   );
 
-  let carouselTimeout: any = undefined;
+  let newImagesState = carouselState.images;
+  // If carouselTimeout listener is running - clear it
+  let carouselTimeout: any = undefined; 
   useEffect(() => {
     if (carouselTimeout) {
-      clearInterval(carouselTimeout);
+      clearTimeout(carouselTimeout);
     }
     carouselTimeout = setTimeout(() => {
-      if (carouselState.index >= urls.length - 1) {
+      if (carouselState.index >= limitedUrls.length - 1) {
         carouselDispatch({ type: "setIndex", payload: 0 });
       } else {
         carouselDispatch({ type: "increaseIndex" });
       }
 
-      const newImagesState = carouselState.images.map((image, i) => {
+      newImagesState = carouselState.images.map((image, i) => {
         // After initial cycle, set init to false to unlock normal behaviour
-        if (carouselState.index === 0 && image.init) {
-          return { ...image, init: false, fadeOut: true };
+        if (carouselState.index === 0 && carouselState.initCycle && i === 0) {
+          carouselDispatch({ type: "setCycle", payload: false});  // First cycle has ended so make initCycle false
+          return { ...image, fadeOut: true, init: false };
         }
         // If its the end of the array -> set first index to active
         if (
@@ -90,7 +103,7 @@ const useCarousel = (urls: string[], switchDelayTime: number): typeof carouselIm
   }, [carouselState.index]);
 
   // Return images object
-  return carouselState.images;
+  return newImagesState;
 };
 
 export default useCarousel;

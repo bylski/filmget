@@ -1,12 +1,4 @@
-import { stat } from "fs";
-import { iteratorSymbol } from "immer/dist/internal";
-import React, {
-  ReducerAction,
-  ReducerState,
-  useEffect,
-  useReducer,
-  useState,
-} from "react";
+import React from "react";
 import useCarousel from "../../utils/hooks/useCarousel";
 import styles from "./styles/Register.module.scss";
 
@@ -22,10 +14,12 @@ const urls = [
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/yQTQL9pliY6vpRt8HkjUJrKymBb.jpg",
 ];
 
-
 const Register: React.FC = (props) => {
-
-  const carouselImages = useCarousel(urls, 15000)
+  const carouselImages = useCarousel({
+    urls: urls,
+    switchDelayTime: 3000,
+    carouselLimit: 4,
+  });
 
   return (
     <main className={styles["register-login"]}>
