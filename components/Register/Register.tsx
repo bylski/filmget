@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import useCarousel from "../../utils/hooks/useCarousel";
 import EyeIcon from "../Icons/EyeIcon";
+import StyledButton from "../UI/StyledButton";
 import styles from "./styles/Register.module.scss";
 
 const urls = [
@@ -73,18 +74,42 @@ const Register: React.FC = (props) => {
                   Password
                 </label>
                 <div className={styles["input__wrap"]}>
-                <input
-                  className={styles["input"]}
-                  type={!showPassword ? "password" : "text"}
-                  placeholder="* Password - min. 8 characters"
-                  id="password"
-                ></input>
-                <button onClick={() => setShowPassword(prev => !prev)} type="button" className={styles["input__eye-icon-btn"]}>
-                <EyeIcon className={!showPassword ? styles["input__eye-icon"] : `${styles["input__eye-icon"]} ${styles["active"]}`}/>
-                </button>
+                  <input
+                    className={styles["input"]}
+                    type={!showPassword ? "password" : "text"}
+                    placeholder="* Password - min. 8 characters"
+                    id="password"
+                  ></input>
+                  <button
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    type="button"
+                    className={styles["input__eye-icon-btn"]}
+                  >
+                    <EyeIcon
+                      className={
+                        !showPassword
+                          ? styles["input__eye-icon"]
+                          : `${styles["input__eye-icon"]} ${styles["active"]}`
+                      }
+                    />
+                  </button>
                 </div>
+                <ul className={styles["input__requirements"]}>
+                  <li className={styles["input__requirement"]}>
+                    * Minimum 8 characters
+                  </li>
+                  <li className={styles["input__requirement"]}>
+                    * At least 1 large letter
+                  </li>
+                  <li className={styles["input__requirement"]}>
+                    * At least 1 digit
+                  </li>
+                </ul>
               </li>
             </ul>
+            <div className={styles["form__footer"]}>
+              <StyledButton addClass={styles["form__submit-btn"]}>Submit Account</StyledButton>
+            </div>
           </form>
         </div>
       </div>
