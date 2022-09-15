@@ -1,7 +1,6 @@
 @import "../../../styles/variables.scss";
 
 
-
 .register-login {
     margin-top: $nav-height;
 
@@ -82,7 +81,7 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     @include flexVertical;
     justify-content: center;
 
-    top: -5rem;
+    top: -3rem;
 }
 
 .card__form {
@@ -121,47 +120,33 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     padding-bottom: 0.3rem;
 }
 
-.form__inputs {
-    padding-left: 0;
+
+.form__footer {
+    width: 100%;
+    height: fit-content;
 
     margin-top: 2rem;
-    margin-bottom: 0;
-    width: 100%;
-
-    @include flexVertical;
+    @include flexHorizontal;
     justify-content: center;
-
-    list-style: none;
 }
 
-.form__input {
-    width: fit-content;
-    @include flexVertical;
-    width: 100%;
-
-    padding-inline: 5rem;
-}
-
-
-.form__input:first-of-type {
-    margin-bottom: 1.5rem;
-}
-
-.input__label {
-    font-family: $main-font;
-    color: white;
-
-    margin-bottom: 0.5rem;
-    font-size: 1.3rem;
-}
-
-.input {
+.form__submit-btn {
+    width: 40%;
     height: fit-content;
-    font-size: 1rem;
-    width: 100%;
-    
-    border-radius: 100vw;
-    padding-inline: 1rem;
-    padding-block: 0.4rem;
+    padding-block: 1rem;
+    background: none !important;
+    background-color: $primary-color2 !important;
+
+    font-size: 0.95rem;
+
+    transition: transform 0.2s ease-in-out;
 }
 
+
+@media (hover: hover) and (pointer: fine) {
+
+    .form__submit-btn:hover {
+      cursor: pointer;
+      transform: scale(1.03)
+    }
+  }

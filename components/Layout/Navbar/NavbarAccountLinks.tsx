@@ -21,7 +21,7 @@ const NavbarAccountLinks: React.FC = () => {
         className={selectedLink === "login" ? linkActiveClass : linkBasicClass}
       >
         <Link href="/login">
-          <a className={styles["link"]}>LOGIN</a>
+          <a className={styles["link"]}>LOG IN</a>
         </Link>
       </li>
       <li

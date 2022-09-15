@@ -51,6 +51,8 @@
   height: $nav-height;
   padding: 0 2rem;
   font-weight: 400;
+
+  white-space: nowrap;
 }
 
 .link__container.link--active {
