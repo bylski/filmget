@@ -1,7 +1,6 @@
 @import "../../../styles/variables.scss";
 
 
-
 .register-login {
     margin-top: $nav-height;
 
@@ -121,49 +120,6 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     padding-bottom: 0.3rem;
 }
 
-.form__inputs {
-    padding-left: 0;
-
-    margin-top: 2rem;
-    margin-bottom: 0;
-    width: 100%;
-
-    @include flexVertical;
-    justify-content: center;
-
-    list-style: none;
-}
-
-.form__input {
-    width: fit-content;
-    @include flexVertical;
-    width: 100%;
-
-    padding-inline: 5rem;
-}
-
-
-.form__input:first-of-type {
-    margin-bottom: 1.5rem;
-}
-
-.input__label {
-    font-family: $main-font;
-    color: white;
-
-    margin-bottom: 0.5rem;
-    font-size: 1.3rem;
-}
-
-.input {
-    height: fit-content;
-    font-size: 1rem;
-    width: 100%;
-    
-    border-radius: 100vw;
-    padding-inline: 1rem;
-    padding-block: 0.4rem;
-}
 
 .form__footer {
     width: 100%;

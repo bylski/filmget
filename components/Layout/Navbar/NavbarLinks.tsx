@@ -125,7 +125,7 @@ const NavbarLinks: React.FC<{
               >
                 <Link href="/login">
                   <a onClick={props.linkOnClick} className={styles["link"]}>
-                    LOGIN
+                    LOG IN
                   </a>
                 </Link>
               </motion.li>

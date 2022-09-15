@@ -1,0 +1,73 @@
+@import "../../../styles/variables.scss";
+
+.form__input {
+    width: fit-content;
+    @include flexVertical;
+    width: 100%;
+
+    padding-inline: 5rem;
+}
+
+
+.form__input:first-of-type {
+    margin-bottom: 1.5rem;
+}
+
+.input__label {
+    font-family: $main-font;
+    color: white;
+
+    margin-bottom: 0.5rem;
+    font-size: 1.3rem;
+}
+
+.input {
+    height: fit-content;
+    font-size: 1rem;
+    width: 100%;
+    
+    border-radius: 100vw;
+    padding-inline: 1rem;
+    padding-block: 0.4rem;
+}
+
+.input__wrap {
+    width: 100%;
+    @include flexHorizontal;
+    justify-content: center;
+  
+    position: relative;
+  }
+
+.input__wrap .input {
+    width: 100%;
+  }
+  
+  .input__eye-icon-btn {
+    height: fit-content;
+    width: fit-content;
+    border: none;
+    position: absolute;
+    right: 12px;
+    background-color: transparent;
+    padding: 0;
+  
+    display: flex;
+    align-items: center;
+  }
+  
+  .input__eye-icon {
+    height: 22px;
+    width: auto;
+    fill: gray;
+  }
+  
+  .input__eye-icon.active {
+    fill: $primary-color2;
+  }
+
+@media (hover: hover) and (pointer: fine) {
+    .input__eye-icon-btn:hover {
+      cursor: pointer;
+    }
+  }

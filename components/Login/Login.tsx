@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles/Login.module.scss";
 import StyledButton from "../UI/StyledButton";
+import LoginInputs from "./LoginInputs";
 
 const urls = [
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg",
@@ -22,30 +23,7 @@ const Login: React.FC = (props) => {
         <div className={styles["card__form-section"]}>
           <form className={styles["card__form"]}>
             <h1 className={styles["form__header-text"]}>Log In</h1>
-            <ul className={styles["form__inputs"]}>
-              <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="username">
-                  Username
-                </label>
-                <input
-                  className={styles["input"]}
-                  type="text"
-                  placeholder="Your Username"
-                  id="username"
-                ></input>
-              </li>
-              <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="password">
-                  Password
-                </label>
-                <input
-                  className={styles["input"]}
-                  type="text"
-                  placeholder="Password"
-                  id="password"
-                ></input>
-              </li>
-            </ul>
+            <LoginInputs/>
             <div className={styles["form__footer"]}>
               <StyledButton addClass={styles["form__submit-btn"]}>Submit</StyledButton>
             </div>
