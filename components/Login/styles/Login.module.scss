@@ -82,7 +82,7 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     @include flexVertical;
     justify-content: center;
 
-    top: -5rem;
+    top: -3rem;
 }
 
 .card__form {
@@ -165,3 +165,32 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     padding-block: 0.4rem;
 }
 
+.form__footer {
+    width: 100%;
+    height: fit-content;
+
+    margin-top: 2rem;
+    @include flexHorizontal;
+    justify-content: center;
+}
+
+.form__submit-btn {
+    width: 40%;
+    height: fit-content;
+    padding-block: 1rem;
+    background: none;
+    background-color: $primary-color2;
+
+    font-size: 0.95rem;
+
+    transition: transform 0.2s ease-in-out;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+
+    .form__submit-btn:hover {
+      cursor: pointer;
+      transform: scale(1.03)
+    }
+  }

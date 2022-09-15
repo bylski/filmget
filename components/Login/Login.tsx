@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styles from "./styles/Login.module.scss";
+import StyledButton from "../UI/StyledButton";
 
 const urls = [
   "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg",
@@ -10,11 +11,7 @@ const urls = [
 ];
 
 const Login: React.FC = (props) => {
-  const [currentUrlIndex, setUrlIndex] = useState(0);
-
-  let carouselInterval: any = undefined;
   const bgImg = urls[Math.floor(Math.random() * urls.length)];
-  console.log(bgImg)
 
   return (
     <main className={styles["register-login"]}>
@@ -49,6 +46,9 @@ const Login: React.FC = (props) => {
                 ></input>
               </li>
             </ul>
+            <div className={styles["form__footer"]}>
+              <StyledButton addClass={styles["form__submit-btn"]}>Submit</StyledButton>
+            </div>
           </form>
         </div>
       </div>
