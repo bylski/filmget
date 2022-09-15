@@ -134,8 +134,8 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     width: 40%;
     height: fit-content;
     padding-block: 1rem;
-    background: none;
-    background-color: $primary-color2;
+    background: none !important;
+    background-color: $primary-color2 !important;
 
     font-size: 0.95rem;
 

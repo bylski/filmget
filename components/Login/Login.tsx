@@ -3,16 +3,10 @@ import styles from "./styles/Login.module.scss";
 import StyledButton from "../UI/StyledButton";
 import LoginInputs from "./LoginInputs";
 
-const urls = [
-  "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/wcKFYIiVDvRURrzglV9kGu7fpfY.jpg",
-  "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/68sanslplXryiJWzv0uMuXjJBmB.jpg",
-  "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/ocUp7DJBIc8VJgLEw1prcyK1dYv.jpg",
-  "https://image.tmdb.org/t/p/w1920_and_h800_bestv2/27Mj3rFYP3xqFy7lnz17vEd8Ms.jpg",
-  "https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/yQTQL9pliY6vpRt8HkjUJrKymBb.jpg",
-];
 
-const Login: React.FC = (props) => {
-  const bgImg = urls[Math.floor(Math.random() * urls.length)];
+
+const Login: React.FC<{movieUrls: string[]}> = (props) => {
+  const bgImg = props.movieUrls[Math.floor(Math.random() * props.movieUrls.length)];
 
   return (
     <main className={styles["register-login"]}>
