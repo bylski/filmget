@@ -1,0 +1,79 @@
+@import "../../../styles/variables.scss";
+
+.card__img-section {
+    min-width: 65%;
+    width: 65%;
+    height: 100%;
+  
+    position: relative;
+  
+    border-right: 1px solid $primary-color2;
+  }
+  
+  .card__img-section::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+  
+    position: absolute;
+  
+    top: 0px;
+    left: 0px;
+  
+    background: rgba(0, 0, 0, 0.75);
+    background: linear-gradient(
+      90deg,
+      rgba(15, 15, 15, 0.6) 0%,
+      rgba(15, 15, 15, 0.2) 0%
+    );
+  
+    -webkit-box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
+    -moz-box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
+    box-shadow: inset 0px 0px 49px -10px rgba(0, 0, 0, 1);
+  
+    z-index: 1;
+  }
+  
+  .card__img {
+    width: 100%;
+    height: 100%;
+  
+    object-fit: cover;
+    display: none;
+    position: absolute;
+  }
+  
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+  
+  @keyframes fadeOut {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 0;
+    }
+  }
+  
+  .card__img.fade-out {
+    display: block;
+    opacity: 0;
+    animation: fadeOut 3s;
+  }
+  
+  .card__img.active {
+    display: block;
+    opacity: 1;
+    animation: fadeIn 3s;
+  }
+  
+  .card__img.init {
+    opacity: 1;
+    display: block;
+  }

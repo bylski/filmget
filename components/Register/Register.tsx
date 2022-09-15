@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import useCarousel from "../../utils/hooks/useCarousel";
-import EyeIcon from "../Icons/EyeIcon";
+import React from "react";
 import StyledButton from "../UI/StyledButton";
+import RegisterImageCarousel from "./RegisterImageCarousel";
+import RegisterInputs from "./RegisterInputs";
 import styles from "./styles/Register.module.scss";
 
 const urls = [
@@ -17,96 +17,15 @@ const urls = [
 ];
 
 const Register: React.FC = (props) => {
-  const carouselImages = useCarousel({
-    urls: urls,
-    switchDelayTime: 13000,
-    carouselLimit: 4,
-  });
-
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
-        <div className={styles["card__img-section"]}>
-          {carouselImages.map((url, i) => {
-            let classes = styles["card__img"];
-            if (url.init) {
-              classes = `${styles["card__img"]} ${styles["init"]}`;
-            }
-            if (url.active)
-              classes = `${styles["card__img"]} ${styles["active"]}`;
-            if (url.fadeOut)
-              classes = `${styles["card__img"]} ${styles["fade-out"]}`;
-            return (
-              <img key={`reg_img${i}`} className={classes} src={url.url}></img>
-            );
-          })}
-        </div>
+        <RegisterImageCarousel urls={urls}/>
         <div className={styles["card__form-section"]}>
           <form className={styles["card__form"]}>
             <h1 className={styles["form__header-text"]}>Create Account</h1>
-            <ul className={styles["form__inputs"]}>
-              <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="username">
-                  Username
-                </label>
-                <input
-                  className={styles["input"]}
-                  type="text"
-                  placeholder="* Username"
-                  id="username"
-                ></input>
-              </li>
-              <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="email">
-                  Email
-                </label>
-                <input
-                  className={styles["input"]}
-                  type="text"
-                  placeholder="Email"
-                  id="email"
-                ></input>
-              </li>
-              <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="password">
-                  Password
-                </label>
-                <div className={styles["input__wrap"]}>
-                  <input
-                    className={styles["input"]}
-                    type={!showPassword ? "password" : "text"}
-                    placeholder="* Password - min. 8 characters"
-                    id="password"
-                  ></input>
-                  <button
-                    onClick={() => setShowPassword((prev) => !prev)}
-                    type="button"
-                    className={styles["input__eye-icon-btn"]}
-                  >
-                    <EyeIcon
-                      className={
-                        !showPassword
-                          ? styles["input__eye-icon"]
-                          : `${styles["input__eye-icon"]} ${styles["active"]}`
-                      }
-                    />
-                  </button>
-                </div>
-                <ul className={styles["input__requirements"]}>
-                  <li className={styles["input__requirement"]}>
-                    * Minimum 8 characters
-                  </li>
-                  <li className={styles["input__requirement"]}>
-                    * At least 1 large letter
-                  </li>
-                  <li className={styles["input__requirement"]}>
-                    * At least 1 digit
-                  </li>
-                </ul>
-              </li>
-            </ul>
+            <RegisterInputs/>
             <div className={styles["form__footer"]}>
               <StyledButton addClass={styles["form__submit-btn"]}>Submit Account</StyledButton>
             </div>
