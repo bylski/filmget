@@ -15,9 +15,9 @@ const RegisterInput: React.FC<
         passwordInput: true;
       }
 > = (props) => {
-  if (props.passwordInput === true) {
-    const [showPassword, setShowPassword] = useState(false);
 
+  const [showPassword, setShowPassword] = useState(false);
+  if (props.passwordInput === true) {
     return (
       <li className={styles["form__input"]}>
         <label className={styles["input__label"]} htmlFor="password">

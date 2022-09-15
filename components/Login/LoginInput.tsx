@@ -9,11 +9,10 @@ const LoginInput: React.FC<
       placeholder: string;
       passwordInput?: boolean;
     }
-  | { passwordInput: true, placeholder: string, inputName: string}
+  | { passwordInput: true; placeholder: string; inputName: string }
 > = (props) => {
+  const [showPassword, setShowPassword] = useState(false);
   if (props.passwordInput === true) {
-    const [showPassword, setShowPassword] = useState(false);
-
     return (
       <li className={styles["form__input"]}>
         <label className={styles["input__label"]} htmlFor="password">
