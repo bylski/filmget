@@ -1,4 +1,5 @@
-import React from "react";
+import React, { FormEventHandler } from "react";
+import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import StyledButton from "../UI/StyledButton";
 import RegisterImageCarousel from "./RegisterImageCarousel";
 import RegisterInputs from "./RegisterInputs";
@@ -6,12 +7,19 @@ import styles from "./styles/Register.module.scss";
 
 
 const Register: React.FC<{ movieUrls: string[] }> = (props) => {
+
+  const inputsData = useAppSelector(state => state.registerInputs)
+  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault(); // Prevent page refresh
+    console.log(inputsData)
+  } 
+
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
         <RegisterImageCarousel urls={props.movieUrls} />
         <div className={styles["card__form-section"]}>
-          <form className={styles["card__form"]}>
+          <form onSubmit={onSubmitHandler} className={styles["card__form"]}>
             <h1 className={styles["form__header-text"]}>Create Account</h1>
             <RegisterInputs />
             <div className={styles["form__footer"]}>

@@ -1,22 +1,38 @@
-import React, { useState } from "react";
+import React, { ChangeEventHandler, useState } from "react";
 import EyeIcon from "../Icons/EyeIcon";
 import styles from "./styles/RegisterInput.module.scss";
+import { AppDispatch, registerInputsActions } from "../../redux/store";
+import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 
 const RegisterInput: React.FC<
-  {
+  | {
       inputName: string;
       type: string;
       placeholder: string;
       passwordInput?: boolean;
     }
-    | {
-        inputName: string;
-        placeholder: string;
-        passwordInput: true;
-      }
+  | {
+      inputName: string;
+      placeholder: string;
+      passwordInput: true;
+    }
 > = (props) => {
-
+  const [inputData, setInputData] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const inputVal = event.target.value;
+    setInputData(inputVal);
+    // Store data in redux store
+    dispatch(
+      registerInputsActions.getInputsData({
+        type: props.inputName,
+        data: inputVal,
+      })
+    );
+  };
+
   if (props.passwordInput === true) {
     return (
       <li className={styles["form__input"]}>
@@ -25,6 +41,8 @@ const RegisterInput: React.FC<
         </label>
         <div className={styles["input__wrap"]}>
           <input
+            value={inputData}
+            onChange={inputChangeHandler}
             className={styles["input"]}
             type={!showPassword ? "password" : "text"}
             placeholder={props.placeholder}
@@ -63,6 +81,8 @@ const RegisterInput: React.FC<
         {props.inputName}
       </label>
       <input
+        value={inputData}
+        onChange={inputChangeHandler}
         className={styles["input"]}
         type={props.type}
         placeholder={props.placeholder}

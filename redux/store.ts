@@ -1,8 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { modalSlice, mediaFilterSlice } from "./slices";
+import { modalSlice, mediaFilterSlice, registerInputsSlice } from "./slices";
 
 const store = configureStore({
-  reducer: {modal: modalSlice.reducer, mediaFilter: mediaFilterSlice.reducer},
+  reducer: {
+    modal: modalSlice.reducer,
+    mediaFilter: mediaFilterSlice.reducer,
+    registerInputs: registerInputsSlice.reducer,
+  },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: false,
@@ -11,6 +15,7 @@ const store = configureStore({
 
 export const modalActions = modalSlice.actions;
 export const mediaFilterActions = mediaFilterSlice.actions;
+export const registerInputsActions = registerInputsSlice.actions;
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;
