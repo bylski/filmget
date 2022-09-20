@@ -4,6 +4,7 @@ import styles from "./styles/RegisterInput.module.scss";
 import { AppDispatch, registerInputsActions } from "../../redux/store";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { defaultConfig } from "next/dist/server/config-shared";
+import { LargeNumberLike } from "crypto";
 
 const RegisterInput: React.FC<
   | {
@@ -11,11 +12,13 @@ const RegisterInput: React.FC<
       type: string;
       placeholder: string;
       passwordInput?: boolean;
+      maxLength: number;
     }
   | {
       inputName: string;
       placeholder: string;
       passwordInput: true;
+      maxLength: number;
     }
 > = (props) => {
   const [inputData, setInputData] = useState("");
@@ -56,6 +59,7 @@ const RegisterInput: React.FC<
             type={!showPassword ? "password" : "text"}
             placeholder={props.placeholder}
             id={props.inputName}
+            maxLength={props.maxLength}
           ></input>
           <button
             onClick={() => setShowPassword((prev) => !prev)}
@@ -97,6 +101,7 @@ const RegisterInput: React.FC<
         type={props.type}
         placeholder={props.placeholder}
         id={props.inputName}
+        maxLength={props.maxLength}
       ></input>
     </li>
   );
