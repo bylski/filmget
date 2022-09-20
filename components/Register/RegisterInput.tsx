@@ -1,8 +1,9 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler, useState, useReducer } from "react";
 import EyeIcon from "../Icons/EyeIcon";
 import styles from "./styles/RegisterInput.module.scss";
 import { AppDispatch, registerInputsActions } from "../../redux/store";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { defaultConfig } from "next/dist/server/config-shared";
 
 const RegisterInput: React.FC<
   | {
@@ -33,6 +34,13 @@ const RegisterInput: React.FC<
     );
   };
 
+
+  const lostFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
+    const inputVal = event.target.value;
+    // dispatchValidation({type: "validateInput"})
+    // console.log(validationState)
+  };
+
   if (props.passwordInput === true) {
     return (
       <li className={styles["form__input"]}>
@@ -43,6 +51,7 @@ const RegisterInput: React.FC<
           <input
             value={inputData}
             onChange={inputChangeHandler}
+            onBlur={lostFocusHandler}
             className={styles["input"]}
             type={!showPassword ? "password" : "text"}
             placeholder={props.placeholder}
@@ -83,6 +92,7 @@ const RegisterInput: React.FC<
       <input
         value={inputData}
         onChange={inputChangeHandler}
+        onBlur={lostFocusHandler}
         className={styles["input"]}
         type={props.type}
         placeholder={props.placeholder}
