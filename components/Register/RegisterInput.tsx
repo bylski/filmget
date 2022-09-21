@@ -13,12 +13,14 @@ const RegisterInput: React.FC<
       placeholder: string;
       passwordInput?: boolean;
       maxLength: number;
+      isInputValid: boolean
     }
   | {
       inputName: string;
       placeholder: string;
       passwordInput: true;
       maxLength: number;
+      isInputValid: boolean
     }
 > = (props) => {
   const [inputData, setInputData] = useState("");
@@ -37,12 +39,9 @@ const RegisterInput: React.FC<
     );
   };
 
-
-  const lostFocusHandler = (event: React.FocusEvent<HTMLInputElement>) => {
-    const inputVal = event.target.value;
-    // dispatchValidation({type: "validateInput"})
-    // console.log(validationState)
-  };
+  if (props.isInputValid) {
+    console.log(props.inputName)
+  }
 
   if (props.passwordInput === true) {
     return (
@@ -54,7 +53,6 @@ const RegisterInput: React.FC<
           <input
             value={inputData}
             onChange={inputChangeHandler}
-            onBlur={lostFocusHandler}
             className={styles["input"]}
             type={!showPassword ? "password" : "text"}
             placeholder={props.placeholder}
@@ -96,7 +94,6 @@ const RegisterInput: React.FC<
       <input
         value={inputData}
         onChange={inputChangeHandler}
-        onBlur={lostFocusHandler}
         className={styles["input"]}
         type={props.type}
         placeholder={props.placeholder}
