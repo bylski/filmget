@@ -1,8 +1,10 @@
-import React, { ChangeEventHandler, useState } from "react";
+import React, { ChangeEventHandler, useState, useReducer } from "react";
 import EyeIcon from "../Icons/EyeIcon";
 import styles from "./styles/RegisterInput.module.scss";
 import { AppDispatch, registerInputsActions } from "../../redux/store";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { defaultConfig } from "next/dist/server/config-shared";
+import { LargeNumberLike } from "crypto";
 
 const RegisterInput: React.FC<
   | {
@@ -10,11 +12,15 @@ const RegisterInput: React.FC<
       type: string;
       placeholder: string;
       passwordInput?: boolean;
+      maxLength: number;
+      isInputValid: boolean
     }
   | {
       inputName: string;
       placeholder: string;
       passwordInput: true;
+      maxLength: number;
+      isInputValid: boolean
     }
 > = (props) => {
   const [inputData, setInputData] = useState("");
@@ -33,6 +39,10 @@ const RegisterInput: React.FC<
     );
   };
 
+  // Set input classes based on validationState
+  const { isInputValid } = props;
+  const inputClasses = isInputValid ? styles["input"] : `${styles["input"]} ${styles["invalid"]}`
+
   if (props.passwordInput === true) {
     return (
       <li className={styles["form__input"]}>
@@ -43,10 +53,11 @@ const RegisterInput: React.FC<
           <input
             value={inputData}
             onChange={inputChangeHandler}
-            className={styles["input"]}
+            className={inputClasses}
             type={!showPassword ? "password" : "text"}
             placeholder={props.placeholder}
             id={props.inputName}
+            maxLength={props.maxLength}
           ></input>
           <button
             onClick={() => setShowPassword((prev) => !prev)}
@@ -83,10 +94,11 @@ const RegisterInput: React.FC<
       <input
         value={inputData}
         onChange={inputChangeHandler}
-        className={styles["input"]}
+        className={inputClasses}
         type={props.type}
         placeholder={props.placeholder}
         id={props.inputName}
+        maxLength={props.maxLength}
       ></input>
     </li>
   );
