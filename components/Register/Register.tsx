@@ -41,8 +41,8 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
     setIsSubmitted(false);
   }, [isSubmitted]);
 
-  const errorMessages = validationState.messages.map((message) => {
-    return <p className={styles["form__error-text"]}>{message}</p>;
+  const errorMessages = validationState.messages.map((message, i) => {
+    return <p key={`errorMsg${i}`}className={styles["form__error-text"]}>{message}</p>;
   });
 
   return (
