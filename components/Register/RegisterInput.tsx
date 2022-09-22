@@ -39,9 +39,12 @@ const RegisterInput: React.FC<
     );
   };
 
-  if (props.isInputValid) {
-    console.log(props.inputName)
-  }
+  // Set input classes based on validationState
+  const { isInputValid } = props;
+  console.log(isInputValid)
+  const inputClasses = isInputValid ? styles["input"] : `${styles["input"]} ${styles["invalid"]}`
+  console.log(inputClasses)
+
 
   if (props.passwordInput === true) {
     return (
@@ -53,7 +56,7 @@ const RegisterInput: React.FC<
           <input
             value={inputData}
             onChange={inputChangeHandler}
-            className={styles["input"]}
+            className={inputClasses}
             type={!showPassword ? "password" : "text"}
             placeholder={props.placeholder}
             id={props.inputName}
@@ -94,7 +97,7 @@ const RegisterInput: React.FC<
       <input
         value={inputData}
         onChange={inputChangeHandler}
-        className={styles["input"]}
+        className={inputClasses}
         type={props.type}
         placeholder={props.placeholder}
         id={props.inputName}

@@ -36,6 +36,11 @@
   border-radius: 100vw;
   padding-inline: 1rem;
   padding-block: 0.4rem;
+  border: none;
+}
+
+.input.invalid {
+  outline: 3px solid red;
 }
 
 .input__wrap .input {
