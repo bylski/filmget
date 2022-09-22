@@ -41,10 +41,7 @@ const RegisterInput: React.FC<
 
   // Set input classes based on validationState
   const { isInputValid } = props;
-  console.log(isInputValid)
   const inputClasses = isInputValid ? styles["input"] : `${styles["input"]} ${styles["invalid"]}`
-  console.log(inputClasses)
-
 
   if (props.passwordInput === true) {
     return (

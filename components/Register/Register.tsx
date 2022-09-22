@@ -26,19 +26,24 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
         const validationResult =
           validationState[validation as keyof typeof validationState];
         // If one of the inputs isn't valid, set validation to not passed, don't send api request
-        if (!validationResult.isValid) {
-          validationPassed = false;
+        if ("isValid" in validationResult) {
+          if (!validationResult.isValid) {
+            validationPassed = false;
+          }
         }
       }
       if (validationPassed) {
         console.log("GO TO API, SAVE USER AND REDIRECT TO HOME PAGE");
       } else {
-        
       }
     }
 
     setIsSubmitted(false);
   }, [isSubmitted]);
+
+  const errorMessages = validationState.messages.map((message) => {
+    return <p className={styles["form__error-text"]}>{message}</p>;
+  });
 
   return (
     <main className={styles["register-login"]}>
@@ -47,8 +52,9 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
         <div className={styles["card__form-section"]}>
           <form onSubmit={onSubmitHandler} className={styles["card__form"]}>
             <h1 className={styles["form__header-text"]}>Create Account</h1>
-            <RegisterInputs inputsValidation={validationState}/>
+            <RegisterInputs inputsValidation={validationState} />
             <div className={styles["form__footer"]}>
+              <div className={styles["form__errors"]}>{errorMessages}</div>
               <StyledButton addClass={styles["form__submit-btn"]}>
                 Submit Account
               </StyledButton>

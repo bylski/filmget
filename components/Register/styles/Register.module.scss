@@ -64,9 +64,22 @@
     width: 100%;
     height: fit-content;
 
-    margin-top: 3rem;
-    @include flexHorizontal;
+    margin-top: 1.3rem;
+    @include flexVertical;
     justify-content: center;
+}
+
+.form__errors {
+  width: 65%;
+  height: fit-content;
+  margin-bottom: 0.5rem;
+}
+
+.form__error-text {
+  color: red;
+  font-family: $main-font;
+  font-weight: 200;
+  font-size: 12px;
 }
 
 .form__submit-btn {

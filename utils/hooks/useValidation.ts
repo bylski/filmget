@@ -9,11 +9,13 @@ const useValidation = (inputsData: {
     username: { isValid: boolean };
     email: { isValid: boolean };
     password: { isValid: boolean };
+    messages: string[];
   };
   const initialValidationState: validationState = {
     username: { isValid: true },
     email: { isValid: true },
     password: { isValid: true },
+    messages: [],
   };
 
   const validationReducer = (
@@ -22,23 +24,43 @@ const useValidation = (inputsData: {
   ) => {
     if (action.type === "validateInputs") {
       const newState = state;
-      const { username, email, password } = inputsData;
+      const { messages } = newState;
+      const { username, email, password} = inputsData;
+      const usernameTooShortMsg = "* Username can only have 18 characters";
+      const passwordTooShortMsg = "* Password must have at least 8 characters"
+      const passwordRequiredCharsMsg = "* Password must contain at least one large letter and digit";
+      const invalidEmailMsg = "* Pass valid email"
+
+      const removeMsg = (messages: string[], msg: string): void => {
+        if (messages.includes(msg))  messages.splice(messages.indexOf(msg), 1)
+      }
+      const addMsg = (messages: string[], msg: string): void => {
+        if (!messages.includes(msg)) messages.push(msg);
+      }
 
       if (username.trim().length >= 18 || username.trim().length === 0) {
         newState.username.isValid = false;
+        addMsg(messages, usernameTooShortMsg)
       } else {
+        const errorMsg = "* Username can only have 18 characters"
+        removeMsg(messages, usernameTooShortMsg)
         newState.username.isValid = true;
       }
 
       if (email.length !== 0 && !email.includes("@")) {
         newState.email.isValid = false;
+        addMsg(messages, invalidEmailMsg)
       } else {
         newState.email.isValid = true;
+        removeMsg(messages, invalidEmailMsg)
       }
 
       if (password.length < 8) {
         newState.password.isValid = false;
+        addMsg(messages, passwordTooShortMsg)
+        removeMsg(messages, passwordRequiredCharsMsg)
       } else {
+        removeMsg(messages, passwordTooShortMsg)
         let hasLargeLetter = false;
         let hasDigit = false;
         for (let i = 0; i < password.length; i++) {
@@ -58,12 +80,14 @@ const useValidation = (inputsData: {
           }
         }
         if (hasLargeLetter && hasDigit) {
+          removeMsg(messages, passwordRequiredCharsMsg)
           newState.password.isValid = true;
         } else {
+          addMsg(messages, passwordRequiredCharsMsg)
           newState.password.isValid = false;
         }
       }
-      
+
       return newState;
     } else return state;
   };

@@ -14,7 +14,7 @@ const RegisterInputs: React.FC<{inputsValidation: validationState}> = (props) =>
       <RegisterInput
         inputName={"Username"}
         type="text"
-        placeholder={"Username"}
+        placeholder={"* Username"}
         maxLength={18}
         isInputValid={props.inputsValidation.username.isValid}
       />
