@@ -1,10 +1,8 @@
-import React, { ChangeEventHandler, useState, useReducer } from "react";
+import React, { ChangeEventHandler, useState, useEffect} from "react";
 import EyeIcon from "../Icons/EyeIcon";
 import styles from "./styles/RegisterInput.module.scss";
 import { AppDispatch, registerInputsActions } from "../../redux/store";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
-import { defaultConfig } from "next/dist/server/config-shared";
-import { LargeNumberLike } from "crypto";
 
 const RegisterInput: React.FC<
   | {
@@ -26,6 +24,16 @@ const RegisterInput: React.FC<
   const [inputData, setInputData] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useAppDispatch();
+
+  // Reset input fields on start up in redux store
+  useEffect(() => {
+    dispatch(
+      registerInputsActions.getInputsData({
+        type: props.inputName,
+        data: inputData,
+      })
+    );
+  }, [])
 
   const inputChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
     const inputVal = event.target.value;

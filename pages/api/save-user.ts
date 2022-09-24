@@ -29,6 +29,10 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     } catch (error) {
       throw new Error("[ERROR] Failed to store the user in the database");
     }
+
+    res.send({message: "Successfully created an account!"})
+  } else {
+    res.send({message: `Use POST method instead of ${req.method}`})
   }
 };
 
