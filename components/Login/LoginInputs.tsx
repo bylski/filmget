@@ -2,41 +2,23 @@ import React from "react";
 import LoginInput from "./LoginInput";
 import styles from "./styles/LoginInputs.module.scss";
 
-const LoginInputs: React.FC = (props) => {
+const LoginInputs: React.FC<{
+  inputsValidity: { usernameValidity: boolean; passwordValidity: boolean };
+}> = (props) => {
   return (
     <ul className={styles["form__inputs"]}>
       <LoginInput
         inputName="Username"
         type="text"
         placeholder="Your username"
+        validity={props.inputsValidity.usernameValidity}
       />
       <LoginInput
         inputName="Password"
         passwordInput={true}
         placeholder="Password"
+        validity={props.inputsValidity.passwordValidity}
       />
-      {/* <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="username">
-                  Username
-                </label>
-                <input
-                  className={styles["input"]}
-                  type="text"
-                  placeholder="Your Username"
-                  id="username"
-                ></input>
-              </li>
-              <li className={styles["form__input"]}>
-                <label className={styles["input__label"]} htmlFor="password">
-                  Password
-                </label>
-                <input
-                  className={styles["input"]}
-                  type="text"
-                  placeholder="Password"
-                  id="password"
-                ></input>
-              </li> */}
     </ul>
   );
 };

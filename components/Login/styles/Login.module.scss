@@ -125,10 +125,25 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     width: 100%;
     height: fit-content;
 
-    margin-top: 2rem;
-    @include flexHorizontal;
+    margin-top: 1rem;
+    @include flexVertical;
     justify-content: center;
 }
+
+.form__errors {
+    width: 100%;
+    height: fit-content;
+    margin-bottom: 0.5rem;
+
+    padding-inline: 5rem;
+  }
+  
+  .form__error-text {
+    color: red;
+    font-family: $main-font;
+    font-weight: 200;
+    font-size: 12px;
+  }
 
 .form__submit-btn {
     width: 40%;

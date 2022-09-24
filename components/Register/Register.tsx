@@ -33,9 +33,6 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
       }
     };
 
-    console.log(inputsData)
-    console.log(validationState)
-
     if (isSubmitted) {
       let validationPassed = true;
       for (let validation in validationState) {

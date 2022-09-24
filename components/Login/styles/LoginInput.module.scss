@@ -31,6 +31,10 @@
     padding-block: 0.4rem;
 }
 
+.input.invalid {
+  outline: 3px solid red;
+}
+
 .input__wrap {
     width: 100%;
     @include flexHorizontal;
