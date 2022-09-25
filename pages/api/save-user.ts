@@ -2,11 +2,12 @@ import { NextApiRequest, NextApiResponse } from "next";
 import bcrypt from "bcrypt";
 import mongoose from "mongoose";
 import { User } from "../../utils/mongo/userModel";
+import { signIn } from "next-auth/react";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     try {
-        // Check if code runs in production or in development, use the address specified for environment
+      // Check if code runs in production or in development, use the address specified for environment
       if (process.env.NODE_ENV === "production") {
         await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
       } else {
@@ -19,7 +20,7 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
     // res.redirect("/home");
     const { username, email, password } = req.body;
     try {
-        // Hash password and store the user in the database
+      // Hash password and store the user in the database
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new User({ username, email, password: hashedPassword });
       await newUser.save();
@@ -30,9 +31,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new Error("[ERROR] Failed to store the user in the database");
     }
 
-    res.send({message: "Successfully created an account!"})
+    res.send({ message: "Successfully created an account!" });
   } else {
-    res.send({message: `Use POST method instead of ${req.method}`})
+    res.send({ message: `Use POST method instead of ${req.method}` });
   }
 };
 

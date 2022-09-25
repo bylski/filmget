@@ -3,6 +3,8 @@ import styles from "./styles/Login.module.scss";
 import StyledButton from "../UI/StyledButton";
 import LoginInputs from "./LoginInputs";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
+import { signIn } from "next-auth/react"
+import { useRouter } from "next/router";
 
 const Login: React.FC<{ movieUrls: string[] }> = (props) => {
   const bgImg =
@@ -29,11 +31,19 @@ const Login: React.FC<{ movieUrls: string[] }> = (props) => {
     setIsSubmitted(true);
   };
 
+  const router = useRouter();
   useEffect(() => {
+    const signInHandler = async () => {
+      const res = await signIn("credentials", {username, password, redirect: false});
+      if (res !== undefined && res.ok) {
+        router.replace("/home")
+      }
+    }
+
     if (isSubmitted) {
       const {passwordValidity, usernameValidity} = inputsValidity
       if (passwordValidity && usernameValidity) {
-        console.log("MAKE API CALL")
+        signInHandler();
       }
     }
 

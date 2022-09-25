@@ -10,7 +10,7 @@ import NavbarLinks from "./NavbarLinks";
 import ArrowDownIcon from "../../Icons/ArrowDownIcon";
 import NavbarAccount from "./NavbarAccount";
 import NavbarAccountLinks from "./NavbarAccountLinks";
-
+import { useSession } from "next-auth/react";
 
 const Navbar: React.FC = () => {
   // If window is being resized - hide nav menu
@@ -51,6 +51,15 @@ const Navbar: React.FC = () => {
     animateNavVariant = "hidden";
   }
 
+  const session = useSession();
+
+  let navbarAccountLinks = null;
+  // Check if should display navbarAccount menu or links (depending on being logged in)
+  if (session.data) {
+    navbarAccountLinks = <NavbarAccount accountData={session.data} />;
+  } else if (!session.data && session.status !== "loading") {
+    navbarAccountLinks = <NavbarAccountLinks />;
+  }
 
   return (
     <Fragment>
@@ -66,9 +75,7 @@ const Navbar: React.FC = () => {
           <p className={styles["brand__text"]}>FILMGET</p>
         </div>
         <NavbarLinks linkOnClick={menuClickHandler} navMenuShow={navMenuShow} />
-        {/* If the user is not logged show login/register links, else show user account icon.
-        For now hardcoded "false" */}
-        {false ? <NavbarAccount /> : <NavbarAccountLinks />}
+        {navbarAccountLinks}
         <div
           onClick={menuClickHandler}
           className={styles["nav-menu__background"]}

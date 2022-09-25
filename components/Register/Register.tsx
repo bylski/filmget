@@ -47,7 +47,7 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
       }
       if (validationPassed) {
         storePassword();
-        router.replace("/home")
+        router.replace("/login")
       } 
     }
 
