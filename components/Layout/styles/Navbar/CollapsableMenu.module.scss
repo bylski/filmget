@@ -1,0 +1,78 @@
+@import "../../../../styles/variables.scss";
+
+.collapsable-menu {
+  margin-top: $nav-height;
+  top: 0px;
+  right: 0px;
+  position: absolute;
+
+  background-color: black;
+
+  min-width: calc(100% + 3rem);
+  max-width: fit-content;
+  border: 2px solid $primary-color2;
+  border-top: 1px solid $primary-color2;
+  border-bottom-left-radius: 15px;
+  border-bottom-right-radius: 15px;
+
+  overflow: hidden;
+}
+
+.menu__items {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+.menu__item {
+  width: 100%;
+  color: white;
+  padding-block: 1rem;
+  padding-inline: 1.2rem;
+}
+
+.menu__item:last-of-type {
+}
+
+.menu__item.logout {
+    width: 100%;
+    height: fit-content;
+
+    background-color: transparent;
+    border: none;
+
+    @include flexHorizontal;
+    justify-content: space-between;
+}
+
+.logout__text {
+    margin: 0;
+}
+
+.logout__icon {
+    height: 15px;
+    fill: white;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .menu__item:hover {
+    -webkit-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+    -moz-box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+    box-shadow: inset 0px -85px 54px -100px rgba(255, 0, 110, 1);
+
+    cursor: pointer;
+
+    color: $primary-color2;
+
+    .logout__text {
+        color: $primary-color2;
+    }
+
+    .logout__icon {
+        fill: $primary-color2;
+    }
+  }
+
+  
+
+}

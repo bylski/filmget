@@ -41,3 +41,21 @@ export const navLinksVariants = {
   show: { opacity: 1 },
 };
 
+export const accountMenuVariants = {
+  hidden: {
+    transition: { type: "linear" },
+    borderBottom: "none",
+    height: "0px",
+  },
+  show: {
+    transition: { type: "linear", staggerChildren: 0.1, delayChildren: 0.1 },
+    height: "fit-content",
+    borderBottom: "2px solid #ff006e",
+  },
+}
+
+export const accountLinksVariants = {
+  hidden: { opacity: 0, transition: { duration: 0.25, type: "linear" } },
+  show: { opacity: 1 },
+};
+

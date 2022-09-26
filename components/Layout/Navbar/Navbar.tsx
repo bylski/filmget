@@ -8,7 +8,7 @@ import NavMenuIcon from "../../Icons/NavMenuIcon";
 import useScrollActions from "../../../utils/hooks/useScrollActions";
 import NavbarLinks from "./NavbarLinks";
 import ArrowDownIcon from "../../Icons/ArrowDownIcon";
-import NavbarAccount from "./NavbarAccount";
+import NavbarAccount from "./NavbarAccount/NavbarAccount";
 import NavbarAccountLinks from "./NavbarAccountLinks";
 import { useSession } from "next-auth/react";
 
