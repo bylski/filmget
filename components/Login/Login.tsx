@@ -3,12 +3,14 @@ import styles from "./styles/Login.module.scss";
 import StyledButton from "../UI/StyledButton";
 import LoginInputs from "./LoginInputs";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
-import { signIn } from "next-auth/react"
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 
 const Login: React.FC<{ movieUrls: string[] }> = (props) => {
-  const bgImg =
-    props.movieUrls[Math.floor(Math.random() * props.movieUrls.length)];
+  const [bgImg, setBgImg] = useState("")
+  useEffect(() => {
+    setBgImg(props.movieUrls[Math.floor(Math.random() * props.movieUrls.length)]);
+  }, []);
 
   const { username, password } = useAppSelector((state) => state.loginInputs);
   const [inputsValidity, setInputsValidity] = useState({
@@ -34,14 +36,18 @@ const Login: React.FC<{ movieUrls: string[] }> = (props) => {
   const router = useRouter();
   useEffect(() => {
     const signInHandler = async () => {
-      const res = await signIn("credentials", {username, password, redirect: false});
+      const res = await signIn("credentials", {
+        username,
+        password,
+        redirect: false,
+      });
       if (res !== undefined && res.ok) {
-        router.replace("/home")
+        router.replace("/home");
       }
-    }
+    };
 
     if (isSubmitted) {
-      const {passwordValidity, usernameValidity} = inputsValidity
+      const { passwordValidity, usernameValidity } = inputsValidity;
       if (passwordValidity && usernameValidity) {
         signInHandler();
       }
