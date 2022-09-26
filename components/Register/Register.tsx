@@ -1,3 +1,5 @@
+import axios from "axios";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import useValidation from "../../utils/hooks/useValidation";
@@ -17,9 +19,20 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
     setIsSubmitted(true);
   };
 
+
   // If user submitted form - check if validation passed the tests
   // (do it in useEffect and not in Submit handler to get latest state snapshot)
+  const router = useRouter();
   useEffect(() => {
+    const storePassword = async () => {
+      const { username, email, password } = inputsData;
+      try {
+      await axios.post("/api/save-user", { username, email, password });
+      } catch {
+        throw new Error ("Failed to create account")
+      }
+    };
+
     if (isSubmitted) {
       let validationPassed = true;
       for (let validation in validationState) {
@@ -33,16 +46,20 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
         }
       }
       if (validationPassed) {
-        console.log("GO TO API, SAVE USER AND REDIRECT TO HOME PAGE");
-      } else {
-      }
+        storePassword();
+        router.replace("/login")
+      } 
     }
 
     setIsSubmitted(false);
   }, [isSubmitted]);
 
   const errorMessages = validationState.messages.map((message, i) => {
-    return <p key={`errorMsg${i}`}className={styles["form__error-text"]}>{message}</p>;
+    return (
+      <p key={`errorMsg${i}`} className={styles["form__error-text"]}>
+        {message}
+      </p>
+    );
   });
 
   return (

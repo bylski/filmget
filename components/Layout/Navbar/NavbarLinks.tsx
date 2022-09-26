@@ -6,6 +6,7 @@ import { navMenuVariants } from "../../../utils/AnimationVariants.ts";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useBreakpoints from "../../../utils/hooks/useBreakpoints";
+import { useSession } from "next-auth/react";
 
 const NavbarLinks: React.FC<{
   navMenuShow: boolean;
@@ -19,6 +20,7 @@ const NavbarLinks: React.FC<{
   }
 
   const router = useRouter();
+  const session = useSession();
 
   const [selectedLink, setSelectedLink] = useState<string | null>();
   useEffect(() => {
@@ -113,9 +115,8 @@ const NavbarLinks: React.FC<{
               </a>
             </Link>
           </motion.li>
-          {/* If the user is not logged show login/register links.
-        For now hardcoded "true" */}
-          {true ? (
+          {/* If the user is not logged show login/register links. */}
+          {!session.data ? (
             <Fragment>
               <motion.li
                 variants={navLinksVariants}

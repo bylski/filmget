@@ -17,6 +17,7 @@
   height: $nav-height;
   margin-left: auto;
   @include flexHorizontal;
+  position: relative;
 }
 
 .nav-account__avatar-icon {
@@ -43,6 +44,11 @@
   height: 17px;
 
   position: relative;
+
+}
+
+.nav-account__arrow-icon.active {
+  transform: rotate(180deg);
 }
 
 .nav-account__arrow-btn {

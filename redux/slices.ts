@@ -74,3 +74,27 @@ export const registerInputsSlice = createSlice({
     },
   },
 });
+
+const loginInputsInitialState: {
+  username: string;
+  password: string;
+} = {
+  username: "",
+  password: "",
+};
+
+export const loginInputsSlice = createSlice({
+  name: "loginInputs",
+  initialState: loginInputsInitialState,
+  reducers: {
+    getInputsData(state, actions) {
+      if (actions.payload.type === "Username") {
+        state.username = actions.payload.data
+      }
+      if (actions.payload.type === "Password") {
+        state.password = actions.payload.data
+      }
+    },
+  },
+});
+
