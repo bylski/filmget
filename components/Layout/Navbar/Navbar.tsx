@@ -12,7 +12,7 @@ import NavbarAccount from "./NavbarAccount/NavbarAccount";
 import NavbarAccountLinks from "./NavbarAccountLinks";
 import { useSession } from "next-auth/react";
 
-const Navbar: React.FC = () => {
+const Navbar: React.FC = (props) => {
   // If window is being resized - hide nav menu
   useEffect(() => {
     window.addEventListener("resize", () => {
@@ -52,7 +52,6 @@ const Navbar: React.FC = () => {
   }
 
   const session = useSession();
-
   let navbarAccountLinks = null;
   // Check if should display navbarAccount menu or links (depending on being logged in)
   if (session.data) {
@@ -74,8 +73,16 @@ const Navbar: React.FC = () => {
           <BrandIcon className={styles["brand__icon"]} />
           <p className={styles["brand__text"]}>FILMGET</p>
         </div>
-        <NavbarLinks linkOnClick={menuClickHandler} navMenuShow={navMenuShow} />
-        {navbarAccountLinks}
+        {session.data && (
+          <Fragment>
+            <NavbarLinks
+              linkOnClick={menuClickHandler}
+              navMenuShow={navMenuShow}
+            />
+            {navbarAccountLinks}
+          </Fragment>
+        )}
+
         <div
           onClick={menuClickHandler}
           className={styles["nav-menu__background"]}

@@ -4,7 +4,7 @@ import { User } from "../../../utils/mongo/userModel";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
