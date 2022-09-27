@@ -19,7 +19,6 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
     setIsSubmitted(true);
   };
 
-
   // If user submitted form - check if validation passed the tests
   // (do it in useEffect and not in Submit handler to get latest state snapshot)
   const router = useRouter();
@@ -27,9 +26,24 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
     const storePassword = async () => {
       const { username, email, password } = inputsData;
       try {
-      await axios.post("/api/save-user", { username, email, password });
+        const res: { data: { message: string; success: boolean } } =
+          await axios.post("/api/save-user", { username, email, password });
+        if (res.data.success) {
+          console.log(res.data.message);
+          dispatchValidation({
+            type: "setValidation",
+            payload: { username: { isValid: true }, password: {isValid: true}, email: {isValid: true}, messages: [] },
+          });
+          router.replace("/login");
+        } else {
+          console.log(res.data.message);
+          dispatchValidation({
+            type: "setValidation",
+            payload: { username: { isValid: false }, password: {isValid: true}, email: {isValid: true}, messages: [res.data.message] },
+          });
+        }
       } catch {
-        throw new Error ("Failed to create account")
+        throw new Error("Failed to create account");
       }
     };
 
@@ -47,8 +61,7 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
       }
       if (validationPassed) {
         storePassword();
-        router.replace("/login")
-      } 
+      }
     }
 
     setIsSubmitted(false);

@@ -39,8 +39,6 @@ export const authOptions: NextAuthOptions = {
             return { name: username, email: existingUser.email || null };
           }
         }
-
-        console.log("Invalid credentials");
         return null;
       },
     }),

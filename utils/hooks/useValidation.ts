@@ -20,7 +20,7 @@ const useValidation = (inputsData: {
 
   const validationReducer = (
     state: validationState,
-    action: { type: "validateInputs" }
+    action: { type: "validateInputs" } | { type: "setValidation", payload: validationState}
   ) => {
     if (action.type === "validateInputs") {
       const newState = state;
@@ -89,6 +89,9 @@ const useValidation = (inputsData: {
       }
 
       return newState;
+    } else if (action.type === "setValidation") {
+      // Set state as manually passed validation object
+      return action.payload;
     } else return state;
   };
 

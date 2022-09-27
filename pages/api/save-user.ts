@@ -19,7 +19,15 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
 
     // res.redirect("/home");
     const { username, email, password } = req.body;
+ 
     try {
+      // Check if user with such username doesn't exist already
+      const existingUser = await User.findOne({username});
+      if (existingUser) {
+        res.send({message: "* User with this username already exists", success: false})
+        return
+      }
+
       // Hash password and store the user in the database
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new User({ username, email, password: hashedPassword });
@@ -31,9 +39,9 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
       throw new Error("[ERROR] Failed to store the user in the database");
     }
 
-    res.send({ message: "Successfully created an account!" });
+    res.send({ message: "Successfully created an account!", success: true});
   } else {
-    res.send({ message: `Use POST method instead of ${req.method}` });
+    res.send({ message: `Use POST method instead of ${req.method}` , success: false});
   }
 };
 
