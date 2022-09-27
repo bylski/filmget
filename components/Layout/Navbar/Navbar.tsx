@@ -73,7 +73,7 @@ const Navbar: React.FC = (props) => {
           <BrandIcon className={styles["brand__icon"]} />
           <p className={styles["brand__text"]}>FILMGET</p>
         </div>
-        {session.data && (
+        {session.status !== "loading" && (
           <Fragment>
             <NavbarLinks
               linkOnClick={menuClickHandler}
