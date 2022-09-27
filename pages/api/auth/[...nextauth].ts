@@ -4,7 +4,7 @@ import { User } from "../../../utils/mongo/userModel";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
 
-const authOptions: NextAuthOptions = {
+export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
   },
@@ -39,8 +39,6 @@ const authOptions: NextAuthOptions = {
             return { name: username, email: existingUser.email || null };
           }
         }
-
-        console.log("Invalid credentials");
         return null;
       },
     }),
