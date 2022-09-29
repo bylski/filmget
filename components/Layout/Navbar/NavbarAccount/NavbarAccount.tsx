@@ -4,6 +4,7 @@ import ArrowDownIcon from "../../../Icons/ArrowDownIcon";
 import { Session } from "next-auth";
 import { signOut } from "next-auth/react";
 import CollapsableMenu from "./CollapsableMenu";
+import { outsideClickDetector } from "../../../../utils/scripts";
 const NavbarAccount: React.FC<{ accountData: Session }> = (props) => {
   const username = props.accountData.user?.name;
   const [accountMenuShow, setAccountMenuShow] = useState(false);
@@ -12,6 +13,8 @@ const NavbarAccount: React.FC<{ accountData: Session }> = (props) => {
   if (accountMenuShow) {
     arrowIconClasses = `${styles["nav-account__arrow-icon"]} ${styles["active"]}`
   }
+
+  
 
   return (
     <div className={styles["nav-account"]}>
@@ -24,6 +27,7 @@ const NavbarAccount: React.FC<{ accountData: Session }> = (props) => {
       <p className={styles["nav-account__username"]}>{username}</p>
       <button
         onClick={() => setAccountMenuShow(prev => !prev)}
+        onBlur={() => setAccountMenuShow(false)}
         className={styles["nav-account__arrow-btn"]}
       >
         <ArrowDownIcon className={arrowIconClasses} />

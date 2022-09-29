@@ -31,10 +31,9 @@
   padding-inline: 1.2rem;
 }
 
-.menu__item:last-of-type {
-}
 
-.menu__item.logout {
+
+.menu__item.with-icon {
     width: 100%;
     height: fit-content;
 
@@ -45,11 +44,11 @@
     justify-content: space-between;
 }
 
-.logout__text {
+.item__text {
     margin: 0;
 }
 
-.logout__icon {
+.icon {
     height: 15px;
     fill: white;
 }
@@ -64,11 +63,11 @@
 
     color: $primary-color2;
 
-    .logout__text {
+    .item__text {
         color: $primary-color2;
     }
 
-    .logout__icon {
+    .icon {
         fill: $primary-color2;
     }
   }
