@@ -23,15 +23,17 @@
     border-radius: 25px;
 
     overflow: hidden;
+    background-color: $dark-theme-bg-color2;
 }
+
 
 .section-switcher {
     width: 10rem;
     min-height: 100%;
     height: 100%;
-    background-color: $dark-theme-bg-color2;
+    background-color: black;
 
-    border-right: 2px solid $primary-color2;
+    border-right: 1px solid $primary-color2;
 }
 
 .section-switcher__options {
@@ -45,7 +47,7 @@
 }
 
 .section-switcher__option {
-    border-top: 2px solid $primary-color2;
+    border-top: 1px solid $primary-color2;
     color: white;
     width: 100%;
 
@@ -61,6 +63,10 @@
     transition: color 0.1s ease-in; 
 }
 
+.section-switcher__option .active {
+    color: $primary-color2;
+}
+
 .section-switcher__option:first-of-type {
     border-top: none;
 }
@@ -71,6 +77,52 @@
 
     transition: fill 0.1s ease-in; 
 }
+
+.option__icon.active {
+    fill: $primary-color2;
+}
+
+// ACCOUNT SECTION
+
+.account-section {
+    background-color: $dark-theme-bg-color2;
+
+    width: 100%;
+    min-height: 100%;
+
+    @include flexVertical;
+}
+
+.section__header {
+    width: 100%;
+    @include flexVertical;
+    justify-content: center;
+    font-family: $main-font;
+}
+
+.header__username {
+    width: fit-content;
+    text-align: center;
+    color: white;
+
+    font-size: 2rem;
+    font-family: $main-font;
+    font-weight: 500;
+
+    // background: #3A86FF;
+    // background: linear-gradient(to right, #3A86FF 0%, #8338EC 50%, #FF006E 100%);
+    // -webkit-background-clip: text;
+    // -webkit-text-fill-color: transparent;
+
+    margin-bottom: 0.3rem;
+}
+
+.header__username + span {
+    color: white;
+    font-weight: 200;
+}
+
+
 
 @media (hover: hover) and (pointer: fine) {
     .section-switcher__option:hover {
