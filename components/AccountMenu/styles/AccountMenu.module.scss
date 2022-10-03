@@ -6,10 +6,11 @@
 
     max-width: 100%;
     width: 100%;
-    height: 80vh;
     min-height: 80vh;
+    height: fit-content;
 
     padding-block: 2rem;
+    margin-bottom: 5rem;
     padding-inline: $layout-margin;
 }
 
@@ -17,78 +18,27 @@
     @include flexHorizontal;
 
     border: 2px solid $primary-color2;
-    height: 100%;
+    min-height: 80vh;
+    height: 80vh;
     width: 100%;
 
     border-radius: 25px;
 
     overflow: hidden;
     background-color: $dark-theme-bg-color2;
-}
-
-
-.section-switcher {
-    width: 10rem;
-    min-height: 100%;
-    height: 100%;
-    background-color: black;
-
-    border-right: 1px solid $primary-color2;
-}
-
-.section-switcher__options {
-    height: 100%;
-    list-style: none;
-    padding-left: 0;
-    margin: 0;
-
-    display: grid;
-    grid-template-rows: repeat(1fr);
-}
-
-.section-switcher__option {
-    border-top: 1px solid $primary-color2;
-    color: white;
-    width: 100%;
-
     
-    @include flexVertical;
-    justify-content: center;
-
-    font-family: $main-font;
-    font-size: 1.1rem;
-    font-weight: 500;
-    text-align: center;
-
-    transition: color 0.1s ease-in; 
 }
 
-.section-switcher__option .active {
-    color: $primary-color2;
-}
-
-.section-switcher__option:first-of-type {
-    border-top: none;
-}
-
-.option__icon {
-    fill: white;
-    height: 55px;
-
-    transition: fill 0.1s ease-in; 
-}
-
-.option__icon.active {
-    fill: $primary-color2;
-}
 
 // ACCOUNT SECTION
 
 .account-section {
     background-color: $dark-theme-bg-color2;
 
-    width: 100%;
     min-height: 100%;
+    max-width: 100%;
+    width: 100%;
+    padding-inline: 5rem;
 
     @include flexVertical;
 }
@@ -124,15 +74,4 @@
 
 
 
-@media (hover: hover) and (pointer: fine) {
-    .section-switcher__option:hover {
-
-        cursor: pointer;
-        color: $primary-color2;
-
-        .option__icon {
-            fill: $primary-color2;
-        }
-    }
-}
 

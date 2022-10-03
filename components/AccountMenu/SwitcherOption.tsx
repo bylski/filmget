@@ -1,7 +1,7 @@
 import React from "react";
 import AccountIcon from "../Icons/AccountIcon";
 import EyeIcon from "../Icons/EyeIcon";
-import styles from "./styles/AccountMenu.module.scss";
+import styles from "./styles/SectionSwitcher.module.scss";
 import SettingsIcon from "../Icons/SettingsIcon";
 const SwitcherOption: React.FC<{option: boolean, text: string}> = (props) => {
 

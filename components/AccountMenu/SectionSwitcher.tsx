@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "./styles/AccountMenu.module.scss";
+import styles from "./styles/SectionSwitcher.module.scss";
 import SwitcherOption from "./SwitcherOption";
 
 const SectionSwitcher: React.FC = (props) => {
@@ -18,6 +18,7 @@ const SectionSwitcher: React.FC = (props) => {
         {allOptions}
       </ul>
     </aside>
+    
   );
 };
 
