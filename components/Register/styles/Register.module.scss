@@ -9,14 +9,14 @@
 }
 
 .register-login__card {
-  margin-inline: $layout-margin;
+  // margin-inline: $layout-margin;
   height: calc(100vh - $nav-height - 2rem);
 
   background-color: $dark-theme-bg-color2;
 
   @include flexHorizontal;
 
-  border-radius: 20px;
+  // border-radius: 20px;
   overflow: hidden;
 
   -webkit-box-shadow: 0px 0px 49px -14px rgba(0, 0, 0, 1);
@@ -29,6 +29,7 @@
 .card__form-section {
   width: 100%;
   height: 100%;
+
 }
 
 .card__form {
@@ -40,6 +41,8 @@
   padding-bottom: 2rem;
 
   border-top-right-radius: 20px;
+  padding-right: $layout-margin;
+  padding-left: 5rem;
 
   // border-bottom: 1px solid $primary-color2;
 }

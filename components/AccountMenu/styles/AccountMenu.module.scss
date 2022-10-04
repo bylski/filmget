@@ -10,20 +10,19 @@
     height: fit-content;
 
     padding-block: 2rem;
+    padding-top: 0rem;
     margin-bottom: 5rem;
-    padding-inline: $layout-margin;
 }
 
 .account-menu__card {
-    @include flexHorizontal;
+    @include flexVertical;
 
-    border: 2px solid $primary-color2;
+    // border: 2px solid $primary-color2;
     min-height: 80vh;
-    height: 80vh;
+    height: fit-content;
     width: 100%;
 
-    border-radius: 25px;
-
+    // border-radius: 25px;
     overflow: hidden;
     background-color: $dark-theme-bg-color2;
     
@@ -38,7 +37,7 @@
     min-height: 100%;
     max-width: 100%;
     width: 100%;
-    padding-inline: 5rem;
+    padding-inline: $layout-margin;
 
     @include flexVertical;
 }
@@ -59,10 +58,6 @@
     font-family: $main-font;
     font-weight: 500;
 
-    // background: #3A86FF;
-    // background: linear-gradient(to right, #3A86FF 0%, #8338EC 50%, #FF006E 100%);
-    // -webkit-background-clip: text;
-    // -webkit-text-fill-color: transparent;
 
     margin-bottom: 0.3rem;
 }

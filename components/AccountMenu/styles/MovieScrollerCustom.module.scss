@@ -3,7 +3,7 @@
 .scroller__container {
     box-sizing: border-box;
     max-width: 100%;
-    width: 58rem;
+    width: calc(100% - $layout-margin * 2);
     min-height: auto;
     padding-top: 2rem;
     padding-bottom: 3rem;

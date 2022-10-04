@@ -233,7 +233,8 @@ const AccountMenu: React.FC = (props) => {
               </p>
               <span>On Filmget since - 2 September 2022</span>
             </header>
-            <MoviesScroller customStyles={movieScrollerStyles} headerText="Your Top Rated" moviesData={data} genresList={[{id: 1, name: "bla"}]}/>
+            <MoviesScroller customStyles={movieScrollerStyles} headerText="Highest Rated " moviesData={data} genresList={[{id: 1, name: "bla"}]}/>
+
             <div className={styles["section__content"]}></div>
           </main>
         )}

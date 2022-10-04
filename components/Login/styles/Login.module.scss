@@ -11,14 +11,12 @@
 }
 
 .register-login__card {
-    margin-inline: $layout-margin;
     height: calc(100vh - $nav-height - 2rem);
 
     background-color: $dark-theme-bg-color1;
 
     @include flexHorizontal;
 
-    border-radius: 20px;
     overflow: hidden;
 
     position: relative;
@@ -85,7 +83,7 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
 }
 
 .card__form {
-    width: 50%;
+    width: 45%;
     height: fit-content;
 
     @include flexVertical;
