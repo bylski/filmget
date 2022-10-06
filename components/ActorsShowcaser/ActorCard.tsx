@@ -22,7 +22,7 @@ const ActorCard: React.FC<{
         y: originPosition.y + originPosition.height / 2,
       };
     }
-  
+
     dispatch(
       modalActions.showModal({
         data: { ...props.actorData },
@@ -36,6 +36,8 @@ const ActorCard: React.FC<{
     props.onHover(path);
   };
 
+  let profileImgPath = props.actorData.profile_path;
+
   return (
     <div className={styles["actor__container"]}>
       <div
@@ -46,7 +48,11 @@ const ActorCard: React.FC<{
           onClick={showModalHandler}
           ref={actorCardRef}
           className={styles["actor__img"]}
-          src={`https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${props.actorData.profile_path}`}
+          src={
+            profileImgPath !== null && profileImgPath !== undefined
+              ? `https://www.themoviedb.org/t/p/w300_and_h450_bestv2/${profileImgPath}`
+              : "/noImg.png"
+          }
         />
       </div>
       <div className={styles["actor__info"]}>

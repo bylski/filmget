@@ -24,13 +24,18 @@ const DetailsPageSummary: React.FC<{
         </div>
       </div>
     );
-  } else if (props.mediaType === "people" && "biography" in props.mediaDetails) {
+  } else if (
+    props.mediaType === "people" &&
+    "biography" in props.mediaDetails
+  ) {
+    const biography = props.mediaDetails.biography;
+
     return (
       <div className={styles["info-section__summary-section"]}>
         <h2 className={styles["summary__header-text"]}>Biography:</h2>
         <div className={styles["summary__container"]}>
           <p className={styles["summary__text"]}>
-            {props.mediaDetails.biography}
+            {biography !== null && biography !== undefined && biography !== "" ? biography : "No biography found"}
           </p>
         </div>
       </div>

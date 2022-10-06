@@ -7,12 +7,10 @@ import { modalActions } from "../../redux/store";
 import { useRef } from "react";
 import { movieInterface } from "../../utils/types";
 
-
 const MovieCard: React.FC<{
   movieData: movieInterface;
-  genresList:  { id: number; name: string }[];
+  genresList: { id: number; name: string }[];
 }> = (props) => {
-
   const moviesGenres = // get the genres of the movie
     props.movieData.genre_ids.map((genreId, i) => {
       for (let genreElement of props.genresList) {
@@ -26,7 +24,7 @@ const MovieCard: React.FC<{
   const movieCardRef = useRef<HTMLImageElement | null>(null);
   const dispatch = useAppDispatch();
   let originPosition;
-  let position: {x: number, y: number};
+  let position: { x: number; y: number };
   const showModalHandler = () => {
     if (movieCardRef.current !== null) {
       originPosition = movieCardRef.current.getBoundingClientRect();
@@ -44,6 +42,8 @@ const MovieCard: React.FC<{
     );
   };
 
+  const imgPath = props.movieData.poster_path;
+
   return (
     <div className={styles["movie-container"]}>
       <div className={styles["movie-img__container"]}>
@@ -51,7 +51,11 @@ const MovieCard: React.FC<{
           ref={movieCardRef}
           className={styles["movie-img"]}
           onClick={showModalHandler}
-          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.movieData.poster_path}`}
+          src={
+            imgPath !== undefined && imgPath !== null
+              ? `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.movieData.poster_path}`
+              : "/noImg.png"
+          }
         ></img>
       </div>
       <div className={styles["movie-info__container"]}>

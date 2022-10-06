@@ -9,21 +9,29 @@ const SeriesDetails: React.FC<{
   modalData: seriesInterface;
   genresString: string;
 }> = (props) => {
-
+  const backdropPath = props.modalData.backdrop_path;
+  const profilePath = props.modalData.poster_path;
 
   return (
     <Fragment>
       <div className={styles["backdrop-img__container"]}>
-        {props.modalData.backdrop_path !== null ? <img
-          src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${props.modalData.backdrop_path}`}
-          className={styles["modal__backdrop-img"]}
-        />: null}
+        {backdropPath !== null ? (
+          <img
+            src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${props.modalData.backdrop_path}`}
+            className={styles["modal__backdrop-img"]}
+          />
+        ) : (
+          <div
+            style={{ backgroundColor: "hsl(0, 0%, 12%)" }}
+            className={styles["modal__backdrop-img"]}
+          ></div>
+        )}
       </div>
       <div className={styles["modal__wrapper"]}>
         <div className={styles["modal__content"]}>
           <div className={styles["img__container"]}>
             <img
-              src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.modalData.poster_path}`}
+              src={profilePath !== undefined && profilePath !== null ? `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.modalData.poster_path}` : "/noImg.png"}
               className={styles["img"]}
             ></img>
           </div>
@@ -35,7 +43,9 @@ const SeriesDetails: React.FC<{
             />
             <div className={styles["layout-helper"]}>
               <DetailsMain dataType="series" modalData={props.modalData} />
-              <DetailsFooter mediaData={{id: props.modalData.id, mediaType: "series" }}/>
+              <DetailsFooter
+                mediaData={{ id: props.modalData.id, mediaType: "series" }}
+              />
             </div>
           </article>
         </div>

@@ -28,6 +28,8 @@ const MovieMediaCard: React.FC<{
     sequence()
   }, [props.mediaData])
 
+  const imgPath = props.mediaData.poster_path;
+
   return (
     <motion.div
       animate={controls}
@@ -41,7 +43,7 @@ const MovieMediaCard: React.FC<{
           width="600px"
           height="900px"
           className={styles["media__img"]}
-          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mediaData.poster_path}`}
+          src={imgPath !== undefined && imgPath !== null ?`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${imgPath}` : "/noImg.png"}
         />
       </div>
       <div className={styles["media__info"]}>
