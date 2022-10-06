@@ -15,11 +15,11 @@ const NavbarAccount: React.FC<{ accountData: Session }> = (props) => {
 
   return (
     <div className={styles["nav-account"]}>
-      <Link href="account">
+      <Link href="/account">
       <a>
       <div className={styles["nav-account__avatar-icon"]}>
         <img
-          src="avatar.png"
+          src="/avatar.png"
           className={styles["nav-account__avatar-img"]}
         ></img>
       </div>
