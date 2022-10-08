@@ -9,7 +9,6 @@ const SectionSwitcher: React.FC = (props) => {
     account: { option: false, text: "Account" },
     settings: { option: false, text: "Settings" },
   };
-
   const router = useRouter();
   switch (router.query.section) {
     case "settings":
@@ -18,7 +17,7 @@ const SectionSwitcher: React.FC = (props) => {
     case "to-watch":
       chosenSection = {...chosenSection, toWatch: {option: true, text: "To-Watch List"}}
       break;
-    case "dasboard":
+    case "dashboard":
     chosenSection = {...chosenSection, account: {option: true, text: "Account"}};
       break;
   }

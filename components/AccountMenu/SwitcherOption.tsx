@@ -16,7 +16,7 @@ const SwitcherOption: React.FC<{ option: boolean; text: string }> = (props) => {
   switch (props.text) {
     case "Account":
       optionsIcon = <AccountIcon className={iconClass} />;
-      iconQuery = "dasboard"
+      iconQuery = "dashboard"
       break;
     case "Settings":
       optionsIcon = <SettingsIcon className={iconClass} />;
@@ -35,6 +35,7 @@ const SwitcherOption: React.FC<{ option: boolean; text: string }> = (props) => {
       query: {section: iconQuery}
     })
   }
+
 
   return (
     <Fragment>
