@@ -13,8 +13,8 @@ const MoviesScroller: React.FC<{
 }> = (props) => {
   const [isScrolled, setIsScrolled] = useState(false);
 
-  const movies = props.moviesData.map((movie) => (
-    <MovieCard key={movie.id} movieData={movie} genresList={props.genresList} />
+  const movies = props.moviesData.map((movie, i) => (
+    <MovieCard key={`movie${i}-movie.id`} movieData={movie} genresList={props.genresList} />
   ));
 
   const scrollerRef = useRef(null);
