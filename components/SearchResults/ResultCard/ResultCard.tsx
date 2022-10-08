@@ -16,7 +16,6 @@ const ResultCard: React.FC<{
   index: number;
 }> = (props) => {
 
-  console.log(props.resultType)
 
   return (
     <motion.div
