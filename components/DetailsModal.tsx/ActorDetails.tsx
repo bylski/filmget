@@ -7,19 +7,22 @@ import DetailsMain from "./DetailsMain";
 import { actorInterface } from "../../utils/types";
 
 const ActorDetails: React.FC<{ modalData: actorInterface }> = (props) => {
+
+  const backdropPath = props.modalData.known_for[0].backdrop_path;
+  const profilePath = props.modalData.profile_path;
   return (
     <Fragment>
       <div className={styles["backdrop-img__container"]}>
-        <img
+        {backdropPath !== undefined && backdropPath !== null ? <img
           src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${props.modalData.known_for[0].backdrop_path}`}
           className={styles["modal__backdrop-img"]}
-        />
+        /> : <div style={{backgroundColor: "hsl(0, 0%, 12%)"}}className={styles["modal__backdrop-img"]}></div>}
       </div>
       <div className={styles["modal__wrapper"]}>
         <div className={styles["modal__content"]}>
           <div className={styles["img__container"]}>
             <img
-              src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.modalData.profile_path}`}
+              src={profilePath !== undefined && profilePath !== null ?`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.modalData.profile_path}` : "/noImg.png"}
               className={styles["img"]}
             ></img>
           </div>

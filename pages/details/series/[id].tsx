@@ -47,7 +47,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.log(`ERROR ${e.response.status}: ${e.response.statusText}`);
   }
 
-  const seriesDetails: any[] = res[0].data;
+  const seriesDetails: any[] = res[0].data || null;
   const genresList: any[] = res[1].data;
 
 

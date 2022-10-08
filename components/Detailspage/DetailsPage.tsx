@@ -24,24 +24,31 @@ const DetailsPage: React.FC<{
     dispatch(modalActions.hideModal());
   }, []);
 
+  const imgPath =
+    "backdrop_path" in props.mediaDetails
+      ? props.mediaDetails.backdrop_path
+      : props.additionalDetails?.known_for[0].backdrop_path;
+
+  const fullImgPath = `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${imgPath}`;
 
   return (
     <Fragment>
       <section className={styles["details-page"]}>
         <div className={styles["details-page__backdrop"]}>
-          <img
-            src={
-              "backdrop_path" in props.mediaDetails
-                ? `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${props.mediaDetails.backdrop_path}` // if a movie or series take it's backdrop path
-                : `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${props.additionalDetails?.known_for[0].backdrop_path}` // if person takie backdrop photo of the movie he is best known for
-            }
-            className={styles["details-page__backdrop-img"]}
-          ></img>
+          {imgPath !== undefined && imgPath !== null ? (
+            <img
+              src={fullImgPath}
+              className={styles["details-page__backdrop-img"]}
+            ></img>
+          ) : null}
         </div>
         <main className={styles["details-main"]}>
           <DetailsPageImage mediaDetails={props.mediaDetails} />
           <div className={styles["details-main__content"]}>
-            <DetailsPageHeader mediaType={props.mediaType} mediaDetails={props.mediaDetails} />
+            <DetailsPageHeader
+              mediaType={props.mediaType}
+              mediaDetails={props.mediaDetails}
+            />
             {props.mediaType !== "people" ? (
               <DetailsPageRating mediaDetails={props.mediaDetails} />
             ) : null}

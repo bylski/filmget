@@ -52,9 +52,8 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.log(`ERROR ${e.response.status}: ${e.response.statusText}`);
   }
 
-  const additionalInfo: actorInterface = res.data.person_results[0];
+  let additionalInfo: actorInterface = res.data.person_results[0] || null;
   
- 
 
   return {
     props: { actorDetails, additionalInfo },

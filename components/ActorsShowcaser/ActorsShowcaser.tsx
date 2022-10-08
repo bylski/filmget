@@ -5,14 +5,12 @@ import ActorCard from "./ActorCard";
 import { motion } from "framer-motion";
 import { showcaserVariants } from "../../utils/AnimationVariants.ts";
 
-
 const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
   props
 ) => {
-
-  const backdropChangeImg = (path:string) => {
+  const backdropChangeImg = (path: string) => {
     setBackdropPath(path);
-  }
+  };
 
   const backdropPaths: string[] = [];
   const actors = props.actorsData
@@ -29,19 +27,22 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
     .slice(0, 6);
 
   const actorsBackdropPaths: string[] = backdropPaths.slice(0, 6);
-  const [backdropPath, setBackdropPath] = useState(actorsBackdropPaths[0])
-  const backdropImages = actorsBackdropPaths.map((path, i) => (
-    <motion.img 
-      key={"i" + i}
-      variants={showcaserVariants}
-      initial="hidden"
-      animate={backdropPath === path ? "active" : "hidden"}
-      className={styles["showcaser__backdrop"]}
-      src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${path}`}
-    />
-  ));
-
-
+  const [backdropPath, setBackdropPath] = useState(actorsBackdropPaths[0]);
+  const backdropImages = actorsBackdropPaths.map((path, i) => {
+    if (path === null || path === undefined) {
+      return null;
+    }
+    return (
+      <motion.img
+        key={"i" + i}
+        variants={showcaserVariants}
+        initial="hidden"
+        animate={backdropPath === path ? "active" : "hidden"}
+        className={styles["showcaser__backdrop"]}
+        src={`https://image.tmdb.org/t/p/w1920_and_h1080_bestv2/${path}`}
+      />
+    );
+  });
 
   return (
     <section className={styles["showcaser__wrapper"]}>

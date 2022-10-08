@@ -1,0 +1,87 @@
+@import "../../../styles/variables.scss";
+
+.scroller__container {
+    box-sizing: border-box;
+    max-width: 100%;
+    width: 100%;
+    min-height: auto;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    background-color: $dark-theme-bg-color2;
+    position: relative;
+    
+    transition: height 0.2s ease-in;
+
+    ::-webkit-scrollbar {
+        height: 8px;  
+      }
+
+    ::-webkit-scrollbar-track {
+        background-color: hsl(0, 0%, 20%);
+      }
+}
+
+.scroller__container:first-of-type {
+    margin-top: 0rem !important;
+}
+
+
+
+.scroller__header {
+    width: 100%;
+    height: fit-content;
+    @include flexHorizontal;
+
+    font-family: $main-font;
+}
+
+.scroller__header-text {
+    padding-right: 2rem;
+    font-size: 1.2rem;
+    color: white;
+    margin: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid $primary-color2;
+
+    transition: 0.2s ease-in;
+}
+
+
+
+.movies__container {
+    height: 85%;
+    width: 100%;
+    padding-bottom: 1rem;
+    margin-top: 1.2rem;
+    
+
+    @include flexHorizontal;
+    align-items: flex-start;
+    overflow-x: scroll;
+    overflow-y: hidden;
+}
+
+
+
+.movies__margin-shadow {
+
+    display: inline-block;
+    position: absolute;
+    height: 100%;
+    width: 20vw;
+    right: 0;
+    top: 0;
+    background: rgb(0,0,0);
+    background: linear-gradient(90deg, rgba(0,0,0,0) 0%, rgba(15,15,15,1) 90%);
+    opacity: 1;
+
+    transition: 0.7s ease-in-out;
+    pointer-events: none;
+}
+
+.movies__margin-shadow--hide {
+
+    animation-name: hide;
+    animation-duration: 1s;
+    opacity: 0;
+}
