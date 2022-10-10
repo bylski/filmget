@@ -1,17 +1,11 @@
-import React from "react";
-import styles from "./styles/ToWatchList.module.scss";
-import Image from "next/image";
-import RatingIcon from "../Icons/RatingIcon";
+import React from 'react';
+import styles from "../styles/ToWatchList.module.scss";
+import Image from 'next/image';
+import RatingIcon from '../../Icons/RatingIcon';
 
-const ToWatchList: React.FC<{ movieData: any }> = (props) => {
-  return (
-    <main className={styles["towatch-section"]}>
-      <header className={styles["header"]}>
-        <p className={styles["header__text"]}>Movies you want to see:</p>
-      </header>
-      <div className={styles["section__content"]}>
-        <div className={styles["media__list"]}>
-          <div className={styles["media__card"]}>
+const ToWatchCard: React.FC<{movieData: any}> = (props) => {
+    return (
+        <div className={styles["media__card"]}>
             <div className={styles["card__img"]}>
               <Image
                 width={600}
@@ -29,10 +23,7 @@ const ToWatchList: React.FC<{ movieData: any }> = (props) => {
               </p>
             </div>
           </div>
-        </div>
-      </div>
-    </main>
-  );
-};
+    )
+}
 
-export default ToWatchList;
+export default ToWatchCard;

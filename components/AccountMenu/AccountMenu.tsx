@@ -4,7 +4,7 @@ import React from "react";
 import Dashboard from "./Dashboard";
 import SectionSwitcher from "./SectionSwitcher";
 import styles from "./styles/AccountMenu.module.scss";
-import ToWatchList from "./ToWatchList";
+import ToWatchList from "./ToWatchList/ToWatchList";
 
 
 const data = [
