@@ -1,0 +1,63 @@
+@import "../../../styles/variables.scss";
+
+.dashboard-section {
+  background-color: $dark-theme-bg-color2;
+
+  min-height: 100%;
+  max-width: 100%;
+  width: 100%;
+  padding-top: 1.5rem;
+  padding-inline: $layout-margin;
+
+  @include flexVertical;
+}
+
+.section__header {
+  width: 100%;
+  @include flexVertical;
+  justify-content: center;
+  font-family: $main-font;
+}
+
+.header__username {
+  width: fit-content;
+  text-align: center;
+  color: white;
+
+  font-size: 2rem;
+  font-family: $main-font;
+  font-weight: 500;
+
+  margin: 0;
+  margin-bottom: 0.3rem;
+}
+
+.header__username + span {
+  color: white;
+  font-weight: 200;
+}
+
+.section__content {
+  width: 80%;
+
+  @include flexVertical;
+  align-items: flex-start;
+}
+
+.content__ratings-link {
+  font-family: $main-font;
+  font-size: 1rem;
+  font-weight: 300;
+  color: white;
+  margin-bottom: 2rem;
+
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .content__ratings-link:hover {
+    color: $primary-color2;
+    cursor: pointer;
+  }
+}

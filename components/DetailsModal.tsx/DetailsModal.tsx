@@ -9,6 +9,7 @@ import ActorDetails from "./ActorDetails";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
 import SeriesDetails from "./SeriesDetails";
+import useModal from "../../utils/hooks/useModal";
 
 const DetailsModal: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
@@ -38,11 +39,13 @@ const DetailsModal: React.FC<{
     modalDetailsRender = <SeriesDetails modalData={props.modalData} genresString={genresString}/>
   } else if ("known_for" in props.modalData) {
     modalDetailsRender = <ActorDetails modalData={props.modalData} />;
+  } else {
+    <p style={{color: "white"}}>ERROR</p>
   }
 
-  const dispatch = useAppDispatch();
+  const {showModal, closeModal} = useModal();
   const backdropClickHandler = () => {
-    dispatch(modalActions.hideModal());
+    closeModal();
   };
 
   return (

@@ -15,7 +15,7 @@ const NavbarAccount: React.FC<{ accountData: Session }> = (props) => {
 
   return (
     <div className={styles["nav-account"]}>
-      <Link href="/account">
+      <Link href={{pathname: "/account", query: { section: "dashboard"}}}>
       <a>
       <div className={styles["nav-account__avatar-icon"]}>
         <img
@@ -25,7 +25,7 @@ const NavbarAccount: React.FC<{ accountData: Session }> = (props) => {
       </div>
       </a>
       </Link>
-      <Link href="/account">
+      <Link href={{pathname: "/account", query: { section: "dashboard"}}}>
         <a className={styles["nav-account__username"]}>{username}</a>
       </Link>
       <button

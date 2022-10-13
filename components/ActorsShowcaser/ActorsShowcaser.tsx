@@ -13,8 +13,11 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
   };
 
   const backdropPaths: string[] = [];
+  let addCard = 0;
   const actors = props.actorsData
     .map((actorData: any, i: number) => {
+      // Filter out adult movies actors
+      if (actorData.name !== "Seung Ha" && actorData.name !== "Min Do-yoon") {
       backdropPaths.push(actorData.known_for[0].backdrop_path);
       return (
         <ActorCard
@@ -22,9 +25,13 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
           actorData={actorData}
           onHover={backdropChangeImg}
         />
-      );
+      );} else {
+        addCard += 1;
+        return null}
+        ;
     })
-    .slice(0, 6);
+    // Make up for deleted adult actors with "addCard"
+    .slice(0, 6 + addCard);
 
   const actorsBackdropPaths: string[] = backdropPaths.slice(0, 6);
   const [backdropPath, setBackdropPath] = useState(actorsBackdropPaths[0]);

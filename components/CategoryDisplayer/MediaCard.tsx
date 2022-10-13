@@ -9,11 +9,12 @@ import { modalActions } from "../../redux/store";
 import MovieMediaCard from "./MovieMediaCard";
 import SeriesMediaCard from "./SeriesMediaCard";
 import PeopleMediaCard from "./PeopleMediaCard";
+import useModal from "../../utils/hooks/useModal";
 
 const MediaCard: React.FC<{
   mediaData: movieInterface | seriesInterface | actorInterface;
   genresList: { id: number; name: string }[] | null;
-  mediaType: string;
+  mediaType: "movies" | "series" | "people";
   index: number;
 }> = (props) => {
   let mediaGenres: any = {};
@@ -29,26 +30,12 @@ const MediaCard: React.FC<{
       });
   }
 
-  const dispatch = useAppDispatch();
-  // const mediaCardRef = useRef<HTMLDivElement | null>(null);
-  let originPosition;
-  let position: { x: number; y: number };
+  const { showModal, closeModal } = useModal();
   const cardClickHandler = (
     cardRef: React.MutableRefObject<HTMLDivElement | null>
   ) => {
-    if (cardRef.current !== null) {
-      originPosition = cardRef.current.getBoundingClientRect();
-      position = {
-        x: originPosition.x + originPosition.width / 2,
-        y: originPosition.y + originPosition.height / 2,
-      };
-    }
-    dispatch(
-      modalActions.showModal({
-        data: { ...props.mediaData, genresList: mediaGenres },
-        originPosition: position,
-      })
-    );
+    console.log(props.mediaType)
+    showModal({elementRef: cardRef, mediaData: props.mediaData, mediaType: props.mediaType, genresList: mediaGenres})
   };
 
   if (props.mediaType === "series" && "first_air_date" in props.mediaData) {
