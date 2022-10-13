@@ -4,13 +4,15 @@ import styles from "./styles/DetailsFooter.module.scss";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
 import Link from "next/link";
+import useModal from "../../utils/hooks/useModal";
 
 const DetailsFooter: React.FC<{
   mediaData: { id: number; mediaType: string };
 }> = (props) => {
   const dispatch = useAppDispatch();
+  const { showModal, closeModal } = useModal();
   const closeModalHandler = () => {
-    dispatch(modalActions.hideModal());
+    closeModal();
   };
 
   

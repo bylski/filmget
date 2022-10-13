@@ -5,8 +5,10 @@ import styles from "./styles/Dashboard.module.scss"
 import { Session } from "inspector";
 
 
-const Dashboard: React.FC<{ movieData: any, sessionData: any }> = (props) => {
+const Dashboard: React.FC<{ movieData: any, sessionData: any, genresList: {id: number, name: string}[] }> = (props) => {
   const { sessionData } = props;
+
+  console.log(props.genresList)
 
   return (
     <main className={styles["dashboard-section"]}>
@@ -21,7 +23,7 @@ const Dashboard: React.FC<{ movieData: any, sessionData: any }> = (props) => {
           customStyles={movieScrollerStyles}
           headerText="Highest Rated "
           moviesData={props.movieData}
-          genresList={[{ id: 1, name: "bla" }]}
+          genresList={props.genresList}
         />
         <a className={styles["content__ratings-link"]}>
           See all your rated movies...

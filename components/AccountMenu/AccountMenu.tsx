@@ -136,7 +136,7 @@ const data = [
   },
 ];
 
-const AccountMenu: React.FC = (props) => {
+const AccountMenu: React.FC<{genresList: {id: number, name: string}[]}> = (props) => {
   const session = useSession();
 
   let currentSection: JSX.Element | null = null;
@@ -148,10 +148,10 @@ const AccountMenu: React.FC = (props) => {
       currentSection = null;
       break;
     case "to-watch":
-      currentSection = <ToWatchList movieData={data}/>
+      currentSection = <ToWatchList genresList={props.genresList} movieData={data}/>
       break;
     default: 
-      currentSection = <Dashboard movieData={data} sessionData={session.data}/>
+      currentSection = <Dashboard genresList={props.genresList} movieData={data} sessionData={session.data}/>
   }
 
   return (

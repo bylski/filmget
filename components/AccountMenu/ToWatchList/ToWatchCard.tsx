@@ -1,45 +1,96 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import styles from "../styles/ToWatchList.module.scss";
 import Image from "next/image";
 import RatingIcon from "../../Icons/RatingIcon";
 import TrashCanIcon from "../../Icons/TrashCanIcon";
 import DetailsIcon from "../../Icons/DetailsIcon";
+import { useRouter } from "next/router";
+import { modalActions } from "../../../redux/store";
+import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
+import { useDispatch } from "react-redux";
+import useModal from "../../../utils/hooks/useModal";
 
-
-
-const ToWatchCard: React.FC<{ movieData: any }> = (props) => {
+const ToWatchCard: React.FC<{
+  movieData: any;
+  genresList: {id: number, name: string}[];
+}> = (props) => {
   const [optionsText, setOptionsText] = useState(" ");
+  const router = useRouter();
 
-  const hoverHandler = (e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>) => {
-    const button = e.target as HTMLButtonElement | HTMLDivElement;
-    const buttonId = button.id;
-  
-    switch (buttonId) {
+  const hoverHandler = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
+  ) => {
+    const element = e.target as HTMLButtonElement | HTMLDivElement;
+    const elementId = element.id;
+
+    switch (elementId) {
       case "delete-btn":
-      setOptionsText("Remove")
+        setOptionsText("Remove");
         break;
       case "details-btn":
-        setOptionsText("Details")
+        setOptionsText("Details");
         break;
-      default:
+      case "card":
         setOptionsText("Overview");
         break;
     }
-  }
+  };
 
   const hoverEndHandler = () => {
-    setOptionsText("Overview")
-  }
+    setOptionsText("Overview");
+  };
+  const divRef = useRef<HTMLDivElement | null>(null);
+  const { showModal, closeModal } = useModal();
+  const mouseClickHandler = (
+    e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
+  ) => {
+    e.stopPropagation();
+    const element = e.currentTarget as HTMLButtonElement | HTMLDivElement;
+    const elementId = element.id;
+    console.log(elementId);
+    switch (elementId) {
+      case "delete-btn":
+        setOptionsText("Remove");
+        break;
+      case "details-btn":
+        router.push("/details/movie/718930");
+        break;
+      case "card":
+        showModal({
+          elementRef: divRef,
+          mediaData: props.movieData[0],
+          mediaType: "movies",
+          genresList: props.genresList,
+        });
+        break;
+    }
+  };
 
   return (
-    <div onMouseEnter={hoverHandler} className={styles["media__card"]}>
+    <div
+      ref={divRef}
+      id="card"
+      onClick={mouseClickHandler}
+      onMouseEnter={hoverHandler}
+      className={styles["media__card"]}
+    >
       <div className={styles["card__img"]}>
         <div className={styles["card__options"]}>
           <div onMouseLeave={hoverEndHandler} className={styles["options"]}>
-            <button onMouseEnter={hoverHandler} id={"details-btn"} className={styles["options__details"]}>
+            <button
+              onClick={mouseClickHandler}
+              onMouseEnter={hoverHandler}
+              id={"details-btn"}
+              className={styles["options__details"]}
+            >
               <DetailsIcon className={styles["options__details-icon"]} />
             </button>
-            <button onMouseEnter={hoverHandler} id={"delete-btn"} className={styles["options__delete"]}>
+            <button
+              onClick={mouseClickHandler}
+              onMouseEnter={hoverHandler}
+              id={"delete-btn"}
+              className={styles["options__delete"]}
+            >
               <TrashCanIcon className={styles["options__trash-icon"]} />
             </button>
           </div>

@@ -1,11 +1,9 @@
 import React from "react";
 import styles from "./styles/MovieCard.module.scss";
 import RatingIcon from "../Icons/RatingIcon";
-import Image from "next/image";
-import { useAppDispatch } from "../../utils/hooks/reduxHooks";
-import { modalActions } from "../../redux/store";
 import { useRef } from "react";
 import { movieInterface } from "../../utils/types";
+import useModal from "../../utils/hooks/useModal";
 
 const MovieCard: React.FC<{
   movieData: movieInterface;
@@ -22,27 +20,17 @@ const MovieCard: React.FC<{
     });
 
   const movieCardRef = useRef<HTMLImageElement | null>(null);
-  const dispatch = useAppDispatch();
-  let originPosition;
-  let position: { x: number; y: number };
-  const showModalHandler = () => {
-    if (movieCardRef.current !== null) {
-      originPosition = movieCardRef.current.getBoundingClientRect();
-      position = {
-        x: originPosition.x + originPosition.width / 2,
-        y: originPosition.y + originPosition.height / 2,
-      };
-    }
-
-    dispatch(
-      modalActions.showModal({
-        data: { ...props.movieData, genresList: moviesGenres },
-        originPosition: position,
-      })
-    );
-  };
-
   const imgPath = props.movieData.poster_path;
+
+  const { showModal, closeModal } = useModal();
+  const showModalHandler = () => {
+    showModal({
+      mediaType: "movies",
+      elementRef: movieCardRef,
+      mediaData: props.movieData,
+      genresList: moviesGenres,
+    });
+  };
 
   return (
     <div className={styles["movie-container"]}>

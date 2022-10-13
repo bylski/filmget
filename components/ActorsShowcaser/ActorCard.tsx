@@ -4,6 +4,7 @@ import { useRef } from "react";
 import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
 import { actorInterface } from "../../utils/types";
+import useModal from "../../utils/hooks/useModal";
 
 const ActorCard: React.FC<{
   actorData: actorInterface;
@@ -13,23 +14,11 @@ const ActorCard: React.FC<{
 
   let originPosition;
   let position: { x: number; y: number };
-  const dispatch = useAppDispatch();
-  const showModalHandler = () => {
-    if (actorCardRef.current !== null) {
-      originPosition = actorCardRef.current.getBoundingClientRect();
-      position = {
-        x: originPosition.x + originPosition.width / 2,
-        y: originPosition.y + originPosition.height / 2,
-      };
-    }
-
-    dispatch(
-      modalActions.showModal({
-        data: { ...props.actorData },
-        originPosition: position,
-      })
-    );
-  };
+ 
+const {showModal, closeModal} = useModal();
+const showModalHandler = () => {
+  showModal({elementRef: actorCardRef, mediaData: props.actorData, mediaType: "people"})
+}
 
   const imgHoveredHandler = (e: React.MouseEvent) => {
     const path = props.actorData.known_for[0].backdrop_path;
