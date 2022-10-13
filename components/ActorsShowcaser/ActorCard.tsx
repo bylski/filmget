@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
 import { actorInterface } from "../../utils/types";
 import useModal from "../../utils/hooks/useModal";
+import Link from "next/link";
 
 const ActorCard: React.FC<{
   actorData: actorInterface;
@@ -14,11 +15,15 @@ const ActorCard: React.FC<{
 
   let originPosition;
   let position: { x: number; y: number };
- 
-const {showModal, closeModal} = useModal();
-const showModalHandler = () => {
-  showModal({elementRef: actorCardRef, mediaData: props.actorData, mediaType: "people"})
-}
+
+  const { showModal, closeModal } = useModal();
+  const showModalHandler = () => {
+    showModal({
+      elementRef: actorCardRef,
+      mediaData: props.actorData,
+      mediaType: "people",
+    });
+  };
 
   const imgHoveredHandler = (e: React.MouseEvent) => {
     const path = props.actorData.known_for[0].backdrop_path;
@@ -48,9 +53,11 @@ const showModalHandler = () => {
         <p onClick={showModalHandler} className={styles["actor__fullname"]}>
           {props.actorData.name}
         </p>
-        <p className={styles["actor__known-from"]}>
+        <Link href={`/details/movie/${props.actorData.known_for[0].id}`}>
+        <a className={styles["actor__known-from"]}>
           {props.actorData.known_for[0].title}
-        </p>
+        </a>
+        </Link>
       </div>
     </div>
   );
