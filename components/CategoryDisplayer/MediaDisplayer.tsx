@@ -16,7 +16,7 @@ import useNextPage from "../../utils/hooks/useNextPage";
 
 
 const MediaDisplayer: React.FC<{
-  mediaType: string;
+  mediaType: "movies" | "series" | "people";
   mediaData: {
     popular: movieInterface[] | seriesInterface[] | actorInterface[];
     topRated?: movieInterface[] | seriesInterface[] | actorInterface[];
@@ -98,7 +98,7 @@ const MediaDisplayer: React.FC<{
                 props.genresList !== undefined ? props.genresList : null
               }
               mediaData={currentMediaData}
-              mediaType={props.mediaType.toLowerCase()}
+              mediaType={props.mediaType.toLowerCase() as "movies" | "series" | "people"}
             />
           ) : null}
         </main>

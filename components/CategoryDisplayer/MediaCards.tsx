@@ -10,7 +10,7 @@ import { useAppSelector } from "../../utils/hooks/reduxHooks";
 const MediaCards: React.FC<{
   mediaData: (movieInterface[] | seriesInterface[] | actorInterface[])[];
   genresList: { id: number; name: string }[] | null;
-  mediaType: string;
+  mediaType: "movies" | "series" | "people";
 }> = (props) => {
   const { selectedGenresIds, ratingRange } = useAppSelector((state) => ({
     selectedGenresIds: state.mediaFilter.selectedGenresIds,
