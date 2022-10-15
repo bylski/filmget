@@ -9,13 +9,25 @@ import { modalActions } from "../../../redux/store";
 import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
 import { useDispatch } from "react-redux";
 import useModal from "../../../utils/hooks/useModal";
+import { movieInterface, seriesInterface } from "../../../utils/types";
 
 const ToWatchCard: React.FC<{
-  movieData: any;
+  movieData: movieInterface | seriesInterface;
   genresList: {id: number, name: string}[];
 }> = (props) => {
   const [optionsText, setOptionsText] = useState(" ");
   const router = useRouter();
+
+
+  const moviesGenres = // get the genres of the movie
+  props.movieData.genre_ids.map((genreId, i) => {
+    for (let genreElement of props.genresList) {
+      if (genreElement.id === genreId) {
+        return { id: genreElement.id, name: genreElement.name };
+      }
+    }
+    return null;
+  });
 
   const hoverHandler = (
     e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
@@ -58,9 +70,9 @@ const ToWatchCard: React.FC<{
       case "card":
         showModal({
           elementRef: divRef,
-          mediaData: props.movieData[0],
+          mediaData: props.movieData,
           mediaType: "movies",
-          genresList: props.genresList,
+          genresList: moviesGenres,
         });
         break;
     }
@@ -99,17 +111,18 @@ const ToWatchCard: React.FC<{
         <Image
           width={600}
           height={900}
-          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.movieData[0].poster_path}`}
+          src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.movieData.poster_path}`}
         ></Image>
       </div>
       <div className={styles["card__info"]}>
         <div className={styles["info__rating"]}>
           <RatingIcon className={styles["rating__icon"]} />
           <p className={styles["rating__value"]}>
-            {props.movieData[0].vote_average.toFixed(1)}
+            {props.movieData.vote_average.toFixed(1)}
           </p>
         </div>
-        <p className={styles["info__title"]}>{props.movieData[0].title}</p>
+        {"title" in props.movieData ? <p className={styles["info__title"]}>{props.movieData.title}</p> : null}
+        {"name" in props.movieData ? <p className={styles["info__title"]}>{props.movieData.name}</p> : null}
       </div>
     </div>
   );

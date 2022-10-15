@@ -25,9 +25,9 @@ const Dashboard: React.FC<{ movieData: any, sessionData: any, genresList: {id: n
           moviesData={props.movieData}
           genresList={props.genresList}
         />
-        <a className={styles["content__ratings-link"]}>
+        {/* <a className={styles["content__ratings-link"]}>
           See all your rated movies...
-        </a>
+        </a> */}
       </div>
     </main>
   );
