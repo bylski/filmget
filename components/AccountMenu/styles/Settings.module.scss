@@ -1,0 +1,134 @@
+@import "../../../styles/variables.scss";
+
+.settings-section {
+  background-color: $dark-theme-bg-color2;
+
+  min-height: 100%;
+  max-width: 100%;
+  width: 100%;
+  padding-top: 1.5rem;
+  padding-bottom: 2em;
+  padding-inline: calc($layout-margin + 9rem);
+
+  @include flexVertical;
+}
+
+.settings {
+  min-height: 100%;
+  max-width: 100%;
+  width: 100%;
+  height: 100%;
+
+  @include flexHorizontal;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.second-column {
+  min-width: 40%;
+  width: 40%;
+  height: 100%;
+}
+
+.avatar-img {
+  width: 15rem;
+  height: auto;
+}
+
+.header {
+  width: 100%;
+  @include flexVertical;
+  justify-content: center;
+}
+
+.header__text {
+  font-size: 2rem;
+  font-family: $main-font;
+  color: white;
+
+  margin: 0;
+  align-self: flex-start;
+
+  padding-right: 2.5rem;
+
+  border-bottom: 1px solid $primary-color2;
+}
+
+.form {
+  width: 100%;
+  height: 100%;
+}
+
+.setting {
+  width: 100%;
+  height: fit-content;
+  border-left: 1px solid $dark-theme-bg-color3;
+  padding-left: 2rem;
+  margin-bottom: 3rem;
+}
+
+.setting:last-of-type {
+    margin-bottom: 0;
+}
+
+.setting:first-of-type {
+  margin-top: 2rem;
+}
+
+.setting__name {
+  font-family: $main-font;
+  color: white;
+}
+
+.setting__inputs {
+  list-style: none;
+  padding: 0;
+}
+
+.setting__input {
+  font-family: $secondary-font;
+  @include flexVertical;
+  align-items: flex-start;
+
+  margin-bottom: 1rem;
+}
+
+.setting__input:last-of-type {
+  margin-bottom: 0;
+}
+
+
+.setting__submit-btn {
+  width: 5rem;
+  height: 2rem;
+
+  background: none;
+  background-color: $primary-color2 !important;
+
+  transition: 0.2s ease-in-out;
+}
+
+.input__label {
+  color: white;
+  margin-bottom: 0.2rem;
+  padding-left: 0.6rem;
+}
+
+.input__input {
+    font-family: $secondary-font;
+    width: 15rem;
+
+    border-radius: 25px;
+    padding-inline: 0.5rem;
+    padding-block: 0.2rem;
+
+    font-size: 1rem;
+}
+
+
+@media (hover: hover) and (pointer: fine) {
+  .setting__submit-btn:hover {
+    width: 6rem;
+    cursor: pointer;
+  }
+}

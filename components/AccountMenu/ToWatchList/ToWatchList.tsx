@@ -18,7 +18,7 @@ const ToWatchList: React.FC<{
   return (
     <main className={styles["towatch-section"]}>
       <header className={styles["header"]}>
-        <p className={styles["header__text"]}>Want to watch:</p>
+        <h1 className={styles["header__text"]}>Want to watch</h1>
       </header>
       <div className={styles["section__content"]}>
         <div className={styles["media__list"]}>
