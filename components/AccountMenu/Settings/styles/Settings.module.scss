@@ -1,4 +1,4 @@
-@import "../../../styles/variables.scss";
+@import "../../../../styles/variables.scss";
 
 .settings-section {
   background-color: $dark-theme-bg-color2;
@@ -33,7 +33,10 @@
 .avatar-img {
   width: 15rem;
   height: auto;
+
+  margin-bottom: 1rem;
 }
+
 
 .header {
   width: 100%;
@@ -50,6 +53,7 @@
   align-self: flex-start;
 
   padding-right: 2.5rem;
+  padding-bottom: 0.3rem;
 
   border-bottom: 1px solid $primary-color2;
 }
@@ -68,7 +72,7 @@
 }
 
 .setting:last-of-type {
-    margin-bottom: 0;
+  margin-bottom: 0;
 }
 
 .setting:first-of-type {
@@ -97,38 +101,87 @@
   margin-bottom: 0;
 }
 
-
-.setting__submit-btn {
-  width: 5rem;
+.setting__btn {
+  width: fit-content;
   height: 2rem;
 
-  background: none;
+  background: none !important;
+  background-color: $primary-color2 !important;
+  padding-inline: 1rem;
+
+  transition: 0.2s ease-in-out;
+}
+
+.file-input__btn {
+  width: 10rem;
+  height: 2rem;
+
+  background: none !important;
   background-color: $primary-color2 !important;
 
   transition: 0.2s ease-in-out;
+  @include flexHorizontal;
+  padding: 0;
+
+  position: relative;
+
+  overflow: hidden;
+}
+
+.file-input__dummy {
+  width: 100%;
+  height: 100%;
+
+  position: absolute;
+  @include flexVertical;
+  justify-content: center;
+
+  z-index: 1;
 }
 
 .input__label {
   color: white;
   margin-bottom: 0.2rem;
   padding-left: 0.6rem;
+
 }
 
 .input__input {
-    font-family: $secondary-font;
-    width: 15rem;
+  font-family: $secondary-font;
+  width: 15rem;
 
-    border-radius: 25px;
-    padding-inline: 0.5rem;
-    padding-block: 0.2rem;
+  border-radius: 25px;
+  padding-inline: 0.5rem;
+  padding-block: 0.2rem;
 
-    font-size: 1rem;
+  font-size: 1rem;
 }
 
+.file-input {
+  display: none;
+}
+
+.file-input__upload-icon {
+  width: 15px;
+  fill: white;
+
+  position: absolute;
+  right: 15px; 
+
+  pointer-events: none;
+}
 
 @media (hover: hover) and (pointer: fine) {
-  .setting__submit-btn:hover {
-    width: 6rem;
+  .setting__btn:hover {
+    padding-inline: 2rem;
+    cursor: pointer;
+  }
+
+  .file-input__btn:hover {
+    width: 11.5rem;
+  }
+
+  .file-input__dummy:hover {
     cursor: pointer;
   }
 }

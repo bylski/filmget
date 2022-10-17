@@ -1,7 +1,8 @@
-import React from "react";
+import React, { Fragment } from "react";
 import StyledButton from "../../UI/StyledButton";
-import styles from "../styles/Settings.module.scss";
-import Image from "next/image";
+import styles from "./styles/Settings.module.scss";
+import AvatarSetting from "./AvatarSetting";
+
 
 type SettingProps =
   | {
@@ -41,19 +42,12 @@ const Setting: React.FC<SettingProps> = (props) => {
       <section className={styles["setting"]}>
         <h2 className={styles["setting__name"]}>{props.headerText}</h2>
         <ul className={styles["setting__inputs"]}>{allInputs}</ul>
-        <StyledButton addClass={styles["setting__submit-btn"]}>
-          Submit
-        </StyledButton>
+        <StyledButton addClass={styles["setting__btn"]}>Submit</StyledButton>
       </section>
     );
   } else if (props.type === "avatarChange") {
     return (
-      <section className={styles["setting"]}>
-         <h2 className={styles["setting__name"]}>{props.headerText}</h2>
-         <div className={styles["avatar-img"]}>
-        <Image width={500} height={500} src={"/avatar.png"}></Image>
-        </div>
-      </section>
+      <AvatarSetting headerText={props.headerText}/>
     );
   } else {
     return null;
