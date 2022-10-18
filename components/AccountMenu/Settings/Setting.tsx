@@ -24,7 +24,7 @@ const Setting: React.FC<SettingProps> = (props) => {
   if (props.type === "inputs") {
     const allInputs = props.inputs.map((input, i) => {
       return (
-        <li className={styles["setting__input"]}>
+        <li key={`setting${i}`} className={styles["setting__input"]}>
           <label htmlFor={input.id} className={styles["input__label"]}>
             {input.label}
           </label>

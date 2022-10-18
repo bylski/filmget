@@ -63,13 +63,13 @@ export const registerInputsSlice = createSlice({
   reducers: {
     getInputsData(state, actions) {
       if (actions.payload.type === "Username") {
-        state.username = actions.payload.data
+        state.username = actions.payload.data;
       }
       if (actions.payload.type === "Email") {
-        state.email = actions.payload.data
+        state.email = actions.payload.data;
       }
       if (actions.payload.type === "Password") {
-        state.password = actions.payload.data
+        state.password = actions.payload.data;
       }
     },
   },
@@ -89,12 +89,30 @@ export const loginInputsSlice = createSlice({
   reducers: {
     getInputsData(state, actions) {
       if (actions.payload.type === "Username") {
-        state.username = actions.payload.data
+        state.username = actions.payload.data;
       }
       if (actions.payload.type === "Password") {
-        state.password = actions.payload.data
+        state.password = actions.payload.data;
       }
     },
   },
 });
 
+const cropModalInitialState: { isShown: boolean; imgSrc: string } = {
+  isShown: false,
+  imgSrc: "",
+};
+
+export const cropModalSlice = createSlice({
+  name: "cropModal",
+  initialState: cropModalInitialState,
+  reducers: {
+    showModal(state, actions) {
+      state.isShown = true;
+      state.imgSrc = actions.payload.imgSrc;
+    },
+    hideModal(state, actions) {
+      state.isShown = false;
+    },
+  },
+});

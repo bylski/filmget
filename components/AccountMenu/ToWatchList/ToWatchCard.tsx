@@ -59,7 +59,6 @@ const ToWatchCard: React.FC<{
     e.stopPropagation();
     const element = e.currentTarget as HTMLButtonElement | HTMLDivElement;
     const elementId = element.id;
-    console.log(elementId);
     switch (elementId) {
       case "delete-btn":
         setOptionsText("Remove");

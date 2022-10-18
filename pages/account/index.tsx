@@ -6,6 +6,7 @@ import { hideOverflowIf } from "../../utils/scripts";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import axios from "axios";
+import AvatarCropModal from "../../components/AccountMenu/Settings/AvatarCropModal";
 
 const AccountPage: React.FC<{
   genresList: { id: number; name: string }[];
@@ -20,6 +21,12 @@ const AccountPage: React.FC<{
     originPosition: state.modal.originPosition,
   }));
 
+  const { isShown: showCropModal, imgSrc } = useAppSelector((state) => ({
+    isShown: state.cropModal.isShown,
+    imgSrc: state.cropModal.imgSrc
+  }
+  ));
+
   hideOverflowIf(showModal);
 
   return (
@@ -30,6 +37,9 @@ const AccountPage: React.FC<{
             modalData={modalData!}
             originPosition={originPosition}
           />
+        )}
+        {showCropModal && (
+          <AvatarCropModal imgSrc={imgSrc}/>
         )}
       </AnimatePresence>
       <AccountMenu genresList={props.genresList} />

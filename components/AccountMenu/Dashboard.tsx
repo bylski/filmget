@@ -8,8 +8,6 @@ import { Session } from "inspector";
 const Dashboard: React.FC<{ movieData: any, sessionData: any, genresList: {id: number, name: string}[] }> = (props) => {
   const { sessionData } = props;
 
-  console.log(props.genresList)
-
   return (
     <main className={styles["dashboard-section"]}>
       <header className={styles["section__header"]}>

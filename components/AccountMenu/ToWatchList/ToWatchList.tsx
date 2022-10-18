@@ -11,7 +11,7 @@ const ToWatchList: React.FC<{
 }> = (props) => {
 
   const allCards = props.movieData.map((mediaData, i) => {
-    return <ToWatchCard movieData={mediaData} genresList={props.genresList}/>
+    return <ToWatchCard key={`movieCard${i}`} movieData={mediaData} genresList={props.genresList}/>
   })
 
 
