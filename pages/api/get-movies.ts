@@ -1,7 +1,10 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { RequestData } from "next/dist/server/web/types";
+import {v2 as cloudinary} from "cloudinary"
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
+
+  
   // Add <Data> to NextApiRespons
   try {
     const moviesRes = await fetch(

@@ -63,6 +63,11 @@
   transition: 0.2s ease-in-out;
 }
 
+.btn__disabled {
+  pointer-events: none;
+  background-color: gray !important;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .footer__btn:hover {
     color: white;
