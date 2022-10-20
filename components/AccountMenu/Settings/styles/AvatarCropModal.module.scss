@@ -56,11 +56,21 @@
   background: none !important;
   background-color: $primary-color2 !important;
 
-  width: 8rem;
+  width: fit-content;
   padding-block: 0.7rem;
+  padding-inline: 1.5rem;
 
   position: relative;
   transition: 0.2s ease-in-out;
+
+  @include flexHorizontal;
+  justify-content: center;
+
+  p {
+    margin: 0; 
+   color: white; 
+   font-size: 16px;
+  }
 }
 
 .btn__disabled {
@@ -68,11 +78,17 @@
   background-color: gray !important;
 }
 
+.scissors-icon {
+  margin-left: 0.3rem;
+  height: 16px;
+  fill: white;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .footer__btn:hover {
     color: white;
 
-    width: 10rem;
+    padding-inline: 2.5rem;
     cursor: pointer;
   }
 }

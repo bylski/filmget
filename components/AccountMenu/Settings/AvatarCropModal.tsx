@@ -1,4 +1,4 @@
-import React, { SyntheticEvent, useEffect, useState } from "react";
+import React, { SyntheticEvent, useEffect, useState, Fragment } from "react";
 import styles from "./styles/AvatarCropModal.module.scss";
 import ReactCrop, {
   centerCrop,
@@ -10,6 +10,8 @@ import ReactCrop, {
 import "react-image-crop/dist/ReactCrop.css";
 import StyledButton from "../../UI/StyledButton";
 import axios from "axios";
+import ScissorsIcon from "../../Icons/ScissorsIcon";
+import EyeIcon from "../../Icons/EyeIcon";
 
 const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
   const [crop, setCrop] = useState<Crop>();
@@ -25,31 +27,28 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
 
   useEffect(() => {
     if (image !== null) {
-    const { naturalWidth: width, naturalHeight: height } = image;
+      const { naturalWidth: width, naturalHeight: height } = image;
 
-    const crop = centerCrop(
-      makeAspectCrop(
-        {
-          unit: "%",
-          width: 100,
-        },
-        1,
+      const crop = centerCrop(
+        makeAspectCrop(
+          {
+            unit: "%",
+            width: 100,
+          },
+          1,
+          width,
+          height
+        ),
         width,
         height
-      ),
-      width,
-      height
-    );
+      );
 
-    setCrop(crop);
-      }
-  }, [imgIsLoaded])
-  
-
- 
+      setCrop(crop);
+    }
+  }, [imgIsLoaded]);
 
   const confirmCropHandler = () => {
-    if (image !== null && crop !== undefined) {
+    if (image !== null && crop !== undefined && !isDisabled) {
       const canvas = document.createElement("canvas");
       // image.setAttribute("crossorigin", "anonymous");
       const scaleX = image.naturalWidth / image.width;
@@ -79,20 +78,18 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
       }
 
       const base64Image = canvas.toDataURL("image/jpeg");
-  
-
-      axios.post("/api/change-avatar", {image: base64Image});
+      axios.post("/api/change-avatar", { image: base64Image });
     }
   };
 
   const onCompleteHandler = (crop: PixelCrop, percentageCrop: PercentCrop) => {
-    setCrop(crop)
+    setCrop(crop);
     if (crop!.width === 0 || crop!.height === 0) {
-      setDisabled(true)
+      setDisabled(true);
     } else {
       setDisabled(false);
     }
-  }
+  };
 
   return (
     <div className={styles["crop__modal"]}>
@@ -117,9 +114,16 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
       <footer className={styles["footer"]}>
         <StyledButton
           action={confirmCropHandler}
-          addClass={!isDisabled ? styles["footer__btn"] : `${styles["footer__btn"]} ${styles["btn__disabled"]} `}
+          addClass={
+            !isDisabled
+              ? styles["footer__btn"]
+              : `${styles["footer__btn"]} ${styles["btn__disabled"]} `
+          }
         >
-          Crop Image
+          <Fragment>
+            <p>Crop Image</p>
+            <ScissorsIcon className={styles["scissors-icon"]} />
+          </Fragment>
         </StyledButton>
       </footer>
     </div>
