@@ -111,7 +111,7 @@ export const cropModalSlice = createSlice({
       state.isShown = true;
       state.imgSrc = actions.payload.imgSrc;
     },
-    hideModal(state, actions) {
+    hideModal(state) {
       state.isShown = false;
     },
   },

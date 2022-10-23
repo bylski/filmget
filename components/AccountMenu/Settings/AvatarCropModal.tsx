@@ -12,6 +12,8 @@ import StyledButton from "../../UI/StyledButton";
 import axios from "axios";
 import ScissorsIcon from "../../Icons/ScissorsIcon";
 import EyeIcon from "../../Icons/EyeIcon";
+import { useDispatch } from "react-redux";
+import { cropModalActions } from "../../../redux/store";
 
 const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
   const [crop, setCrop] = useState<Crop>();
@@ -91,6 +93,11 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
     }
   };
 
+  const dispatch = useDispatch();
+  const cancelBtnHandler = () => {
+    dispatch(cropModalActions.hideModal())
+  }
+
   return (
     <div className={styles["crop__modal"]}>
       <div className={styles["crop__window"]}>
@@ -125,6 +132,7 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
             <ScissorsIcon className={styles["scissors-icon"]} />
           </Fragment>
         </StyledButton>
+        <StyledButton action={cancelBtnHandler} addClass={styles["footer__btn"]}>Cancel Crop</StyledButton>
       </footer>
     </div>
   );
