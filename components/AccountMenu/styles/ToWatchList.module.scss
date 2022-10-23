@@ -28,12 +28,13 @@ $card-animation-duration: 0.2s;
   margin: 0;
 
   color: white;
-  font-weight: 400;
-  font-size: 1.7rem;
-  text-align: center;
+  font-size: 2rem;
+  text-align: flex;
 
   padding-bottom: 0.3rem;
   border-bottom: 1px solid $primary-color2;
+
+  padding-inline: 3rem;
 }
 
 .section__content {
@@ -189,6 +190,16 @@ $card-animation-duration: 0.2s;
   background-color: rgba(0, 0, 0, 0.5);
   padding-inline: 0.7rem;
   padding-block: 0.3rem;
+}
+
+.no-results-text {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+
+  font-size: 3rem;
+  font-family: $main-font;
+  color: hsla(0, 0%, 100%, 0.592);
 }
 
 @media (hover: hover) and (pointer: fine) {

@@ -29,6 +29,8 @@ export interface seriesInterface {
   popularity: number;
 }
 
+
+
 export interface actorInterface {
   gender: number;
   name: string;

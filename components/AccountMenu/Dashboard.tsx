@@ -8,8 +8,6 @@ import { Session } from "inspector";
 const Dashboard: React.FC<{ movieData: any, sessionData: any, genresList: {id: number, name: string}[] }> = (props) => {
   const { sessionData } = props;
 
-  console.log(props.genresList)
-
   return (
     <main className={styles["dashboard-section"]}>
       <header className={styles["section__header"]}>
@@ -25,9 +23,9 @@ const Dashboard: React.FC<{ movieData: any, sessionData: any, genresList: {id: n
           moviesData={props.movieData}
           genresList={props.genresList}
         />
-        <a className={styles["content__ratings-link"]}>
+        {/* <a className={styles["content__ratings-link"]}>
           See all your rated movies...
-        </a>
+        </a> */}
       </div>
     </main>
   );

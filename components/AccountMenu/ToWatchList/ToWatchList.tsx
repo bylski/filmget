@@ -3,28 +3,30 @@ import styles from "../styles/ToWatchList.module.scss";
 import Image from "next/image";
 import RatingIcon from "../../Icons/RatingIcon";
 import ToWatchCard from "./ToWatchCard";
+import { movieInterface, seriesInterface } from "../../../utils/types";
 
 const ToWatchList: React.FC<{
+  // movieData: movieInterface[] | seriesInterface[];
   movieData: any;
   genresList: { id: number; name: string }[];
 }> = (props) => {
+
+  const allCards = props.movieData.map((mediaData: movieInterface | seriesInterface, i: any) => {
+    return <ToWatchCard key={`movieCard${i}`} movieData={mediaData} genresList={props.genresList}/>
+  })
+
+
   return (
     <main className={styles["towatch-section"]}>
       <header className={styles["header"]}>
-        <p className={styles["header__text"]}>Want to watch:</p>
+        <h1 className={styles["header__text"]}>Want to watch</h1>
       </header>
       <div className={styles["section__content"]}>
         <div className={styles["media__list"]}>
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
-          <ToWatchCard movieData={props.movieData} genresList={props.genresList} />
+          {props.movieData.length !== 0 && allCards}
         </div>
       </div>
+      {props.movieData.length === 0 ? <p className={styles["no-results-text"]}>Nothing to see here now...</p> : null}
     </main>
   );
 };

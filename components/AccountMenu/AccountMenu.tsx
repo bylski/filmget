@@ -1,8 +1,10 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
+import { movieInterface, seriesInterface } from "../../utils/types";
 import Dashboard from "./Dashboard";
-import SectionSwitcher from "./SectionSwitcher";
+import SectionSwitcher from "./SectionSwitcher/SectionSwitcher";
+import Settings from "./Settings/Settings";
 import styles from "./styles/AccountMenu.module.scss";
 import ToWatchList from "./ToWatchList/ToWatchList";
 
@@ -136,6 +138,7 @@ const data = [
   },
 ];
 
+
 const AccountMenu: React.FC<{genresList: {id: number, name: string}[]}> = (props) => {
   const session = useSession();
 
@@ -145,7 +148,7 @@ const AccountMenu: React.FC<{genresList: {id: number, name: string}[]}> = (props
  
   switch (router.query.section) {
     case "settings":
-      currentSection = null;
+      currentSection = <Settings/>
       break;
     case "to-watch":
       currentSection = <ToWatchList genresList={props.genresList} movieData={data}/>

@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 import React, { useState } from "react";
-import styles from "./styles/SectionSwitcher.module.scss";
+import styles from "../styles/SectionSwitcher.module.scss";
 import SwitcherOption from "./SwitcherOption";
 
 const SectionSwitcher: React.FC = (props) => {

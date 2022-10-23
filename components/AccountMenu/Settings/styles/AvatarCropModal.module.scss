@@ -1,0 +1,99 @@
+@import "../../../../styles/variables.scss";
+
+.crop__modal {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+
+  z-index: 12;
+
+  @include flexVertical;
+}
+
+.crop__window {
+  margin-top: 5rem;
+
+  max-width: 80%;
+  max-height: 60%;
+}
+
+.crop__modal::before {
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+
+  position: absolute;
+  z-index: -1;
+}
+
+.crop__img-wrap {
+  width: 100%;
+  height: 100%;
+}
+
+.crop__img {
+  max-width: 1200px;
+  max-height: 500px;
+}
+
+.crop__component {
+  max-width: 100%;
+  max-height: 100%;
+  width: 100%;
+  height: 100%;
+}
+
+.footer {
+  margin-top: 1rem;
+
+  width: 100%;
+  @include flexHorizontal;
+  justify-content: center;
+}
+
+.footer__btn {
+  background: none !important;
+  background-color: $primary-color2 !important;
+
+  width: fit-content;
+  padding-block: 0.7rem;
+  padding-inline: 1.5rem;
+
+  position: relative;
+  transition: 0.2s ease-in-out;
+
+  @include flexHorizontal;
+  justify-content: center;
+
+  p {
+    margin: 0; 
+   color: white; 
+   font-size: 16px;
+  }
+}
+
+.footer__btn:last-of-type {
+  margin-left: 1rem;
+  font-size: 1rem;  
+}
+
+.btn__disabled {
+  pointer-events: none;
+  background-color: gray !important;
+}
+
+.scissors-icon {
+  margin-left: 0.3rem;
+  height: 16px;
+  fill: white;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .footer__btn:hover {
+    color: white;
+
+    padding-inline: 2.5rem;
+    cursor: pointer;
+  }
+}

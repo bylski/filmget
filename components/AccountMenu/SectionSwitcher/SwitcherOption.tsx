@@ -1,8 +1,8 @@
 import React, { Fragment } from "react";
-import AccountIcon from "../Icons/AccountIcon";
-import EyeIcon from "../Icons/EyeIcon";
-import styles from "./styles/SectionSwitcher.module.scss";
-import SettingsIcon from "../Icons/SettingsIcon";
+import AccountIcon from "../../Icons/AccountIcon";
+import EyeIcon from "../../Icons/EyeIcon";
+import styles from "../styles/SectionSwitcher.module.scss";
+import SettingsIcon from "../../Icons/SettingsIcon";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { motion } from "framer-motion";

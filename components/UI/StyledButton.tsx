@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./styles/StyledButton.module.scss";
 
 const StyledButton: React.FC<{
-  children?: string;
+  children?: string | JSX.Element;
   addClass?: string;
   action?: () => any;
 }> = (props) => {
