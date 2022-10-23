@@ -1,6 +1,7 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/router";
 import React from "react";
+import { movieInterface, seriesInterface } from "../../utils/types";
 import Dashboard from "./Dashboard";
 import SectionSwitcher from "./SectionSwitcher/SectionSwitcher";
 import Settings from "./Settings/Settings";
@@ -136,6 +137,7 @@ const data = [
     vote_count: 1204,
   },
 ];
+
 
 const AccountMenu: React.FC<{genresList: {id: number, name: string}[]}> = (props) => {
   const session = useSession();

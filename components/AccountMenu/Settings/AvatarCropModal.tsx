@@ -96,6 +96,7 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
   const dispatch = useDispatch();
   const cancelBtnHandler = () => {
     dispatch(cropModalActions.hideModal())
+    // console.log(Date())
   }
 
   return (

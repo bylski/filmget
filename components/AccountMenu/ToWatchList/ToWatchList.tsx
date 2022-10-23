@@ -6,11 +6,12 @@ import ToWatchCard from "./ToWatchCard";
 import { movieInterface, seriesInterface } from "../../../utils/types";
 
 const ToWatchList: React.FC<{
-  movieData: movieInterface[] | seriesInterface[];
+  // movieData: movieInterface[] | seriesInterface[];
+  movieData: any;
   genresList: { id: number; name: string }[];
 }> = (props) => {
 
-  const allCards = props.movieData.map((mediaData, i) => {
+  const allCards = props.movieData.map((mediaData: movieInterface | seriesInterface, i: any) => {
     return <ToWatchCard key={`movieCard${i}`} movieData={mediaData} genresList={props.genresList}/>
   })
 
