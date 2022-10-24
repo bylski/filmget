@@ -8,7 +8,6 @@ import Settings from "./Settings/Settings";
 import styles from "./styles/AccountMenu.module.scss";
 import ToWatchList from "./ToWatchList/ToWatchList";
 
-
 const data = [
   {
     adult: false,
@@ -138,32 +137,43 @@ const data = [
   },
 ];
 
-
-const AccountMenu: React.FC<{genresList: {id: number, name: string}[]}> = (props) => {
+const AccountMenu: React.FC<{
+  genresList: { id: number; name: string }[];
+  signUpDate: Date | null;
+}> = (props) => {
   const session = useSession();
 
   let currentSection: JSX.Element | null = null;
   const router = useRouter();
 
- 
   switch (router.query.section) {
     case "settings":
-      currentSection = <Settings/>
+      currentSection = <Settings sessionData={session.data}/>;
       break;
     case "to-watch":
-      currentSection = <ToWatchList genresList={props.genresList} movieData={data}/>
+      currentSection = (
+        <ToWatchList genresList={props.genresList} movieData={data} />
+      );
       break;
-    default: 
-      currentSection = <Dashboard genresList={props.genresList} movieData={data} sessionData={session.data}/>
+    default:
+      currentSection = (
+        <Dashboard
+          signUpDate={props.signUpDate}
+          genresList={props.genresList}
+          movieData={data}
+          sessionData={session.data}
+        />
+      );
   }
+
 
   return (
     <section className={styles["account-menu"]}>
       <div className={styles["account-menu__card"]}>
         <SectionSwitcher />
-        {session.status !== "loading" && session.status === "authenticated" && (
-          currentSection
-        )}
+        {session.status !== "loading" &&
+          session.status === "authenticated" &&
+          currentSection}
       </div>
     </section>
   );

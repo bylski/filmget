@@ -1,12 +1,38 @@
-import NextAuth, { NextAuthOptions } from "next-auth";
+import NextAuth, { Awaitable, NextAuthOptions, User } from "next-auth";
 import CrendentialsProvider from "next-auth/providers/credentials";
-import { User } from "../../../utils/mongo/userModel";
+import { User as mongoUser } from "../../../utils/mongo/userModel";
 import mongoose from "mongoose";
 import bcrypt from "bcrypt";
+import { Session } from "next-auth";
+import { JWT } from "next-auth/jwt";
 
 export const authOptions: NextAuthOptions = {
   session: {
     strategy: "jwt",
+  },
+  callbacks: {
+    async session(params: {session: Session, user: User, token: JWT}) {
+      const {session, user, token} = params;
+
+      try {
+        // Check if code runs in production or in development, use the address specified for environment
+        // Connect to the database
+        if (process.env.NODE_ENV === "production") {
+          await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
+        } else {
+          await mongoose.connect("mongodb://localhost:27017/filmget");
+        }
+      } catch (error) {
+        throw new Error("[ERROR] Couldnt' connect to the database!");
+      }
+
+      const currentUser = await mongoUser.findOne({username: session.user?.name});
+      if (currentUser.avatarSrc !== session.user?.image) {
+        session.user = {...session.user, image: currentUser.avatarSrc}
+      }
+
+      return session;
+    }
   },
   pages: { signIn: "/login" },
   providers: [
@@ -28,7 +54,7 @@ export const authOptions: NextAuthOptions = {
           await mongoose.connect("mongodb://localhost:27017/filmget");
         }
         // Check if user with such username exists
-        const existingUser = await User.findOne({ username: username });
+        const existingUser = await mongoUser.findOne({ username: username });
         if (existingUser !== null) {
           const isPasswordMatching = await bcrypt.compare(
             password,
@@ -36,7 +62,11 @@ export const authOptions: NextAuthOptions = {
           );
           if (isPasswordMatching) {
             console.log("Welcome!");
-            return { name: username, email: existingUser.email || null };
+            return {
+              image: existingUser.avatarSrc || null,
+              name: username,
+              email: existingUser.email || null,
+            };
           }
         }
         return null;

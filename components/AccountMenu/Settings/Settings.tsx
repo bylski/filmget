@@ -2,10 +2,9 @@ import { useSession } from "next-auth/react";
 import React from "react";
 import styles from "./styles/Settings.module.scss";
 import Setting from "./Setting";
-import Image from "next/image";
-import StyledButton from "../../UI/StyledButton";
+import { Session } from "next-auth";
 
-const Settings: React.FC<{}> = (props) => {
+const Settings: React.FC<{ sessionData: Session | null }> = (props) => {
   const session = useSession();
 
   return (
@@ -16,6 +15,7 @@ const Settings: React.FC<{}> = (props) => {
       <div className={styles["settings"]}>
         <form className={styles["form"]}>
           <Setting
+            sessionData={props.sessionData}
             type="inputs"
             headerText={"Change Username"}
             inputs={[
@@ -28,6 +28,7 @@ const Settings: React.FC<{}> = (props) => {
             ]}
           />
           <Setting
+            sessionData={props.sessionData}
             type="inputs"
             headerText={"Change Password"}
             inputs={[
@@ -47,7 +48,11 @@ const Settings: React.FC<{}> = (props) => {
           />
         </form>
         <div className={styles["second-column"]}>
-          <Setting headerText="Pick Profile Picture" type="avatarChange"></Setting>
+          <Setting
+            sessionData={props.sessionData}
+            headerText="Pick Profile Picture"
+            type="avatarChange"
+          ></Setting>
           {/* <StyledButton addClass={styles["setting__btn"]}>Upload</StyledButton> */}
         </div>
       </div>

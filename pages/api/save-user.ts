@@ -28,9 +28,12 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         return
       }
 
+      // Get current date to store 
+      const date = Date.now();
+
       // Hash password and store the user in the database
       const hashedPassword = await bcrypt.hash(password, 10);
-      const newUser = new User({ username, email, password: hashedPassword });
+      const newUser = new User({ username, email, password: hashedPassword, signUpDate: date });
       await newUser.save();
 
       // Close db connection

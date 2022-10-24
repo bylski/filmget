@@ -11,6 +11,7 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
   const backdropChangeImg = (path: string) => {
     setBackdropPath(path);
   };
+  
 
   const backdropPaths: string[] = [];
   let addCard = 0;

@@ -1,10 +1,28 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { RequestData } from "next/dist/server/web/types";
 import { v2 as cloudinary } from "cloudinary";
+import mongoose from "mongoose";
+import { User } from "../../utils/mongo/userModel";
 
 const handler = async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
+
     try {
+      // Check if code runs in production or in development, use the address specified for environment
+      // Connect to the database
+      if (process.env.NODE_ENV === "production") {
+        await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
+      } else {
+        await mongoose.connect("mongodb://localhost:27017/filmget");
+      }
+    } catch (error) {
+      throw new Error("[ERROR] Couldnt' connect to the database!");
+    }
+
+
+    try {
+
+      const currentUser = await User.findOne({username: req.body.username})
+
       cloudinary.config({
         cloud_name: process.env.CLOUD_NAME,
         api_key: process.env.CLOUD_API_KEY,
@@ -12,10 +30,18 @@ const handler = async (req: NextApiRequest, res: NextApiResponse) => {
         secure: true,
       });
 
+      // // Remove old avatar photo
+      // const removeResponse = await cloudinary.uploader.destroy("filmget/h5ymewzhy79hkcfpifpg")
+      // console.log(removeResponse);
+
       const response = await cloudinary.uploader.upload(
         req.body.image,
         { folder: "filmget" }
       );
+      // Save avatar's url in the db
+      currentUser.avatarSrc = response.url;
+      await currentUser.save();
+
       res.status(200).send("Successfully uploaded new avatar!");
     } catch (e) {
       console.dir(e);

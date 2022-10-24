@@ -14,8 +14,12 @@ import ScissorsIcon from "../../Icons/ScissorsIcon";
 import EyeIcon from "../../Icons/EyeIcon";
 import { useDispatch } from "react-redux";
 import { cropModalActions } from "../../../redux/store";
+import { useSession } from "next-auth/react";
+import Router, { useRouter } from "next/router";
 
 const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
+  const session = useSession();
+  const dispatch = useDispatch();
   const [crop, setCrop] = useState<Crop>();
   const [image, setImage] = useState<null | HTMLImageElement>(null);
   const [imgIsLoaded, setImgIsLoaded] = useState(false);
@@ -80,9 +84,13 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
       }
 
       const base64Image = canvas.toDataURL("image/jpeg");
-      axios.post("/api/change-avatar", { image: base64Image });
+      axios.post("/api/change-avatar", { image: base64Image, username: session.data?.user?.name });
+      dispatch(cropModalActions.hideModal());
     }
   };
+
+
+
 
   const onCompleteHandler = (crop: PixelCrop, percentageCrop: PercentCrop) => {
     setCrop(crop);
@@ -93,10 +101,8 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
     }
   };
 
-  const dispatch = useDispatch();
   const cancelBtnHandler = () => {
     dispatch(cropModalActions.hideModal())
-    // console.log(Date())
   }
 
   return (

@@ -1,4 +1,4 @@
-import { NextPage } from "next";
+import { GetServerSidePropsContext, NextPage } from "next";
 import React, { Fragment } from "react";
 import AccountMenu from "../../components/AccountMenu/AccountMenu";
 import DetailsModal from "../../components/DetailsModal.tsx/DetailsModal";
@@ -7,9 +7,14 @@ import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import axios from "axios";
 import AvatarCropModal from "../../components/AccountMenu/Settings/AvatarCropModal";
+import mongoose from "mongoose";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { User } from "../../utils/mongo/userModel";
 
 const AccountPage: React.FC<{
   genresList: { id: number; name: string }[];
+  signUpDate: Date | null;
 }> = (props) => {
   const {
     modalData,
@@ -42,15 +47,44 @@ const AccountPage: React.FC<{
           <AvatarCropModal imgSrc={imgSrc}/>
         )}
       </AnimatePresence>
-      <AccountMenu genresList={props.genresList} />
+      <AccountMenu signUpDate={props.signUpDate} genresList={props.genresList} />
     </Fragment>
   );
 };
 
 export default AccountPage;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   let res: any = undefined;
+
+    const session = await unstable_getServerSession(context.req, context.res, authOptions);
+
+    if (!session) {
+      return {
+        redirect: {
+          destination: "/login",
+          permanent: false,
+        },
+      };
+    }
+
+    try {
+      // Check if code runs in production or in development, use the address specified for environment
+      // Connect to the database
+      if (process.env.NODE_ENV === "production") {
+        await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
+      } else {
+        await mongoose.connect("mongodb://localhost:27017/filmget");
+      }
+    } catch (error) {
+      throw new Error("[ERROR] Couldnt' connect to the database!");
+    }
+
+    // Get user data from the database
+    const username = session.user?.name;
+    const currentUser = await User.findOne({username});
+    // Extract sign up date
+    const signUpDate = currentUser.signUpDate.toJSON();
 
   try {
     res = await axios.get(
@@ -63,6 +97,6 @@ export async function getServerSideProps() {
   const genresList: any = res.data.genres;
 
   return {
-    props: { genresList },
+    props: { genresList, signUpDate: signUpDate || null},
   };
 }
