@@ -7,8 +7,9 @@ import AvatarCropModal from "./AvatarCropModal";
 import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
 import { useDispatch } from "react-redux";
 import { cropModalActions } from "../../../redux/store";
+import { Session } from "next-auth";
 
-const AvatarSetting: React.FC<{ headerText: string }> = (props) => {
+const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null }> = (props) => {
   const dispatch = useDispatch();
   const [fileURL, setFileURL] = useState<null | string>(null);
 
@@ -32,6 +33,8 @@ const AvatarSetting: React.FC<{ headerText: string }> = (props) => {
     }
   }, [fileURL]);
 
+  console.dir(props.sessionData)
+
   return (
     <Fragment>
       <section className={styles["setting"]}>
@@ -40,7 +43,7 @@ const AvatarSetting: React.FC<{ headerText: string }> = (props) => {
           <Image
             width={500}
             height={500}
-            src={fileURL || "/avatar.png"}
+            src={props.sessionData?.user?.image || "/avatar.png"}
           ></Image>
         </div>
         <StyledButton addClass={styles["file-input__btn"]}>

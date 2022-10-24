@@ -19,7 +19,7 @@ const NavbarAccount: React.FC<{ accountData: Session }> = (props) => {
       <a>
       <div className={styles["nav-account__avatar-icon"]}>
         <img
-          src="/avatar.png"
+          src={props.accountData.user?.image || "/avatar.png"}
           className={styles["nav-account__avatar-img"]}
         ></img>
       </div>

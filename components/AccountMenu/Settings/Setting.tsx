@@ -2,6 +2,7 @@ import React, { Fragment } from "react";
 import StyledButton from "../../UI/StyledButton";
 import styles from "./styles/Settings.module.scss";
 import AvatarSetting from "./AvatarSetting";
+import { Session } from "next-auth";
 
 
 type SettingProps =
@@ -14,10 +15,12 @@ type SettingProps =
         id: string;
         placeholder?: string;
       }[];
+      sessionData: Session | null;
     }
   | {
       headerText: string;
       type: "avatarChange";
+      sessionData: Session | null;
     };
 
 const Setting: React.FC<SettingProps> = (props) => {
@@ -47,7 +50,7 @@ const Setting: React.FC<SettingProps> = (props) => {
     );
   } else if (props.type === "avatarChange") {
     return (
-      <AvatarSetting headerText={props.headerText}/>
+      <AvatarSetting sessionData={props.sessionData} headerText={props.headerText}/>
     );
   } else {
     return null;
