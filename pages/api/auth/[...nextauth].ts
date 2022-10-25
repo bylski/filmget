@@ -28,7 +28,7 @@ export const authOptions: NextAuthOptions = {
 
       const currentUser = await mongoUser.findOne({username: session.user?.name});
       if (currentUser.avatarSrc !== session.user?.image) {
-        session.user = {...session.user, image: currentUser.avatarSrc}
+        session.user = {...session.user, image: currentUser.avatarSrc.url}
       }
 
       return session;
@@ -63,7 +63,7 @@ export const authOptions: NextAuthOptions = {
           if (isPasswordMatching) {
             console.log("Welcome!");
             return {
-              image: existingUser.avatarSrc || null,
+              image: existingUser.avatarSrc.url || null,
               name: username,
               email: existingUser.email || null,
             };
