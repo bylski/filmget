@@ -11,10 +11,12 @@ import mongoose from "mongoose";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { User } from "../../utils/mongo/userModel";
+import { movieInterface, seriesInterface } from "../../utils/types";
 
 const AccountPage: React.FC<{
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
+  mediaToWatch: movieInterface[] | seriesInterface[];
 }> = (props) => {
   const {
     modalData,
@@ -47,7 +49,7 @@ const AccountPage: React.FC<{
           <AvatarCropModal imgSrc={imgSrc}/>
         )}
       </AnimatePresence>
-      <AccountMenu signUpDate={props.signUpDate} genresList={props.genresList} />
+      <AccountMenu mediaToWatch={props.mediaToWatch} signUpDate={props.signUpDate} genresList={props.genresList} />
     </Fragment>
   );
 };
@@ -83,8 +85,10 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // Get user data from the database
     const username = session.user?.name;
     const currentUser = await User.findOne({username});
-    // Extract sign up date
+    // Extract sign up date and to-watch media
     const signUpDate = currentUser.signUpDate.toJSON();
+    const mediaToWatch = currentUser.mediaToWatch;
+    console.log(mediaToWatch)
 
   try {
     res = await axios.get(
@@ -97,6 +101,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const genresList: any = res.data.genres;
 
   return {
-    props: { genresList, signUpDate: signUpDate || null},
+    props: { genresList, signUpDate: signUpDate || null, mediaToWatch: mediaToWatch || null},
   };
 }
