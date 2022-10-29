@@ -1,4 +1,4 @@
-import { movieInterface } from "../utils/types";
+import { movieInterface, seriesInterface } from "../utils/types";
 import { createSlice } from "@reduxjs/toolkit";
 
 const modalInitialState: {
@@ -114,5 +114,59 @@ export const cropModalSlice = createSlice({
     hideModal(state) {
       state.isShown = false;
     },
+  },
+});
+
+const accountInitialState: {
+  username: string,
+  email: string,
+  signUpDate: Date | null;
+  avatarSrc: string,
+  toWatch: {
+    mediaToWatch: movieInterface[] | seriesInterface[];
+    mediaIds: number[];
+  };
+} = {
+  username: "",
+  email: "",
+  signUpDate: null,
+  avatarSrc: "",
+  toWatch: {
+    mediaToWatch: [],
+    mediaIds: [],
+  },
+};
+
+export const accountSlice = createSlice({
+  name: "account",
+  initialState: accountInitialState,
+  reducers: {
+    setAvatarSrc(state, action) {
+      state.avatarSrc = action.payload;
+    },
+    setUsername(state, action) {
+      state.username = action.payload;
+    },
+    setToWatch(state, action) {
+      state.toWatch.mediaToWatch = action.payload.mediaToWatch;
+      state.toWatch.mediaIds = action.payload.mediaIds;
+    },
+    deleteToWatch(state, action) {
+      const idToDelete = action.payload.id;
+      const { mediaIds, mediaToWatch } = state.toWatch;
+      console.log(state.toWatch.mediaIds);
+      if (state.toWatch.mediaIds.includes(idToDelete)) {
+        // Search for index of the movie user wants to delete
+        const idIndex = mediaIds.indexOf(idToDelete);
+        const dataIndex = mediaToWatch.indexOf(idToDelete);
+        // Delete desired data from state
+        state.toWatch.mediaIds.splice(idIndex, 1);
+        state.toWatch.mediaToWatch.splice(dataIndex, 1);
+      }
+    },
+    addToWatch(state, action) {
+      state.toWatch.mediaIds = [...state.toWatch.mediaIds, action.payload.id];
+      state.toWatch.mediaToWatch = [...state.toWatch.mediaToWatch, action.payload];
+    }
   },
 });

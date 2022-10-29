@@ -5,25 +5,24 @@ import RatingIcon from "../../Icons/RatingIcon";
 import TrashCanIcon from "../../Icons/TrashCanIcon";
 import DetailsIcon from "../../Icons/DetailsIcon";
 import { useRouter } from "next/router";
-import { modalActions } from "../../../redux/store";
 import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
-import { useDispatch } from "react-redux";
 import useModal from "../../../utils/hooks/useModal";
 import { movieInterface, seriesInterface } from "../../../utils/types";
 import axios from "axios";
 import { useSession } from "next-auth/react";
+import { accountActions } from "../../../redux/store";
 
 const ToWatchCard: React.FC<{
-  movieData: movieInterface | seriesInterface;
+  mediaData: movieInterface | seriesInterface;
   genresList: { id: number; name: string }[];
 }> = (props) => {
   const [optionsText, setOptionsText] = useState(" ");
   const [isDeleted, setIsDeleted] = useState(false);
   const router = useRouter();
-
+  const dispatch = useAppDispatch();
   const session = useSession();
   const moviesGenres = // get the genres of the movie
-    props.movieData.genre_ids.map((genreId, i) => {
+    props.mediaData.genre_ids.map((genreId, i) => {
       for (let genreElement of props.genresList) {
         if (genreElement.id === genreId) {
           return { id: genreElement.id, name: genreElement.name };
@@ -67,9 +66,10 @@ const ToWatchCard: React.FC<{
       case "delete-btn":
         axios.post("/api/remove-to-watch", {
           username: session.data?.user?.name,
-          media: props.movieData,
+          media: props.mediaData,
         }).then((res) => {
           if (res.data) {
+            dispatch(accountActions.deleteToWatch(props.mediaData))
             setIsDeleted(true);
           }
         });
@@ -80,7 +80,7 @@ const ToWatchCard: React.FC<{
       case "card":
         showModal({
           elementRef: divRef,
-          mediaData: props.movieData,
+          mediaData: props.mediaData,
           mediaType: "movies",
           genresList: moviesGenres,
         });
@@ -122,21 +122,21 @@ const ToWatchCard: React.FC<{
           <Image
             width={600}
             height={900}
-            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.movieData.poster_path}`}
+            src={`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mediaData.poster_path}`}
           ></Image>
         </div>
         <div className={styles["card__info"]}>
           <div className={styles["info__rating"]}>
             <RatingIcon className={styles["rating__icon"]} />
             <p className={styles["rating__value"]}>
-              {props.movieData.vote_average.toFixed(1)}
+              {props.mediaData.vote_average.toFixed(1)}
             </p>
           </div>
-          {"title" in props.movieData ? (
-            <p className={styles["info__title"]}>{props.movieData.title}</p>
+          {"title" in props.mediaData ? (
+            <p className={styles["info__title"]}>{props.mediaData.title}</p>
           ) : null}
-          {"name" in props.movieData ? (
-            <p className={styles["info__title"]}>{props.movieData.name}</p>
+          {"name" in props.mediaData ? (
+            <p className={styles["info__title"]}>{props.mediaData.name}</p>
           ) : null}
         </div>
       </div>

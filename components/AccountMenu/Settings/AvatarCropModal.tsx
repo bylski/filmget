@@ -12,14 +12,14 @@ import StyledButton from "../../UI/StyledButton";
 import axios from "axios";
 import ScissorsIcon from "../../Icons/ScissorsIcon";
 import EyeIcon from "../../Icons/EyeIcon";
-import { useDispatch } from "react-redux";
-import { cropModalActions } from "../../../redux/store";
+import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
+import { accountActions, cropModalActions } from "../../../redux/store";
 import { useSession } from "next-auth/react";
 import Router, { useRouter } from "next/router";
 
 const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
   const session = useSession();
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const [crop, setCrop] = useState<Crop>();
   const [image, setImage] = useState<null | HTMLImageElement>(null);
   const [imgIsLoaded, setImgIsLoaded] = useState(false);
@@ -84,7 +84,9 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
       }
 
       const base64Image = canvas.toDataURL("image/jpeg");
+      
       axios.post("/api/change-avatar", { image: base64Image, username: session.data?.user?.name });
+      dispatch(accountActions.setAvatarSrc(base64Image));
       dispatch(cropModalActions.hideModal());
     }
   };
@@ -115,6 +117,8 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
           onChange={(c) => setCrop(c)}
           circularCrop={true}
           onComplete={onCompleteHandler}
+          minHeight={100}
+          minWidth={100}
         >
           <div className={styles["crop__img-wrap"]}>
             <img

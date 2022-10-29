@@ -4,26 +4,40 @@ import Image from "next/image";
 import RatingIcon from "../../Icons/RatingIcon";
 import ToWatchCard from "./ToWatchCard";
 import { movieInterface, seriesInterface } from "../../../utils/types";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../utils/hooks/reduxHooks";
+import { accountActions } from "../../../redux/store";
 
 const ToWatchList: React.FC<{
   mediaToWatch: movieInterface[] | seriesInterface[];
   genresList: { id: number; name: string }[];
+  mediaIds: number[];
 }> = (props) => {
-  const allCards = props.mediaToWatch.map(
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      accountActions.setToWatch({
+        mediaToWatch: props.mediaToWatch,
+        mediaIds: props.mediaIds,
+      })
+    );
+  }, [props.mediaToWatch]);
+  const mediaToWatch =
+    useAppSelector((state) => state.account.toWatch.mediaToWatch)
+
+  const allCards = mediaToWatch.map(
     (mediaData: movieInterface | seriesInterface, i) => {
       return (
         <ToWatchCard
           key={`movieCard${i}`}
-          movieData={mediaData}
+          mediaData={mediaData}
           genresList={props.genresList}
         />
       );
     }
   );
-
-  useEffect(() => {
-    console.log(allCards)
-  }, [allCards])
 
   return (
     <main className={styles["towatch-section"]}>
@@ -32,10 +46,10 @@ const ToWatchList: React.FC<{
       </header>
       <div className={styles["section__content"]}>
         <div className={styles["media__list"]}>
-          {props.mediaToWatch.length !== 0 && allCards}
+          {mediaToWatch.length !== 0 && allCards}
         </div>
       </div>
-      {props.mediaToWatch.length === 0 ? (
+      {mediaToWatch.length === 0 ? (
         <Fragment>
           <p className={styles["no-results-text"]}>
             Looks like it's empty here...

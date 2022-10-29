@@ -8,6 +8,8 @@ import {
 import EyeIcon from "../Icons/EyeIcon";
 import { useSession } from "next-auth/react";
 import axios from "axios";
+import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { accountActions } from "../../redux/store";
 
 const DetailsHeader: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
@@ -15,30 +17,39 @@ const DetailsHeader: React.FC<{
   dataType: string;
 }> = (props) => {
   const session = useSession();
+  const dispatch = useAppDispatch();
   const [wantToWatch, setWantToWatch] = useState(false);
   const [wantToWatchClasses, setWantToWatchClasses] = useState("");
   const [wantToWatchTitle, setWantToWatchTitle] = useState(
     'Add to "Want to watch"'
   );
 
-  const wantToWatchClickHandler = () => {
+  const wantToWatchClickHandler = async () => {
     setWantToWatch((prev) => !prev);
 
-    console.log(wantToWatch);
     const baseConditions =
       (session.status === "authenticated" && "title" in props.modalData) ||
       "name" in props.modalData;
 
     if (baseConditions && !wantToWatch) {
-      axios.post("/api/add-to-watch", {
+      await axios.post("/api/add-to-watch", {
         username: session.data?.user?.name,
         media: props.modalData,
+      }).then((res) => {
+        // If query was successful => add media to redux state
+        if (res.data) {
+          dispatch(accountActions.addToWatch(props.modalData));
+        }
       });
     } else if (baseConditions && wantToWatch) {
-      axios.post("/api/remove-to-watch", {
+      await axios.post("/api/remove-to-watch", {
         username: session.data?.user?.name,
         media: props.modalData,
-      });
+      }).then((res) => {
+        if (res.data) {
+          dispatch(accountActions.deleteToWatch(props.modalData))
+        }
+      })
     }
   };
 

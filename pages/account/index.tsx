@@ -17,6 +17,7 @@ const AccountPage: React.FC<{
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
   mediaToWatch: movieInterface[] | seriesInterface[];
+  mediaIds: number[]
 }> = (props) => {
   const {
     modalData,
@@ -49,7 +50,7 @@ const AccountPage: React.FC<{
           <AvatarCropModal imgSrc={imgSrc}/>
         )}
       </AnimatePresence>
-      <AccountMenu mediaToWatch={props.mediaToWatch} signUpDate={props.signUpDate} genresList={props.genresList} />
+      <AccountMenu mediaIds={props.mediaIds} mediaToWatch={props.mediaToWatch} signUpDate={props.signUpDate} genresList={props.genresList} />
     </Fragment>
   );
 };
@@ -88,7 +89,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     // Extract sign up date and to-watch media
     const signUpDate = currentUser.signUpDate.toJSON();
     const mediaToWatch = currentUser.mediaToWatch;
-    console.log(mediaToWatch)
+    const mediaIds = currentUser.mediaIds;
 
   try {
     res = await axios.get(
@@ -101,6 +102,6 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const genresList: any = res.data.genres;
 
   return {
-    props: { genresList, signUpDate: signUpDate || null, mediaToWatch: mediaToWatch || null},
+    props: { genresList, signUpDate: signUpDate || null, mediaToWatch: mediaToWatch || null, mediaIds},
   };
 }
