@@ -4,7 +4,7 @@ import UploadIcon from "../../Icons/UploadIcon";
 import styles from "./styles/Settings.module.scss";
 import StyledButton from "../../UI/StyledButton";
 import AvatarCropModal from "./AvatarCropModal";
-import { useAppDispatch } from "../../../utils/hooks/reduxHooks";
+import { useAppSelector } from "../../../utils/hooks/reduxHooks";
 import { useDispatch } from "react-redux";
 import { cropModalActions } from "../../../redux/store";
 import { Session } from "next-auth";
@@ -33,7 +33,8 @@ const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null 
     }
   }, [fileURL]);
 
-  console.dir(props.sessionData)
+  const avatarSrc = useAppSelector((state) => state.account.avatarSrc)
+
 
   return (
     <Fragment>
@@ -43,7 +44,7 @@ const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null 
           <Image
             width={500}
             height={500}
-            src={props.sessionData?.user?.image || "/avatar.png"}
+            src={avatarSrc || "/avatar.png"}
           ></Image>
         </div>
         <StyledButton addClass={styles["file-input__btn"]}>

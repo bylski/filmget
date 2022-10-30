@@ -1,17 +1,16 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { v2 as cloudinary } from "cloudinary";
 import mongoose from "mongoose";
 import { User } from "../../utils/mongo/userModel";
+import { movieInterface, seriesInterface } from "../../utils/types";
 
-
-interface ChangeAvatarApiRequest extends NextApiRequest {
+interface ToWatchApiRequest extends NextApiRequest {
   body: {
-      username: string,
-      image: string;
-  }
-} 
+    username: string;
+    media: movieInterface | seriesInterface;
+  };
+}
 
-const handler = async (req: ChangeAvatarApiRequest, res: NextApiResponse) => {
+const handler = async (req: ToWatchApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     try {
       // Check if code runs in production or in development, use the address specified for environment
@@ -27,32 +26,18 @@ const handler = async (req: ChangeAvatarApiRequest, res: NextApiResponse) => {
 
     try {
       const currentUser = await User.findOne({ username: req.body.username });
+      const { mediaToWatch, mediaIds } = currentUser;
 
-      cloudinary.config({
-        cloud_name: process.env.CLOUD_NAME,
-        api_key: process.env.CLOUD_API_KEY,
-        api_secret: process.env.CLOUD_API_SECRET,
-        secure: true,
-      });
-
-      // // Remove old avatar photo
-      if (currentUser.avatarSrc.url) {
-        const removeResponse = await cloudinary.uploader.destroy(
-          currentUser.avatarSrc.fileName
-        );
+      if (mediaIds.includes(req.body.media.id)) {
+        res.status(500).send("[ERROR] Item already in watch-list!");
       }
 
-      const response = await cloudinary.uploader.upload(req.body.image, {
-        folder: "filmget",
-      });
-      // Save avatar's url in the db
-      currentUser.avatarSrc = {
-        url: response.url,
-        fileName: response.public_id,
-      };
+      currentUser.mediaToWatch = [...mediaToWatch, req.body.media];
+      currentUser.mediaIds = [...mediaIds, req.body.media.id];
+
       await currentUser.save();
 
-      res.status(200).send("Successfully uploaded new avatar!");
+      res.status(200).send("Successfully added item to watch-list!");
     } catch (e) {
       console.dir(e);
       res.status(500).send(`[ERROR] ${e}`);

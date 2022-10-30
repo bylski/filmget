@@ -5,12 +5,16 @@ import MoviesScroller from "../components/MoviesScroller/MoviesScroller";
 import Header from "../components/Layout/Header";
 import ActorsShowcaser from "../components/ActorsShowcaser/ActorsShowcaser";
 import axios from "axios";
-import { Provider } from "react-redux";
 import DetailsModal from "../components/DetailsModal.tsx/DetailsModal";
 import { useAppSelector } from "../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import { hideOverflowIf } from "../utils/scripts";
 import Head from "next/head";
+import mongoose from "mongoose";
+import { GetServerSidePropsContext } from "next";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "./api/auth/[...nextauth]";
+import { User } from "../utils/mongo/userModel";
 
 const Home: React.FC<{
   popularMovies: any[];
@@ -71,7 +75,7 @@ const Home: React.FC<{
 
 export default Home;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const endpoints: string[] = [
     encodeURI(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET popular movies
     encodeURI(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET top rated movies
@@ -81,6 +85,8 @@ export async function getServerSideProps() {
 
   let res: any = undefined;
 
+
+  
   try {
     res = await axios.all(endpoints.map((endpoint) => axios.get(endpoint))); // GET all of the endpoints
   } catch (e: any) {

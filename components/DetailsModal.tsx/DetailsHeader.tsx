@@ -1,32 +1,121 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles/DetailsHeader.module.scss";
 import {
   actorInterface,
   movieInterface,
   seriesInterface,
 } from "../../utils/types";
+import EyeIcon from "../Icons/EyeIcon";
+import { useSession } from "next-auth/react";
+import axios from "axios";
+import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { accountActions } from "../../redux/store";
 
 const DetailsHeader: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
   genresString?: string;
   dataType: string;
 }> = (props) => {
-  if (props.dataType === "movie" || props.dataType === "series" && "genresList" in props.modalData) {
+  const session = useSession();
+  const dispatch = useAppDispatch();
+  const [wantToWatch, setWantToWatch] = useState(false);
+  const [wantToWatchClasses, setWantToWatchClasses] = useState("");
+  const [wantToWatchTitle, setWantToWatchTitle] = useState(
+    'Add to "Want to watch"'
+  );
+
+  const wantToWatchClickHandler = async () => {
+    setWantToWatch((prev) => !prev);
+
+    const baseConditions =
+      (session.status === "authenticated" && "title" in props.modalData) ||
+      "name" in props.modalData;
+
+    if (baseConditions && !wantToWatch) {
+      await axios.post("/api/add-to-watch", {
+        username: session.data?.user?.name,
+        media: props.modalData,
+      }).then((res) => {
+        // If query was successful => add media to redux state
+        if (res.data) {
+          dispatch(accountActions.addToWatch(props.modalData));
+        }
+      });
+    } else if (baseConditions && wantToWatch) {
+      await axios.post("/api/remove-to-watch", {
+        username: session.data?.user?.name,
+        media: props.modalData,
+      }).then((res) => {
+        if (res.data) {
+          dispatch(accountActions.deleteToWatch(props.modalData))
+        }
+      })
+    }
+  };
+
+  useEffect(() => {
+    const checkToWatch = async () => {
+      const res = await axios.get("api/get-to-watch", {
+        params: { id: props.modalData.id, username: session.data?.user?.name },
+      });
+
+      if (res.data.wantToWatch) {
+        setWantToWatch(true);
+      } else {
+        setWantToWatch(false);
+      }
+    };
+
+    if (session.status === "authenticated") {
+      checkToWatch();
+    }
+
+    if (wantToWatch) {
+      setWantToWatchTitle('Remove from "Want to watch"');
+      setWantToWatchClasses(styles["active"]);
+    } else {
+      setWantToWatchClasses("");
+      setWantToWatchTitle('Add to "Want to watch"');
+    }
+  }, [wantToWatch]);
+
+  if (
+    props.dataType === "movie" ||
+    (props.dataType === "series" && "genresList" in props.modalData)
+  ) {
     return (
       <header className={styles["info__header"]}>
-        <h1 className={styles["header__title"]}>
-          {"title" in props.modalData ? props.modalData.title : null}{" "}
-          {"name" in props.modalData ? props.modalData.name : null}{" "}
-          <span>
-            {"release_date" in props.modalData
-              ? `(${props.modalData.release_date.slice(0, 4)})`
-              : null}
+        <div className={styles["header__info-section"]}>
+          <h1 className={styles["header__title"]}>
+            {"title" in props.modalData ? props.modalData.title : null}{" "}
+            {"name" in props.modalData ? props.modalData.name : null}{" "}
+            <span>
+              {"release_date" in props.modalData
+                ? `(${props.modalData.release_date.slice(0, 4)})`
+                : null}
               {"first_air_date" in props.modalData
-              ? `(${props.modalData.first_air_date.slice(0, 4)})`
-              : null}
-          </span>
-        </h1>
-        <p className={styles["header__genres"]}>{props.genresString}</p>
+                ? `(${props.modalData.first_air_date.slice(0, 4)})`
+                : null}
+            </span>
+          </h1>
+          <p className={styles["header__genres"]}>{props.genresString}</p>
+        </div>
+        {session.status === "authenticated" ? (
+          <div className={styles["header__input-section"]}>
+            <button
+              onClick={wantToWatchClickHandler}
+              title={wantToWatchTitle}
+              className={`${styles["input-btn__to-watch"]} ${wantToWatchClasses}`}
+            >
+              <p className={`${styles["btn__label"]} ${wantToWatchClasses}`}>
+                Want to watch
+              </p>
+              <EyeIcon
+                className={`${styles["btn__icon"]} ${wantToWatchClasses}`}
+              ></EyeIcon>
+            </button>
+          </div>
+        ) : null}
       </header>
     );
   } else if (props.dataType === "actor" && "gender" in props.modalData) {

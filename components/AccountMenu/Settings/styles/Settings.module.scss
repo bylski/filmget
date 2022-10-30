@@ -58,7 +58,7 @@
   border-bottom: 1px solid $primary-color2;
 }
 
-.form {
+.first-column {
   width: 100%;
   height: 100%;
 }
@@ -155,6 +155,11 @@
   padding-block: 0.2rem;
 
   font-size: 1rem;
+
+  &.fail {
+    border-color: red;
+    border-width: 3px;
+  }
 }
 
 .file-input {
@@ -170,6 +175,24 @@
 
   pointer-events: none;
 }
+
+.message {
+  margin-top: 0;
+  margin-bottom: 1rem;
+  font-family: $secondary-font;
+  font-size: 0.9rem;
+  font-weight: 300;
+
+  &.fail {
+    color: red;
+  }
+
+  &.success {
+    color: rgb(7, 241, 7);
+  }
+}
+
+
 
 @media (hover: hover) and (pointer: fine) {
   .setting__btn:hover {

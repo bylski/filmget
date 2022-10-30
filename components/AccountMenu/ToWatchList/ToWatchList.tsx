@@ -1,20 +1,43 @@
-import React from "react";
+import React, { Fragment, useEffect } from "react";
 import styles from "../styles/ToWatchList.module.scss";
 import Image from "next/image";
 import RatingIcon from "../../Icons/RatingIcon";
 import ToWatchCard from "./ToWatchCard";
 import { movieInterface, seriesInterface } from "../../../utils/types";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../utils/hooks/reduxHooks";
+import { accountActions } from "../../../redux/store";
 
 const ToWatchList: React.FC<{
-  // movieData: movieInterface[] | seriesInterface[];
-  movieData: any;
+  mediaToWatch: movieInterface[] | seriesInterface[];
   genresList: { id: number; name: string }[];
+  mediaIds: number[];
 }> = (props) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      accountActions.setToWatch({
+        mediaToWatch: props.mediaToWatch,
+        mediaIds: props.mediaIds,
+      })
+    );
+  }, [props.mediaToWatch]);
+  const mediaToWatch =
+    useAppSelector((state) => state.account.toWatch.mediaToWatch)
 
-  const allCards = props.movieData.map((mediaData: movieInterface | seriesInterface, i: any) => {
-    return <ToWatchCard key={`movieCard${i}`} movieData={mediaData} genresList={props.genresList}/>
-  })
-
+  const allCards = mediaToWatch.map(
+    (mediaData: movieInterface | seriesInterface, i) => {
+      return (
+        <ToWatchCard
+          key={`movieCard${i}`}
+          mediaData={mediaData}
+          genresList={props.genresList}
+        />
+      );
+    }
+  );
 
   return (
     <main className={styles["towatch-section"]}>
@@ -23,10 +46,16 @@ const ToWatchList: React.FC<{
       </header>
       <div className={styles["section__content"]}>
         <div className={styles["media__list"]}>
-          {props.movieData.length !== 0 && allCards}
+          {mediaToWatch.length !== 0 && allCards}
         </div>
       </div>
-      {props.movieData.length === 0 ? <p className={styles["no-results-text"]}>Nothing to see here now...</p> : null}
+      {mediaToWatch.length === 0 ? (
+        <Fragment>
+          <p className={styles["no-results-text"]}>
+            Nothing to see here for now!
+          </p>
+        </Fragment>
+      ) : null}
     </main>
   );
 };

@@ -140,6 +140,8 @@ const data = [
 const AccountMenu: React.FC<{
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
+  mediaToWatch: movieInterface[] | seriesInterface[];
+  mediaIds: number[]
 }> = (props) => {
   const session = useSession();
 
@@ -152,7 +154,7 @@ const AccountMenu: React.FC<{
       break;
     case "to-watch":
       currentSection = (
-        <ToWatchList genresList={props.genresList} movieData={data} />
+        <ToWatchList genresList={props.genresList} mediaToWatch={props.mediaToWatch} mediaIds={props.mediaIds}/>
       );
       break;
     default:
