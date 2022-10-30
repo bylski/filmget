@@ -29,7 +29,7 @@ const handler = async (req: ToWatchApiRequest, res: NextApiResponse) => {
       const { mediaToWatch, mediaIds } = currentUser;
 
       if (mediaIds.includes(req.body.media.id)) {
-        res.status(500).send("[ERROR] Item already in watch-list!");
+        return res.status(500).send("[ERROR] Item already in watch-list!");
       }
 
       currentUser.mediaToWatch = [...mediaToWatch, req.body.media];
@@ -37,10 +37,10 @@ const handler = async (req: ToWatchApiRequest, res: NextApiResponse) => {
 
       await currentUser.save();
 
-      res.status(200).send("Successfully added item to watch-list!");
+      return res.status(200).send("Successfully added item to watch-list!");
     } catch (e) {
       console.dir(e);
-      res.status(500).send(`[ERROR] ${e}`);
+      return res.status(500).send(`[ERROR] ${e}`);
     }
   } else {
     res.send("[ERROR] WRONG METHOD, USE 'POST' METHOD");

@@ -8,8 +8,9 @@ import {
 import EyeIcon from "../Icons/EyeIcon";
 import { useSession } from "next-auth/react";
 import axios from "axios";
-import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { accountActions } from "../../redux/store";
+import { motion } from "framer-motion";
 
 const DetailsHeader: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
@@ -24,6 +25,7 @@ const DetailsHeader: React.FC<{
     'Add to "Want to watch"'
   );
 
+
   const wantToWatchClickHandler = async () => {
     setWantToWatch((prev) => !prev);
 
@@ -32,57 +34,83 @@ const DetailsHeader: React.FC<{
       "name" in props.modalData;
 
     if (baseConditions && !wantToWatch) {
-      await axios.post("/api/add-to-watch", {
-        username: session.data?.user?.name,
-        media: props.modalData,
-      }).then((res) => {
-        // If query was successful => add media to redux state
-        if (res.data) {
-          dispatch(accountActions.addToWatch(props.modalData));
-        }
-      });
+      await axios
+        .post("/api/add-to-watch", {
+          username: session.data?.user?.name,
+          media: props.modalData,
+        })
+        .then((res) => {
+          // If query was successful => add media to redux state
+          if (res.data) {
+            dispatch(accountActions.addToWatch(props.modalData));
+          }
+        });
     } else if (baseConditions && wantToWatch) {
-      await axios.post("/api/remove-to-watch", {
-        username: session.data?.user?.name,
-        media: props.modalData,
-      }).then((res) => {
-        if (res.data) {
-          dispatch(accountActions.deleteToWatch(props.modalData))
-        }
-      })
+      await axios
+        .post("/api/remove-to-watch", {
+          username: session.data?.user?.name,
+          media: props.modalData,
+        })
+        .then((res) => {
+          if (res.data) {
+            dispatch(accountActions.deleteToWatch(props.modalData));
+          }
+        });
     }
   };
 
-  useEffect(() => {
-    const checkToWatch = async () => {
-      const res = await axios.get("api/get-to-watch", {
-        params: { id: props.modalData.id, username: session.data?.user?.name },
-      });
+    // Check if media is already added to "want to watch"
+    const mediaToWatchIds = useAppSelector((state) => state.account.toWatch.mediaIds)
 
-      if (res.data.wantToWatch) {
+
+  useEffect(() => {
+    // const checkToWatch = async () => {
+    //   const res = await axios.get("api/get-to-watch", {
+    //     params: { id: props.modalData.id, username: session.data?.user?.name },
+    //   });
+
+    //     if (res.data.wantToWatch) {
+    //       setWantToWatch(true);
+    //     } else if (!res.data.wantToWatch && !wantToWatch) {
+    //       setWantToWatch(false);
+    //     }
+    // };
+
+
+    if (session.status === "authenticated") {
+      // checkToWatch();
+      let isWantToWatch = false;
+      for (let mediaId of mediaToWatchIds) {
+        console.log(`${mediaId}`, props.modalData.id)
+        console.log("HERE")
+        if (mediaId === props.modalData.id) {
+          console.log("YAH")
+          isWantToWatch = true;
+        } 
+      }
+
+      if (isWantToWatch) {
         setWantToWatch(true);
       } else {
         setWantToWatch(false);
       }
-    };
-
-    if (session.status === "authenticated") {
-      checkToWatch();
     }
 
     if (wantToWatch) {
       setWantToWatchTitle('Remove from "Want to watch"');
       setWantToWatchClasses(styles["active"]);
     } else {
-      setWantToWatchClasses("");
+      setWantToWatchClasses(styles["unactive"]);
       setWantToWatchTitle('Add to "Want to watch"');
     }
-  }, [wantToWatch]);
+  }, [wantToWatch, mediaToWatchIds]);
 
   if (
     props.dataType === "movie" ||
     (props.dataType === "series" && "genresList" in props.modalData)
   ) {
+
+
     return (
       <header className={styles["info__header"]}>
         <div className={styles["header__info-section"]}>

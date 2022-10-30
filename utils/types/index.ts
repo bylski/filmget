@@ -68,3 +68,4 @@ export interface sortInterface {
   sortType: string;
   sortedProperty: string;
 }
+

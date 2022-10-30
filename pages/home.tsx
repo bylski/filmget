@@ -1,12 +1,12 @@
 import styles from "../styles/pages/home.module.scss";
-import { Fragment } from "react";
+import { Fragment, useEffect } from "react";
 
 import MoviesScroller from "../components/MoviesScroller/MoviesScroller";
 import Header from "../components/Layout/Header";
 import ActorsShowcaser from "../components/ActorsShowcaser/ActorsShowcaser";
 import axios from "axios";
 import DetailsModal from "../components/DetailsModal.tsx/DetailsModal";
-import { useAppSelector } from "../utils/hooks/reduxHooks";
+import { useAppSelector, useAppDispatch } from "../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import { hideOverflowIf } from "../utils/scripts";
 import Head from "next/head";
@@ -15,12 +15,16 @@ import { GetServerSidePropsContext } from "next";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "./api/auth/[...nextauth]";
 import { User } from "../utils/mongo/userModel";
+import { accountActions } from "../redux/store";
+import { movieInterface, seriesInterface } from "../utils/types";
 
 const Home: React.FC<{
   popularMovies: any[];
   topRatedMovies: any[];
   popularActors: any[];
-  genresList: {id: number, name: string}[]
+  genresList: { id: number; name: string }[];
+  wantToWatchIds: number[];
+  wantToWatchMedia: seriesInterface[] | movieInterface[];
 }> = (props) => {
   const {
     modalData,
@@ -32,23 +36,33 @@ const Home: React.FC<{
     originPosition: state.modal.originPosition,
   }));
 
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(accountActions.setToWatch({mediaToWatch: props.wantToWatchMedia, mediaIds: props.wantToWatchIds}));
+  }, []);
+
   const headerBackdropPaths: string[] = props.popularMovies
     .map((movie) => movie.backdrop_path)
     .slice(0, 15);
 
-
-  hideOverflowIf(showModal) // Do not let user scroll when modal is active
+  hideOverflowIf(showModal); // Do not let user scroll when modal is active
 
   return (
     <Fragment>
       <Head>
         <title>Filmget</title>
-        <meta name="description" content="Filmget provides information about your favourite movies, shows and people from the movie industry.
-        Explore now and discover the world of cinema."></meta>
+        <meta
+          name="description"
+          content="Filmget provides information about your favourite movies, shows and people from the movie industry.
+        Explore now and discover the world of cinema."
+        ></meta>
       </Head>
       <AnimatePresence>
         {showModal && (
-          <DetailsModal modalData={modalData!} originPosition={originPosition} />
+          <DetailsModal
+            modalData={modalData!}
+            originPosition={originPosition}
+          />
         )}
       </AnimatePresence>
 
@@ -77,16 +91,46 @@ export default Home;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const endpoints: string[] = [
-    encodeURI(`https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET popular movies
-    encodeURI(`https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET top rated movies
-    encodeURI(`https://api.themoviedb.org/3/person/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`), // GET popular actors
-    encodeURI(`https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`) // Get genres list
+    encodeURI(
+      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
+    ), // GET popular movies
+    encodeURI(
+      `https://api.themoviedb.org/3/movie/top_rated?api_key=${process.env.API_KEY}&language=en-US&page=1`
+    ), // GET top rated movies
+    encodeURI(
+      `https://api.themoviedb.org/3/person/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
+    ), // GET popular actors
+    encodeURI(
+      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`
+    ), // Get genres list
   ];
 
   let res: any = undefined;
 
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
 
-  
+  try {
+    // Check if code runs in production or in development, use the address specified for environment
+    // Connect to the database
+    if (process.env.NODE_ENV === "production") {
+      await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
+    } else {
+      await mongoose.connect("mongodb://localhost:27017/filmget");
+    }
+  } catch (error) {
+    throw new Error("[ERROR] Couldnt' connect to the database!");
+  }
+
+  // Get user data from the database
+  const username = session?.user?.name;
+  const currentUser = await User.findOne({ username });
+  const wantToWatchIds = currentUser.mediaIds;
+  const wantToWatchMedia = currentUser.mediaToWatch;
+
   try {
     res = await axios.all(endpoints.map((endpoint) => axios.get(endpoint))); // GET all of the endpoints
   } catch (e: any) {
@@ -99,6 +143,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const genresList: any = res[3].data.genres;
 
   return {
-    props: { popularMovies, topRatedMovies, popularActors, genresList},
+    props: {
+      popularMovies,
+      topRatedMovies,
+      popularActors,
+      genresList,
+      wantToWatchIds,
+      wantToWatchMedia,
+    },
   };
 }
