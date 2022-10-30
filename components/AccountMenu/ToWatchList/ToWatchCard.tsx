@@ -11,13 +11,14 @@ import { movieInterface, seriesInterface } from "../../../utils/types";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { accountActions } from "../../../redux/store";
+import { AnimatePresence, motion } from "framer-motion";
 
 const ToWatchCard: React.FC<{
   mediaData: movieInterface | seriesInterface;
   genresList: { id: number; name: string }[];
 }> = (props) => {
   const [optionsText, setOptionsText] = useState(" ");
-  const [isDeleted, setIsDeleted] = useState(false);
+  // const [isDeleted, setIsDeleted] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const session = useSession();
@@ -64,18 +65,15 @@ const ToWatchCard: React.FC<{
     const elementId = element.id;
     switch (elementId) {
       case "delete-btn":
+        dispatch(accountActions.deleteToWatch(props.mediaData));
+        // setIsDeleted(true);
         axios.post("/api/remove-to-watch", {
           username: session.data?.user?.name,
           media: props.mediaData,
-        }).then((res) => {
-          if (res.data) {
-            dispatch(accountActions.deleteToWatch(props.mediaData))
-            setIsDeleted(true);
-          }
         });
         break;
       case "details-btn":
-        router.push("/details/movie/718930");
+        router.push(`/details/movie/${props.mediaData.id}`);
         break;
       case "card":
         showModal({
@@ -88,9 +86,14 @@ const ToWatchCard: React.FC<{
     }
   };
 
-  if (!isDeleted) {
-    return (
-      <div
+  const exitAnimation = {
+    // transition: {duration: 5},
+    scale: 0.1,
+  }
+
+  return (
+    <AnimatePresence>
+      <motion.div
         ref={divRef}
         id="card"
         onClick={mouseClickHandler}
@@ -139,9 +142,9 @@ const ToWatchCard: React.FC<{
             <p className={styles["info__title"]}>{props.mediaData.name}</p>
           ) : null}
         </div>
-      </div>
-    );
-  } else return null;
+      </motion.div>
+    </AnimatePresence>
+  );
 };
 
 export default ToWatchCard;

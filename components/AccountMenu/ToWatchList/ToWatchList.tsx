@@ -1,7 +1,5 @@
 import React, { Fragment, useEffect } from "react";
 import styles from "../styles/ToWatchList.module.scss";
-import Image from "next/image";
-import RatingIcon from "../../Icons/RatingIcon";
 import ToWatchCard from "./ToWatchCard";
 import { movieInterface, seriesInterface } from "../../../utils/types";
 import {
@@ -9,6 +7,7 @@ import {
   useAppDispatch,
 } from "../../../utils/hooks/reduxHooks";
 import { accountActions } from "../../../redux/store";
+import { AnimatePresence } from "framer-motion";
 
 const ToWatchList: React.FC<{
   mediaToWatch: movieInterface[] | seriesInterface[];
