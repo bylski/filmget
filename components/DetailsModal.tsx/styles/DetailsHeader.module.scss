@@ -7,6 +7,7 @@ $to-watch-animation-time: 0.3s;
   max-height: fit-content;
   width: fit-content;
   @include flexVertical;
+  
   align-items: flex-start;
 
   padding-right: 5rem;
