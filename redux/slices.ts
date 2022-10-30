@@ -154,7 +154,6 @@ export const accountSlice = createSlice({
     deleteToWatch(state, action) {
       const idToDelete = action.payload.id;
       const { mediaIds, mediaToWatch } = state.toWatch;
-      console.log(state.toWatch.mediaIds);
       if (state.toWatch.mediaIds.includes(idToDelete)) {
         // Search for index of the movie user wants to delete
         const idIndex = mediaIds.indexOf(idToDelete);

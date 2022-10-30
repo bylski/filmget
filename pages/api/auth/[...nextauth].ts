@@ -64,7 +64,6 @@ export const authOptions: NextAuthOptions = {
           const avatarSrc = existingUser.avatarSrc.url;
 
           if (isPasswordMatching) {
-            console.log("YES")
             return {
               image: avatarSrc,
               name: username,
@@ -72,7 +71,6 @@ export const authOptions: NextAuthOptions = {
             };
           }
         }
-        console.log("NO!")
         return null;
       },
     }),

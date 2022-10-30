@@ -13,11 +13,12 @@ const Settings: React.FC<{ sessionData: Session | null }> = (props) => {
         <h1 className={styles["header__text"]}>Account Settings</h1>
       </header>
       <div className={styles["settings"]}>
-        <form className={styles["form"]}>
+        <div className={styles["first-column"]}>
           <Setting
             sessionData={props.sessionData}
             type="inputs"
             headerText={"Change Username"}
+            apiAddress={"/api/change-username"}
             inputs={[
               {
                 label: "New Username",
@@ -31,6 +32,7 @@ const Settings: React.FC<{ sessionData: Session | null }> = (props) => {
             sessionData={props.sessionData}
             type="inputs"
             headerText={"Change Password"}
+            apiAddress={"/api/change-password"}
             inputs={[
               {
                 label: "Current Password",
@@ -46,7 +48,7 @@ const Settings: React.FC<{ sessionData: Session | null }> = (props) => {
               },
             ]}
           />
-        </form>
+        </div>
         <div className={styles["second-column"]}>
           <Setting
             sessionData={props.sessionData}
