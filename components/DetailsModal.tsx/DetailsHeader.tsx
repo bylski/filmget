@@ -133,7 +133,7 @@ const DetailsHeader: React.FC<{
     }
 
     return (
-      <header className={styles["info__header"]}>
+      <header className={styles["people-info__header"]}>
         <h1 className={styles["header__name"]}>{props.modalData.name}</h1>
         <p className={styles["header__gender"]}>{`Gender - ${actorsGender}`}</p>
       </header>

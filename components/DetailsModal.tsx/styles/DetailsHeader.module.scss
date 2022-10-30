@@ -2,6 +2,18 @@
 
 $to-watch-animation-time: 0.3s;
 
+.people-info__header {
+  min-height: fit-content;
+  max-height: fit-content;
+  width: fit-content;
+  @include flexVertical;
+  align-items: flex-start;
+
+  padding-right: 5rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid $primary-color2;
+}
+
 .info__header {
   min-height: fit-content;
   max-height: fit-content;
