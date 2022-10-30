@@ -52,7 +52,7 @@ const ToWatchList: React.FC<{
       {mediaToWatch.length === 0 ? (
         <Fragment>
           <p className={styles["no-results-text"]}>
-            Looks like it's empty here...
+            Nothing to see here for now!
           </p>
         </Fragment>
       ) : null}
