@@ -38,7 +38,12 @@ const Home: React.FC<{
 
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(accountActions.setToWatch({mediaToWatch: props.wantToWatchMedia, mediaIds: props.wantToWatchIds}));
+    dispatch(
+      accountActions.setToWatch({
+        mediaToWatch: props.wantToWatchMedia,
+        mediaIds: props.wantToWatchIds,
+      })
+    );
   }, []);
 
   const headerBackdropPaths: string[] = props.popularMovies
@@ -128,8 +133,12 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   // Get user data from the database
   const username = session?.user?.name;
   const currentUser = await User.findOne({ username });
-  const wantToWatchIds = currentUser.mediaIds;
-  const wantToWatchMedia = currentUser.mediaToWatch;
+  let wantToWatchIds: number[] | null = null;
+  let wantToWatchMedia: movieInterface[] | seriesInterface[] | null = null
+  if (currentUser) {
+    wantToWatchIds = currentUser.mediaIds;
+    wantToWatchMedia = currentUser.mediaToWatch;
+  } 
 
   try {
     res = await axios.all(endpoints.map((endpoint) => axios.get(endpoint))); // GET all of the endpoints
