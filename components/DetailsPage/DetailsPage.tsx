@@ -13,6 +13,7 @@ import DetailsPageImage from "./DetailsPageImage";
 import DetailsPageRating from "./DetailsPageRating";
 import DetailsPageSummary from "./DetailsPageSummary";
 
+
 const DetailsPage: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
   additionalDetails?: actorInterface;
