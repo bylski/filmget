@@ -1,4 +1,5 @@
 import axios from "axios";
+import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
@@ -29,17 +30,34 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
         const res: { data: { message: string; success: boolean } } =
           await axios.post("/api/save-user", { username, email, password });
         if (res.data.success) {
-          console.log(res.data.message);
           dispatchValidation({
             type: "setValidation",
-            payload: { username: { isValid: true }, password: {isValid: true}, email: {isValid: true}, messages: [] },
+            payload: {
+              username: { isValid: true },
+              password: { isValid: true },
+              email: { isValid: true },
+              messages: [],
+            },
           });
-          router.replace("/login");
+
+          // Automatically log in user if account creation was sucessful
+          const res = await signIn("credentials", {
+            username,
+            password,
+            redirect: false,
+          });
+          if (res?.ok) {
+            router.replace("/home");
+          }
         } else {
-          console.log(res.data.message);
           dispatchValidation({
             type: "setValidation",
-            payload: { username: { isValid: false }, password: {isValid: true}, email: {isValid: true}, messages: [res.data.message] },
+            payload: {
+              username: { isValid: false },
+              password: { isValid: true },
+              email: { isValid: true },
+              messages: [res.data.message],
+            },
           });
         }
       } catch {

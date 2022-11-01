@@ -1,17 +1,26 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import MediaDisplayer from "../../components/CategoryDisplayer/MediaDisplayer";
 import axios from "axios";
-import { movieInterface } from "../../utils/types";
+import { movieInterface, seriesInterface } from "../../utils/types";
 import { AnimatePresence } from "framer-motion";
 import DetailsModal from "../../components/DetailsModal.tsx/DetailsModal";
-import { useAppSelector } from "../../utils/hooks/reduxHooks";
+import { useAppSelector, useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { hideOverflowIf } from "../../utils/scripts";
+import mongoose from "mongoose";
+import { GetServerSidePropsContext } from "next";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../api/auth/[...nextauth]";
+import { User } from "../../utils/mongo/userModel";
+import { accountActions } from "../../redux/store";
 
 const Movies: React.FC<{
   popularMovies: movieInterface[];
   topRatedMovies: movieInterface[];
   nowPlayingMovies: movieInterface[];
   genresList: { id: number; name: string }[];
+  wantToWatchIds: number[];
+  wantToWatchMedia: seriesInterface[] | movieInterface[];
+  mediaRatings: {id: number, rating: number}[];
 }> = (props) => {
   const {
     modalData,
@@ -24,6 +33,18 @@ const Movies: React.FC<{
   }));
 
   hideOverflowIf(showModal); // Do not let user scroll when modal is active
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      accountActions.setToWatch({
+        mediaToWatch: props.wantToWatchMedia,
+        mediaIds: props.wantToWatchIds,
+      })
+    );
+    dispatch(accountActions.setRating(props.mediaRatings))
+  }, []);
+
 
   return (
     <Fragment>
@@ -50,7 +71,7 @@ const Movies: React.FC<{
 
 export default Movies;
 
-export async function getServerSideProps() {
+export async function getServerSideProps(context: GetServerSidePropsContext) {
   const endpoints: string[] = [
     encodeURI(
       `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.API_KEY}&language=en-US&page=1`
@@ -74,12 +95,50 @@ export async function getServerSideProps() {
     console.log(`ERROR ${e.response.status}: ${e.response.statusText}`);
   }
 
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+
+  // Get user data from the database
+  const username = session?.user?.name;
+  const currentUser = await User.findOne({ username });
+  let wantToWatchIds: number[] | null = null;
+  let wantToWatchMedia: movieInterface[] | seriesInterface[] | null = null;
+  let mediaRatings: { id: number; rating: number }[] | null = null;
+  if (currentUser) {
+    mediaRatings = await JSON.parse(JSON.stringify(currentUser.mediaRatings));
+    wantToWatchIds = currentUser.mediaIds;
+    wantToWatchMedia = currentUser.mediaToWatch;
+  }
+
+  try {
+    // Check if code runs in production or in development, use the address specified for environment
+    // Connect to the database
+    if (process.env.NODE_ENV === "production") {
+      await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
+    } else {
+      await mongoose.connect("mongodb://localhost:27017/filmget");
+    }
+  } catch (error) {
+    throw new Error("[ERROR] Couldnt' connect to the database!");
+  }
+
   const popularMovies: movieInterface[] = res[0].data.results;
   const topRatedMovies: movieInterface[] = res[1].data.results;
   const nowPlayingMovies: movieInterface[] = res[2].data.results;
   const genresList: any = res[3].data.genres;
 
   return {
-    props: { popularMovies, topRatedMovies, nowPlayingMovies, genresList },
+    props: {
+      popularMovies,
+      topRatedMovies,
+      nowPlayingMovies,
+      genresList,
+      mediaRatings,
+      wantToWatchIds,
+      wantToWatchMedia,
+    },
   };
 }

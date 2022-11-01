@@ -15,8 +15,13 @@ const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null 
 
   const allowedFormats = /image\/(png|jpg|jpeg)/i;
 
+  const clearInputHandler = (event: React.MouseEvent) => {
+   const target = event.currentTarget as HTMLInputElement
+   target.value = "";
+  }
+
   const fileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const target = e.target as HTMLInputElement;
+    console.log("HERE!")
     const file = e.target.files![0];
     if (file !== null) {
       if (!file.type.match(allowedFormats)) {
@@ -28,6 +33,7 @@ const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null 
   };
 
   useEffect(() => {
+    console.log("HERE2")
     if (fileURL) {
       dispatch(cropModalActions.showModal({ imgSrc: fileURL }));
     }
@@ -61,6 +67,7 @@ const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null 
               className={styles["file-input"]}
               accept=".jpeg, .png, .jpg"
               multiple={false}
+              onClick={clearInputHandler}
               onChange={fileChangeHandler}
             ></input>
             <UploadIcon className={styles["file-input__upload-icon"]} />

@@ -1,9 +1,9 @@
 import { GetServerSidePropsContext, NextPage } from "next";
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect } from "react";
 import AccountMenu from "../../components/AccountMenu/AccountMenu";
 import DetailsModal from "../../components/DetailsModal.tsx/DetailsModal";
 import { hideOverflowIf } from "../../utils/scripts";
-import { useAppSelector } from "../../utils/hooks/reduxHooks";
+import { useAppSelector, useAppDispatch } from "../../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import axios from "axios";
 import AvatarCropModal from "../../components/AccountMenu/Settings/AvatarCropModal";
@@ -12,12 +12,14 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { User } from "../../utils/mongo/userModel";
 import { movieInterface, seriesInterface } from "../../utils/types";
+import { accountActions } from "../../redux/store";
 
 const AccountPage: React.FC<{
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
   mediaToWatch: movieInterface[] | seriesInterface[];
   mediaIds: number[];
+  mediaRatings: { id: number; rating: number }[],
 }> = (props) => {
   const {
     modalData,
@@ -35,6 +37,17 @@ const AccountPage: React.FC<{
   }));
 
   hideOverflowIf(showModal);
+
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      accountActions.setToWatch({
+        mediaToWatch: props.mediaToWatch,
+        mediaIds: props.mediaIds,
+      })
+    );
+    dispatch(accountActions.setRating(props.mediaRatings))
+  }, []);
 
   return (
     <Fragment>
@@ -96,6 +109,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const signUpDate = currentUser.signUpDate.toJSON();
   const mediaToWatch = currentUser.mediaToWatch;
   const mediaIds = currentUser.mediaIds;
+  const mediaRatings: { id: number; rating: number }[] = await JSON.parse(
+    JSON.stringify(currentUser.mediaRatings)
+  );
 
   const endpoints = [
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`,
@@ -116,6 +132,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       signUpDate: signUpDate || null,
       mediaToWatch: mediaToWatch || null,
       mediaIds,
+      mediaRatings,
     },
   };
 }

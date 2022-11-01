@@ -26,7 +26,6 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
         actorName === "Min Do-yoon";
       if (backdropPaths.length < 6 && !censorConditions) {
         backdropPaths.push(known_for[0].backdrop_path);
-        console.dir(known_for[0]);
         return (
           <ActorCard
             key={actorData.id}

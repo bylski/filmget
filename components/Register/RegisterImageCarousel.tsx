@@ -6,7 +6,7 @@ const RegisterImageCarousel: React.FC<{urls: string[]}> = (props) => {
 
     const carouselImages = useCarousel({
         urls: props.urls,
-        switchDelayTime: 13000,
+        switchDelayTime: 8000,
         carouselLimit: 4,
       });
 
