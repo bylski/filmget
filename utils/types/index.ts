@@ -40,6 +40,7 @@ export interface actorInterface {
     backdrop_path: string;
     poster_path: string;
     title: string;
+    name: string;
     id: number;
     media_type: string,
   }[];

@@ -4,6 +4,7 @@ import styles from "./styles/ActorsShowcaser.module.scss";
 import ActorCard from "./ActorCard";
 import { motion } from "framer-motion";
 import { showcaserVariants } from "../../utils/AnimationVariants.ts";
+import { actorInterface } from "../../utils/types";
 
 const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
   props
@@ -11,25 +12,36 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
   const backdropChangeImg = (path: string) => {
     setBackdropPath(path);
   };
-  
 
   const backdropPaths: string[] = [];
   let addCard = 0;
-  const actors = props.actorsData
-    .map((actorData: any, i: number) => {
+  const actors = props.actorsData.map(
+    (actorData: actorInterface, i: number) => {
       // Filter out adult movies actors
-      backdropPaths.push(actorData.known_for[0].backdrop_path);
-      return (
-        <ActorCard
-          key={actorData.id}
-          actorData={actorData}
-          onHover={backdropChangeImg}
-        />
-    )})
-    // Make up for deleted adult actors with "addCard"
-    .slice(0, 6 + addCard);
+      const { name: actorName, known_for } = actorData;
+      const censorConditions =
+        actorName === "Angeli Khang" ||
+        actorName === "Jo Tae-ho" ||
+        actorName === "Seung Ha" ||
+        actorName === "Min Do-yoon";
+      if (backdropPaths.length < 6 && !censorConditions) {
+        backdropPaths.push(known_for[0].backdrop_path);
+        console.dir(known_for[0]);
+        return (
+          <ActorCard
+            key={actorData.id}
+            actorData={actorData}
+            onHover={backdropChangeImg}
+          />
+        );
+      } else {
+        return null;
+      }
+    }
+  );
+  // Make up for deleted adult actors with "addCard"
 
-  const actorsBackdropPaths: string[] = backdropPaths.slice(0, 6);
+  const actorsBackdropPaths: string[] = backdropPaths;
   const [backdropPath, setBackdropPath] = useState(actorsBackdropPaths[0]);
   const backdropImages = actorsBackdropPaths.map((path, i) => {
     if (path === null || path === undefined) {

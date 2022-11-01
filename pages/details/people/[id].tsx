@@ -1,6 +1,6 @@
 import React from "react";
 import { GetServerSidePropsContext } from "next";
-import DetailsPage from "../../../components/Detailspage/DetailsPage";
+import DetailsPage from "../../../components/DetailsPage/DetailsPage";
 import axios from "axios";
 import { actorInterface } from "../../../utils/types";
 import { useAppSelector } from "../../../utils/hooks/reduxHooks";

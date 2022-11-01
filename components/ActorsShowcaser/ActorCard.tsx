@@ -7,6 +7,8 @@ import { actorInterface } from "../../utils/types";
 import useModal from "../../utils/hooks/useModal";
 import Link from "next/link";
 
+
+
 const ActorCard: React.FC<{
   actorData: actorInterface;
   onHover: (path: string) => void;
@@ -55,7 +57,8 @@ const ActorCard: React.FC<{
         </p>
         <Link href={`/details/movie/${props.actorData.known_for[0].id}`}>
         <a className={styles["actor__known-from"]}>
-          {props.actorData.known_for[0].title}
+          {"title" in props.actorData.known_for[0] ? props.actorData.known_for[0].title : null}
+          {"name" in props.actorData.known_for[0] ? props.actorData.known_for[0].name : null}
         </a>
         </Link>
       </div>
