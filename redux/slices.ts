@@ -193,10 +193,7 @@ export const accountSlice = createSlice({
         { id: newRatingId, rating: newRating },
       ];
     },
-    deleteRating(
-      state,
-      action: { payload: number; type: any }
-    ) {
+    deleteRating(state, action: { payload: number; type: any }) {
       const idToDelete = action.payload;
       let toDeleteIndex = 0;
       state.mediaRatings.forEach((ratedMedia, i) => {
@@ -205,6 +202,9 @@ export const accountSlice = createSlice({
         }
       });
       state.mediaRatings.splice(toDeleteIndex, 1);
+    },
+    setRating(state, action: { payload: { id: number; rating: number }[] }) {
+      state.mediaRatings = action.payload;
     },
   },
 });

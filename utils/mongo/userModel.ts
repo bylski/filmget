@@ -11,7 +11,7 @@ const userSchema = new Schema({
   },
   mediaToWatch: { type: Array, required: false },
   mediaIds: { type: Array, required: false },
-  mediaRatings: { type: [{ id: Number, rating: Number }], required: false },
+  mediaRatings: { type: [{ id: Number, rating: Number,  _id: false}], required: false, },
 });
 
 export const User = mongoose.models.User || mongoose.model("User", userSchema);

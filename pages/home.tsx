@@ -25,6 +25,7 @@ const Home: React.FC<{
   genresList: { id: number; name: string }[];
   wantToWatchIds: number[];
   wantToWatchMedia: seriesInterface[] | movieInterface[];
+  mediaRatings: {id: number, rating: number}[];
 }> = (props) => {
   const {
     modalData,
@@ -44,6 +45,7 @@ const Home: React.FC<{
         mediaIds: props.wantToWatchIds,
       })
     );
+    dispatch(accountActions.setRating(props.mediaRatings))
   }, []);
 
   const headerBackdropPaths: string[] = props.popularMovies
@@ -135,7 +137,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const currentUser = await User.findOne({ username });
   let wantToWatchIds: number[] | null = null;
   let wantToWatchMedia: movieInterface[] | seriesInterface[] | null = null
+  let mediaRatings: {id: number, rating: number}[] | null = null;
   if (currentUser) {
+    mediaRatings = await JSON.parse(JSON.stringify(currentUser.mediaRatings));
     wantToWatchIds = currentUser.mediaIds;
     wantToWatchMedia = currentUser.mediaToWatch;
   } 
@@ -159,6 +163,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       genresList,
       wantToWatchIds,
       wantToWatchMedia,
+      mediaRatings
     },
   };
 }

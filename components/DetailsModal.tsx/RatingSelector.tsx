@@ -8,11 +8,14 @@ import styles from "./styles/RatingSelector.module.scss";
 import { motion } from "framer-motion";
 import { movieInterface, seriesInterface } from "../../utils/types";
 import RefreshIcon from "../Icons/RefreshIcon";
+import axios from "axios";
+import { useSession } from "next-auth/react";
 
 const RatingSelector: React.FC<{
   mediaData: movieInterface | seriesInterface;
 }> = (props) => {
   const dispatch = useAppDispatch();
+  const session = useSession();
   const { id: mediaId } = props.mediaData;
   const [hoveredRating, setHoveredRating] = useState<null | number | "?">("?");
   const [selectedRating, setSelectedRating] = useState<null | number>(null);
@@ -43,6 +46,12 @@ const RatingSelector: React.FC<{
   const ratingChangeHandler = (rating: number) => {
     setSelectedRating(rating);
     dispatch(accountActions.addRating({ id: mediaId, rating: rating }));
+    axios.post("/api/add-rating", {
+      id: mediaId,
+      rating,
+      username: session.data?.user?.name,
+    });
+
     closeSelectorHandler();
   };
 
@@ -55,6 +64,11 @@ const RatingSelector: React.FC<{
     setSelectedRating(null);
     setRatingText("...");
     setHoveredRating("?");
+
+    axios.post("/api/delete-rating", {
+      id: mediaId,
+      username: session.data?.user?.name,
+    });
   };
 
   const closeSelectorHandler = () => {

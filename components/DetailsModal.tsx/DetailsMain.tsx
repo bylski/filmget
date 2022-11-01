@@ -9,12 +9,14 @@ import {
 import Link from "next/link";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { ratingSelectorActions } from "../../redux/store";
+import { useSession } from "next-auth/react";
 
 const DetailsMain: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
   dataType: string;
 }> = (props) => {
   const dispatch = useAppDispatch();
+  const session = useSession();
   const [mediaRating, setMediaRating] = useState<{
     id: number;
     rating: number;
@@ -67,7 +69,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
-          {RateButton}
+          {session.status === "authenticated" ? RateButton: null}
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>
@@ -92,7 +94,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
-          {RateButton}
+          {session.status === "authenticated" ? RateButton: null}
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>
