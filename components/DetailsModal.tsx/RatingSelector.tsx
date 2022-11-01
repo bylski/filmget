@@ -36,11 +36,13 @@ const RatingSelector: React.FC<{
   const ratedMedia = useAppSelector((state) => state.account.mediaRatings);
   // Get saved rating from redux if it exists
   useEffect(() => {
-    ratedMedia.forEach((media) => {
-      if (media.id === props.mediaData.id) {
-        setSelectedRating(media.rating);
-      }
-    });
+    if (ratedMedia) {
+      ratedMedia.forEach((media) => {
+        if (media.id === props.mediaData.id) {
+          setSelectedRating(media.rating);
+        }
+      });
+    }
   }, []);
 
   const ratingChangeHandler = (rating: number) => {

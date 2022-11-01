@@ -28,21 +28,24 @@ const handler = async (req: AddRatingApiRequest, res: NextApiResponse) => {
     try {
       const currentUser = await User.findOne({ username: req.body.username });
       const { mediaRatings } = currentUser;
-      const { id: idToAdd, rating: ratingToAdd} = req.body;
-
+      const { id: idToAdd, rating: ratingToAdd } = req.body;
 
       let filteredDbArr = mediaRatings;
-      mediaRatings.forEach((ratedMedia: {id: number, rating: number}, i: number) => {
-        if (ratedMedia.id === ratingToAdd) {
-          filteredDbArr.splice(i, 1);
-        }
-      });
+      if (mediaRatings) {
+        mediaRatings.forEach(
+          (ratedMedia: { id: number; rating: number }, i: number) => {
+            if (ratedMedia.id === ratingToAdd) {
+              filteredDbArr.splice(i, 1);
+            }
+          }
+        );
+      }
 
       currentUser.mediaRatings = [
         ...filteredDbArr,
         { id: idToAdd, rating: ratingToAdd },
       ];
-       
+
       await currentUser.save();
 
       return res.status(200).send("Successfully added item to watch-list!");

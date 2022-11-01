@@ -29,23 +29,17 @@ const handler = async (req: AddRatingApiRequest, res: NextApiResponse) => {
       const { mediaRatings } = currentUser;
       const { id: idToDelete } = req.body;
 
-      // Check if mediaRatingId doesn't exist in reduxState already
-    //   let filteredStateArr = mediaRatings;
-    //   mediaRatings.forEach(
-    //     (ratedMedia: { id: number; rating: number }, i: number) => {
-    //       if (ratedMedia.id === ratingToAdd) {
-    //         filteredStateArr.splice(i, 1);
-    //       }
-    //     }
-    //   );
-
       const filteredDbArray = mediaRatings;
       let toDeleteIndex = 0;
-      mediaRatings.forEach((ratedMedia: {id: number, rating: number}, i: number) => {
-        if (ratedMedia.id === idToDelete) {
-          toDeleteIndex = i;
-        }
-      });
+      if (mediaRatings) {
+        mediaRatings.forEach(
+          (ratedMedia: { id: number; rating: number }, i: number) => {
+            if (ratedMedia.id === idToDelete) {
+              toDeleteIndex = i;
+            }
+          }
+        );
+      }
       filteredDbArray.splice(toDeleteIndex, 1);
 
       currentUser.mediaRatings = filteredDbArray;

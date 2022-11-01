@@ -26,12 +26,14 @@ const DetailsMain: React.FC<{
   const ratingData = useAppSelector((state) => state.account.mediaRatings);
   useEffect(() => {
     let ratingNotFound = true;
-    ratingData.forEach((ratedMedia, i) => {
-      if (ratedMedia.id === props.modalData.id) {
-        setMediaRating(ratedMedia);
-        ratingNotFound = false;
-      }
-    });
+    if (ratingData) {
+      ratingData.forEach((ratedMedia, i) => {
+        if (ratedMedia.id === props.modalData.id) {
+          setMediaRating(ratedMedia);
+          ratingNotFound = false;
+        }
+      });
+    }
     if (ratingNotFound) {
       setMediaRating(null);
     }
@@ -69,7 +71,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
-          {session.status === "authenticated" ? RateButton: null}
+          {session.status === "authenticated" ? RateButton : null}
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>
@@ -94,7 +96,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
-          {session.status === "authenticated" ? RateButton: null}
+          {session.status === "authenticated" ? RateButton : null}
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>
