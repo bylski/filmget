@@ -9,8 +9,9 @@ const userSchema = new Schema({
     url: { type: String, default: "", required: false },
     fileName: { type: String, default: "", required: false },
   },
-  mediaToWatch: {type: Array, required: false},
-  mediaIds: {type: Array, required: false}
+  mediaToWatch: { type: Array, required: false },
+  mediaIds: { type: Array, required: false },
+  mediaRatings: { type: [{ id: Number, rating: Number }], required: false },
 });
 
 export const User = mongoose.models.User || mongoose.model("User", userSchema);

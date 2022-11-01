@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import RatingIcon from "../Icons/RatingIcon";
 import styles from "./styles/DetailsMain.module.scss";
 import {
@@ -7,7 +7,7 @@ import {
   seriesInterface,
 } from "../../utils/types";
 import Link from "next/link";
-import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { ratingSelectorActions } from "../../redux/store";
 
 const DetailsMain: React.FC<{
@@ -15,10 +15,43 @@ const DetailsMain: React.FC<{
   dataType: string;
 }> = (props) => {
   const dispatch = useAppDispatch();
+  const [mediaRating, setMediaRating] = useState<{
+    id: number;
+    rating: number;
+  } | null>(null);
+
+  // Check if there is any ratingData, use is to control "Rate button's visuals"
+  const ratingData = useAppSelector((state) => state.account.mediaRatings);
+  useEffect(() => {
+    ratingData.forEach((ratedMedia, i) => {
+      if (ratedMedia.id === props.modalData.id) {
+        setMediaRating(ratedMedia);
+      }
+    });
+  }, [ratingData]);
 
   const openSelectorHandler = () => {
-    dispatch(ratingSelectorActions.showSelector())
-  }
+    dispatch(ratingSelectorActions.showSelector());
+  };
+
+  const RateButton: JSX.Element = mediaRating ? (
+    <button
+      onClick={openSelectorHandler}
+      className={`${styles["rating__btn"]} ${styles["rated"]}`}
+    >
+      <Fragment>
+        Rated |<span>{mediaRating.rating}</span>
+        <RatingIcon
+          differentFill={{ fill1: "white", fill2: "white" }}
+          className={styles["btn__rating-icon"]}
+        />
+      </Fragment>
+    </button>
+  ) : (
+    <button onClick={openSelectorHandler} className={styles["rating__btn"]}>
+      Rate
+    </button>
+  );
 
   if (props.dataType === "movie" && "title" in props.modalData) {
     return (
@@ -29,7 +62,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
-          <button onClick={openSelectorHandler} className={styles["rating__btn"]}>Rate</button>
+          {RateButton}
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>
@@ -54,7 +87,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
-          <button onClick={openSelectorHandler} className={styles["rating__btn"]}>Rate</button>
+          {RateButton}
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>
@@ -96,7 +129,9 @@ const DetailsMain: React.FC<{
           </p>
           <div className={styles["known-for__content"]}>
             <div className={styles["known-for__card"]}>
-              <Link href={`details/${knownForInfo[0].mediaType}/${knownForInfo[0].id}`}>
+              <Link
+                href={`details/${knownForInfo[0].mediaType}/${knownForInfo[0].id}`}
+              >
                 <a
                   style={{
                     width: "100%",
@@ -112,7 +147,9 @@ const DetailsMain: React.FC<{
               ></img>
             </div>
             <div className={styles["known-for__card"]}>
-            <Link href={`details/${knownForInfo[1].mediaType}/${knownForInfo[1].id}`}>
+              <Link
+                href={`details/${knownForInfo[1].mediaType}/${knownForInfo[1].id}`}
+              >
                 <a
                   style={{
                     width: "100%",
@@ -128,7 +165,9 @@ const DetailsMain: React.FC<{
               ></img>
             </div>
             <div className={styles["known-for__card"]}>
-            <Link href={`details/${knownForInfo[2].mediaType}/${knownForInfo[2].id}`}>
+              <Link
+                href={`details/${knownForInfo[2].mediaType}/${knownForInfo[2].id}`}
+              >
                 <a
                   style={{
                     width: "100%",

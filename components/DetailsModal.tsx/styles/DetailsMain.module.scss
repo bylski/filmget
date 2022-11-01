@@ -82,6 +82,25 @@
 
   padding-inline: 1rem;
   transition: 0.15s ease-in-out;
+  @include flexHorizontal;
+
+  & .btn__rating-icon {
+    margin-left: 0.1rem;
+    width: 15px;
+    position: relative;
+    top: -1px;
+  }
+
+  &.rated {
+    color: white;
+    background-color: $rating-color;
+
+    & span {
+      padding-left: 0.5rem;
+      // background-color: $dark-theme-bg-color1;
+    }
+  }
+
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {

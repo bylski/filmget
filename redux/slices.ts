@@ -118,14 +118,15 @@ export const cropModalSlice = createSlice({
 });
 
 const accountInitialState: {
-  username: string,
-  email: string,
+  username: string;
+  email: string;
   signUpDate: Date | null;
-  avatarSrc: string,
+  avatarSrc: string;
   toWatch: {
     mediaToWatch: movieInterface[] | seriesInterface[];
     mediaIds: number[];
   };
+  mediaRatings: { id: number; rating: number }[] | [];
 } = {
   username: "",
   email: "",
@@ -135,6 +136,7 @@ const accountInitialState: {
     mediaToWatch: [],
     mediaIds: [],
   },
+  mediaRatings: [],
 };
 
 export const accountSlice = createSlice({
@@ -166,13 +168,34 @@ export const accountSlice = createSlice({
     },
     addToWatch(state, action) {
       state.toWatch.mediaIds = [...state.toWatch.mediaIds, action.payload.id];
-      state.toWatch.mediaToWatch = [...state.toWatch.mediaToWatch, action.payload];
-    }
+      state.toWatch.mediaToWatch = [
+        ...state.toWatch.mediaToWatch,
+        action.payload,
+      ];
+    },
+    addRating(
+      state,
+      action: { payload: { id: number; rating: number }; type: any }
+    ) {
+      const { id: newRatingId, rating: newRating } = action.payload;
+
+      // Check if mediaRatingId doesn't exist in reduxState already
+      let filteredStateArr = state.mediaRatings;
+      state.mediaRatings.forEach((ratedMedia, i) => {
+        if (ratedMedia.id === newRatingId) {
+          filteredStateArr.splice(i, 1);
+        }
+      });
+
+      state.mediaRatings = [
+        ...filteredStateArr,
+        { id: newRatingId, rating: newRating },
+      ];
+    },
   },
 });
 
-
-const ratingSelectorInitialState: { isShown: boolean; } = {
+const ratingSelectorInitialState: { isShown: boolean } = {
   isShown: false,
 };
 

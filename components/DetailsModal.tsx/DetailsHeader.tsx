@@ -10,9 +10,6 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { accountActions } from "../../redux/store";
-import { motion } from "framer-motion";
-import { Rating } from "react-simple-star-rating";
-import RatingIcon from "../Icons/RatingIcon";
 
 const DetailsHeader: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
@@ -26,6 +23,7 @@ const DetailsHeader: React.FC<{
   const [wantToWatchTitle, setWantToWatchTitle] = useState(
     'Add to "Want to watch"'
   );
+
 
   const wantToWatchClickHandler = async () => {
     setWantToWatch((prev) => !prev);
@@ -49,14 +47,15 @@ const DetailsHeader: React.FC<{
     }
   };
 
-  // Check if media is already added to "want to watch"
+  // GET REDUX STORED DATA
   const mediaToWatchIds = useAppSelector(
     (state) => state.account.toWatch.mediaIds
   );
 
+
+  // Check if media is already added to "want to watch"
   useEffect(() => {
     if (session.status === "authenticated") {
-      // checkToWatch();
       let isWantToWatch = false;
       for (let mediaId of mediaToWatchIds) {
         if (mediaId === props.modalData.id) {
@@ -73,18 +72,6 @@ const DetailsHeader: React.FC<{
   }, [session.status]);
 
   useEffect(() => {
-    // const checkToWatch = async () => {
-    //   const res = await axios.get("api/get-to-watch", {
-    //     params: { id: props.modalData.id, username: session.data?.user?.name },
-    //   });
-
-    //     if (res.data.wantToWatch) {
-    //       setWantToWatch(true);
-    //     } else if (!res.data.wantToWatch && !wantToWatch) {
-    //       setWantToWatch(false);
-    //     }
-    // };
-
     if (wantToWatch) {
       setWantToWatchTitle('Remove from "Want to watch"');
       setWantToWatchClasses(styles["active"]);

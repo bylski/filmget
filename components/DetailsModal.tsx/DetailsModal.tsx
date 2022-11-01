@@ -77,9 +77,11 @@ const DetailsModal: React.FC<{
         ></div>
         <div className={styles["modal__card"]}>
           {modalDetailsRender}
-          <AnimatePresence>
-            {showSelector && <RatingSelector />}
-          </AnimatePresence>
+          {"backdrop_path" in props.modalData ? (
+            <AnimatePresence>
+              {showSelector && <RatingSelector mediaData={props.modalData} />}
+            </AnimatePresence>
+          ) : null}
         </div>
       </motion.section>
     </Fragment>
