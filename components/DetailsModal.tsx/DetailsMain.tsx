@@ -7,11 +7,19 @@ import {
   seriesInterface,
 } from "../../utils/types";
 import Link from "next/link";
+import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { ratingSelectorActions } from "../../redux/store";
 
 const DetailsMain: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
   dataType: string;
 }> = (props) => {
+  const dispatch = useAppDispatch();
+
+  const openSelectorHandler = () => {
+    dispatch(ratingSelectorActions.showSelector())
+  }
+
   if (props.dataType === "movie" && "title" in props.modalData) {
     return (
       <main className={styles["main-content"]}>
@@ -21,6 +29,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
+          <button onClick={openSelectorHandler} className={styles["rating__btn"]}>Rate</button>
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>
@@ -45,6 +54,7 @@ const DetailsMain: React.FC<{
             {props.modalData.vote_average.toFixed(1)}
           </p>
           <p className={styles["rating-text"]}>- User Score</p>
+          <button onClick={openSelectorHandler} className={styles["rating__btn"]}>Rate</button>
         </div>
         <div className={styles["overview__container"]}>
           <p className={styles["overview__heading-text"]}>Overview: </p>

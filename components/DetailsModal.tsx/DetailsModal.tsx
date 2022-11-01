@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import React, { Fragment } from "react";
 import styles from "./styles/DetailsModal.module.scss";
 import { modalVariants } from "../../utils/AnimationVariants.ts";
@@ -6,10 +6,11 @@ import { movieInterface, seriesInterface } from "../../utils/types";
 import { actorInterface } from "../../utils/types";
 import MovieDetails from "./MovieDetails";
 import ActorDetails from "./ActorDetails";
-import { useAppDispatch } from "../../utils/hooks/reduxHooks";
+import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
 import SeriesDetails from "./SeriesDetails";
 import useModal from "../../utils/hooks/useModal";
+import RatingSelector from "./RatingSelector";
 
 const DetailsModal: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
@@ -18,6 +19,7 @@ const DetailsModal: React.FC<{
   // Gets the origin element's (the card that was clicked)
   // position to animate the modal enterencce from that position.
   const position = props.originPosition;
+  const showSelector = useAppSelector((state) => state.ratingSelector.isShown);
 
   let genres: string[] = [];
   let genresString: string = "";
@@ -36,14 +38,16 @@ const DetailsModal: React.FC<{
       <MovieDetails modalData={props.modalData} genresString={genresString} />
     );
   } else if ("name" in props.modalData && "genre_ids" in props.modalData) {
-    modalDetailsRender = <SeriesDetails modalData={props.modalData} genresString={genresString}/>
+    modalDetailsRender = (
+      <SeriesDetails modalData={props.modalData} genresString={genresString} />
+    );
   } else if ("known_for" in props.modalData) {
     modalDetailsRender = <ActorDetails modalData={props.modalData} />;
   } else {
-    <p style={{color: "white"}}>ERROR</p>
+    <p style={{ color: "white" }}>ERROR</p>;
   }
 
-  const {showModal, closeModal} = useModal();
+  const { showModal, closeModal } = useModal();
   const backdropClickHandler = () => {
     closeModal();
   };
@@ -71,7 +75,12 @@ const DetailsModal: React.FC<{
           onClick={backdropClickHandler}
           className={styles["modal__outside-space"]}
         ></div>
-        <div className={styles["modal__card"]}>{modalDetailsRender}</div>
+        <div className={styles["modal__card"]}>
+          {modalDetailsRender}
+          <AnimatePresence>
+            {showSelector && <RatingSelector />}
+          </AnimatePresence>
+        </div>
       </motion.section>
     </Fragment>
   );

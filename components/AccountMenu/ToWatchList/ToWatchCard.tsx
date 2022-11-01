@@ -32,6 +32,8 @@ const ToWatchCard: React.FC<{
       return null;
     });
 
+    console.log(props.mediaData.genre_ids, props.genresList)
+
   const hoverHandler = (
     e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>
   ) => {
@@ -86,10 +88,7 @@ const ToWatchCard: React.FC<{
     }
   };
 
-  const exitAnimation = {
-    // transition: {duration: 5},
-    scale: 0.1,
-  }
+
 
   return (
     <AnimatePresence>

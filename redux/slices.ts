@@ -170,3 +170,21 @@ export const accountSlice = createSlice({
     }
   },
 });
+
+
+const ratingSelectorInitialState: { isShown: boolean; } = {
+  isShown: false,
+};
+
+export const ratingSelectorSlice = createSlice({
+  name: "ratingSelector",
+  initialState: ratingSelectorInitialState,
+  reducers: {
+    showSelector(state) {
+      state.isShown = true;
+    },
+    hideSelector(state) {
+      state.isShown = false;
+    },
+  },
+});

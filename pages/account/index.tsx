@@ -17,7 +17,7 @@ const AccountPage: React.FC<{
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
   mediaToWatch: movieInterface[] | seriesInterface[];
-  mediaIds: number[]
+  mediaIds: number[];
 }> = (props) => {
   const {
     modalData,
@@ -31,9 +31,8 @@ const AccountPage: React.FC<{
 
   const { isShown: showCropModal, imgSrc } = useAppSelector((state) => ({
     isShown: state.cropModal.isShown,
-    imgSrc: state.cropModal.imgSrc
-  }
-  ));
+    imgSrc: state.cropModal.imgSrc,
+  }));
 
   hideOverflowIf(showModal);
 
@@ -46,11 +45,14 @@ const AccountPage: React.FC<{
             originPosition={originPosition}
           />
         )}
-        {showCropModal && (
-          <AvatarCropModal imgSrc={imgSrc}/>
-        )}
+        {showCropModal && <AvatarCropModal imgSrc={imgSrc} />}
       </AnimatePresence>
-      <AccountMenu mediaIds={props.mediaIds} mediaToWatch={props.mediaToWatch} signUpDate={props.signUpDate} genresList={props.genresList} />
+      <AccountMenu
+        mediaIds={props.mediaIds}
+        mediaToWatch={props.mediaToWatch}
+        signUpDate={props.signUpDate}
+        genresList={props.genresList}
+      />
     </Fragment>
   );
 };
@@ -60,48 +62,60 @@ export default AccountPage;
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   let res: any = undefined;
 
-    const session = await unstable_getServerSession(context.req, context.res, authOptions);
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
 
-    if (!session) {
-      return {
-        redirect: {
-          destination: "/login",
-          permanent: false,
-        },
-      };
-    }
-
-    try {
-      // Check if code runs in production or in development, use the address specified for environment
-      // Connect to the database
-      if (process.env.NODE_ENV === "production") {
-        await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
-      } else {
-        await mongoose.connect("mongodb://localhost:27017/filmget");
-      }
-    } catch (error) {
-      throw new Error("[ERROR] Couldnt' connect to the database!");
-    }
-
-    // Get user data from the database
-    const username = session.user?.name;
-    const currentUser = await User.findOne({username});
-    // Extract sign up date and to-watch media
-    const signUpDate = currentUser.signUpDate.toJSON();
-    const mediaToWatch = currentUser.mediaToWatch;
-    const mediaIds = currentUser.mediaIds;
+  if (!session) {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
 
   try {
-    res = await axios.get(
-      `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`
-    ); // Get genres list)
+    // Check if code runs in production or in development, use the address specified for environment
+    // Connect to the database
+    if (process.env.NODE_ENV === "production") {
+      await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
+    } else {
+      await mongoose.connect("mongodb://localhost:27017/filmget");
+    }
+  } catch (error) {
+    throw new Error("[ERROR] Couldnt' connect to the database!");
+  }
+
+  // Get user data from the database
+  const username = session.user?.name;
+  const currentUser = await User.findOne({ username });
+  // Extract sign up date and to-watch media
+  const signUpDate = currentUser.signUpDate.toJSON();
+  const mediaToWatch = currentUser.mediaToWatch;
+  const mediaIds = currentUser.mediaIds;
+
+  const endpoints = [
+    `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`,
+    `https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.API_KEY}&language=en-US`,
+  ];
+
+  try {
+    res = await axios.all(endpoints.map((endpoint) => axios.get(endpoint))); // GET all of the endpoints
   } catch (e: any) {
     console.log(`ERROR ${e.response.status}: ${e.response.statusText}`);
   }
 
-  const genresList: any = res.data.genres;
+  const genresList: any = [...res[0].data.genres, ...res[1].data.genres];
 
   return {
-    props: { genresList, signUpDate: signUpDate || null, mediaToWatch: mediaToWatch || null, mediaIds},
+    props: {
+      genresList,
+      signUpDate: signUpDate || null,
+      mediaToWatch: mediaToWatch || null,
+      mediaIds,
+    },
   };
 }

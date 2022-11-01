@@ -1,5 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
-import { modalSlice, mediaFilterSlice, registerInputsSlice, loginInputsSlice, cropModalSlice, accountSlice } from "./slices";
+import { modalSlice, mediaFilterSlice, registerInputsSlice, loginInputsSlice, cropModalSlice, accountSlice, ratingSelectorSlice } from "./slices";
 
 const store = configureStore({
   reducer: {
@@ -9,6 +9,7 @@ const store = configureStore({
     loginInputs: loginInputsSlice.reducer,
     cropModal: cropModalSlice.reducer,
     account: accountSlice.reducer,
+    ratingSelector: ratingSelectorSlice.reducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
@@ -22,6 +23,7 @@ export const registerInputsActions = registerInputsSlice.actions;
 export const loginInputsActions = loginInputsSlice.actions;
 export const cropModalActions = cropModalSlice.actions;
 export const accountActions = accountSlice.actions;
+export const ratingSelectorActions = ratingSelectorSlice.actions;
 export default store;
 
 export type RootState = ReturnType<typeof store.getState>;

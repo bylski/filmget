@@ -11,6 +11,8 @@ import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { accountActions } from "../../redux/store";
 import { motion } from "framer-motion";
+import { Rating } from "react-simple-star-rating";
+import RatingIcon from "../Icons/RatingIcon";
 
 const DetailsHeader: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
