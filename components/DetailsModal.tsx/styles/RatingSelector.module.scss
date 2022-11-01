@@ -124,6 +124,7 @@ $displayer-size: 3.7rem;
   padding-block: 0.5rem;
 
   width: fit-content;
+
 }
 
 $icon-height: 30px;
@@ -137,16 +138,17 @@ $icon-height: 30px;
   height: $icon-height;
 }
 
-.rating__tooltip {
-  border-radius: 50%;
+
+
+// FOOTER 
+.selector__footer {
+  @include flexHorizontal;
 }
 
-// BUTTON
+.selector__btn {
+  width: 10rem;
 
-.selector__exit-btn {
-  width: fit-content;
-
-  padding-inline: 2rem;
+  padding-inline: 1rem;
   padding-block: 0.5rem;
   margin-top: 1.5rem;
 
@@ -154,12 +156,34 @@ $icon-height: 30px;
   background-color: $dark-highlight !important;
 
   transition: 0.15s ease-in-out;
+  
+
+  & .selector__btn-icon {
+    fill: white;
+    width: 15px;
+
+    position: relative;
+    top: -1px;
+
+    margin-left: 0.5rem;
+  }
+
+  &:first-of-type {
+    margin-right: 1rem;
+  }
+
+  &:last-of-type {
+    margin-right: 1rem;
+    @include flexHorizontal;
+    justify-content: center;
+  }
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
       cursor: pointer;
       background-color: rgba(113, 110, 110, 0.641) !important;
-      padding-inline: 2.5rem;
+      width: 11rem;
+      // padding-inline: 2.5rem;
     }
   }
 }

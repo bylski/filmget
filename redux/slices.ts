@@ -1,5 +1,6 @@
 import { movieInterface, seriesInterface } from "../utils/types";
 import { createSlice } from "@reduxjs/toolkit";
+import { stat } from "fs";
 
 const modalInitialState: {
   isShown: boolean;
@@ -191,6 +192,19 @@ export const accountSlice = createSlice({
         ...filteredStateArr,
         { id: newRatingId, rating: newRating },
       ];
+    },
+    deleteRating(
+      state,
+      action: { payload: number; type: any }
+    ) {
+      const idToDelete = action.payload;
+      let toDeleteIndex = 0;
+      state.mediaRatings.forEach((ratedMedia, i) => {
+        if (ratedMedia.id === idToDelete) {
+          toDeleteIndex = i;
+        }
+      });
+      state.mediaRatings.splice(toDeleteIndex, 1);
     },
   },
 });

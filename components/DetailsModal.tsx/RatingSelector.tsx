@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, Fragment } from "react";
 import { Rating } from "react-simple-star-rating";
 import { accountActions, ratingSelectorActions } from "../../redux/store";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
@@ -7,6 +7,7 @@ import StyledButton from "../UI/StyledButton";
 import styles from "./styles/RatingSelector.module.scss";
 import { motion } from "framer-motion";
 import { movieInterface, seriesInterface } from "../../utils/types";
+import RefreshIcon from "../Icons/RefreshIcon";
 
 const RatingSelector: React.FC<{
   mediaData: movieInterface | seriesInterface;
@@ -49,7 +50,19 @@ const RatingSelector: React.FC<{
     setHoveredRating(rating);
   };
 
+  const clearRatingHandler = () => {
+    dispatch(accountActions.deleteRating(mediaId));
+    setSelectedRating(null);
+    setRatingText("...");
+    setHoveredRating("?");
+  };
+
   const closeSelectorHandler = () => {
+    dispatch(ratingSelectorActions.hideSelector());
+  };
+
+  const outsideClickHandler = () => {
+    console.log("HETY");
     dispatch(ratingSelectorActions.hideSelector());
   };
 
@@ -88,6 +101,7 @@ const RatingSelector: React.FC<{
   return (
     <div className={styles["rating-selector"]}>
       <motion.div
+        onClick={outsideClickHandler}
         variants={backdropVariants}
         animate="show"
         exit="hide"
@@ -99,7 +113,7 @@ const RatingSelector: React.FC<{
         exit="hide"
         className={styles["selector__card"]}
       >
-        <div className={styles["selector__header"]}>
+        <header className={styles["selector__header"]}>
           <div className={styles["rating-display"]}>
             <span>{selectedRating ? selectedRating : hoveredRating}</span>
           </div>
@@ -108,7 +122,7 @@ const RatingSelector: React.FC<{
             <span className={styles["header__rating-text"]}>{ratingText}</span>
           </h2>
           {/* <h3 className={styles["selector__rating-text"]}>Great</h3> */}
-        </div>
+        </header>
         <div className={styles["rating__container"]}>
           <Rating
             initialValue={selectedRating || 1}
@@ -126,12 +140,23 @@ const RatingSelector: React.FC<{
             iconsCount={10}
           />
         </div>
-        <StyledButton
-          action={closeSelectorHandler}
-          addClass={styles["selector__exit-btn"]}
-        >
-          Go Back
-        </StyledButton>
+        <footer className={styles["selector__footer"]}>
+          <StyledButton
+            action={closeSelectorHandler}
+            addClass={styles["selector__btn"]}
+          >
+            Go Back
+          </StyledButton>
+          <StyledButton
+            action={clearRatingHandler}
+            addClass={styles["selector__btn"]}
+          >
+            <Fragment>
+              Clear Rating
+              <RefreshIcon className={styles["selector__btn-icon"]} />
+            </Fragment>
+          </StyledButton>
+        </footer>
       </motion.div>
     </div>
   );

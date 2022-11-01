@@ -23,11 +23,16 @@ const DetailsMain: React.FC<{
   // Check if there is any ratingData, use is to control "Rate button's visuals"
   const ratingData = useAppSelector((state) => state.account.mediaRatings);
   useEffect(() => {
+    let ratingNotFound = true;
     ratingData.forEach((ratedMedia, i) => {
       if (ratedMedia.id === props.modalData.id) {
         setMediaRating(ratedMedia);
+        ratingNotFound = false;
       }
     });
+    if (ratingNotFound) {
+      setMediaRating(null);
+    }
   }, [ratingData]);
 
   const openSelectorHandler = () => {
