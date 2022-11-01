@@ -29,6 +29,7 @@ const SeriesDetailsById: React.FC<{
 export default SeriesDetailsById;
 
 
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const endpoints: string[] = [
     encodeURI(
