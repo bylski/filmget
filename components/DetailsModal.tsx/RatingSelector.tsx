@@ -52,6 +52,7 @@ const RatingSelector: React.FC<{
       id: mediaId,
       rating,
       username: session.data?.user?.name,
+      genresList: props.mediaData.genre_ids,
     });
 
     closeSelectorHandler();

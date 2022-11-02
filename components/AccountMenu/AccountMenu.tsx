@@ -141,7 +141,9 @@ const AccountMenu: React.FC<{
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
   mediaToWatch: movieInterface[] | seriesInterface[];
-  mediaIds: number[]
+  mediaIds: number[];
+  mediaRatingsAmount: number;
+  mostWatchedGenre: string
 }> = (props) => {
   const session = useSession();
 
@@ -150,24 +152,30 @@ const AccountMenu: React.FC<{
 
   switch (router.query.section) {
     case "settings":
-      currentSection = <Settings sessionData={session.data}/>;
+      currentSection = <Settings sessionData={session.data} />;
       break;
     case "to-watch":
       currentSection = (
-        <ToWatchList genresList={props.genresList} mediaToWatch={props.mediaToWatch} mediaIds={props.mediaIds}/>
+        <ToWatchList
+          genresList={props.genresList}
+          mediaToWatch={props.mediaToWatch}
+          mediaIds={props.mediaIds}
+        />
       );
       break;
     default:
       currentSection = (
         <Dashboard
+          ratedMediaAmount={props.mediaRatingsAmount}
+          toWatchAmount={props.mediaIds.length}
           signUpDate={props.signUpDate}
           genresList={props.genresList}
           movieData={data}
           sessionData={session.data}
+          mostWatchedGenre={props.mostWatchedGenre}
         />
       );
   }
-
 
   return (
     <section className={styles["account-menu"]}>

@@ -1,20 +1,26 @@
 import MoviesScroller from "../MoviesScroller/MoviesScroller";
 import movieScrollerStyles from "./styles/MovieScrollerCustom.module.scss";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./styles/Dashboard.module.scss";
-import { Session } from "inspector";
 import RatingIcon from "../Icons/RatingIcon";
 import EyeIcon from "../Icons/EyeIcon";
 import BrandIcon from "../Icons/BrandIcon";
+import { useAppSelector } from "../../utils/hooks/reduxHooks";
 
 const Dashboard: React.FC<{
   movieData: any;
   sessionData: any;
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
+  toWatchAmount: number;
+  ratedMediaAmount: number;
+  mostWatchedGenre: string;
 }> = (props) => {
   const { sessionData, signUpDate } = props;
-
+  const [toWatchAmount, setToWatchAmount] = useState(props.toWatchAmount);
+  const [ratedMediaAmount, setRatedMediaAmount] = useState(
+    props.ratedMediaAmount
+  );
   // Get and format signUpDate to display it later
   const date = new Date(signUpDate!);
   const [month, day, year] = [
@@ -22,6 +28,16 @@ const Dashboard: React.FC<{
     date.getDate(),
     date.getFullYear(),
   ];
+
+  const { mediaRatings, toWatch: toWatch } = useAppSelector(
+    (state) => state.account
+  );
+  const toWatchIds = toWatch.mediaIds;
+
+  useEffect(() => {
+    setToWatchAmount(toWatchIds.length);
+    setRatedMediaAmount(mediaRatings.length);
+  }, [mediaRatings, toWatchIds]);
 
   return (
     <main className={styles["dashboard-section"]}>
@@ -40,16 +56,16 @@ const Dashboard: React.FC<{
                 <span>Media Rated</span>
               </div>
               <div className={styles["item__value"]}>
-                <span>0</span>
+                <span>{ratedMediaAmount}</span>
               </div>
             </li>
             <li className={styles["stats__item"]}>
               <div className={styles["item__header"]}>
                 <EyeIcon className={styles["stats__icon"]} />
-                <span>Yours To-Watch</span>
+                <span>Media To-Watch</span>
               </div>
               <div className={styles["item__value"]}>
-                <span>0</span>
+                <span>{toWatchAmount}</span>
               </div>
             </li>
             <li className={styles["stats__item"]}>
@@ -58,10 +74,10 @@ const Dashboard: React.FC<{
                   customFill={true}
                   className={styles["stats__icon"]}
                 />
-                <span>Favourite Genre</span>
+                <span>Most Watched Genre</span>
               </div>
               <div className={styles["item__value"]}>
-                <span>Action</span>
+                <span>{props.mostWatchedGenre}</span>
               </div>
             </li>
           </ul>

@@ -19,7 +19,8 @@ const AccountPage: React.FC<{
   signUpDate: Date | null;
   mediaToWatch: movieInterface[] | seriesInterface[];
   mediaIds: number[];
-  mediaRatings: { id: number; rating: number }[],
+  mediaRatings: { id: number; rating: number }[];
+  mostWatchedGenre: string;
 }> = (props) => {
   const {
     modalData,
@@ -46,7 +47,7 @@ const AccountPage: React.FC<{
         mediaIds: props.mediaIds,
       })
     );
-    dispatch(accountActions.setRating(props.mediaRatings))
+    dispatch(accountActions.setRating(props.mediaRatings));
   }, []);
 
   return (
@@ -61,6 +62,8 @@ const AccountPage: React.FC<{
         {showCropModal && <AvatarCropModal imgSrc={imgSrc} />}
       </AnimatePresence>
       <AccountMenu
+        mostWatchedGenre={props.mostWatchedGenre}
+        mediaRatingsAmount={props.mediaRatings.length}
         mediaIds={props.mediaIds}
         mediaToWatch={props.mediaToWatch}
         signUpDate={props.signUpDate}
@@ -109,9 +112,35 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const signUpDate = currentUser.signUpDate.toJSON();
   const mediaToWatch = currentUser.mediaToWatch;
   const mediaIds = currentUser.mediaIds;
-  const mediaRatings: { id: number; rating: number }[] = await JSON.parse(
-    JSON.stringify(currentUser.mediaRatings)
-  );
+  const mediaRatings: { id: number; rating: number; genreIds: number[] }[] =
+    await JSON.parse(JSON.stringify(currentUser.mediaRatings));
+
+  // Get all rated genres to estimate what media genre is watched the most by user
+  let allGenres: number[] = [];
+  mediaRatings.forEach((mediaRating) => {
+    allGenres = [...allGenres, ...mediaRating.genreIds];
+  });
+
+  let mostWatchedGenreId: number | null = null;
+  if (allGenres) {
+    let genresCount: { key?: number } = {};
+    allGenres.forEach((genre) => {
+      const genreKey = genre.toString();
+      if (!(genre.toString() in genresCount)) {
+        genresCount[genreKey as keyof typeof genresCount] = 1;
+      } else if (genre.toString() in genresCount) {
+        genresCount[genreKey as keyof typeof genresCount]! += 1;
+      }
+    });
+
+    let maxVal = 0;
+    for (let genre in genresCount) {
+      if (genresCount[genre as keyof typeof genresCount]! > maxVal) {
+        maxVal = genresCount[genre as keyof typeof genresCount]!;
+        mostWatchedGenreId = parseInt(genre);
+      }
+    }
+  }
 
   const endpoints = [
     `https://api.themoviedb.org/3/genre/movie/list?api_key=${process.env.API_KEY}&language=en-US`,
@@ -124,7 +153,14 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     console.log(`ERROR ${e.response.status}: ${e.response.statusText}`);
   }
 
+  let mostWatchedGenre: string = "";
   const genresList: any = [...res[0].data.genres, ...res[1].data.genres];
+  for (let genre of genresList) {
+    if (genre.id === mostWatchedGenreId) {
+      mostWatchedGenre = genre.name;
+    }
+  }
+
 
   return {
     props: {
@@ -133,6 +169,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       mediaToWatch: mediaToWatch || null,
       mediaIds,
       mediaRatings,
+      mostWatchedGenre,
     },
   };
 }
