@@ -55,6 +55,69 @@
   text-underline-offset: 3px;
 }
 
+.content__stats {
+  width: 100%;
+  height: fit-content;
+
+  margin-top: 2rem;
+}
+
+.stats__list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  @include flexHorizontal;
+  justify-content: space-around;
+}
+
+.stats__item {
+  width: fit-content;
+  padding-inline: 1rem;
+  padding-block: 0.5rem;
+  border: 2px solid $dark-highlight;
+  border-radius: 15px;
+  @include flexVertical;
+  justify-content: center;
+
+}
+
+.item__header {
+  @include flexHorizontal;
+  justify-content: center;
+  position: relative;
+  padding-inline: 1.7rem;
+
+  & span {
+    font-size: 1.1rem;
+    font-family: $main-font;
+    color: white;
+  }
+
+  & .stats__icon {
+    fill: $rating-color;
+    width: 22px;
+    margin-right: 0.4rem;
+
+    position: absolute;
+    top: -2px;
+    left: -2px;
+  }
+}
+
+.item__value {
+  width: 100%;
+  margin-top: 0.3rem;
+  @include flexHorizontal;
+  justify-content: center;
+  & span {
+    text-align: center;
+    font-size: 1rem;
+    font-family: $main-font;
+    color: $rating-color;
+  }
+}
+
 @media (hover: hover) and (pointer: fine) {
   .content__ratings-link:hover {
     color: $primary-color2;
