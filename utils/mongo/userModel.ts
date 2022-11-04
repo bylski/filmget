@@ -12,7 +12,7 @@ const userSchema = new Schema({
   mediaToWatch: { type: Array, required: false },
   mediaIds: { type: Array, required: false },
   mediaRatings: {
-    type: [{ id: Number, rating: Number, _id: false, genreIds: [Number] }],
+    type: [{ mediaData: Object, id: Number, rating: Number, _id: false }],
     required: false,
   },
 });

@@ -72,7 +72,7 @@
 }
 
 .stats__item {
-  width: fit-content;
+  min-width: 18rem;
   padding-inline: 1rem;
   padding-block: 0.5rem;
   border: 2px solid $dark-highlight;
@@ -103,6 +103,17 @@
     top: -2px;
     left: -2px;
   }
+}
+
+.no-content {
+  margin-top: 6rem;
+  align-self: center;
+}
+
+.no-content__info {
+  font-family: $main-font;
+  font-size: 2rem;
+  color: gray;
 }
 
 .item__value {

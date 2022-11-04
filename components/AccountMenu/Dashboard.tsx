@@ -6,9 +6,10 @@ import RatingIcon from "../Icons/RatingIcon";
 import EyeIcon from "../Icons/EyeIcon";
 import BrandIcon from "../Icons/BrandIcon";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
+import { movieInterface, seriesInterface } from "../../utils/types";
 
 const Dashboard: React.FC<{
-  movieData: any;
+  mediaUserLiked: Array<movieInterface | seriesInterface>;
   sessionData: any;
   genresList: { id: number; name: string }[];
   signUpDate: Date | null;
@@ -38,6 +39,14 @@ const Dashboard: React.FC<{
     setToWatchAmount(toWatchIds.length);
     setRatedMediaAmount(mediaRatings.length);
   }, [mediaRatings, toWatchIds]);
+
+  const noContentFall = (
+    <div className={styles["no-content"]}>
+      <span className={styles["no-content__info"]}>
+        Be active to see more information in your profile!
+      </span>
+    </div>
+  );
 
   return (
     <main className={styles["dashboard-section"]}>
@@ -77,17 +86,19 @@ const Dashboard: React.FC<{
                 <span>Most Watched Genre</span>
               </div>
               <div className={styles["item__value"]}>
-                <span>{props.mostWatchedGenre}</span>
+                <span>{props.mostWatchedGenre || "---"}</span>
               </div>
             </li>
           </ul>
         </section>
-        <MoviesScroller
-          customStyles={movieScrollerStyles}
-          headerText="Highest Rated "
-          moviesData={props.movieData}
-          genresList={props.genresList}
-        />
+        {props.mediaUserLiked.length !== 0 ? (
+          <MoviesScroller
+            customStyles={movieScrollerStyles}
+            headerText="Media you liked"
+            moviesData={props.mediaUserLiked}
+            genresList={props.genresList}
+          />
+        ) : noContentFall}
         {/* <a className={styles["content__ratings-link"]}>
           See all your rated movies...
         </a> */}

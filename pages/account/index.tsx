@@ -21,6 +21,7 @@ const AccountPage: React.FC<{
   mediaIds: number[];
   mediaRatings: { id: number; rating: number }[];
   mostWatchedGenre: string;
+  mediaUserLiked: Array<movieInterface | seriesInterface>
 }> = (props) => {
   const {
     modalData,
@@ -63,6 +64,7 @@ const AccountPage: React.FC<{
       </AnimatePresence>
       <AccountMenu
         mostWatchedGenre={props.mostWatchedGenre}
+        mediaUserLiked={props.mediaUserLiked}
         mediaRatingsAmount={props.mediaRatings.length}
         mediaIds={props.mediaIds}
         mediaToWatch={props.mediaToWatch}
@@ -112,13 +114,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const signUpDate = currentUser.signUpDate.toJSON();
   const mediaToWatch = currentUser.mediaToWatch;
   const mediaIds = currentUser.mediaIds;
-  const mediaRatings: { id: number; rating: number; genreIds: number[] }[] =
-    await JSON.parse(JSON.stringify(currentUser.mediaRatings));
+  const mediaRatings: {
+    id: number;
+    rating: number;
+    mediaData: seriesInterface | movieInterface;
+  }[] = await JSON.parse(JSON.stringify(currentUser.mediaRatings));
 
   // Get all rated genres to estimate what media genre is watched the most by user
   let allGenres: number[] = [];
   mediaRatings.forEach((mediaRating) => {
-    allGenres = [...allGenres, ...mediaRating.genreIds];
+    allGenres = [...allGenres, ...mediaRating.mediaData.genre_ids];
   });
 
   let mostWatchedGenreId: number | null = null;
@@ -161,6 +166,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
   }
 
+  let mediaUserLiked: Array<movieInterface | seriesInterface> = [];
+  if (mediaRatings.length >= 1) {
+    const wellRatedMedia = mediaRatings.filter(
+      (mediaRating) => mediaRating.rating >= 7
+    );
+
+    mediaUserLiked = wellRatedMedia.map((media) => {
+      return media.mediaData;
+    });
+  }
 
   return {
     props: {
@@ -170,6 +185,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       mediaIds,
       mediaRatings,
       mostWatchedGenre,
+      mediaUserLiked,
     },
   };
 }

@@ -7,7 +7,7 @@ interface AddRatingApiRequest extends NextApiRequest {
   body: {
     id: number;
     rating: number;
-    genresList: number[];
+    mediaData: seriesInterface[] | movieInterface;
     username: string;
   };
 }
@@ -29,7 +29,7 @@ const handler = async (req: AddRatingApiRequest, res: NextApiResponse) => {
     try {
       const currentUser = await User.findOne({ username: req.body.username });
       const { mediaRatings } = currentUser;
-      const { id: idToAdd, rating: ratingToAdd, genresList: genresToAd } = req.body;
+      const { id: idToAdd, rating: ratingToAdd, mediaData: mediaToAdd } = req.body;
 
       let filteredDbArr = mediaRatings;
       if (mediaRatings) {
@@ -44,7 +44,7 @@ const handler = async (req: AddRatingApiRequest, res: NextApiResponse) => {
 
       currentUser.mediaRatings = [
         ...filteredDbArr,
-        { id: idToAdd, rating: ratingToAdd, genreIds: genresToAd },
+        { id: idToAdd, rating: ratingToAdd, mediaData: mediaToAdd },
       ];
 
       await currentUser.save();
