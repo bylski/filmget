@@ -32,7 +32,6 @@ const ToWatchCard: React.FC<{
       return null;
     });
 
-    console.log(props.mediaData.genre_ids, props.genresList)
 
   const hoverHandler = (
     e: React.MouseEvent<HTMLButtonElement | HTMLDivElement>

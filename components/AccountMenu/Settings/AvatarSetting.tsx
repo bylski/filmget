@@ -21,7 +21,6 @@ const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null 
   }
 
   const fileChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log("HERE!")
     const file = e.target.files![0];
     if (file !== null) {
       if (!file.type.match(allowedFormats)) {
@@ -33,7 +32,6 @@ const AvatarSetting: React.FC<{ headerText: string, sessionData: Session | null 
   };
 
   useEffect(() => {
-    console.log("HERE2")
     if (fileURL) {
       dispatch(cropModalActions.showModal({ imgSrc: fileURL }));
     }

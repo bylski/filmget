@@ -9,6 +9,7 @@ import {
 import { signOut } from "next-auth/react";
 import SettingsIcon from "../../../Icons/SettingsIcon";
 import Link from "next/link";
+import EyeIcon from "../../../Icons/EyeIcon";
 
 const CollapsableMenu: React.FC<{ isMenuShown: boolean }> = (props) => {
   return (
@@ -25,9 +26,10 @@ const CollapsableMenu: React.FC<{ isMenuShown: boolean }> = (props) => {
             <Link href={{pathname: "account", query: {section: "to-watch"}}}>
             <motion.li
               variants={accountLinksVariants}
-              className={styles["menu__item"]}
+              className={`${styles["menu__item"]} ${styles["with-icon"]}`}
             >
               To-Watch List
+              <EyeIcon className={styles["icon"]}/>
             </motion.li>
             </Link>
             <Link href={{pathname: "account", query: {section: "settings"}}}>
