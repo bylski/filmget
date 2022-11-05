@@ -2,6 +2,7 @@ import styles from "./styles/SearchInput.module.scss";
 import React, { ChangeEvent, FormEvent, useState } from "react";
 import StyledButton from "./StyledButton";
 import { useRouter } from "next/router";
+import SearchIcon from "../Icons/SearchIcon";
 
 const SearchInput: React.FC<{
   customClasses: {
@@ -11,9 +12,13 @@ const SearchInput: React.FC<{
   };
   placeholder?: string;
   initialVal?: string;
+  searchIcon?: boolean;
+  searchIconClass?: string;
 }> = (props) => {
   const router = useRouter();
-  const [searchInput, setSearchInput] = useState(props.initialVal ? props.initialVal : "");
+  const [searchInput, setSearchInput] = useState(
+    props.initialVal ? props.initialVal : ""
+  );
   const searchChangeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSearchInput(e.target.value);
   };
@@ -26,18 +31,20 @@ const SearchInput: React.FC<{
     });
   };
 
-  const customFormClass = props.customClasses.formClass !== null
-    ? `${styles["search-input__form"]} ${props.customClasses.formClass}`
-    : styles["search-input__form"];
+  const customFormClass =
+    props.customClasses.formClass !== null
+      ? `${styles["search-input__form"]} ${props.customClasses.formClass}`
+      : styles["search-input__form"];
 
-    const customInputClass = props.customClasses.inputClass !== null
-    ? `${styles["search-input__input"]} ${props.customClasses.inputClass}`
-    : styles["search-input__input"];
-    
-    const customButtonClass = props.customClasses.buttonClass !== null
-    ? `${styles["search-input__button"]} ${props.customClasses.buttonClass}`
-    : styles["search-input__button"];
+  const customInputClass =
+    props.customClasses.inputClass !== null
+      ? `${styles["search-input__input"]} ${props.customClasses.inputClass}`
+      : styles["search-input__input"];
 
+  const customButtonClass =
+    props.customClasses.buttonClass !== null
+      ? `${styles["search-input__button"]} ${props.customClasses.buttonClass}`
+      : styles["search-input__button"];
 
   return (
     <form onSubmit={submitHandler} className={customFormClass}>
@@ -48,9 +55,8 @@ const SearchInput: React.FC<{
         className={customInputClass}
         type="text"
       ></input>
-      <StyledButton addClass={customButtonClass}>
-        Search
-      </StyledButton>
+      <StyledButton addClass={customButtonClass}>Search</StyledButton>
+      {props.searchIcon ? <SearchIcon className={props.searchIconClass || ""}/> : null}
     </form>
   );
 };

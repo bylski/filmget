@@ -57,6 +57,13 @@ $searchbar-button-width: 11%;
     width: $searchbar-button-width * 1.7;
 }
 
+.results-searchbar__icon {
+    width: 17px;
+
+    position: absolute;
+    right: 13px;
+}
+
 @media (hover:hover) and (pointer: fine) {
     .results-searchbar__button:hover {
         cursor: pointer;
