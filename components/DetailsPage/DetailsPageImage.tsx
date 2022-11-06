@@ -20,9 +20,7 @@ const DetailsPageImage: React.FC<{
     <div className={styles["details-main__img-section"]}>
       <div className={styles["details-main__img-container"]}>
         <Image
-          layout="responsive"
-          width="600px"
-          height="900px"
+        layout="fill"
           className={styles["details-main__img"]}
           src={imgPath !== undefined && imgPath !== null ? fullImgPath : "/noImg.png"}
         />

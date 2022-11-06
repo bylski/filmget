@@ -6,6 +6,7 @@ import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import useBreakpoints from "../../utils/hooks/useBreakpoints";
+import Image from "next/image";
 
 const Login: React.FC<{ movieUrls: string[]; movieUrlsMobile: string[] }> = (
   props
@@ -18,7 +19,6 @@ const Login: React.FC<{ movieUrls: string[]; movieUrlsMobile: string[] }> = (
   if (breakpoints !== undefined) {
     hideImgSection = breakpoints[0].mobileImageSection;
   }
-
 
   const [bgImg, setBgImg] = useState("");
   useEffect(() => {
@@ -104,9 +104,17 @@ const Login: React.FC<{ movieUrls: string[]; movieUrlsMobile: string[] }> = (
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
-          <div className={styles["card__img-section"]}>
-            <img className={styles["card__img"]} src={bgImg}></img>
-          </div>
+        <div className={styles["card__img-section"]}>
+          <Image
+            placeholder={"blur"}
+            blurDataURL={
+              "iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mOUqgcAALkAm/1TptUAAAAASUVORK5CYII="
+            }
+            layout="fill"
+            className={styles["card__img"]}
+            src={bgImg}
+          ></Image>
+        </div>
         <div className={styles["card__form-section"]}>
           <form onSubmit={loginSubmitHandler} className={styles["card__form"]}>
             <h1 className={styles["form__header-text"]}>Log In</h1>

@@ -5,9 +5,13 @@ $img-section-width: 27%;
 .details-page {
 
     width: 100%;
+    min-height: 80vh;
+    height: 80vh;
     background-color: $dark-theme-bg-color2;
     position: relative;
     font-family: $main-font;
+
+    margin-bottom: 5rem;
 }
 
 .details-page__backdrop {

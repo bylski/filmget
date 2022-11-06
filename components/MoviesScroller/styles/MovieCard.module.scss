@@ -144,16 +144,17 @@ $img-height: 220px;
     }
 
     .movie-img__container {
-        height: 150px;
-        width: calc(150px * $ratio)
+        height: 200px;
+        width: calc(200px * $ratio)
     }
 
     .movie-title {
-        font-size: 10px;
+        font-size: 11px;
+        margin-top: 0.4rem;
     }
 
     .rating-average {
-        font-size: 0.9rem;
+        font-size: 11px;
     }
 
     .rating-icon {
@@ -162,24 +163,25 @@ $img-height: 220px;
     }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
 
     .movie-container {
         margin-bottom: 0.1rem;
     }
 
     .movie-img__container {
-        height: 120px;
-        width: calc(120px * $ratio)
+        height: 220px;
+        width: calc(220px * $ratio)
     }
 
     .movie-title {
-        font-size: 9px;
+        font-size: 12px;
         margin-bottom: 0.5rem;
+        margin-top: 0.5rem;
     }
 
     .rating-average {
-        font-size: 0.8rem;
+        font-size: 13px;
     }
 
     .rating-icon {

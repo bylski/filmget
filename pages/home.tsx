@@ -17,6 +17,7 @@ import { authOptions } from "./api/auth/[...nextauth]";
 import { User } from "../utils/mongo/userModel";
 import { accountActions } from "../redux/store";
 import { movieInterface, seriesInterface } from "../utils/types";
+import useBreakpoints from "../utils/hooks/useBreakpoints";
 
 const Home: React.FC<{
   popularMovies: any[];
@@ -25,7 +26,7 @@ const Home: React.FC<{
   genresList: { id: number; name: string }[];
   wantToWatchIds: number[];
   wantToWatchMedia: seriesInterface[] | movieInterface[];
-  mediaRatings: {id: number, rating: number}[];
+  mediaRatings: { id: number; rating: number }[];
 }> = (props) => {
   const {
     modalData,
@@ -45,14 +46,27 @@ const Home: React.FC<{
         mediaIds: props.wantToWatchIds,
       })
     );
-    dispatch(accountActions.setRating(props.mediaRatings))
+    dispatch(accountActions.setRating(props.mediaRatings));
   }, []);
 
   const headerBackdropPaths: string[] = props.popularMovies
     .map((movie) => movie.backdrop_path)
     .slice(0, 15);
 
+  const mobileBackdropPaths: string[] = props.popularMovies
+    .map((movie: movieInterface) => movie.poster_path)
+    .slice(0, 15);
+
   hideOverflowIf(showModal); // Do not let user scroll when modal is active
+
+  const breakpoints = useBreakpoints({
+    breakpointName: "mobileView",
+    breakpointVal: 500,
+  });
+  let isMobileView = false;
+  if (breakpoints) {
+    isMobileView = breakpoints[0].mobileView;
+  }
 
   return (
     <Fragment>
@@ -73,7 +87,11 @@ const Home: React.FC<{
         )}
       </AnimatePresence>
 
-      <Header backdropPaths={headerBackdropPaths} />
+      <Header
+        isMobileView={isMobileView}
+        backdropPaths={headerBackdropPaths}
+        mobileBackdropPaths={mobileBackdropPaths}
+      />
       <main className={styles["main-container"]}>
         <MoviesScroller
           moviesData={props.popularMovies}
@@ -136,13 +154,13 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const username = session?.user?.name;
   const currentUser = await User.findOne({ username });
   let wantToWatchIds: number[] | null = null;
-  let wantToWatchMedia: movieInterface[] | seriesInterface[] | null = null
-  let mediaRatings: {id: number, rating: number}[] | null = null;
+  let wantToWatchMedia: movieInterface[] | seriesInterface[] | null = null;
+  let mediaRatings: { id: number; rating: number }[] | null = null;
   if (currentUser) {
     mediaRatings = await JSON.parse(JSON.stringify(currentUser.mediaRatings));
     wantToWatchIds = currentUser.mediaIds;
     wantToWatchMedia = currentUser.mediaToWatch;
-  } 
+  }
 
   try {
     res = await axios.all(endpoints.map((endpoint) => axios.get(endpoint))); // GET all of the endpoints
@@ -163,7 +181,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
       genresList,
       wantToWatchIds,
       wantToWatchMedia,
-      mediaRatings
+      mediaRatings,
     },
   };
 }

@@ -3,8 +3,8 @@ $ratio: 1.5;
 
 .actor__container {
   @include flexVertical;
-  width: 160px;
-  height: 100%;
+  width: fit-content;
+  height: fit-content;
   z-index: 10;
 }
 
@@ -36,7 +36,7 @@ $ratio: 1.5;
 
 .actor__info {
   margin-top: 1rem;
-  width: 100%;
+  width: fit-content;
   @include flexVertical;
   justify-content: center;
 }
@@ -55,7 +55,7 @@ $ratio: 1.5;
 
 .actor__known-from {
   font-style: italic;
-  padding: 0.4rem 1rem;
+  padding-block: 0.4rem;
   margin: 0;
   font-size: 13px;
   color: white;
@@ -102,63 +102,63 @@ $ratio: 1.5;
   }
 }
 
-@media screen and (max-width: 900px) {
-  .actor__img-container {
-    width: 110px;
-    height: calc(110px * $ratio);
-  }
 
-  .actor__fullname {
-    font-size: 0.85rem;
-  }
-
-  .actor__known-from {
-    padding-top: 0.2rem;
-    font-size: 0.65rem;
+@media screen and (max-width: 950px) {
+  .actor__container:nth-child(5) {
+    display: none;
   }
 }
 
-@media screen and (max-width: 700px) {
-  .actor__container:nth-child(5) {
+// @media screen and (max-width: 900px) {
+//   .actor__img-container {
+//     width: 110px;
+//     height: calc(110px * $ratio);
+//   }
+
+//   .actor__fullname {
+//     font-size: 0.85rem;
+//   }
+
+//   .actor__known-from {
+//     padding-top: 0.2rem;
+//     font-size: 0.65rem;
+//   }
+// }
+
+@media screen and (max-width: 750px) {
+  .actor__container:nth-child(4) {
     display: none;
   }
 }
 
 @media screen and (max-width: 600px) {
   .actor__img-container {
-    width: 90px;
-    height: calc(90px * $ratio);
+    width: 130px;
+    height: calc(130px * $ratio);
   }
 
   .actor__fullname {
-    font-size: 0.7rem;
+    font-size: 0.8rem;
   }
 
   .actor__known-from {
     padding-top: 0.2rem;
-    font-size: 0.55rem;
+    font-size: 0.6rem;
   }
-}
 
-@media screen and (max-width: 500px) {
   .actor__container:nth-child(4) {
-    display: none;
+    display: flex;
   }
 }
 
 @media screen and (max-width: 400px) {
-  .actor__img-container {
-    width: 70px;
-    height: calc(70px * $ratio);
-  }
+
 
   .actor__fullname {
-    font-size: 0.65rem;
   }
 
   .actor__known-from {
     padding-top: 0.1rem;
-    font-size: 0.5rem;
   }
 }
 

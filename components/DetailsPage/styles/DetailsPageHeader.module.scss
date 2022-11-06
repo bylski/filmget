@@ -2,7 +2,7 @@
 
 .info-section__header-section {
   min-height: fit-content;
-  height: 100%;
+  height: fit-content;
   width: fit-content;
 
   @include flexVertical;
