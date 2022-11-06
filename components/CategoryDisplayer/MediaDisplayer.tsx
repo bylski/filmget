@@ -14,7 +14,6 @@ import { chooseSorterItems } from "./utils/sorterItemsTypes";
 import FiltersMenu from "../UI/FiltersMenu/FiltersMenu";
 import useNextPage from "../../utils/hooks/useNextPage";
 
-
 const MediaDisplayer: React.FC<{
   mediaType: "movies" | "series" | "people";
   mediaData: {
@@ -70,10 +69,7 @@ const MediaDisplayer: React.FC<{
     }
   }, [selectedSort]);
 
-  
-  useNextPage(setMediaData, chosenMediaData, props.mediaType, switchSelected)
-
-
+  useNextPage(setMediaData, chosenMediaData, props.mediaType, switchSelected);
 
   return (
     <section className={styles["media-displayer"]}>
@@ -81,15 +77,18 @@ const MediaDisplayer: React.FC<{
         <header className={styles["media-displayer__header"]}>
           <div className={styles["media-displayer__header-firstseg"]}>
             <Switcher switches={switchers} onSwitch={switchingHandler} />
-            <SortBy onFetchSort={fetchSortHandler} sortItems={sorterItems} />
           </div>
-          {props.mediaType === "movies" || props.mediaType === "series" ? (
-            <FiltersMenu
-              genresList={
-                props.genresList !== undefined ? props.genresList : null
-              }
-            />
-          ) : null}
+
+          <div className={styles["media-displayer__header-secondseg"]}>
+            <SortBy onFetchSort={fetchSortHandler} sortItems={sorterItems} />
+            {props.mediaType === "movies" || props.mediaType === "series" ? (
+              <FiltersMenu
+                genresList={
+                  props.genresList !== undefined ? props.genresList : null
+                }
+              />
+            ) : null}
+          </div>
         </header>
         <main className={styles["media-displayer__content"]}>
           {currentMediaData !== null && currentMediaData !== undefined ? (
@@ -98,7 +97,9 @@ const MediaDisplayer: React.FC<{
                 props.genresList !== undefined ? props.genresList : null
               }
               mediaData={currentMediaData}
-              mediaType={props.mediaType.toLowerCase() as "movies" | "series" | "people"}
+              mediaType={
+                props.mediaType.toLowerCase() as "movies" | "series" | "people"
+              }
             />
           ) : null}
         </main>
