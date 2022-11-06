@@ -5,14 +5,35 @@ import LoginInputs from "./LoginInputs";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import useBreakpoints from "../../utils/hooks/useBreakpoints";
 
-const Login: React.FC<{ movieUrls: string[] }> = (props) => {
+const Login: React.FC<{ movieUrls: string[]; movieUrlsMobile: string[] }> = (
+  props
+) => {
+  let hideImgSection = true;
+  const breakpoints = useBreakpoints({
+    breakpointName: "mobileImageSection",
+    breakpointVal: 600,
+  });
+  if (breakpoints !== undefined) {
+    hideImgSection = breakpoints[0].mobileImageSection;
+  }
+
+
   const [bgImg, setBgImg] = useState("");
   useEffect(() => {
-    setBgImg(
-      props.movieUrls[Math.floor(Math.random() * props.movieUrls.length)]
-    );
-  }, []);
+    if (hideImgSection) {
+      setBgImg(
+        props.movieUrlsMobile[
+          Math.floor(Math.random() * props.movieUrls.length)
+        ]
+      );
+    } else {
+      setBgImg(
+        props.movieUrls[Math.floor(Math.random() * props.movieUrls.length)]
+      );
+    }
+  }, [hideImgSection]);
 
   const { username, password } = useAppSelector((state) => state.loginInputs);
   const [inputsValidity, setInputsValidity] = useState({
@@ -83,9 +104,9 @@ const Login: React.FC<{ movieUrls: string[] }> = (props) => {
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
-        <div className={styles["card__img-section"]}>
-          <img className={styles["card__img"]} src={bgImg}></img>
-        </div>
+          <div className={styles["card__img-section"]}>
+            <img className={styles["card__img"]} src={bgImg}></img>
+          </div>
         <div className={styles["card__form-section"]}>
           <form onSubmit={loginSubmitHandler} className={styles["card__form"]}>
             <h1 className={styles["form__header-text"]}>Log In</h1>

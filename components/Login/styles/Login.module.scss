@@ -84,6 +84,7 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
 
 .card__form {
     width: 45%;
+    min-width: 700px;
     height: fit-content;
 
     @include flexVertical;
@@ -161,5 +162,34 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     .form__submit-btn:hover {
       cursor: pointer;
       transform: scale(1.03)
+    }
+  }
+
+  // DISPLAY SIZE MEDIA QUERIES
+
+  @media screen and (max-width: 850px) {
+
+    .card__form {
+        width: 80%;
+        min-width: 450px;
+        
+    }
+}
+
+  @media screen and (max-width: 500px) {
+
+    .form__header-text {
+        width: 65%;
+        font-size: 1.7rem;
+    }
+
+    .card__form {
+        width: 90%;
+        padding-block: 2rem;
+        min-width: 100px;
+    }
+
+    .form__errors {
+        padding-inline: 2rem;
     }
   }

@@ -7,7 +7,11 @@ const LoginPage: React.FC<{ popularMovies: movieInterface[] }> = (props) => {
   const movieUrls = props.popularMovies.map((movie, i) => {
       return `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`;
   });
-  return <Login movieUrls={movieUrls} />;
+
+  const movieUrlsMobile = props.popularMovies.map((movie, i) => {
+    return `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`;
+})
+  return <Login movieUrls={movieUrls} movieUrlsMobile={movieUrlsMobile}/>;
 };
 
 export default LoginPage;

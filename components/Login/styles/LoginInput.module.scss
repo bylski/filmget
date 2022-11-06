@@ -75,3 +75,9 @@
       cursor: pointer;
     }
   }
+
+  @media screen and (max-width: 500px) {
+    .form__input {
+      padding-inline: 2rem;
+    }
+  }

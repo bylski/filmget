@@ -88,10 +88,15 @@
   
 }
 
+@media screen and (max-width: 400px) {
+  .media-displayer__content {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
 
 @media screen and (max-width: 350px) {
   .media-displayer__content {
-    grid-template-columns: repeat(3, 1fr);
     column-gap: 0.5rem;
   }
 }
