@@ -1,7 +1,8 @@
 @import "../../../styles/variables.scss";
 
 .main-content {
-  height: 70%;
+  max-height: 60%;
+  height: 55%;
   width: 100%;
   @include flexVertical;
   align-items: flex-start;
@@ -21,7 +22,7 @@
 }
 
 .overview__container {
-  max-height: 60%;
+  height: 100%;
 }
 
 .overview__heading-text {
@@ -34,8 +35,8 @@
   justify-content: flex-start;
   margin-top: 0.7rem;
   padding-right: 1.5rem;
-  height: 10rem;
-  max-height: 16vh;
+  max-height: 70%;
+  height: 100%;
   overflow-y: scroll;
 }
 
@@ -60,10 +61,7 @@
   & p {
     margin-block: 0;
   }
-
 }
-
-
 
 .rating-text {
   margin-left: 0.5rem;
@@ -100,7 +98,6 @@
       // background-color: $dark-theme-bg-color1;
     }
   }
-
 
   @media (hover: hover) and (pointer: fine) {
     &:hover {
@@ -165,7 +162,6 @@
     font-size: 0.9rem;
   }
 
-
   .overview__heading-text {
     font-size: 1.1rem;
   }
@@ -181,7 +177,6 @@
   .rating-text {
     font-size: 1rem;
   }
-
 
   .known-for__img {
     height: 8rem;
@@ -201,20 +196,29 @@
   }
 }
 
-
 @media screen and (max-width: 500px) {
+  .main-content {
+    // height: 10%;
+  }
+
+ 
 
   .overview-text__wrapper {
     max-height: none;
-    height: 16rem;
-    padding-right: 0;
+    height: 12rem;
+    padding-right: 1rem;;
+
+    &::-webkit-scrollbar {
+      width: 3px;
+      height: 0;
+      display: block;
+    }
   }
+  
 }
 
 @media screen and (max-width: 400px) {
   .known-for__img {
     height: 50%;
-  };
+  }
 }
-
-

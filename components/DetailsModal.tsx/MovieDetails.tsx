@@ -1,17 +1,38 @@
-import React, { Fragment } from "react";
+import React, { Fragment, useEffect, useState } from "react";
 import DetailsHeader from "./DetailsHeader";
 import DetailsMain from "./DetailsMain";
 import DetailsFooter from "./DetailsFooter";
 import styles from "./styles/MovieDetails.module.scss";
 import { movieInterface } from "../../utils/types";
 import Image from "next/image";
+import useBreakpoints from "../../utils/hooks/useBreakpoints";
 
 const MovieDetails: React.FC<{
   modalData: movieInterface;
   genresString: string;
 }> = (props) => {
-  const backdropPath = props.modalData.backdrop_path;
   const profilePath = props.modalData.poster_path;
+  const [backdropPath, setBackdropPath] = useState(
+    `https://image.tmdb.org/t/p/w1280_and_h720_bestv2/${props.modalData.backdrop_path}`
+  );
+
+  const breakpoints = useBreakpoints({
+    breakpointName: "mobileView",
+    breakpointVal: 500,
+  });
+  let isMobileView = false;
+  if (breakpoints) {
+    isMobileView = breakpoints[0].mobileView;
+  }
+  useEffect(() => {
+    if (isMobileView) {
+      setBackdropPath(`https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.modalData.poster_path}`);
+    } else {
+      setBackdropPath(`https://image.tmdb.org/t/p/w1280_and_h720_bestv2/${props.modalData.backdrop_path}`);
+    }
+  }, [isMobileView]);
+
+
 
   return (
     <Fragment>
@@ -19,7 +40,7 @@ const MovieDetails: React.FC<{
         {backdropPath !== null && backdropPath !== undefined ? (
           <Image
             layout="fill"
-            src={`https://image.tmdb.org/t/p/w1280_and_h720_bestv2/${props.modalData.backdrop_path}`}
+            src={backdropPath}
             className={styles["modal__backdrop-img"]}
           />
         ) : (
@@ -47,12 +68,10 @@ const MovieDetails: React.FC<{
               dataType="movie"
               genresString={props.genresString}
             />
-            <div className={styles["layout-helper"]}>
-              <DetailsMain dataType="movie" modalData={props.modalData} />
-              <DetailsFooter
-                mediaData={{ id: props.modalData.id, mediaType: "movie" }}
-              />
-            </div>
+            <DetailsMain dataType="movie" modalData={props.modalData} />
+            <DetailsFooter
+              mediaData={{ id: props.modalData.id, mediaType: "movie" }}
+            />
           </article>
         </div>
       </div>

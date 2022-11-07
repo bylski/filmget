@@ -77,7 +77,10 @@ const DetailsMain: React.FC<{
           <p className={styles["overview__heading-text"]}>Overview: </p>
           <div className={styles["overview-text__wrapper"]}>
             <p className={styles["overview-text"]}>
-              {props.modalData.overview}
+              {/* {props.modalData.overview} */}
+              {
+                "The true story of how businessman Oskar Schindler saved over a thousand Jewish lives from the Nazis while they worked as slaves in his factory during World War II.The true story of how businessman Oskar Schindler saved over a thousand Jewish lives from the Nazis while they worked as slaves in his factory during World War II.The true story of how businessman Oskar Schindler saved over a thousand Jewish lives from the Nazis while they worked as slaves in his factory during World War II.The true story of how businessman Oskar Schindler saved over a thousand Jewish lives from the Nazis while they worked as slaves in his factory during World War II."
+              }
             </p>
           </div>
         </div>
