@@ -6,7 +6,8 @@ import { navMenuVariants } from "../../../utils/AnimationVariants.ts";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import useBreakpoints from "../../../utils/hooks/useBreakpoints";
-import { useSession } from "next-auth/react";
+import { signOut, useSession } from "next-auth/react";
+import LogOutIcon from "../../Icons/LogOutIcon";
 
 const NavbarLinks: React.FC<{
   navMenuShow: boolean;
@@ -115,6 +116,15 @@ const NavbarLinks: React.FC<{
               </a>
             </Link>
           </motion.li>
+          {/* if user is logged in, show log out link */}
+          {session.data ? (
+            <motion.li variants={navLinksVariants} className={linkBasicClass}>
+              <a className={styles["link"]} onClick={() => signOut()}>
+                LOG OUT
+              </a>
+              <LogOutIcon className={styles["link__icon"]} />
+            </motion.li>
+          ) : null}
           {/* If the user is not logged show login/register links. */}
           {!session.data ? (
             <Fragment>

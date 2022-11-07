@@ -114,14 +114,26 @@
   }
 
   .link__container {
-    width: 100%;
+    width: fit-content;
     padding-bottom: 2px;
     transition: box-shadow 0.15s, color 0.15s, border-bottom 0s;
+
+    position: relative;
   }
 
   .link {
     height: 3.3rem;
     padding-block: 0;
+
+    position: relative;
+  }
+
+  .link__icon {
+    width: 16px;
+    fill: white;
+
+    position: absolute;
+    right: 0px;
   }
 }
 

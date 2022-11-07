@@ -115,5 +115,16 @@
     }
 }
 
+@media screen and (max-width: 450px) {
+
+    .nav-container {
+        padding-inline: 1rem;    
+    }
+
+    .nav-menu__background {
+        margin-left: 0.5rem;
+    }
+}
+
 
  
