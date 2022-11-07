@@ -122,7 +122,7 @@
 .known-for__card {
   margin-top: 0.5rem;
   @include flexVertical;
-  height: 25vh;
+  height: 10rem;
   max-height: 250px;
   margin-inline: 0.7rem;
   border-radius: 15px;
@@ -177,10 +177,6 @@
   .rating-text {
     font-size: 1rem;
   }
-
-  .known-for__img {
-    height: 8rem;
-  }
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -196,29 +192,30 @@
   }
 }
 
-@media screen and (max-width: 500px) {
-  .main-content {
-    // height: 10%;
+@media screen and (max-width: 600px) {
+  .known-for__card {
+    height: 9rem;
   }
+}
 
- 
+@media screen and (max-width: 500px) {
+  .known-for__card {
+    height: 90%;
+
+    &:last-of-type {
+      display: none;
+    }
+  }
 
   .overview-text__wrapper {
     max-height: none;
     height: 12rem;
-    padding-right: 1rem;;
+    padding-right: 1rem;
 
     &::-webkit-scrollbar {
       width: 3px;
       height: 0;
       display: block;
     }
-  }
-  
-}
-
-@media screen and (max-width: 400px) {
-  .known-for__img {
-    height: 50%;
   }
 }
