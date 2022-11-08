@@ -4,6 +4,7 @@ import useCarousel from "../../utils/hooks/useCarousel";
 
 const RegisterImageCarousel: React.FC<{urls: string[]}> = (props) => {
 
+
     const carouselImages = useCarousel({
         urls: props.urls,
         switchDelayTime: 8000,

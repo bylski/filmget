@@ -22,11 +22,8 @@ const RegisterPage: React.FC<{ popularMovies: movieInterface[] }> = (props) => {
 
 
   const movieUrls = props.popularMovies.map((movie, i) => {
-    if (posterView) {
-      return `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`;
-    } else {
+   
       return `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`;
-    }
   });
 
 

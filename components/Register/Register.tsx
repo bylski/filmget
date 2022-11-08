@@ -12,7 +12,7 @@ import styles from "./styles/Register.module.scss";
 
 const Register: React.FC<{ movieUrls: string[] }> = (props) => {
   const inputsData = useAppSelector((state) => state.registerInputs);
-  const breakpoints = useBreakpoints({breakpointName: "hideCarousel", breakpointVal: 700});
+  const breakpoints = useBreakpoints({breakpointName: "hideCarousel", breakpointVal: 900});
   const [validationState, dispatchValidation] = useValidation(inputsData);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -98,6 +98,7 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
     );
   });
 
+  console.log(props.movieUrls)
 
   return (
     <main className={styles["register-login"]}>
