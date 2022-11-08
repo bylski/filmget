@@ -28,7 +28,7 @@ const RegisterInputs: React.FC<{inputsValidation: validationState}> = (props) =>
       <RegisterInput
         inputName={"Password"}
         passwordInput={true}
-        placeholder={"* Password - min. 8 characters"}
+        placeholder={"* Password"}
         maxLength={24}
         isInputValid={props.inputsValidation.password.isValid}
       />

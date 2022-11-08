@@ -33,7 +33,7 @@
 
 .selector__card {
   height: fit-content;
-  width: 50%;
+  width: 35rem;
   padding-top: 2rem;
   padding-bottom: 1.5rem;
   padding-inline: 2rem;
@@ -94,6 +94,7 @@ $displayer-size: 3.7rem;
   font-size: 23px;
   font-family: $main-font;
   font-weight: 400;
+  text-align: center;
 
   &.header__text {
     color: white;
@@ -185,5 +186,46 @@ $icon-height: 30px;
       width: 11rem;
       // padding-inline: 2.5rem;
     }
+  }
+}
+
+@media screen and (max-width: 600px) {
+
+  .header__text {
+    font-size: 1.4rem;
+  }
+
+  .rating__fill {
+    height: 25px;
+  }
+  
+  .rating__empty {
+    height: 25px;
+  }
+
+  .selector__card {
+    width: 30rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+
+  .rating-display {
+    display: none;
+  }
+
+  .selector__card {
+    width: 100%;
+  }
+}
+
+@media screen and (max-width: 400px) {
+
+  .selector__btn {
+    width: 8.5rem;
+  }
+
+  .selector__card {
+    padding-inline: 1rem;
   }
 }

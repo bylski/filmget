@@ -3,6 +3,7 @@ import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
+import useBreakpoints from "../../utils/hooks/useBreakpoints";
 import useValidation from "../../utils/hooks/useValidation";
 import StyledButton from "../UI/StyledButton";
 import RegisterImageCarousel from "./RegisterImageCarousel";
@@ -11,7 +12,7 @@ import styles from "./styles/Register.module.scss";
 
 const Register: React.FC<{ movieUrls: string[] }> = (props) => {
   const inputsData = useAppSelector((state) => state.registerInputs);
-
+  const breakpoints = useBreakpoints({breakpointName: "hideCarousel", breakpointVal: 700});
   const [validationState, dispatchValidation] = useValidation(inputsData);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
@@ -19,6 +20,10 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
     dispatchValidation({ type: "validateInputs" });
     setIsSubmitted(true);
   };
+  let hideCarousel = false;
+  if (breakpoints) {
+    hideCarousel = breakpoints[0].hideCarousel;
+  }
 
   // If user submitted form - check if validation passed the tests
   // (do it in useEffect and not in Submit handler to get latest state snapshot)
@@ -93,10 +98,11 @@ const Register: React.FC<{ movieUrls: string[] }> = (props) => {
     );
   });
 
+
   return (
     <main className={styles["register-login"]}>
       <div className={styles["register-login__card"]}>
-        <RegisterImageCarousel urls={props.movieUrls} />
+        {hideCarousel ? null : <RegisterImageCarousel urls={props.movieUrls} />}
         <div className={styles["card__form-section"]}>
           <form onSubmit={onSubmitHandler} className={styles["card__form"]}>
             <h1 className={styles["form__header-text"]}>Create Account</h1>

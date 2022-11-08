@@ -38,6 +38,7 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
     width: 100%;
     height: 100%;
   
+
     object-fit: cover;
     display: none;
     position: absolute;
@@ -76,4 +77,19 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
   .card__img.init {
     opacity: 1;
     display: block;
+  }
+
+
+  @media screen and (max-width: 1200px) {
+
+    .card__img-section {
+      min-width: 55%;
+    }
+  }
+
+  @media screen and (max-width: 900px) {
+
+    .card__img-section {
+      min-width: 52%;
+    }
   }
