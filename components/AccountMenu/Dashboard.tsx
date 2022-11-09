@@ -56,8 +56,7 @@ const Dashboard: React.FC<{
         </p>
         <span>{`On Filmget since - ${day} ${month} ${year}`}</span>
       </header>
-      <div className={styles["section__content"]}>
-        <section className={styles["content__stats"]}>
+      <section className={styles["user__stats"]}>
           <ul className={styles["stats__list"]}>
             <li className={styles["stats__item"]}>
               <div className={styles["item__header"]}>
@@ -91,6 +90,7 @@ const Dashboard: React.FC<{
             </li>
           </ul>
         </section>
+      <div className={styles["section__content"]}>
         {props.mediaUserLiked.length !== 0 ? (
           <MoviesScroller
             customStyles={movieScrollerStyles}

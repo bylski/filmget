@@ -12,13 +12,13 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { accountActions } from "../../../redux/store";
 import { AnimatePresence, motion } from "framer-motion";
+import useBreakpoints from "../../../utils/hooks/useBreakpoints";
 
 const ToWatchCard: React.FC<{
   mediaData: movieInterface | seriesInterface;
   genresList: { id: number; name: string }[];
 }> = (props) => {
   const [optionsText, setOptionsText] = useState(" ");
-  // const [isDeleted, setIsDeleted] = useState(false);
   const router = useRouter();
   const dispatch = useAppDispatch();
   const session = useSession();
@@ -31,6 +31,12 @@ const ToWatchCard: React.FC<{
       }
       return null;
     });
+
+    const breakpoints = useBreakpoints({breakpointName: "mobileView", breakpointVal: 500})
+    let isMobileView = false;
+    if (breakpoints) {
+      isMobileView = breakpoints[0].mobileView;
+    }
 
 
   const hoverHandler = (
@@ -99,7 +105,7 @@ const ToWatchCard: React.FC<{
         className={styles["media__card"]}
       >
         <div className={styles["card__img"]}>
-          <div className={styles["card__options"]}>
+          {isMobileView ? null : <div className={styles["card__options"]}>
             <div onMouseLeave={hoverEndHandler} className={styles["options"]}>
               <button
                 onClick={mouseClickHandler}
@@ -119,7 +125,7 @@ const ToWatchCard: React.FC<{
               </button>
             </div>
             <p className={styles["options__text"]}>{optionsText}</p>
-          </div>
+          </div>}
           <Image
             width={600}
             height={900}

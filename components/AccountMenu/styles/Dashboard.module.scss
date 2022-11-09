@@ -10,6 +10,7 @@
   padding-inline: $layout-margin;
 
   @include flexVertical;
+  align-items: center;
 }
 
 .section__header {
@@ -17,6 +18,10 @@
   @include flexVertical;
   justify-content: center;
   font-family: $main-font;
+
+  & span {
+    text-align: center;
+  }
 }
 
 .header__username {
@@ -30,6 +35,7 @@
 
   margin: 0;
   margin-bottom: 0.3rem;
+
 }
 
 .header__username + span {
@@ -55,20 +61,27 @@
   text-underline-offset: 3px;
 }
 
-.content__stats {
+.user__stats {
+  min-width: 1000px;
   width: 100%;
   height: fit-content;
 
   margin-top: 2rem;
+  @include flexHorizontal;
+
+  justify-content: center;
 }
 
 .stats__list {
+  min-width: 400px;
+  max-width: 1100px;
+  width: 100%;
   list-style: none;
   padding: 0;
   margin: 0;
 
   @include flexHorizontal;
-  justify-content: space-around;
+  justify-content: center;
 }
 
 .stats__item {
@@ -80,6 +93,9 @@
   @include flexVertical;
   justify-content: center;
 
+  &:nth-of-type(2) {
+    margin-inline: auto;
+  }
 }
 
 .item__header {
@@ -135,3 +151,75 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 1100px) {
+
+  
+  .stats__item {
+    min-width: 17.5rem;
+
+    &:nth-of-type(2) {
+      margin-inline: 1rem;
+    }
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .user__stats {
+    min-width: 0px; 
+  }
+
+  .stats__list {
+    flex-direction: column;;
+  }
+
+  .stats__item {
+    
+    width: 100%;
+    align-items: flex-start;
+    padding-inline: $layout-margin;
+
+    border-inline: none;
+    border-radius: 0;
+
+    flex-direction: row;
+
+    &:nth-of-type(2) {
+      border: none;
+      margin-inline: 0;
+    }
+  }
+
+  .item__header {
+    white-space: nowrap;
+    min-width: 18rem;
+
+    justify-content: flex-start;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .stats__list {
+    min-width: 300px;
+  }
+
+  .stats__item {
+    min-width: 10rem;
+    padding-inline: 1.5rem;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .item__header {
+    min-width: 15.5rem;
+    white-space: nowrap;
+    width:fit-content;
+    justify-content: center;
+  }
+
+  .item__value {
+    justify-content: center;
+  }
+  
+}
+ 

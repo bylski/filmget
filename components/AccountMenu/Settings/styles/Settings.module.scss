@@ -37,7 +37,6 @@
   margin-bottom: 1rem;
 }
 
-
 .header {
   width: 100%;
   @include flexVertical;
@@ -45,7 +44,7 @@
 }
 
 .header__text {
-  font-size: 2rem;
+  font-size: 1.8rem;
   font-family: $main-font;
   color: white;
 
@@ -60,6 +59,7 @@
 
 .first-column {
   width: 100%;
+  max-width: 600px;
   height: 100%;
 }
 
@@ -143,7 +143,6 @@
   color: white;
   margin-bottom: 0.2rem;
   padding-left: 0.6rem;
-
 }
 
 .input__input {
@@ -171,7 +170,7 @@
   fill: white;
 
   position: absolute;
-  right: 15px; 
+  right: 15px;
 
   pointer-events: none;
 }
@@ -192,8 +191,6 @@
   }
 }
 
-
-
 @media (hover: hover) and (pointer: fine) {
   .setting__btn:hover {
     padding-inline: 2rem;
@@ -208,3 +205,54 @@
     cursor: pointer;
   }
 }
+
+@media screen and (max-width: 1200px) {
+  .settings-section {
+    padding-inline: $layout-margin;
+  }
+
+}
+
+@media screen and (max-width: 800px) {
+  .first-column {
+    margin-right: 4rem;
+  }
+
+  .avatar-img {
+    width: 160px;
+    margin-right: 0;
+  }
+}
+
+@media screen and (max-width: 650px) {
+
+  .settings {
+    flex-direction: column;
+  }
+
+  .first-column {
+    margin: 0;
+    width: 100%;
+  }
+
+  .second-column {
+    margin: 0;
+    width: 100%;
+  }
+
+  .avatar-img {
+    width: 200px;
+    margin-right: 0;
+  }
+}
+
+
+@media screen and (max-width: 500px) {
+
+  .header__text {
+    width: 100%;
+    padding-right: 0;
+    text-align: center;
+  }
+}
+
