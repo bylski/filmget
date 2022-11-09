@@ -35,7 +35,6 @@
 
   margin: 0;
   margin-bottom: 0.3rem;
-
 }
 
 .header__username + span {
@@ -124,12 +123,20 @@
 .no-content {
   margin-top: 6rem;
   align-self: center;
+
+  width: 130%;
 }
 
 .no-content__info {
   font-family: $main-font;
   font-size: 2rem;
   color: gray;
+
+  display: block;
+  text-align: center !important;
+
+  padding-bottom: 7rem;
+  width: 100%;
 }
 
 .item__value {
@@ -153,8 +160,6 @@
 }
 
 @media screen and (max-width: 1100px) {
-
-  
   .stats__item {
     min-width: 17.5rem;
 
@@ -166,15 +171,14 @@
 
 @media screen and (max-width: 900px) {
   .user__stats {
-    min-width: 0px; 
+    min-width: 0px;
   }
 
   .stats__list {
-    flex-direction: column;;
+    flex-direction: column;
   }
 
   .stats__item {
-    
     width: 100%;
     align-items: flex-start;
     padding-inline: $layout-margin;
@@ -213,13 +217,11 @@
   .item__header {
     min-width: 15.5rem;
     white-space: nowrap;
-    width:fit-content;
+    width: fit-content;
     justify-content: center;
   }
 
   .item__value {
     justify-content: center;
   }
-  
 }
- 
