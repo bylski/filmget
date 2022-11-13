@@ -20,11 +20,10 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
       // Filter out adult movies actors
       const { name: actorName, known_for } = actorData;
       const censorConditions =
-        actorName === "Angeli Khang" ||
-        actorName === "Jo Tae-ho" ||
-        actorName === "Seung Ha" ||
-        actorName === "Min Do-yoon";
-      if (backdropPaths.length < 6 && !censorConditions) {
+        actorName !== "Angeli Khang" &&
+        actorName !== "Jo Tae-ho" &&
+        actorName !== "Min Do-yoon";
+      if (backdropPaths.length < 6 && censorConditions && known_for[0] !== undefined) {
         backdropPaths.push(known_for[0].backdrop_path);
         return (
           <ActorCard
