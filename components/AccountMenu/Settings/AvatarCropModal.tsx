@@ -1,4 +1,10 @@
-import React, { SyntheticEvent, useEffect, useState, Fragment } from "react";
+import React, {
+  SyntheticEvent,
+  useEffect,
+  useState,
+  Fragment,
+  useRef,
+} from "react";
 import styles from "./styles/AvatarCropModal.module.scss";
 import ReactCrop, {
   centerCrop,
@@ -24,6 +30,7 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
   const [image, setImage] = useState<null | HTMLImageElement>(null);
   const [imgIsLoaded, setImgIsLoaded] = useState(false);
   const [isDisabled, setDisabled] = useState(false);
+  const cropWindowRef = useRef<HTMLDivElement>(null);
 
   function imageLoadHandler(e: SyntheticEvent<HTMLImageElement>) {
     const img = e.currentTarget;
@@ -33,7 +40,9 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
 
   useEffect(() => {
     if (image !== null) {
-      const { naturalWidth: width, naturalHeight: height } = image;
+      const cropWindowParams = cropWindowRef.current as HTMLDivElement;
+      const { offsetWidth: width, offsetHeight: height } = cropWindowParams;
+      console.log(width, height);
 
       const crop = centerCrop(
         makeAspectCrop(
@@ -84,15 +93,15 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
       }
 
       const base64Image = canvas.toDataURL("image/jpeg");
-      
-      axios.post("/api/change-avatar", { image: base64Image, username: session.data?.user?.name });
+
+      axios.post("/api/change-avatar", {
+        image: base64Image,
+        username: session.data?.user?.name,
+      });
       dispatch(accountActions.setAvatarSrc(base64Image));
       dispatch(cropModalActions.hideModal());
     }
   };
-
-
-
 
   const onCompleteHandler = (crop: PixelCrop, percentageCrop: PercentCrop) => {
     setCrop(crop);
@@ -104,12 +113,12 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
   };
 
   const cancelBtnHandler = () => {
-    dispatch(cropModalActions.hideModal())
-  }
+    dispatch(cropModalActions.hideModal());
+  };
 
   return (
     <div className={styles["crop__modal"]}>
-      <div className={styles["crop__window"]}>
+      <div ref={cropWindowRef} className={styles["crop__window"]}>
         <ReactCrop
           aspect={1}
           className={styles["crop__component"]}
@@ -143,7 +152,12 @@ const AvatarCropModal: React.FC<{ imgSrc: string }> = (props) => {
             <ScissorsIcon className={styles["scissors-icon"]} />
           </Fragment>
         </StyledButton>
-        <StyledButton action={cancelBtnHandler} addClass={styles["footer__btn"]}>Cancel Crop</StyledButton>
+        <StyledButton
+          action={cancelBtnHandler}
+          addClass={styles["footer__btn"]}
+        >
+          Cancel Crop
+        </StyledButton>
       </footer>
     </div>
   );
