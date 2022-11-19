@@ -1,0 +1,105 @@
+@import "../../../../styles/variables.scss";
+$to-watch-animation-time: 0.3s;
+
+.input-btn__to-watch {
+    background-color: transparent;
+    border: 2px solid rgba(255, 255, 255, 0.651);
+    border-radius: 100vw;
+  
+    transition: $to-watch-animation-time ease-in-out;
+    padding-inline: 1rem;
+    @include flexHorizontal;
+  
+    background-size: 200% 90%;
+    background-position: bottom right;
+  
+    &.active {
+      background-color: $primary-color2;
+    }
+  
+    @media screen and (max-width) {
+  
+    }
+  }
+  
+  @keyframes sizeUp {
+    from {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(1.05);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  @keyframes sizeDown {
+    from {
+      transform: scale(1);
+    }
+    50% {
+      transform: scale(0.95);
+    }
+    to {
+      transform: scale(1);
+    }
+  }
+  
+  .input-btn__to-watch.active {
+    animation-name: sizeUp;
+    animation-duration: 0.2s;
+    border: 2px solid $primary-color2;
+  }
+  
+  .input-btn__to-watch.unactive {
+    animation-name: sizeDown;
+    animation-duration: 0.2s;
+  }
+  
+  .btn__icon {
+    width: 35px;
+    height: 35px;
+    fill: rgba(255, 255, 255, 0.651);
+    position: relative;
+    // top: 2px;
+  
+    transition: $to-watch-animation-time ease-in-out;
+  }
+  
+  .btn__icon.active {
+    fill: white !important;
+  }
+  
+  .btn__label {
+    font-weight: 200;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.651);
+    margin-right: 0.5rem;
+    margin-block: 0;
+  
+    transition: $to-watch-animation-time ease-in-out;
+  }
+  
+  .btn__label.active {
+    color: white !important;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .input-btn__to-watch:hover {
+      cursor: pointer;
+      border-color: $primary-color2;
+  
+      // background-position: left;
+  
+      .btn__icon {
+        fill: $primary-color2;
+        // fill: white;
+      }
+  
+      .btn__label {
+        color: $primary-color2;
+        // color: white;
+      }
+    }
+  }

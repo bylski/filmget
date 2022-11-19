@@ -12,7 +12,9 @@ import DetailsPageHeader from "./DetailsPageHeader";
 import DetailsPageImage from "./DetailsPageImage";
 import DetailsPageRating from "./DetailsPageRating";
 import DetailsPageSummary from "./DetailsPageSummary";
-
+import RatingSelector from "../UI/RatingSelector/RatingSelector";
+import { useAppSelector } from "../../utils/hooks/reduxHooks";
+import { AnimatePresence } from "framer-motion";
 
 const DetailsPage: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
@@ -25,6 +27,8 @@ const DetailsPage: React.FC<{
     dispatch(modalActions.hideModal());
   }, []);
 
+  const showSelector = useAppSelector((state) => state.ratingSelector.isShown);
+
   const imgPath =
     "backdrop_path" in props.mediaDetails
       ? props.mediaDetails.backdrop_path
@@ -32,9 +36,27 @@ const DetailsPage: React.FC<{
 
   const fullImgPath = `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces/${imgPath}`;
 
+  let genre_ids: number[] = [];
+  if ("genres" in props.mediaDetails) {
+    genre_ids = props.mediaDetails.genres.map((genre) => {
+      return genre.id;
+    });
+  }
+
+  // Add genre_ids to mediaData. It will help with the accessebility of genre ids in other components.
+  let mediaData = props.mediaDetails;
+  if ("genres" in props.mediaDetails) {
+    mediaData = { ...props.mediaDetails, genre_ids: genre_ids };
+  }
+
   return (
     <Fragment>
       <section className={styles["details-page"]}>
+        <AnimatePresence>
+          {"vote_average" in mediaData && showSelector ? (
+            <RatingSelector mediaData={mediaData} />
+          ) : null}
+        </AnimatePresence>
         <div className={styles["details-page__backdrop"]}>
           {imgPath !== undefined && imgPath !== null ? (
             <img
@@ -44,18 +66,22 @@ const DetailsPage: React.FC<{
           ) : null}
         </div>
         <main className={styles["details-main"]}>
-          <DetailsPageImage mediaDetails={props.mediaDetails} />
+          <DetailsPageImage mediaDetails={mediaData} />
           <div className={styles["details-main__content"]}>
             <DetailsPageHeader
               mediaType={props.mediaType}
-              mediaDetails={props.mediaDetails}
+              mediaDetails={{
+                ...mediaData,
+                genresList: props.genresList!,
+              }}
             />
-            {props.mediaType !== "people" ? (
-              <DetailsPageRating mediaDetails={props.mediaDetails} />
+            {props.mediaType !== "people" &&
+            "vote_average" in mediaData ? (
+              <DetailsPageRating mediaDetails={mediaData} />
             ) : null}
             <DetailsPageSummary
               mediaType={props.mediaType}
-              mediaDetails={props.mediaDetails}
+              mediaDetails={mediaData}
             />
           </div>
         </main>

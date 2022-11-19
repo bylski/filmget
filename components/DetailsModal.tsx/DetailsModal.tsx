@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { modalActions } from "../../redux/store";
 import SeriesDetails from "./SeriesDetails";
 import useModal from "../../utils/hooks/useModal";
-import RatingSelector from "./RatingSelector";
+import RatingSelector from "../UI/RatingSelector/RatingSelector";
 
 const DetailsModal: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;

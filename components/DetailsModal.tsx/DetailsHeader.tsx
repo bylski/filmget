@@ -10,6 +10,7 @@ import { useSession } from "next-auth/react";
 import axios from "axios";
 import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
 import { accountActions } from "../../redux/store";
+import ToWatchButton from "../UI/ToWatchButton/ToWatchButton";
 
 const DetailsHeader: React.FC<{
   modalData: movieInterface | actorInterface | seriesInterface;
@@ -17,69 +18,6 @@ const DetailsHeader: React.FC<{
   dataType: string;
 }> = (props) => {
   const session = useSession();
-  const dispatch = useAppDispatch();
-  const [wantToWatch, setWantToWatch] = useState(false);
-  const [wantToWatchClasses, setWantToWatchClasses] = useState("");
-  const [wantToWatchTitle, setWantToWatchTitle] = useState(
-    'Add to "Want to watch"'
-  );
-
-
-  const wantToWatchClickHandler = async () => {
-    setWantToWatch((prev) => !prev);
-
-    const baseConditions =
-      (session.status === "authenticated" && "title" in props.modalData) ||
-      "name" in props.modalData;
-
-    if (baseConditions && !wantToWatch) {
-      dispatch(accountActions.addToWatch(props.modalData));
-      await axios.post("/api/add-to-watch", {
-        username: session.data?.user?.name,
-        media: props.modalData,
-      });
-    } else if (baseConditions && wantToWatch) {
-      dispatch(accountActions.deleteToWatch(props.modalData));
-      await axios.post("/api/remove-to-watch", {
-        username: session.data?.user?.name,
-        media: props.modalData,
-      });
-    }
-  };
-
-  // GET REDUX STORED DATA
-  const mediaToWatchIds = useAppSelector(
-    (state) => state.account.toWatch.mediaIds
-  );
-
-
-  // Check if media is already added to "want to watch"
-  useEffect(() => {
-    if (session.status === "authenticated") {
-      let isWantToWatch = false;
-      for (let mediaId of mediaToWatchIds) {
-        if (mediaId === props.modalData.id) {
-          isWantToWatch = true;
-        }
-      }
-
-      if (isWantToWatch) {
-        setWantToWatch(true);
-      } else {
-        setWantToWatch(false);
-      }
-    }
-  }, [session.status]);
-
-  useEffect(() => {
-    if (wantToWatch) {
-      setWantToWatchTitle('Remove from "Want to watch"');
-      setWantToWatchClasses(styles["active"]);
-    } else {
-      setWantToWatchClasses(styles["unactive"]);
-      setWantToWatchTitle('Add to "Want to watch"');
-    }
-  }, [wantToWatch]);
 
   if (
     props.dataType === "movie" ||
@@ -104,18 +42,8 @@ const DetailsHeader: React.FC<{
         </div>
         {session.status === "authenticated" ? (
           <div className={styles["header__input-section"]}>
-            <button
-              onClick={wantToWatchClickHandler}
-              title={wantToWatchTitle}
-              className={`${styles["input-btn__to-watch"]} ${wantToWatchClasses}`}
-            >
-              <p className={`${styles["btn__label"]} ${wantToWatchClasses}`}>
-                Want to watch
-              </p>
-              <EyeIcon
-                className={`${styles["btn__icon"]} ${wantToWatchClasses}`}
-              ></EyeIcon>
-            </button>
+
+            <ToWatchButton mediaData={props.modalData as seriesInterface | movieInterface} customStyles={styles}/>
           </div>
         ) : null}
       </header>

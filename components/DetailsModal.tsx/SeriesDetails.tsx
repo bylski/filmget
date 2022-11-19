@@ -41,12 +41,10 @@ const SeriesDetails: React.FC<{
               dataType="series"
               genresString={props.genresString}
             />
-            <div className={styles["main-section"]}>
               <DetailsMain dataType="series" modalData={props.modalData} />
               <DetailsFooter
                 mediaData={{ id: props.modalData.id, mediaType: "series" }}
               />
-            </div>
           </article>
         </div>
       </div>

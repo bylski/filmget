@@ -1,15 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { GetServerSidePropsContext } from "next";
 import DetailsPage from "../../../components/DetailsPage/DetailsPage";
 import axios from "axios";
-import { movieInterface } from "../../../utils/types";
-import { useAppSelector } from "../../../utils/hooks/reduxHooks";
+import { movieInterface, seriesInterface } from "../../../utils/types";
+import { useAppSelector, useAppDispatch } from "../../../utils/hooks/reduxHooks";
 import { hideOverflowIf } from "../../../utils/scripts";
+import { unstable_getServerSession } from "next-auth";
+import { authOptions } from "../../api/auth/[...nextauth]";
+import mongoose from "mongoose";
+import { User } from "../../../utils/mongo/userModel";
+import { accountActions } from "../../../redux/store";
 
 const MovieDetailsById: React.FC<{
   request: any;
   movieDetails: movieInterface;
-  genresList: {id: number, name: string}[]
+  genresList: { id: number; name: string }[];
+  mediaToWatch: movieInterface[] | seriesInterface[];
+  mediaIds: number[];
+  mediaRatings: { id: number; rating: number }[];
 }> = (props) => {
   const {
     modalData,
@@ -21,14 +29,67 @@ const MovieDetailsById: React.FC<{
     originPosition: state.modal.originPosition,
   }));
 
-  hideOverflowIf(showModal) // Do not let user scroll when modal is active
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(
+      accountActions.setToWatch({
+        mediaToWatch: props.mediaToWatch,
+        mediaIds: props.mediaIds,
+      })
+    );
+    dispatch(accountActions.setRating(props.mediaRatings));
+  }, []);
 
-  return <DetailsPage mediaType={"movie"} genresList={props.genresList} mediaDetails={props.movieDetails} />;
+  hideOverflowIf(showModal); // Do not let user scroll when modal is active
+
+  return (
+    <DetailsPage
+      mediaType={"movie"}
+      genresList={props.genresList}
+      mediaDetails={props.movieDetails}
+    />
+  );
 };
 
 export default MovieDetailsById;
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const session = await unstable_getServerSession(
+    context.req,
+    context.res,
+    authOptions
+  );
+
+  try {
+    // Check if code runs in production or in development, use the address specified for environment
+    // Connect to the database
+    if (process.env.NODE_ENV === "production") {
+      await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
+    } else {
+      await mongoose.connect("mongodb://localhost:27017/filmget");
+    }
+  } catch (error) {
+    throw new Error("[ERROR] Couldnt' connect to the database!");
+  }
+
+  // Get user data from the database
+  let mediaToWatch: any = null;
+  let mediaIds: number[] | null = null;
+  let mediaRatings:
+    | {
+        id: number;
+        rating: number;
+        mediaData: seriesInterface | movieInterface;
+      }[]
+    | null = null;
+  if (session) {
+    const username = session.user?.name;
+    const currentUser = await User.findOne({ username });
+    // Extract sign up date and to-watch media
+    mediaToWatch = currentUser.mediaToWatch;
+    mediaIds = currentUser.mediaIds;
+    mediaRatings = await JSON.parse(JSON.stringify(currentUser.mediaRatings));
+  }
   const endpoints: string[] = [
     encodeURI(
       `https://api.themoviedb.org/3/movie/${context.params?.id}?api_key=${process.env.API_KEY}&language=en-US`
@@ -50,8 +111,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
   const movieDetails: any[] = res[0].data || null;
   const genresList: any[] = res[1].data;
 
-
   return {
-    props: { movieDetails, genresList },
+    props: { movieDetails, genresList, mediaToWatch, mediaIds, mediaRatings },
   };
 }

@@ -1,13 +1,13 @@
 import React, { useState, useEffect, Fragment } from "react";
 import { Rating } from "react-simple-star-rating";
-import { accountActions, ratingSelectorActions } from "../../redux/store";
-import { useAppDispatch, useAppSelector } from "../../utils/hooks/reduxHooks";
-import RatingIcon from "../Icons/RatingIcon";
-import StyledButton from "../UI/StyledButton";
+import { accountActions, ratingSelectorActions } from "../../../redux/store";
+import { useAppDispatch, useAppSelector } from "../../../utils/hooks/reduxHooks";
+import RatingIcon from "../../Icons/RatingIcon";
+import StyledButton from "../StyledButton";
 import styles from "./styles/RatingSelector.module.scss";
 import { motion } from "framer-motion";
-import { movieInterface, seriesInterface } from "../../utils/types";
-import RefreshIcon from "../Icons/RefreshIcon";
+import { movieInterface, seriesInterface } from "../../../utils/types";
+import RefreshIcon from "../../Icons/RefreshIcon";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 

@@ -1,4 +1,4 @@
-import React, {Fragment} from "react";
+import React, { Fragment } from "react";
 import {
   movieInterface,
   seriesInterface,
@@ -6,55 +6,70 @@ import {
 } from "../../utils/types";
 import styles from "./styles/DetailsPageHeader.module.scss";
 import DetailsPageRating from "./DetailsPageRating";
+import ToWatchButton from "../UI/ToWatchButton/ToWatchButton";
 
 const DetailsPageHeader: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
   mediaType: string;
 }> = (props) => {
   let genres: any;
+  let genre_ids: number[] = [];
   let genresString: string = "";
   if ("genres" in props.mediaDetails) {
     genres = props.mediaDetails.genres.map((genre) => {
       return genre.name;
     });
     genresString = genres.join(", ");
+
+    genre_ids = props.mediaDetails.genres.map((genre) => {
+      return genre.id;
+    });
   }
 
-  if ("poster_path" in props.mediaDetails) {
+  // Add genre_ids to mediaData. It will help with the accessebility of genre ids in other components.
+  let mediaData = props.mediaDetails;
+  // if ("genres" in props.mediaDetails) {
+  //   mediaData = { ...props.mediaDetails, genre_ids: genre_ids };
+  // }
+
+  if ("poster_path" in mediaData) {
     return (
       <div className={styles["info-section__header-section"]}>
         <div className={styles["header"]}>
           <div className={styles["header__head"]}>
             <h1 className={styles["header__title"]}>
-              {"title" in props.mediaDetails ? props.mediaDetails.title : ""}
-              {"name" in props.mediaDetails ? props.mediaDetails.name : ""}
+              {"title" in mediaData ? mediaData.title : ""}
+              {"name" in mediaData ? mediaData.name : ""}
             </h1>
             <span className={styles["header__span"]}>
-              {"release_date" in props.mediaDetails
-                ? `(${props.mediaDetails.release_date.slice(0, 4)})`
+              {"release_date" in mediaData
+                ? `(${mediaData.release_date.slice(0, 4)})`
                 : ""}
-              {"first_air_date" in props.mediaDetails
-                ? `(${props.mediaDetails.first_air_date.slice(0, 4)})`
+              {"first_air_date" in mediaData
+                ? `(${mediaData.first_air_date.slice(0, 4)})`
                 : ""}
             </span>
           </div>
           <p className={styles["header__info"]}>
             {`${genresString}`}
-            {"runtime" in props.mediaDetails ? (
+            {"runtime" in mediaData ? (
               <Fragment>
                 <span>&nbsp;|</span>
                 <span style={{ marginLeft: "0.6rem" }}>
-                  {`${props.mediaDetails.runtime} min.`}
+                  {`${mediaData.runtime} min.`}
                 </span>
               </Fragment>
             ) : null}
           </p>
         </div>
+        <div className={styles["header__inputs"]}>
+          <ToWatchButton mediaData={mediaData} />
+        </div>
       </div>
     );
-  } else if ("gender" in props.mediaDetails) {
+  } else if ("gender" in mediaData) {
     let actorsGender: string;
-    switch (props.mediaDetails.gender) {
+    switch (mediaData.gender) {
       case 1:
         actorsGender = "Female";
         break;
@@ -70,14 +85,12 @@ const DetailsPageHeader: React.FC<{
       <div className={styles["info-section__header-section"]}>
         <div className={styles["header"]}>
           <div className={styles["header__head"]}>
-            <h1 className={styles["header__title"]}>
-              {props.mediaDetails.name}
-            </h1>
+            <h1 className={styles["header__title"]}>{mediaData.name}</h1>
             <span className={styles["header__span"]}></span>
           </div>
           <p
             className={styles["header__info"]}
-          >{`Gender - ${actorsGender} | Department - ${props.mediaDetails.known_for_department}`}</p>
+          >{`Gender - ${actorsGender} | Department - ${mediaData.known_for_department}`}</p>
         </div>
       </div>
     );

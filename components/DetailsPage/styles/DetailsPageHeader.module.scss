@@ -3,20 +3,24 @@
 .info-section__header-section {
   min-height: fit-content;
   height: fit-content;
+  width: 100%;
+
+  @include flexHorizontal;
+  justify-content: flex-start;
+  align-self: flex-start;
+}
+
+.header {
+  min-height: fit-content;
+  height: fit-content;
   width: fit-content;
 
   @include flexVertical;
-  justify-content: flex-start;
-  align-self: flex-start;
+  align-items: flex-start;
   border-bottom: 2px solid $primary-color2;
 
   padding-right: 5rem;
   padding-bottom: 0.7rem;
-}
-
-.header {
-  width: 100%;
-  height: fit-content;
 }
 
 .header__head {
@@ -37,6 +41,7 @@
   font-weight: 400;
 
   margin-left: 0.4rem;
+  text-align: start;
 }
 
 .header__info {
@@ -46,4 +51,11 @@
 
   margin: 0;
   margin-top: 0.2rem;
+}
+
+
+.header__inputs {
+  width: fit-content;
+  height: fit-content;
+  margin-left: 2rem;
 }

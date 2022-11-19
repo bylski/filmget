@@ -1,0 +1,43 @@
+@import "../../../../styles/variables.scss";
+
+.rating__btn {
+    margin-left: 0.6rem;
+    background-color: transparent;
+    border: 2px solid $rating-color;
+    border-radius: 100vw;
+    color: $rating-color;
+  
+    font-weight: 300;
+    font-size: 16px;
+    font-family: $main-font;
+  
+    padding-inline: 1rem;
+    transition: 0.15s ease-in-out;
+    @include flexHorizontal;
+  
+    & .btn__rating-icon {
+      margin-left: 0.2rem;
+      width: 15px;
+      position: relative;
+      top: -1px;
+    }
+  
+    &.rated {
+      color: white;
+      background-color: $rating-color;
+  
+      & span {
+        padding-left: 0.5rem;
+        // background-color: $dark-theme-bg-color1;
+      }
+    }
+  
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        cursor: pointer;
+        background-color: $rating-color;
+        color: white;
+      }
+    }
+  }
+  
