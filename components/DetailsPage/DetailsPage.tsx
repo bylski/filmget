@@ -3,6 +3,7 @@ import styles from "./styles/DetailsPage.module.scss";
 import Image from "next/image";
 import {
   actorInterface,
+  castInterface,
   movieInterface,
   seriesInterface,
 } from "../../utils/types";
@@ -15,12 +16,15 @@ import DetailsPageSummary from "./DetailsPageSummary";
 import RatingSelector from "../UI/RatingSelector/RatingSelector";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
+import MovieDetails from "../DetailsModal.tsx/MovieDetails";
+import AdditionalInfoMovie from "./AdditionalInfo/Movie/AdditionalInfoMovie";
 
 const DetailsPage: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
   additionalDetails?: actorInterface;
   mediaType: string;
   genresList?: { id: number; name: string }[];
+  castDetails: castInterface;
 }> = (props) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -51,7 +55,7 @@ const DetailsPage: React.FC<{
 
   return (
     <Fragment>
-      <section className={styles["details-page"]}>
+      <section className={styles["details-page__primary-content"]}>
         <AnimatePresence>
           {"vote_average" in mediaData && showSelector ? (
             <RatingSelector mediaData={mediaData} />
@@ -75,8 +79,7 @@ const DetailsPage: React.FC<{
                 genresList: props.genresList!,
               }}
             />
-            {props.mediaType !== "people" &&
-            "vote_average" in mediaData ? (
+            {props.mediaType !== "people" && "vote_average" in mediaData ? (
               <DetailsPageRating mediaDetails={mediaData} />
             ) : null}
             <DetailsPageSummary
@@ -86,6 +89,9 @@ const DetailsPage: React.FC<{
           </div>
         </main>
       </section>
+      {"title" in props.mediaDetails ? (
+        <AdditionalInfoMovie movieDetails={props.mediaDetails} castDetails={props.castDetails}/>
+      ) : null}
     </Fragment>
   );
 };

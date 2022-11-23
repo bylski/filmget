@@ -22,7 +22,8 @@ const ActorsShowcaser: React.FC<{ headerText?: string; actorsData: any[] }> = (
       const censorConditions =
         actorName !== "Angeli Khang" &&
         actorName !== "Jo Tae-ho" &&
-        actorName !== "Min Do-yoon";
+        actorName !== "Min Do-yoon" &&
+        actorName !== "Seung Ha";
       if (backdropPaths.length < 6 && censorConditions && known_for[0] !== undefined) {
         backdropPaths.push(known_for[0].backdrop_path);
         return (
