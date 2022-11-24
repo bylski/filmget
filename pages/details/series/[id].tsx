@@ -2,8 +2,15 @@ import React, { useEffect } from "react";
 import { GetServerSidePropsContext } from "next";
 import DetailsPage from "../../../components/DetailsPage/DetailsPage";
 import axios from "axios";
-import { movieInterface, seriesInterface } from "../../../utils/types";
-import { useAppSelector, useAppDispatch } from "../../../utils/hooks/reduxHooks";
+import {
+  castInterface,
+  movieInterface,
+  seriesInterface,
+} from "../../../utils/types";
+import {
+  useAppSelector,
+  useAppDispatch,
+} from "../../../utils/hooks/reduxHooks";
 import { hideOverflowIf } from "../../../utils/scripts";
 import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../../api/auth/[...nextauth]";
@@ -14,10 +21,11 @@ import { accountActions } from "../../../redux/store";
 const SeriesDetailsById: React.FC<{
   request: any;
   seriesDetails: seriesInterface;
-  genresList: {id: number, name: string}[]
+  genresList: { id: number; name: string }[];
   mediaToWatch: movieInterface[] | seriesInterface[];
   mediaIds: number[];
   mediaRatings: { id: number; rating: number }[];
+  castDetails: castInterface;
 }> = (props) => {
   const {
     modalData,
@@ -40,17 +48,21 @@ const SeriesDetailsById: React.FC<{
     dispatch(accountActions.setRating(props.mediaRatings));
   }, []);
 
-  hideOverflowIf(showModal) // Do not let user scroll when modal is active
+  hideOverflowIf(showModal); // Do not let user scroll when modal is active
 
-  return <DetailsPage mediaType={"series"} genresList={props.genresList} mediaDetails={props.seriesDetails} />;
+  return (
+    <DetailsPage
+      mediaType={"series"}
+      genresList={props.genresList}
+      mediaDetails={props.seriesDetails}
+      castDetails={props.castDetails}
+    />
+  );
 };
 
 export default SeriesDetailsById;
 
-
-
 export async function getServerSideProps(context: GetServerSidePropsContext) {
-
   const session = await unstable_getServerSession(
     context.req,
     context.res,
@@ -96,6 +108,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     encodeURI(
       `https://api.themoviedb.org/3/genre/tv/list?api_key=${process.env.API_KEY}&language=en-US`
     ), // Get genres lest
+    encodeURI(
+      `https://api.themoviedb.org/3/tv/${context.params?.id}/credits?api_key=${process.env.API_KEY}&language=en-US`
+    ), // Get movie's cast
   ];
 
   let res: any = undefined;
@@ -108,10 +123,16 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 
   const seriesDetails: any[] = res[0].data || null;
   const genresList: any[] = res[1].data;
-
+  const castDetails: any = res[2].data;
 
   return {
-    props: { seriesDetails, genresList, mediaToWatch, mediaIds, mediaRatings },
+    props: {
+      seriesDetails,
+      genresList,
+      mediaToWatch,
+      mediaIds,
+      mediaRatings,
+      castDetails,
+    },
   };
 }
-

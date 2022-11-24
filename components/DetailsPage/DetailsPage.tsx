@@ -18,6 +18,7 @@ import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
 import MovieDetails from "../DetailsModal.tsx/MovieDetails";
 import AdditionalInfoMovie from "./AdditionalInfo/Movie/AdditionalInfoMovie";
+import AdditionalInfoSeries from "./AdditionalInfo/Series/AdditionalInfoSeries";
 
 const DetailsPage: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
@@ -90,8 +91,14 @@ const DetailsPage: React.FC<{
         </main>
       </section>
       {"title" in props.mediaDetails ? (
-        <AdditionalInfoMovie movieDetails={props.mediaDetails} castDetails={props.castDetails}/>
+        <AdditionalInfoMovie
+          movieDetails={props.mediaDetails}
+          castDetails={props.castDetails}
+        />
       ) : null}
+      {"name" in props.mediaDetails && "vote_average" in props.mediaDetails
+        ? <AdditionalInfoSeries seriesDetails={props.mediaDetails} castDetails={props.castDetails}/>
+        : null}
     </Fragment>
   );
 };

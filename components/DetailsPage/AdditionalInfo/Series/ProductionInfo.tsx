@@ -1,9 +1,9 @@
 import React from "react";
-import { movieInterface } from "../../../../utils/types";
+import { seriesInterface } from "../../../../utils/types";
 import styles from "./styles/ProductionInfo.module.scss";
 import Image from "next/image";
 
-const ProductionInfo: React.FC<{ movieDetails: movieInterface }> = (props) => {
+const ProductionInfo: React.FC<{ movieDetails: seriesInterface }> = (props) => {
   const productionCompanies = props.movieDetails.production_companies;
   let addIteration = 0;
   const companyLogos = productionCompanies.map(
@@ -12,8 +12,8 @@ const ProductionInfo: React.FC<{ movieDetails: movieInterface }> = (props) => {
         if (company.logo_path) {
           return (
             <div
-              className={styles["company-logo__container-wrapper"]}
               key={`companyLogo${i}`}
+              className={styles["company-logo__container-wrapper"]}
             >
               <div className={styles["company-logo__container"]}>
                 <Image
@@ -32,6 +32,8 @@ const ProductionInfo: React.FC<{ movieDetails: movieInterface }> = (props) => {
       } else return null;
     }
   );
+
+  console.log(companyLogos);
 
   return (
     <div className={styles["production-info"]}>

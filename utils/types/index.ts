@@ -15,7 +15,7 @@ export interface movieInterface {
   revenue: number;
   status: string;
   production_countries: { name: string }[];
-  production_companies: { name: string, logo_path: string }[];
+  production_companies: { name: string; logo_path: string }[];
 }
 
 export interface seriesInterface {
@@ -31,6 +31,17 @@ export interface seriesInterface {
   genres: { id: number; name: string }[];
   vote_average: number;
   popularity: number;
+  production_countries: { name: string }[];
+  production_companies: { name: string; logo_path: string }[];
+  status: string;
+  seasons: {
+    air_date: string;
+    episode_count: number;
+    name: string;
+    overview: string;
+    poster_path: string;
+    season_number: number;
+  }[];
 }
 
 export interface actorInterface {

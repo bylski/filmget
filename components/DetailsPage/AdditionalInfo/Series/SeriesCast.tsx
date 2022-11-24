@@ -1,10 +1,10 @@
 import React from "react";
 import { castInterface } from "../../../../utils/types";
-import styles from "./styles/MovieCast.module.scss";
+import styles from "./styles/SeriesCast.module.scss";
 import Image from "next/image";
 import Link from "next/link";
 
-const MovieCast: React.FC<{ castDetails: castInterface }> = (props) => {
+const SeriesCast: React.FC<{ castDetails: castInterface }> = (props) => {
     
   const cast = props.castDetails.cast;
   const castToRender = cast.slice(0, 6).map((actor: typeof cast[0], i: number) => {
@@ -34,11 +34,11 @@ const MovieCast: React.FC<{ castDetails: castInterface }> = (props) => {
   return (
     <div className={styles["movie-cast"]}>
       <header className={styles["header"]}>
-        <h2>Movie's Cast</h2>
+        <h2>Series' Cast</h2>
       </header>
       <main className={styles["cast"]}>{castToRender}</main>
     </div>
   );
 };
 
-export default MovieCast;
+export default SeriesCast;
