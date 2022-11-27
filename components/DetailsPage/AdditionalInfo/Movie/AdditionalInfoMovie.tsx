@@ -5,7 +5,7 @@ import ProductionInfo from "./ProductionInfo";
 import RevenueGraph from "./RevenueGraph";
 import styles from "./styles/AdditionalInfoMovie.module.scss";
 
-const AdditionalInfoMovie: React.FC<{ movieDetails: movieInterface, castDetails: castInterface }> = (
+const AdditionalInfoMovie: React.FC<{ movieDetails: movieInterface, castDetails?: castInterface | null;}> = (
   props
 ) => {
   return (
@@ -20,7 +20,7 @@ const AdditionalInfoMovie: React.FC<{ movieDetails: movieInterface, castDetails:
         <ProductionInfo movieDetails={props.movieDetails} />
       </section>
       <section className={styles["section__second-row"]}>
-        <MovieCast castDetails={props.castDetails} />
+        <MovieCast castDetails={props.castDetails ? props.castDetails : null} />
       </section>
     </section>
   );

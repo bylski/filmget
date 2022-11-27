@@ -1,0 +1,94 @@
+@import "../../../../../styles/variables.scss";
+
+$img-height: 150px;
+
+.appearances {
+  width: 100%;
+  //   max-width: 100%;
+  height: 100%;
+  background-color: hsla(334, 100%, 50%, 0.1);
+
+  border-left: 2px solid $primary-color2;
+
+  padding-top: 1.5rem;
+  padding-left: $layout-margin;
+
+  @include flexVertical;
+  align-items: flex-start;
+}
+
+.appearance__header {
+  & h2 {
+    width: fit-content;
+    height: fit-content;
+
+    font-family: $main-font;
+    font-size: 20px;
+    color: white;
+
+    margin: 0;
+    padding-right: 2rem;
+    padding-bottom: 0.2rem;
+
+    border-bottom: 2px solid $primary-color2;
+  }
+}
+
+.appearance__content {
+  @include flexHorizontal;
+  margin-top: 1rem;
+  max-width: 100%;
+  width: 100%;
+
+  
+}
+
+.appearance-card {
+  @include flexVertical;
+
+  width: $img-height * 0.66;
+  height: fit-content;
+
+  margin-right: 2.5rem;
+  padding-bottom: 1rem;
+
+
+  &:last-of-type {
+    margin-right: 0;
+  }
+
+
+  & a {
+    text-align: center;
+    font-family: $secondary-font;
+    font-weight: 400;
+    font-size: 14px;
+
+    color: white;
+
+    margin-top: 0.4rem;
+
+    @media (hover: hover) and (pointer: fine) {
+      &:hover {
+        text-decoration: underline;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+.appearance-card__img-container {
+  width: calc($img-height * 0.66);
+  height: $img-height;
+
+  position: relative;
+
+  transition: transform 0.2s ease-in-out;
+
+  @media (hover: hover) and (pointer: fine) {
+    &:hover {
+      transform: scale(1.025);
+      cursor: pointer;
+    }
+  }
+}

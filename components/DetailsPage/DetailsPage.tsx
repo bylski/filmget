@@ -16,16 +16,16 @@ import DetailsPageSummary from "./DetailsPageSummary";
 import RatingSelector from "../UI/RatingSelector/RatingSelector";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { AnimatePresence } from "framer-motion";
-import MovieDetails from "../DetailsModal.tsx/MovieDetails";
 import AdditionalInfoMovie from "./AdditionalInfo/Movie/AdditionalInfoMovie";
 import AdditionalInfoSeries from "./AdditionalInfo/Series/AdditionalInfoSeries";
+import AdditionalInfoPeople from "./AdditionalInfo/People/AdditionalInfoPeople";
 
 const DetailsPage: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
   additionalDetails?: actorInterface;
   mediaType: string;
   genresList?: { id: number; name: string }[];
-  castDetails: castInterface;
+  castDetails?: castInterface;
 }> = (props) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
@@ -93,11 +93,14 @@ const DetailsPage: React.FC<{
       {"title" in props.mediaDetails ? (
         <AdditionalInfoMovie
           movieDetails={props.mediaDetails}
-          castDetails={props.castDetails}
+          castDetails={props.castDetails ? props.castDetails : null}
         />
       ) : null}
       {"name" in props.mediaDetails && "vote_average" in props.mediaDetails
-        ? <AdditionalInfoSeries seriesDetails={props.mediaDetails} castDetails={props.castDetails}/>
+        ? <AdditionalInfoSeries seriesDetails={props.mediaDetails} castDetails={props.castDetails ? props.castDetails : null}/>
+        : null}
+         {"name" in props.mediaDetails && !("vote_average" in props.mediaDetails)
+        ? <AdditionalInfoPeople additionalDetails={props.additionalDetails} personDetails={props.mediaDetails}/>
         : null}
     </Fragment>
   );

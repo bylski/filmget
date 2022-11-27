@@ -8,7 +8,7 @@ import SeasonsDisplay from "./SeasonsDisplay";
 
 const AdditionalInfoSeries: React.FC<{
   seriesDetails: seriesInterface;
-  castDetails: castInterface;
+  castDetails?: castInterface | null;
 }> = (props) => {
   return (
     <section className={styles["details-page__additional-info"]}>
@@ -19,7 +19,7 @@ const AdditionalInfoSeries: React.FC<{
         <ProductionInfo movieDetails={props.seriesDetails} />
       </section>
       <section className={styles["section__second-row"]}>
-        <SeriesCast castDetails={props.castDetails} />
+        {props.castDetails ? <SeriesCast castDetails={props.castDetails} /> : null}
       </section>
     </section>
   );

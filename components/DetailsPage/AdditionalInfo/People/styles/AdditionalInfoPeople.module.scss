@@ -1,0 +1,28 @@
+@import "../../../../../styles/variables.scss";
+
+// SECONDARY CONTENT
+
+.details-page__additional-info {
+  width: 100%;
+  height: fit-content;
+  min-height: fit-content;
+
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+
+  margin-bottom: 2rem;
+  // padding-top: 1rem;
+  // padding-inline: $layout-margin;
+
+
+  background-color: $dark-theme-bg-color2;
+}
+
+.section {
+  // border-top: 1px solid $dark-theme-bg-color2;
+
+  min-height: fit-content;
+  height: 18rem;
+  max-height: 18rem;
+}
+
