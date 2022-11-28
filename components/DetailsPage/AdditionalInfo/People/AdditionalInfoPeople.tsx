@@ -12,7 +12,7 @@ const AdditionalInfoPeople: React.FC<{
   return (
     <section className={styles["details-page__additional-info"]}>
       <section className={styles["section"]}>
-        <Appearances appearances={props.additionalDetails.known_for}/>
+        <Appearances appearances={props.additionalDetails?.known_for}/>
       </section>
       <section className={styles["section"]}>
         <PersonalInfo personDetails={props.personDetails}/>

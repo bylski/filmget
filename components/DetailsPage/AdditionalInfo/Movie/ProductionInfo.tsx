@@ -48,7 +48,7 @@ const ProductionInfo: React.FC<{ movieDetails: movieInterface }> = (props) => {
         <div className={styles["content__info"]}>
           <span>Production Country: </span>
           <span className={styles["status"]}>
-            {props.movieDetails.production_countries[0].name || "Unknown"}
+            {props.movieDetails.production_countries[0]?.name || "Unknown"}
           </span>
         </div>
         <div className={styles["content__companies"]}>

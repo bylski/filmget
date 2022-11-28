@@ -89,3 +89,14 @@ $img-height: 150px;
     position: relative;
 }
 
+.seasons-fallback {
+    color: $dark-theme-bg-color3;
+    font-family: $main-font;
+    font-size: 25px;
+
+    width: fit-content;
+
+    white-space: nowrap;
+
+}
+

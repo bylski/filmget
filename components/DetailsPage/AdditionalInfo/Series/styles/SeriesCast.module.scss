@@ -86,3 +86,15 @@ $img-height: 220px;
         transform: scale(1.025);
     }
   }
+
+
+  .cast-fallback {
+    color: $dark-theme-bg-color3;
+    font-family: $main-font;
+    font-size: 25px;
+
+    width: fit-content;
+
+    white-space: nowrap;
+
+}

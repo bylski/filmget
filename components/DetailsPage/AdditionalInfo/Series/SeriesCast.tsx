@@ -7,7 +7,9 @@ import Link from "next/link";
 const SeriesCast: React.FC<{ castDetails: castInterface }> = (props) => {
     
   const cast = props.castDetails.cast;
-  const castToRender = cast.slice(0, 6).map((actor: typeof cast[0], i: number) => {
+  let castToRender;
+  if (cast) {
+  castToRender = cast.slice(0, 6).map((actor: typeof cast[0], i: number) => {
     return (
       <div className={styles["cast-card"]} key={`castPerson${i}`}>
         <Link href={`/details/people/${actor.id}`}>
@@ -30,13 +32,18 @@ const SeriesCast: React.FC<{ castDetails: castInterface }> = (props) => {
       </div>
     );
   });
+  }
+
+  const castFallback = (
+    <span className={styles["cast-fallback"]}>No cast do display.</span>
+  )
 
   return (
     <div className={styles["movie-cast"]}>
       <header className={styles["header"]}>
         <h2>Series' Cast</h2>
       </header>
-      <main className={styles["cast"]}>{castToRender}</main>
+      <main className={styles["cast"]}>{cast && cast.length !== 0 ? castToRender : castFallback}</main>
     </div>
   );
 };

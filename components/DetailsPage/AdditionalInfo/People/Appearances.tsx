@@ -17,9 +17,10 @@ type Appearances = {
 const Appearances: React.FC<{appearances: Appearances}> = (
   props
 ) => {
-  console.log(props.appearances)
   const { appearances } = props;
-  const appearancesToDisplay = appearances.map(
+  let appearancesToDisplay;
+  if (appearances) {
+  appearancesToDisplay = appearances.map(
     (appearance: typeof appearances[0], i: number) => {
       return (
         <div className={styles["appearance-card"]} key={`appearance${i}`}>
@@ -40,6 +41,12 @@ const Appearances: React.FC<{appearances: Appearances}> = (
       );
     }
   );
+  }
+
+  const appearancesFallback = (
+    <span className={styles["fallback-text"]}>No appearances to display.</span>
+  )
+
 
   return (
     <div className={styles["appearances"]}>
@@ -47,7 +54,7 @@ const Appearances: React.FC<{appearances: Appearances}> = (
         <h2>Appearances</h2>
       </header>
       <main className={styles["appearance__content"]}>
-        {appearancesToDisplay}
+        {appearances ? appearancesToDisplay : appearancesFallback}
       </main>
     </div>
   );

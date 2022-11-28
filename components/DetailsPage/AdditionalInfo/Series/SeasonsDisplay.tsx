@@ -7,8 +7,9 @@ const SeasonsDisplay: React.FC<{ seriesDetails: seriesInterface }> = (
   props
 ) => {
   const { seasons } = props.seriesDetails;
-  const seasonsToDisplay = seasons.map(
-    (season: typeof seasons[0], i: number) => {
+  let seasonsToDisplay;
+  if (seasons) {
+    seasonsToDisplay = seasons.map((season: typeof seasons[0], i: number) => {
       return (
         <div className={styles["season-card"]} key={`season${i}`}>
           <div className={styles["season-card__img-container"]}>
@@ -24,17 +25,19 @@ const SeasonsDisplay: React.FC<{ seriesDetails: seriesInterface }> = (
           <span>{season.name}</span>
         </div>
       );
-    }
-  );
+    });
+  }
+
+  const seasonsFallback = (
+    <span className={styles["seasons-fallback"]}>No seasons to display.</span>
+  )
 
   return (
     <div className={styles["seasons-display"]}>
       <header className={styles["display__header"]}>
         <h2>Seasons</h2>
       </header>
-      <main className={styles["display__content"]}>
-        {seasonsToDisplay}
-      </main>
+      <main className={styles["display__content"]}>{seasons && seasons.length !== 0 ? seasonsToDisplay :  seasonsFallback}</main>
     </div>
   );
 };
