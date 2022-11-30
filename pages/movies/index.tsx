@@ -12,6 +12,7 @@ import { unstable_getServerSession } from "next-auth";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { User } from "../../utils/mongo/userModel";
 import { accountActions } from "../../redux/store";
+import Head from "next/head";
 
 const Movies: React.FC<{
   popularMovies: movieInterface[];
@@ -20,7 +21,7 @@ const Movies: React.FC<{
   genresList: { id: number; name: string }[];
   wantToWatchIds: number[];
   wantToWatchMedia: seriesInterface[] | movieInterface[];
-  mediaRatings: {id: number, rating: number}[];
+  mediaRatings: { id: number; rating: number }[];
 }> = (props) => {
   const {
     modalData,
@@ -42,12 +43,18 @@ const Movies: React.FC<{
         mediaIds: props.wantToWatchIds,
       })
     );
-    dispatch(accountActions.setRating(props.mediaRatings))
+    dispatch(accountActions.setRating(props.mediaRatings));
   }, []);
-
 
   return (
     <Fragment>
+      <Head>
+        <title>{`Filmget - Movies`}</title>
+        <meta
+          name="description"
+          content="Trending, Now Playing and Top Rated Movies. Check them out on Filmget!"
+        ></meta>
+      </Head>
       <AnimatePresence>
         {showModal && (
           <DetailsModal

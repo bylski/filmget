@@ -1,8 +1,12 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { GetServerSidePropsContext } from "next";
 import DetailsPage from "../../../components/DetailsPage/DetailsPage";
 import axios from "axios";
-import { castInterface, movieInterface, seriesInterface } from "../../../utils/types";
+import {
+  castInterface,
+  movieInterface,
+  seriesInterface,
+} from "../../../utils/types";
 import {
   useAppSelector,
   useAppDispatch,
@@ -13,6 +17,7 @@ import { authOptions } from "../../api/auth/[...nextauth]";
 import mongoose from "mongoose";
 import { User } from "../../../utils/mongo/userModel";
 import { accountActions } from "../../../redux/store";
+import Head from "next/head";
 
 const MovieDetailsById: React.FC<{
   request: any;
@@ -47,12 +52,21 @@ const MovieDetailsById: React.FC<{
   hideOverflowIf(showModal); // Do not let user scroll when modal is active
 
   return (
-    <DetailsPage
-      mediaType={"movie"}
-      genresList={props.genresList}
-      mediaDetails={props.movieDetails}
-      castDetails={props.castDetails}
-    />
+    <Fragment>
+      <Head>
+        <title>{`Filmget - ${props.movieDetails.title}`}</title>
+        <meta
+          name="description"
+          content={`${props.movieDetails.overview}`}
+        ></meta>
+      </Head>
+      <DetailsPage
+        mediaType={"movie"}
+        genresList={props.genresList}
+        mediaDetails={props.movieDetails}
+        castDetails={props.castDetails}
+      />
+    </Fragment>
   );
 };
 

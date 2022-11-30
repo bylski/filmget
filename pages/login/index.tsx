@@ -1,17 +1,29 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Login from "../../components/Login/Login";
 import axios from "axios";
 import { movieInterface } from "../../utils/types";
+import Head from "next/head";
 
 const LoginPage: React.FC<{ popularMovies: movieInterface[] }> = (props) => {
   const movieUrls = props.popularMovies.map((movie, i) => {
-      return `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`;
+    return `https://www.themoviedb.org/t/p/w1920_and_h800_multi_faces${movie.backdrop_path}`;
   });
 
   const movieUrlsMobile = props.popularMovies.map((movie, i) => {
     return `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${movie.poster_path}`;
-})
-  return <Login movieUrls={movieUrls} movieUrlsMobile={movieUrlsMobile}/>;
+  });
+  return (
+    <Fragment>
+      <Head>
+        <title>{`Filmget - Log In`}</title>
+        <meta
+          name="description"
+          content="Log In to your Filmget account to experience media just as you like it to!"
+        ></meta>
+      </Head>
+      <Login movieUrls={movieUrls} movieUrlsMobile={movieUrlsMobile} />;
+    </Fragment>
+  );
 };
 
 export default LoginPage;

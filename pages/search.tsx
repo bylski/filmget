@@ -1,11 +1,23 @@
-import React from "react";
+import React, { Fragment } from "react";
 import Router, { useRouter } from "next/router";
 import SearchResults from "../components/SearchResults/SearchResults";
 import axios from "axios";
 import { GetServerSidePropsContext } from "next";
+import Head from "next/head";
 
-const Search: React.FC<{ searchResults: any[] }> = (props) => {
-  return <SearchResults searchResults={props.searchResults} />;
+const Search: React.FC<{ searchResults: any[], searchQuery: string }> = (props) => {
+  return (
+    <Fragment>
+      <Head>
+        <title>{`Filmget - "${props.searchQuery}"`}</title>
+        <meta
+          name="description"
+          content="Search for your favourite media on Filmget!"
+        ></meta>
+      </Head>
+      <SearchResults searchResults={props.searchResults} />;
+    </Fragment>
+  );
 };
 
 export default Search;
@@ -15,7 +27,9 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     let searchResults: any[] | null;
     if (context.query.q !== "") {
       const endpoints: string[] = [
-        encodeURI(`https://api.themoviedb.org/3/search/multi?api_key=${process.env.API_KEY}&language=en-US&query=${context.query.q}&page=1&include_adult=false`), // GET search results
+        encodeURI(
+          `https://api.themoviedb.org/3/search/multi?api_key=${process.env.API_KEY}&language=en-US&query=${context.query.q}&page=1&include_adult=false`
+        ), // GET search results
       ];
 
       let res: any = undefined;
@@ -32,7 +46,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     }
 
     return {
-      props: { searchResults },
+      props: { searchResults, searchQuery: context.query.q },
     };
   }
 

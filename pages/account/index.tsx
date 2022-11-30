@@ -13,6 +13,7 @@ import { authOptions } from "../api/auth/[...nextauth]";
 import { User } from "../../utils/mongo/userModel";
 import { movieInterface, seriesInterface } from "../../utils/types";
 import { accountActions } from "../../redux/store";
+import Head from "next/head";
 
 const AccountPage: React.FC<{
   genresList: { id: number; name: string }[];
@@ -21,7 +22,7 @@ const AccountPage: React.FC<{
   mediaIds: number[];
   mediaRatings: { id: number; rating: number }[];
   mostWatchedGenre: string;
-  mediaUserLiked: Array<movieInterface | seriesInterface>
+  mediaUserLiked: Array<movieInterface | seriesInterface>;
 }> = (props) => {
   const {
     modalData,
@@ -53,6 +54,13 @@ const AccountPage: React.FC<{
 
   return (
     <Fragment>
+      <Head>
+        <title>{`Filmget - Account`}</title>
+        <meta
+          name="description"
+          content={`Your Account section where you can edit your settings, adore your dashboard or check movies that you want to watch!`}
+        ></meta>
+      </Head>
       <AnimatePresence>
         {showModal && (
           <DetailsModal

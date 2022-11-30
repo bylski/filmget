@@ -16,6 +16,7 @@ import { User } from "../../utils/mongo/userModel";
 import { GetServerSidePropsContext } from "next";
 import { authOptions } from "../api/auth/[...nextauth]";
 import { accountActions } from "../../redux/store";
+import Head from "next/head";
 
 const Series: React.FC<{
   popularSeries: movieInterface[];
@@ -51,6 +52,13 @@ const Series: React.FC<{
 
   return (
     <Fragment>
+        <Head>
+        <title>{`Filmget - Series`}</title>
+        <meta
+          name="description"
+          content="Trending, Airing and Top Rated Series on TV!"
+        ></meta>
+      </Head>
       <AnimatePresence>
         {showModal && (
           <DetailsModal

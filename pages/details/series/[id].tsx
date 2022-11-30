@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, Fragment } from "react";
 import { GetServerSidePropsContext } from "next";
 import DetailsPage from "../../../components/DetailsPage/DetailsPage";
 import axios from "axios";
@@ -17,6 +17,7 @@ import { authOptions } from "../../api/auth/[...nextauth]";
 import mongoose from "mongoose";
 import { User } from "../../../utils/mongo/userModel";
 import { accountActions } from "../../../redux/store";
+import Head from "next/head";
 
 const SeriesDetailsById: React.FC<{
   request: any;
@@ -51,12 +52,21 @@ const SeriesDetailsById: React.FC<{
   hideOverflowIf(showModal); // Do not let user scroll when modal is active
 
   return (
-    <DetailsPage
-      mediaType={"series"}
-      genresList={props.genresList}
-      mediaDetails={props.seriesDetails}
-      castDetails={props.castDetails}
-    />
+    <Fragment>
+      <Head>
+        <title>{`Filmget - ${props.seriesDetails.name}`}</title>
+        <meta
+          name="description"
+          content={`${props.seriesDetails.overview}`}
+        ></meta>
+      </Head>
+      <DetailsPage
+        mediaType={"series"}
+        genresList={props.genresList}
+        mediaDetails={props.seriesDetails}
+        castDetails={props.castDetails}
+      />
+    </Fragment>
   );
 };
 

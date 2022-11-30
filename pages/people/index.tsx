@@ -6,6 +6,7 @@ import { AnimatePresence } from "framer-motion";
 import DetailsModal from "../../components/DetailsModal.tsx/DetailsModal";
 import { useAppSelector } from "../../utils/hooks/reduxHooks";
 import { hideOverflowIf } from "../../utils/scripts";
+import Head from "next/head";
 
 const People: React.FC<{
   popularPeople: actorInterface[];
@@ -24,6 +25,13 @@ const People: React.FC<{
 
   return (
     <Fragment>
+          <Head>
+        <title>{`Filmget - People`}</title>
+        <meta
+          name="description"
+          content="Popular Actors and more to see on Filmget, where you will learn something new about your favourite celebrities!"
+        ></meta>
+      </Head>
       <AnimatePresence>
         {showModal && (
           <DetailsModal
