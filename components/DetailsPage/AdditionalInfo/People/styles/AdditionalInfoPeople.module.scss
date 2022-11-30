@@ -20,9 +20,27 @@
 
 .section {
   // border-top: 1px solid $dark-theme-bg-color2;
-
+  max-height: 19rem;
   min-height: fit-content;
-  height: 18rem;
-  max-height: 18rem;
+  height: 19rem;
+
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+}
+
+
+@media screen and (max-width: 750px) {
+  .details-page__additional-info {
+  
+    display: grid;
+    grid-template-columns: none;
+    grid-template-rows: 1fr 1fr;
+  
+  
+    background-color: $dark-theme-bg-color2;
+  }
+
+
 }
 

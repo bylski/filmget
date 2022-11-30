@@ -19,7 +19,7 @@ const PersonalInfo: React.FC<{ personDetails: actorInterface }> = (props) => {
           </span>
         </div>
         {props.personDetails.deathday ? (<div className={styles["content__info"]}>
-          <span>Deathday: </span>
+          <span>Date of Death: </span>
           <span className={styles["status"]}>
             {props.personDetails.deathday}
           </span>
