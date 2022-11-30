@@ -35,7 +35,7 @@ const handler = async (req: AddRatingApiRequest, res: NextApiResponse) => {
       if (mediaRatings) {
         mediaRatings.forEach(
           (ratedMedia: { id: number; rating: number }, i: number) => {
-            if (ratedMedia.id === ratingToAdd) {
+            if (ratedMedia.id === idToAdd) {
               filteredDbArr.splice(i, 1);
             }
           }
