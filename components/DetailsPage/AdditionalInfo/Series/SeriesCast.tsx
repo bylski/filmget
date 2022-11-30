@@ -41,7 +41,7 @@ const SeriesCast: React.FC<{ castDetails: castInterface }> = (props) => {
   return (
     <div className={styles["series-cast"]}>
       <header className={styles["header"]}>
-        <h2>Series' Cast</h2>
+        <h2>Series&apos; Cast</h2>
       </header>
       <main className={styles["cast"]}>{cast && cast.length !== 0 ? castToRender : castFallback}</main>
     </div>

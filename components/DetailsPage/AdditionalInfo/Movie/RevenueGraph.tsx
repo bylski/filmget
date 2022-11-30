@@ -56,7 +56,7 @@ const RevenueGraph: React.FC<{ budget: number; revenue: number }> = (props) => {
   return (
     <div className={graphTheme}>
       <header className={styles["revenue-graph__header"]}>
-        <h2>Movie's Revenue</h2>
+        <h2>Movie&apos;s Revenue</h2>
       </header>
       <div className={styles["graph__budget"]}>
         <span>Budget</span>

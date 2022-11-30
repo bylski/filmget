@@ -41,7 +41,7 @@ const MovieCast: React.FC<{ castDetails?: castInterface | null }> = (props) => {
   return (
     <div className={styles["movie-cast"]}>
       <header className={styles["header"]}>
-        <h2>Movie's Cast</h2>
+        <h2>Movie&apos;s Cast</h2>
       </header>
       <main className={styles["cast"]}>
         {props.castDetails?.cast && props.castDetails?.cast.length !== 0
