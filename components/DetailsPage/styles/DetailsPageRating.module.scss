@@ -1,28 +1,110 @@
 @import "../../../styles/variables.scss";
+@import "../../UI/RateButton/styles/RateButton.module.scss";
 
 .info-section__rating-section {
-    width: 100%;
-    @include flexHorizontal;
-    margin-top: 2rem;
+  width: 100%;
+  @include flexHorizontal;
+  margin-top: 2rem;
+}
+
+.rating-section__container {
+  display: flex;
+  justify-content: flex-start;
 }
 
 .rating-section__icon {
-    height: 18px;
-    position: relative;
-    top: -1px;
-    margin-right: 0.2rem;
+  height: 18px;
+  position: relative;
+  top: -1px;
+  margin-right: 0.2rem;
 }
 
 .rating-section__text {
-    font-weight: 300;
-    color: white;
-    font-size: 18px;
-    margin: 0;
+  font-weight: 300;
+  color: white;
+  font-size: 18px;
+  margin: 0;
 }
 
 .rating-section__average-score {
+  color: white;
+  font-size: 18px;
+  margin: 0;
+  margin-right: 0.3rem;
+}
+
+@media screen and (max-width: 700px) {
+  .info-section__rating-section {
+    margin-top: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .rating-section__text {
+    font-weight: 300;
     color: white;
-    font-size: 18px;
-    margin: 0;
-    margin-right: 0.3rem;
+    font-size: 16px;
+  }
+
+  .rating-section__average-score {
+    color: white;
+    font-size: 16px;
+  }
+
+  .rating-section__container {
+    order: 2;
+    margin-top: 0.7rem;
+  }
+
+  .rating__btn {
+    margin-left: 0 !important;
+    padding-block: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .info-section__rating-section {
+    padding-inline: $layout-margin;
+
+    position: relative;
+    z-index: 2;
+
+    flex-direction: row;
+  }
+
+  .rating-section__container {
+    order: 0;
+    margin-top: 0.7rem;
+  }
+
+  .rating__btn {
+    margin-left: 0.7rem !important;
+    padding-block: 0.5rem;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .info-section__rating-section {
+    align-items: center;
+  }
+
+  .rating-section__container {
+    margin-top: 0rem;
+  }
+
+  .rating__btn {
+    margin-left: 0.7rem !important;
+    padding-block: 0.2rem;
+    font-size: 15px;
+
+    & span {
+      font-size: 15px;
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .info-section__rating-section {
+    padding-inline: 1rem;
+  }
 }

@@ -39,7 +39,7 @@ const SeriesCast: React.FC<{ castDetails: castInterface }> = (props) => {
   )
 
   return (
-    <div className={styles["movie-cast"]}>
+    <div className={styles["series-cast"]}>
       <header className={styles["header"]}>
         <h2>Series' Cast</h2>
       </header>

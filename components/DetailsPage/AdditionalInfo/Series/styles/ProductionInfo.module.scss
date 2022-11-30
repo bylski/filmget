@@ -14,13 +14,16 @@
   // border-left: 1px solid $rating-color;
 
   @include flexVertical;
+
 }
 
 .info__header {
   height: fit-content;
   width: 60%;
+  min-width: fit-content;
 
   padding-inline: 3rem;
+
 
   & h2 {
     text-align: center;
@@ -30,8 +33,8 @@
     // font-weight: 400;
     padding-bottom: 0.2rem;
     // border-bottom: 2px solid $middle-color;
-    border-bottom: 2px solid $primary-color1;
     color: white;
+    border-bottom: 2px solid $primary-color1;
 
     margin: 0;
   }
@@ -40,6 +43,7 @@
 .info__content {
   @include flexVertical;
   align-items: flex-start;
+
 
   width: 60%;
   padding-top: 1rem;
@@ -108,4 +112,52 @@
 .companies__fallback {
 
   font-weight: 200 !important;
+}
+
+
+
+@media screen and (max-width: 1000px) {
+  .production-info {
+    border-left: 2px solid $primary-color1;
+    align-items: flex-start;
+    padding-inline: $layout-margin;
+    padding-top: 0;
+  }
+
+  .info__header {
+    width: fit-content;
+    padding-left: 0;
+
+    & h2 {
+      text-align: left;
+      padding-right: 2rem;
+    }
+  }
+
+}
+
+@media screen and (max-width: 500px) {
+
+  .production-info {
+    height: 21rem;
+    padding-bottom: 1rem;
+  }
+
+  .companies {
+    display: flex;
+    flex-direction: column;
+
+    .company-logo__container-wrapper {
+      margin-inline: 0;
+      &:nth-of-type(2) {
+        margin-block: 0.7rem;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .production-info {
+    padding-inline: 1rem;
+  }
 }

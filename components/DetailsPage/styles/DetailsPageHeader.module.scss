@@ -53,9 +53,44 @@
   margin-top: 0.2rem;
 }
 
-
 .header__inputs {
   width: fit-content;
   height: fit-content;
   margin-left: 2rem;
+}
+
+@media screen and (max-width: 1200px) {
+  .header {
+    padding-right: 1.5rem;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .header__title {
+    font-size: 23px;
+  }
+
+  .header__info {
+    color: white;
+
+    font-weight: 300;
+    font-size: 15px;
+  }
+}
+
+@media screen and (max-width: 800px) {
+  .header {
+    padding-right: 0rem;
+  }
+}
+
+
+@media screen and (max-width: 400px) {
+  .header__title {
+    font-size: 20px;
+  }
+
+  .header__info {
+    font-size: 13px;
+  }
 }

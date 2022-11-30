@@ -7,10 +7,12 @@ import {
 import styles from "./styles/DetailsPageHeader.module.scss";
 import DetailsPageRating from "./DetailsPageRating";
 import ToWatchButton from "../UI/ToWatchButton/ToWatchButton";
+import useBreakpoints from "../../utils/hooks/useBreakpoints";
 
 const DetailsPageHeader: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
   mediaType: string;
+  breakpoints: { [key: string]: boolean }[] | undefined;
 }> = (props) => {
   let genres: any;
   let genre_ids: number[] = [];
@@ -32,6 +34,11 @@ const DetailsPageHeader: React.FC<{
   //   mediaData = { ...props.mediaDetails, genre_ids: genre_ids };
   // }
 
+  let changeToWatchPosition = false;
+  if (props.breakpoints) {
+    changeToWatchPosition = props.breakpoints[0].changeToWatchPosition;
+  }
+
   if ("poster_path" in mediaData) {
     return (
       <div className={styles["info-section__header-section"]}>
@@ -40,15 +47,15 @@ const DetailsPageHeader: React.FC<{
             <h1 className={styles["header__title"]}>
               {"title" in mediaData ? mediaData.title : ""}
               {"name" in mediaData ? mediaData.name : ""}
+              <span className={styles["header__span"]}>
+                {"release_date" in mediaData
+                  ? `(${mediaData.release_date.slice(0, 4)})`
+                  : ""}
+                {"first_air_date" in mediaData
+                  ? `(${mediaData.first_air_date.slice(0, 4)})`
+                  : ""}
+              </span>
             </h1>
-            <span className={styles["header__span"]}>
-              {"release_date" in mediaData
-                ? `(${mediaData.release_date.slice(0, 4)})`
-                : ""}
-              {"first_air_date" in mediaData
-                ? `(${mediaData.first_air_date.slice(0, 4)})`
-                : ""}
-            </span>
           </div>
           <p className={styles["header__info"]}>
             {`${genresString}`}
@@ -62,9 +69,11 @@ const DetailsPageHeader: React.FC<{
             ) : null}
           </p>
         </div>
-        <div className={styles["header__inputs"]}>
-          <ToWatchButton mediaData={mediaData} />
-        </div>
+        {!changeToWatchPosition ? (
+          <div className={styles["header__inputs"]}>
+            <ToWatchButton mediaData={mediaData} />
+          </div>
+        ) : null}
       </div>
     );
   } else if ("gender" in mediaData) {

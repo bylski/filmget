@@ -17,7 +17,7 @@ const DetailsPageSummary: React.FC<{
     return (
       <div className={styles["info-section__summary-section"]}>
         <h2 className={styles["summary__header-text"]}>Overview:</h2>
-        <div className={styles["summary__container"]}>
+        <div className={styles["summary__container-media"]}>
           <p className={styles["summary__text"]}>
             {props.mediaDetails.overview}
           </p>
@@ -33,7 +33,7 @@ const DetailsPageSummary: React.FC<{
     return (
       <div className={styles["info-section__summary-section"]}>
         <h2 className={styles["summary__header-text"]}>Biography:</h2>
-        <div className={styles["summary__container"]}>
+        <div className={styles["summary__container-people"]}>
           <p className={styles["summary__text"]}>
             {biography !== null && biography !== undefined && biography !== "" ? biography : "No biography found"}
           </p>

@@ -19,6 +19,8 @@ import { AnimatePresence } from "framer-motion";
 import AdditionalInfoMovie from "./AdditionalInfo/Movie/AdditionalInfoMovie";
 import AdditionalInfoSeries from "./AdditionalInfo/Series/AdditionalInfoSeries";
 import AdditionalInfoPeople from "./AdditionalInfo/People/AdditionalInfoPeople";
+import ToWatchButton from "../UI/ToWatchButton/ToWatchButton";
+import useBreakpoints from "../../utils/hooks/useBreakpoints";
 
 const DetailsPage: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
@@ -54,6 +56,19 @@ const DetailsPage: React.FC<{
     mediaData = { ...props.mediaDetails, genre_ids: genre_ids };
   }
 
+  const breakpoints = useBreakpoints(
+    { breakpointName: "changeToWatchPosition", breakpointVal: 700 },
+    { breakpointName: "mobileView", breakpointVal: 500 }
+  );
+  let changeToWatchPosition = false;
+  let changeSummaryPosition = false;
+  let mobileView = false;
+  if (breakpoints) {
+    changeToWatchPosition = breakpoints[0].changeToWatchPosition;
+    changeSummaryPosition = changeToWatchPosition;
+    mobileView = breakpoints[1].mobileView;
+  }
+
   return (
     <Fragment>
       <section className={styles["details-page__primary-content"]}>
@@ -79,16 +94,33 @@ const DetailsPage: React.FC<{
                 ...mediaData,
                 genresList: props.genresList!,
               }}
+              breakpoints={breakpoints}
             />
-            {props.mediaType !== "people" && "vote_average" in mediaData ? (
+            {"vote_average" in mediaData && changeToWatchPosition ? (
+              <div className={styles["to-watch-btn__container"]}>
+                <ToWatchButton mediaData={mediaData} customStyles={styles}/>
+              </div>
+            ) : null}
+            {props.mediaType !== "people" && "vote_average" in mediaData && !mobileView ? (
               <DetailsPageRating mediaDetails={mediaData} />
             ) : null}
-            <DetailsPageSummary
-              mediaType={props.mediaType}
-              mediaDetails={mediaData}
-            />
+            {!changeSummaryPosition ? (
+              <DetailsPageSummary
+                mediaType={props.mediaType}
+                mediaDetails={mediaData}
+              />
+            ) : null}
           </div>
         </main>
+        {props.mediaType !== "people" && "vote_average" in mediaData && mobileView ? (
+          <DetailsPageRating mediaDetails={mediaData}/>
+        ) : null}
+        {changeSummaryPosition ? (
+          <DetailsPageSummary
+            mediaType={props.mediaType}
+            mediaDetails={mediaData}
+          />
+        ) : null}
       </section>
       {"title" in props.mediaDetails ? (
         <AdditionalInfoMovie
@@ -96,12 +128,19 @@ const DetailsPage: React.FC<{
           castDetails={props.castDetails ? props.castDetails : null}
         />
       ) : null}
-      {"name" in props.mediaDetails && "vote_average" in props.mediaDetails
-        ? <AdditionalInfoSeries seriesDetails={props.mediaDetails} castDetails={props.castDetails ? props.castDetails : null}/>
-        : null}
-         {"name" in props.mediaDetails && !("vote_average" in props.mediaDetails)
-        ? <AdditionalInfoPeople additionalDetails={props.additionalDetails} personDetails={props.mediaDetails}/>
-        : null}
+      {"name" in props.mediaDetails && "vote_average" in props.mediaDetails ? (
+        <AdditionalInfoSeries
+          seriesDetails={props.mediaDetails}
+          castDetails={props.castDetails ? props.castDetails : null}
+        />
+      ) : null}
+      {"name" in props.mediaDetails &&
+      !("vote_average" in props.mediaDetails) ? (
+        <AdditionalInfoPeople
+          additionalDetails={props.additionalDetails}
+          personDetails={props.mediaDetails}
+        />
+      ) : null}
     </Fragment>
   );
 };

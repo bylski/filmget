@@ -2,7 +2,7 @@
 
 .seasons-display {
   width: 100%;
-//   max-width: 100%;
+  max-width: 100%;
   height: 100%;
   background-color: hsla(217, 100%, 61%, 0.1);
 
@@ -100,3 +100,15 @@ $img-height: 150px;
 
 }
 
+
+@media screen and (max-width: 1000px) {
+  .seasons-display {
+    padding-inline: $layout-margin;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  .seasons-display {
+    padding-inline: 1rem;
+  }
+}
