@@ -9,9 +9,10 @@ const Header: React.FC<{
   isMobileView: boolean;
 }> = (props) => {
   const createRandomPath = (): string => {
-    const randomArrIndex = Math.floor(
-      Math.random() * props.backdropPaths.length
-    );
+    let randomArrIndex = 0;
+    do {
+      randomArrIndex = Math.floor(Math.random() * props.backdropPaths.length);
+    } while (props.mobileBackdropPaths[randomArrIndex] === null);
     if (props.isMobileView) {
       return `https://www.themoviedb.org/t/p/w600_and_h900_bestv2/${props.mobileBackdropPaths[randomArrIndex]}`;
     }
