@@ -138,18 +138,21 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     authOptions
   );
 
+    console.log(process.env.DB_ADDRESS_DEV!)
+
   try {
     // Check if code runs in production or in development, use the address specified for environment
     // Connect to the database
     if (process.env.NODE_ENV === "production") {
       await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
     } else {
-      await mongoose.connect("mongodb://localhost:27017/filmget");
+      await mongoose.connect(process.env.DB_ADDRESS_DEV!, { dbName: "filmget" });
     }
   } catch (error) {
     throw new Error("[ERROR] Couldnt' connect to the database!");
   }
 
+  console.log("CONNECTED")
   // Get user data from the database
   const username = session?.user?.name;
   const currentUser = await User.findOne({ username });

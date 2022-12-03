@@ -130,7 +130,7 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
     if (process.env.NODE_ENV === "production") {
       await mongoose.connect(process.env.DB_ADDRESS!, { dbName: "filmget" });
     } else {
-      await mongoose.connect("mongodb://localhost:27017/filmget");
+      await mongoose.connect(process.env.DB_ADDRESS_DEV!, { dbName: "filmget" });
     }
   } catch (error) {
     throw new Error("[ERROR] Couldnt' connect to the database!");
