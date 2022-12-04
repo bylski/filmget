@@ -85,8 +85,8 @@ box-shadow: inset 0px 0px 49px 25px rgba(0, 0, 0, 1);
 .card__form {
     width: 45%;
     max-width: 500px;
-
     min-width: 700px;
+    
     height: fit-content;
 
     @include flexVertical;
