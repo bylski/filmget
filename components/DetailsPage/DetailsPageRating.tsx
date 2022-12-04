@@ -3,8 +3,13 @@ import { movieInterface, seriesInterface, actorInterface } from "../../utils/typ
 import RatingIcon from "../Icons/RatingIcon";
 import RateButton from "../UI/RateButton/RateButton";
 import styles from "./styles/DetailsPageRating.module.scss"
+import { useSession } from "next-auth/react";
 
 const DetailsPageRating: React.FC<{mediaDetails: movieInterface | seriesInterface}> = (props) => {
+
+  const session = useSession();
+  const isUserLoggedIn = session.status === "authenticated";
+  
   return (
     <div className={styles["info-section__rating-section"]}>
       <div className={styles["rating-section__container"]}>
@@ -14,7 +19,7 @@ const DetailsPageRating: React.FC<{mediaDetails: movieInterface | seriesInterfac
       </span>
       <p className={styles["rating-section__text"]}>- User Score</p>
       </div>
-      <RateButton customStyles={styles} mediaData={props.mediaDetails}/>
+      {isUserLoggedIn && <RateButton customStyles={styles} mediaData={props.mediaDetails}/>}
     </div>
   );
 };

@@ -21,6 +21,7 @@ import AdditionalInfoSeries from "./AdditionalInfo/Series/AdditionalInfoSeries";
 import AdditionalInfoPeople from "./AdditionalInfo/People/AdditionalInfoPeople";
 import ToWatchButton from "../UI/ToWatchButton/ToWatchButton";
 import useBreakpoints from "../../utils/hooks/useBreakpoints";
+import { useSession } from "next-auth/react";
 
 const DetailsPage: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
@@ -34,6 +35,8 @@ const DetailsPage: React.FC<{
     dispatch(modalActions.hideModal());
   }, []);
 
+  const session = useSession();
+  const isUserLoggedIn = session.status === "authenticated";
   const showSelector = useAppSelector((state) => state.ratingSelector.isShown);
 
   const imgPath =
@@ -96,7 +99,7 @@ const DetailsPage: React.FC<{
               }}
               breakpoints={breakpoints}
             />
-            {"vote_average" in mediaData && changeToWatchPosition ? (
+            {"vote_average" in mediaData && changeToWatchPosition && isUserLoggedIn? (
               <div className={styles["to-watch-btn__container"]}>
                 <ToWatchButton mediaData={mediaData} customStyles={styles}/>
               </div>

@@ -8,6 +8,7 @@ import styles from "./styles/DetailsPageHeader.module.scss";
 import DetailsPageRating from "./DetailsPageRating";
 import ToWatchButton from "../UI/ToWatchButton/ToWatchButton";
 import useBreakpoints from "../../utils/hooks/useBreakpoints";
+import { useSession } from "next-auth/react";
 
 const DetailsPageHeader: React.FC<{
   mediaDetails: movieInterface | seriesInterface | actorInterface;
@@ -17,6 +18,10 @@ const DetailsPageHeader: React.FC<{
   let genres: any;
   let genre_ids: number[] = [];
   let genresString: string = "";
+
+  const session = useSession();
+  const isUserLoggedIn = session.status === "authenticated";
+
   if ("genres" in props.mediaDetails) {
     genres = props.mediaDetails.genres.map((genre) => {
       return genre.name;
@@ -69,7 +74,7 @@ const DetailsPageHeader: React.FC<{
             ) : null}
           </p>
         </div>
-        {!changeToWatchPosition ? (
+        {!changeToWatchPosition && isUserLoggedIn ? (
           <div className={styles["header__inputs"]}>
             <ToWatchButton mediaData={mediaData} />
           </div>
